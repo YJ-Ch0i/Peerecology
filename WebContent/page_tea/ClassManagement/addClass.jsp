@@ -114,7 +114,7 @@
 					<br><br>
 					</form>
 
-					<form action="/PeerSys/classAdd.cs" method="post" id="form"
+					<form action="/PeerSys/classAdd.tc" method="post" id="form"
 						role="form">
 						<% if(sch_number != "" && sch_name != ""){ %>
 						<%if(sch_region!=null)  {%>
@@ -125,9 +125,6 @@
 						<input type="hidden" name="sch_address" value="<%= sch_region%>">
 						<input type="hidden" name="sch_code" value="<%= sch_number%>">
 						<input type="hidden" name="sch_name" value="<%= sch_name%>">
-						<input type="hidden" name="sch_id"
-							value="<%= sch_number + sch_name %>">
-						<%} %>
 						<div class="mb-20 mb-md-10">
 							<input type="text" name="grade_num" class="input-md form-control"
 								style="width: 10%;" maxlength="100">

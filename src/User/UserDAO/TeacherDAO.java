@@ -225,15 +225,17 @@ public class TeacherDAO {
 		return teacherDTO;
 	}
 	
-	public void teacherSchoolUpdate() {
+	public void teacherSchoolUpdate(String scid, int grade, int grd_num) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
-		String sql = "UPDATE user_teachers SET mailcheck = true WHERE TID = ?";
+		String sql = "UPDATE user_teachers SET SCID=?, grade=?, class=? WHERE TID = ?";
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			
+			pstmt.setString(1, scid);
+			pstmt.setInt(2, grade);
+			pstmt.setInt(3, grd_num);			
 			pstmt.executeUpdate();
 			
 		}
