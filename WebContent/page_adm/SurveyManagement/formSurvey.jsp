@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="Service.VersionService"%>
-<%@ page import="Version.VersionDTO.VersionDTO"%>
-<%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,37 +63,12 @@
 				<div class="row">
 
 					<div class="col-sm-6 mb-xs-40">
-						<% VersionService service = VersionService.getInstance(); 
-                       ArrayList<VersionDTO> allList = service.VersionSearch();
-                    %>
-						<% if(allList.size()==0){ %>
-						<h2>현재 추가 되어있는 버젼이 없습니다.</h2>
-						<%}else{ %>
-						<ul
-							class="works-grid work-grid-5 work-grid-gut clearfix font-alt hover-white"
-							id="work-grid">
-
-
-							<% for(int i=0; i<allList.size(); i++ ){ %>
-							<li class="work-item mix design photography"><a
-								href="showVersionPage.jsp?numbering=<%=allList.get(i).getVersion_id()%>"
-								class="work-ext-link">
-									<div class="work-img">
-										<p style="text-align: center">
-											<%= allList.get(i).getTitle() %>
-										</p>
-										<div class="work-descr">
-											<p style="text-align: center">미리보기</p>
-										</div>
-									</div>
-							</a></li>
-							<%} %>
-							<%} %>
-						</ul>
-
-						<button onclick="location.href='versionAddPage.jsp'"
-							class="btn btn-mod btn-circle btn-large" style="margin: 0 auto">추가하기</button>
-
+						
+						<button onclick="location.href='SurveyAddPage.jsp'"
+							class="btn btn-mod btn-circle btn-large" style="margin: 0 auto">설문조사 추가하기</button>
+						<button onclick="location.href='QuestionAddPage.jsp'"
+							class="btn btn-mod btn-circle btn-large" style="margin: 0 auto">설문문항 추가하기</button>
+						
 
 					</div>
 

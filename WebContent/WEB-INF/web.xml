@@ -19,6 +19,14 @@
 		<url-pattern> *.tc </url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>adminFront</servlet-name>
+		<servlet-class>User.AdminController.FrontController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>adminFront</servlet-name>
+		<url-pattern> *.ad </url-pattern>
+	</servlet-mapping>
 	
 	<context-param>
 		<param-name>admin_id</param-name>
