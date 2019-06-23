@@ -59,7 +59,7 @@ public class EmailSendController implements Controller {
 		}
 		
 		String host = "http://localhost:8080/PeerSys/";
-		String href = "EmailCheckAction.us";
+		String href = "emailCheckAction.tc";
 		String from = "yeong_4310@yi.ac.kr";				//구글 이메일 계정
 		String to = tea_id;
 		String subject = "인증 메일입니다.";

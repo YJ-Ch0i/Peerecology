@@ -88,7 +88,7 @@
 						<div class="mb-20 mb-md-10">
 							<!-- Password -->
 							<input type="password" name="re-pass" id="re-pass"
-								class="input-md form-control" placeholder="비밀번호" maxlength="100" required>
+								class="input-md form-control" placeholder="비밀번호 확인" maxlength="100" required>
 						</div>
 
 						<input type="submit"

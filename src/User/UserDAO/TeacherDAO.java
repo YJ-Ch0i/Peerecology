@@ -63,7 +63,7 @@ public class TeacherDAO {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		
-		String SQL ="INSERT INTO user_teachers(TID, pwd, name, mailcheck, lastChangeDate) VALUES (?,?,?,?,?)";
+		String SQL ="INSERT INTO user_teachers(TID, pwd, name, mailcheck, lastChangeYear) VALUES (?,?,?,?,?)";
 		try {
 			conn =DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
@@ -195,13 +195,14 @@ public class TeacherDAO {
 			rs = pstmt.executeQuery();
 			if(rs.next())
 			{
-				teacherDTO.setTID(rs.getString(0));
-				teacherDTO.setName(rs.getString(2));
-				teacherDTO.setSCID(rs.getString(3));
-				teacherDTO.setGrade(rs.getInt(4));
-				teacherDTO.setClasses(rs.getInt(5));
-				teacherDTO.setMailcheck(rs.getBoolean(6));
-				teacherDTO.setLastChangeYear(rs.getString(7));
+				teacherDTO.setTID(rs.getString(1));
+				teacherDTO.setPwd(rs.getString(2));
+				teacherDTO.setName(rs.getString(3));
+				teacherDTO.setSCID(rs.getString(4));
+				teacherDTO.setGrade(rs.getInt(5));
+				teacherDTO.setClasses(rs.getInt(6));
+				teacherDTO.setMailcheck(rs.getBoolean(7));
+				teacherDTO.setLastChangeYear(rs.getString(8));
 			}
 		}
 		catch(Exception ex)
@@ -222,5 +223,27 @@ public class TeacherDAO {
 			}
 		}
 		return teacherDTO;
+	}
+	
+	public void teacherSchoolUpdate() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = "UPDATE user_teachers SET mailcheck = true WHERE TID = ?";
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.executeUpdate();
+			
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {			
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}			
+		}
+		
 	}
 }

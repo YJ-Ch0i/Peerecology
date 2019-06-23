@@ -14,7 +14,7 @@ import Service.TeacherService;
 import User.UserDTO.TeacherDTO;
 import Util.SHA256;
 
-public class EamilCheckController implements Controller {
+public class EmailCheckController implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

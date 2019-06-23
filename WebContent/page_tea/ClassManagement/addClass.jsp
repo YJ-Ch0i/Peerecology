@@ -138,7 +138,7 @@
 						</div>
 
 						<div class="mb-20 mb-md-10" id=divObj></div>
-						<!-- <input type="hidden" name="uploadPath" value="<%=uploadPath %>">-->
+						<!-- <input type="hidden" name="uploadPath" value="">-->
 						<input type="submit"
 							style="margin: 5% 0 0 50%; display: inline-block;"
 							class="btn btn-mod btn-circle btn-medium" value="학급 등록">

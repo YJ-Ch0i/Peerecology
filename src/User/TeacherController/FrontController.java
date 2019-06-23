@@ -23,6 +23,7 @@ public class FrontController extends HttpServlet{
 		list.put("/emailSendAction.tc", new EmailSendController());
 		list.put("/teacherLogin.tc", new TeacherLoginController());
 		list.put("/teacherLogout.tc", new TeacherLogOutController());
+		list.put("/emailCheckAction.tc", new EmailCheckController());
 		}
 		
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -65,8 +65,10 @@ location.href = '/PeerSys/teacherIndex.jsp';
 				<div class="row">
 <%
 Calendar currentCalendar = Calendar.getInstance();
-String strYear = Integer.toString(currentCalendar.get(Calendar.YEAR));		
+String strYear = Integer.toString(currentCalendar.get(Calendar.YEAR));
 %>
+<%=teacherDTO.isMailcheck() %>
+<%=session.getAttribute("tea_id") %>
 					<h1 class="hs-line-11 font-alt mb-20 mb-xs-0">
 						<% if(teacherDTO.isMailcheck()==false){ %>
 						이메일 인증 먼저해주세요.
