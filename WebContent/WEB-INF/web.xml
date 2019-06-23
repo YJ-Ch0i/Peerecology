@@ -18,4 +18,14 @@
 		<servlet-name>teacherFront</servlet-name>
 		<url-pattern> *.tc </url-pattern>
 	</servlet-mapping>
+	
+	
+	<context-param>
+		<param-name>admin_id</param-name>
+		<param-value>admin</param-value>
+	</context-param>
+	<context-param>
+		<param-name>admin_password</param-name>
+		<param-value>1234</param-value>
+	</context-param>
 </web-app>

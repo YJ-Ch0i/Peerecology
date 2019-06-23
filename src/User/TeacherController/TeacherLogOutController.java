@@ -20,7 +20,7 @@ public class TeacherLogOutController implements Controller {
 		{
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('이미 로그아웃 된 상태입니다.');");
+			script.println("alert('Already Logout');");
 			script.println("history.back();");
 			script.println("</script>");
 			script.close();
@@ -28,7 +28,7 @@ public class TeacherLogOutController implements Controller {
 			session.removeAttribute("tea_id");
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('로그아웃 되었습니다.');");
+			script.println("alert('Logout Complete.');");
 			script.println("location.href='/PeerSys/teacherIndex.jsp';");
 			script.println("</script>");
 			script.close();

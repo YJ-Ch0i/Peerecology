@@ -28,7 +28,7 @@ public class TeacherLoginController implements Controller{
 		{
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('아이디 혹은 비밀번호를 입력해 주세요.');");
+			script.println("alert('All Enter Blank!.');");
 			script.println("history.back();");
 			script.println("</script>");
 			script.close();
@@ -38,7 +38,7 @@ public class TeacherLoginController implements Controller{
 		{
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('아이디를 입력 해 주세요.');");
+			script.println("alert('Enter ID!.');");
 			script.println("history.back();");
 			script.println("</script>");
 			script.close();
@@ -48,7 +48,7 @@ public class TeacherLoginController implements Controller{
 		{
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('비밀번호를 입력해주세요.');");
+			script.println("alert('Enter Password.');");
 			script.println("history.back();");
 			script.println("</script>");
 			script.close();
@@ -63,7 +63,7 @@ public class TeacherLoginController implements Controller{
 			session.setAttribute("tea_id", tea_id);
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('로그인 성공.');");
+			script.println("alert('Login Complete!');");
 			script.println("location.href = 'page_tea/login.jsp';");
 			script.println("</script>");
 			script.close();
@@ -73,7 +73,7 @@ public class TeacherLoginController implements Controller{
 		{
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('비밀번호가 다릅니다.');");
+			script.println("alert('Check Password!');");
 			script.println("history.back();");
 			script.println("</script>");
 			script.close();
@@ -83,17 +83,7 @@ public class TeacherLoginController implements Controller{
 		{
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('존재하지 않는 아이디 입니다.');");
-			script.println("history.back();");
-			script.println("</script>");
-			script.close();
-			return;
-		}
-		else if(result == -2)
-		{
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('데이터베이스 오류.');");
+			script.println("alert('No Exist ID');");
 			script.println("history.back();");
 			script.println("</script>");
 			script.close();

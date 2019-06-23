@@ -18,8 +18,7 @@ public class EmailCheckController implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
+		
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		String code = null;
@@ -35,7 +34,7 @@ public class EmailCheckController implements Controller {
 		}
 
 		System.out.println("tea_id :: " + tea_id);
-		if(tea_id == null)	//로그인 안함
+		if(tea_id == null)	
 		{
 			PrintWriter script = response.getWriter();
 			script.println("<script>");

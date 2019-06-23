@@ -38,7 +38,7 @@ public class EmailSendController implements Controller {
 		{
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('로그인을 해주세요.');");
+			script.println("alert('Please Login First!');");
 			script.println("location.href = 'index.jsp'");
 			script.println("</script>");
 			script.close();
@@ -51,7 +51,7 @@ public class EmailSendController implements Controller {
 		{
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('인증을 완료 한 계정입니다.');");
+			script.println("alert('Already Certified!');");
 			script.println("location.href = 'PeerSys/teacherIndex.jsp'");
 			script.println("</script>");
 			script.close();
@@ -60,10 +60,10 @@ public class EmailSendController implements Controller {
 		
 		String host = "http://localhost:8080/PeerSys/";
 		String href = "emailCheckAction.tc";
-		String from = "yeong_4310@yi.ac.kr";				//구글 이메일 계정
+		String from = "yeong_4310@yi.ac.kr";				
 		String to = tea_id;
 		String subject = "인증 메일입니다.";
-		String content = "다음 링크에 접속하여 인증을 진행 해 주세요." + "<a href='" + host + href + "?code=" + new SHA256().getSHA256(to) + "'>이메일 인증하기</a>";
+		String content = "다음 링크로 접속하여 인증을 진행해 주세요." + "<a href='" + host + href + "?code=" + new SHA256().getSHA256(to) + "'>�씠硫붿씪 �씤利앺븯湲�</a>";
 							
 		Properties p = new Properties();
 		p.put("mail.smtp.user", from);
