@@ -63,6 +63,8 @@
 				<div class="row">
 
 					<div class="col-sm-6 mb-xs-40">
+						<button onclick="location.href='QuestionAddPage.jsp'"
+							class="btn btn-mod btn-circle btn-large" style="margin: 0 auto">추가하기</button>
 						
 
 					</div>
