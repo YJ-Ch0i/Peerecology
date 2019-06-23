@@ -80,7 +80,7 @@
 								<a href="">관리자로 로그인하기</a>
 							</dt>
 							<dd>
-								<form method="post" action="adminLogin.am" id="form" role="form">
+								<form method="post" action="adminLogin.ad" id="form" role="form">
 
 									<div class="mb-20 mb-md-10">
 										<!-- Name -->

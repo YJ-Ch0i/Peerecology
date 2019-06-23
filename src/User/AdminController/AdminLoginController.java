@@ -28,7 +28,7 @@ public class AdminLoginController implements Controller {
 		{
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('�븘�씠�뵒 �샊�� 鍮꾨�踰덊샇瑜� �엯�젰�빐 二쇱꽭�슂.');");
+			script.println("alert('Enter All Blank!');");
 			script.println("history.back();");
 			script.println("</script>");
 			script.close();
@@ -38,7 +38,7 @@ public class AdminLoginController implements Controller {
 		{
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('�븘�씠�뵒瑜� �엯�젰 �빐 二쇱꽭�슂.');");
+			script.println("alert('Enter ID!');");
 			script.println("history.back();");
 			script.println("</script>");
 			script.close();
@@ -48,7 +48,7 @@ public class AdminLoginController implements Controller {
 		{
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('鍮꾨�踰덊샇瑜� �엯�젰�빐二쇱꽭�슂.');");
+			script.println("alert('Enter Password!');");
 			script.println("history.back();");
 			script.println("</script>");
 			script.close();
@@ -61,7 +61,7 @@ public class AdminLoginController implements Controller {
 			{
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
-				script.println("alert('鍮꾨�踰덊샇媛� ���졇�뒿�땲�떎.');");
+				script.println("alert('Check ID or Password.');");
 				script.println("history.back();");
 				script.println("</script>");
 				script.close();
@@ -72,7 +72,7 @@ public class AdminLoginController implements Controller {
 			session.setAttribute("admin_id", admin_id);
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("location.href='/Survey/index.jsp';");
+			script.println("location.href='/PeerSys/index.jsp';");
 			script.println("</script>");
 			script.close();
 		}

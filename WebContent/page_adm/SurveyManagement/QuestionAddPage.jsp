@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="SurveyRelationDTO.SurveyDTO"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +46,7 @@
 				<div class="row">
 
 					<div class="col-md-8">
-						<h2 class="hs-line-11 font-alt mb-20 mb-xs-0">설문조사 결과보기</h2>
+						<h2 class="hs-line-11 font-alt mb-20 mb-xs-0">설문문항 만들기</h2>
 						<div class="hs-line-4 font-alt black"></div>
 					</div>
 
@@ -57,29 +55,23 @@
 		</section>
 		<!-- End Head Section -->
 
-
 		<!-- Section -->
 		<section class="page-section">
 			<div class="container relative">
+
+				<!-- Row -->
 				<div class="row">
-					
-					<% ArrayList<SurveyDTO> list = (ArrayList<SurveyDTO>)request.getAttribute("list"); 
-                          for(int i=0; i<list.size(); i++)
-                          {
-                       %>
-                       <form action="/PeerSys/surveyResultShow_admin.sv" method="post">
-                       <input type="hidden" name="survey_id" value="<%= list.get(i).getSurvey_id() %>">
-						<button type="submit" class="btn btn-mod btn-circle btn-medium"
-						style="width: 50%; margin-bottom: 10px;">
-						<%= i+1  %>
-						번 설문조사 ) 시작일 :
-						<%= list.get(i).getStart_date() %>
-						종료일 :
-						<%= list.get(i).getEnd_date() %>
-					</button>
-					</form>
-					<% } %>
+
+					<div class="col-sm-6 mb-xs-40">
+						
+
+					</div>
+
+					<!-- End Col -->
+
 				</div>
+				<!-- End Row -->
+
 			</div>
 		</section>
 		<!-- End Section -->

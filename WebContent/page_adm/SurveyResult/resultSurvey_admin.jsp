@@ -8,7 +8,7 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="User.UserDTO.StudentDTO"%>
 <%@ page import="Service.ResponseService"%>
-<%@ page import="Survey.Response.ResponseDTO.ResponseDTO"%>
+<%@ page import="Survey.Survey.SurveyDTO.ResponseDTO"%>
 <head>
 <title>Rhythm &mdash; One & Multi Page Creative Theme</title>
 <meta name="description" content="">
