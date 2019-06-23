@@ -34,4 +34,7 @@ public class TeacherService {
 	public TeacherDTO teacherInfo(String tea_id) {
 		return dao.teacherInfo(tea_id);
 	}
+	public boolean teacherSchoolUpdate(String scid, int grade, int grd_num) {
+		return dao.teacherSchoolUpdate(scid, grade, grd_num);
+	}
 }

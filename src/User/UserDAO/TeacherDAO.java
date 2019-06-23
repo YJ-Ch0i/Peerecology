@@ -225,7 +225,7 @@ public class TeacherDAO {
 		return teacherDTO;
 	}
 	
-	public void teacherSchoolUpdate(String scid, int grade, int grd_num) {
+	public boolean teacherSchoolUpdate(String scid, int grade, int grd_num) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
@@ -238,6 +238,7 @@ public class TeacherDAO {
 			pstmt.setInt(3, grd_num);			
 			pstmt.executeUpdate();
 			
+			return true;
 		}
 		catch(Exception ex) {
 			ex.printStackTrace();
@@ -246,6 +247,6 @@ public class TeacherDAO {
 			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}			
 		}
-		
+		return false;
 	}
 }

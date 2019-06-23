@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Controller.Controller;
+import Service.StudentService;
 
 public class AddClassController implements Controller {
 
@@ -87,6 +88,7 @@ public class AddClassController implements Controller {
 	      }
 	      
 	      if(tea_id != "" &&file_name!="" && sch_code != "" && grade != -1 && grd_num != -1){
+	    	  StudentService stuservice = StudentService.getInstance();
 	    	  
 	      }
 	}
