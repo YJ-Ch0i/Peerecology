@@ -83,4 +83,18 @@ public class StudentDTO {
 		this.gender = gender;
 		this.lastChangeDate = lastChangeDate;
 	}
+	
+	public StudentDTO(String name, String scid, int grade, int grd_num, int num, String tea_id, String gender,
+			Timestamp lastChangeDate) {
+		super();
+		this.name = name;
+		this.scid = scid;
+		this.grade = grade;
+		this.grd_num = grd_num;
+		this.num = num;
+		this.tea_id = tea_id;
+		this.gender = gender;
+		this.lastChangeDate = lastChangeDate;
+	}
+	
 }

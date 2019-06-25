@@ -80,4 +80,23 @@ public class StudentDAO {
 		}
 		return resultlist;
 	}
+	
+	public void studentRegist() {
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		
+		String SQL ="INSERT INTO user_students(name, SCID, grade, class, num, TID, gender, lastChangeDate) VALUES (?,?,?,?,?,?,?,?)";
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+	
+	}
 }

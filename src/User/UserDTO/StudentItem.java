@@ -7,6 +7,7 @@ public class StudentItem {
    public String stu_gender;
    public String before_class;
    public String before_number;
+   
    public String getStu_name() {
       return stu_name;
    }

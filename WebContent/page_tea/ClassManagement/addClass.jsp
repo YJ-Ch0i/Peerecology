@@ -5,6 +5,8 @@
 <%@ page import="java.util.Enumeration"%>
 <%@ page import="User.UserDTO.TeacherDTO" %>
 <% String tea_id = (String)session.getAttribute("tea_id"); 
+	String uploadPath = request.getSession().getServletContext().getRealPath("/upload/");
+	String realUploadPath = uploadPath.substring(12);
    TeacherService teacherService = TeacherService.getInstance();
    TeacherDTO teacherDTO = new TeacherDTO();
    teacherDTO = teacherService.teacherInfo(tea_id);
@@ -125,6 +127,7 @@
 						<input type="hidden" name="sch_address" value="<%= sch_region%>">
 						<input type="hidden" name="sch_code" value="<%= sch_number%>">
 						<input type="hidden" name="sch_name" value="<%= sch_name%>">
+						<%} %>
 						<div class="mb-20 mb-md-10">
 							<input type="text" name="grade_num" class="input-md form-control"
 								style="width: 10%;" maxlength="100">
@@ -135,7 +138,7 @@
 						</div>
 
 						<div class="mb-20 mb-md-10" id=divObj></div>
-						<!-- <input type="hidden" name="uploadPath" value="">-->
+						<input type="text" name="uploadPath" value="<%=uploadPath %>">
 						<input type="submit"
 							style="margin: 5% 0 0 50%; display: inline-block;"
 							class="btn btn-mod btn-circle btn-medium" value="학급 등록">
