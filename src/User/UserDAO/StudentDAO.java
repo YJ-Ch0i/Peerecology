@@ -4,13 +4,13 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.opencsv.CSVReader;
 
+import User.UserDTO.StudentDTO;
 import User.UserDTO.StudentItem;
 import Util.DBConn;
 
@@ -35,8 +35,8 @@ public class StudentDAO {
 		int before_number_index = 0;
 
 		try {
-			InputStreamReader is = new InputStreamReader(new FileInputStream(upload_path + "\\" + file_name), "UTF-8");
-			//InputStreamReader is = new InputStreamReader(new FileInputStream(upload_path + "/" + file_name), "UTF-8");
+			//InputStreamReader is = new InputStreamReader(new FileInputStream(upload_path + "\\" + file_name), "UTF-8");
+			InputStreamReader is = new InputStreamReader(new FileInputStream(upload_path + "/" + file_name), "UTF-8");
 			CSVReader reader = new CSVReader(is);
 			List<String[]> list = reader.readAll();
 
@@ -81,7 +81,7 @@ public class StudentDAO {
 		return resultlist;
 	}
 	
-	public void studentRegist() {
+	public boolean studentRegist(StudentDTO dto) {
 		
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -90,6 +90,17 @@ public class StudentDAO {
 		try {
 			conn =DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, dto.getName());
+			pstmt.setString(2, dto.getScid());
+			pstmt.setInt(3, dto.getGrade());
+			pstmt.setInt(4, dto.getGrd_num());
+			pstmt.setInt(5, dto.getNum());
+			pstmt.setString(6, dto.getTea_id());
+			pstmt.setInt(7, dto.getGender());
+			pstmt.setTimestamp(8, dto.getLastChangeDate());
+			
+			pstmt.executeUpdate();
+			return true;
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -97,6 +108,6 @@ public class StudentDAO {
 			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
-	
+		return false;
 	}
 }

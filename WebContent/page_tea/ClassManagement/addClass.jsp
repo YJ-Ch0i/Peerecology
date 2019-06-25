@@ -138,13 +138,14 @@
 						</div>
 
 						<div class="mb-20 mb-md-10" id=divObj></div>
-						<input type="text" name="uploadPath" value="<%=uploadPath %>">
+						<input type="hidden" name="uploadPath" value="<%=uploadPath %>">
 						<input type="submit"
 							style="margin: 5% 0 0 50%; display: inline-block;"
 							class="btn btn-mod btn-circle btn-medium" value="학급 등록">
 						<a href="#" style="margin: 5% 0 0 0;"
 							class="btn btn-mod btn-circle btn-medium">뒤로가기</a>
 					</form>
+					<%=uploadPath %>
 					<!-- End Col -->
 				</div>
 				<!-- End Row -->

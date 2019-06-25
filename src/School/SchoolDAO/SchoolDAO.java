@@ -61,7 +61,6 @@ public class SchoolDAO {
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
 		return false;
-
 	}
 	public int SchoolRegist(String sch_address, String sch_name, String sch_code) {
 	

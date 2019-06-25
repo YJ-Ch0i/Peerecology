@@ -11,7 +11,7 @@ public class StudentDTO {
 	private int grd_num;
 	private int num;
 	private String tea_id;
-	private String gender;
+	private int gender;
 	private Timestamp lastChangeDate;
 	
 	public int getStu_id() {
@@ -56,10 +56,10 @@ public class StudentDTO {
 	public void setTea_id(String tea_id) {
 		this.tea_id = tea_id;
 	}
-	public String getGender() {
+	public int getGender() {
 		return gender;
 	}
-	public void setGender(String gender) {
+	public void setGender(int gender) {
 		this.gender = gender;
 	}
 	public Timestamp getLastChangeDate() {
@@ -71,7 +71,7 @@ public class StudentDTO {
 	
 	public StudentDTO() {}
 	public StudentDTO(int stu_id, String name, String scid, int grade, int grd_num, int num, String tea_id,
-			String gender, Timestamp lastChangeDate) {
+			int gender, Timestamp lastChangeDate) {
 		super();
 		this.stu_id = stu_id;
 		this.name = name;
@@ -84,7 +84,7 @@ public class StudentDTO {
 		this.lastChangeDate = lastChangeDate;
 	}
 	
-	public StudentDTO(String name, String scid, int grade, int grd_num, int num, String tea_id, String gender,
+	public StudentDTO(String name, String scid, int grade, int grd_num, int num, String tea_id, int gender,
 			Timestamp lastChangeDate) {
 		super();
 		this.name = name;

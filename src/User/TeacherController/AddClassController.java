@@ -2,11 +2,9 @@ package User.TeacherController;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import Controller.Controller;
 import Service.SchoolService;
 import Service.StudentService;
+import Service.TeacherService;
 import User.UserDTO.StudentDTO;
 import User.UserDTO.StudentItem;
 
@@ -99,14 +98,14 @@ public class AddClassController implements Controller {
 	    if(tea_id != "" &&file_name!="" && sch_code != "" && grade != -1 && grd_num != -1){
 			StudentService stuservice = StudentService.getInstance();
 			SchoolService schService = SchoolService.getInstance();
-			ArrayList<StudentItem> stuItem_list = new ArrayList<>();
-			
-			
+			TeacherService teaService = TeacherService.getInstance();
+			ArrayList<StudentItem> stuItem_list = new ArrayList<>();					
 			
 			stuItem_list = stuservice.LoadStudent(file_name, request.getParameter("uploadPath"));
 			  
 			for(StudentItem stuItem : stuItem_list) {
 				String classAndban = null;
+				int gender = -1;
 				if(stuItem.getBefore_class() != null || stuItem.getBefore_class() != "") {
 				System.out.println("stuItem.getBefore_class()" +stuItem.getBefore_class());	    			  
 				String[] splitBf_class = stuItem.getBefore_class().split("학년 ");
@@ -117,8 +116,47 @@ public class AddClassController implements Controller {
 					}				
 				}
 				
-				StudentDTO student = new StudentDTO(stuItem.getStu_name(), sch_code, grade, grd_num, Integer.parseInt(stuItem.getStu_number()), tea_id, stuItem.getStu_number(), now_time);
+				if(stuItem.stu_gender == "남자" || stuItem.stu_gender == "남") {
+					gender = 1;
+				}
+				else if(stuItem.stu_gender == "여자" || stuItem.stu_gender == "여") {
+					gender = 2;
+				}
 				
+				StudentDTO students = new StudentDTO(stuItem.getStu_name(), sch_code, grade, grd_num, Integer.parseInt(stuItem.getStu_number()), tea_id, gender, now_time);
+				stuservice.studentRegist(students);								
+			}
+			
+			boolean teaUpdate = teaService.teacherSchoolUpdate(sch_code, grade, grd_num, tea_id);
+			
+			if(!schService.isSchoolAlreadyRegister(sch_code))
+			{
+				schService.SchoolRegist(sch_address,sch_name,sch_code);
+			}
+			
+			try {
+				if(teaUpdate == true) {					 
+	               session.setAttribute("tea_id", tea_id);
+	               PrintWriter script =response.getWriter();
+	               script.println("<script>");
+	               script.println("alert('학급 등록이 완료되었습니다.')");
+	               script.println("location.href='page_tea/login.jsp';");
+	               script.println("</script>");
+	               script.close();
+	               return;
+				}
+				else {
+					PrintWriter script =response.getWriter();
+					script.println("<script>");
+					script.println("alert('오류가 발생했습니다.')");
+					script.println("history.back();");
+					script.println("</script>");
+					script.close();
+					return;
+				}
+				
+			}catch(Exception ex) {
+				ex.printStackTrace();
 			}
 	    }
 	}
