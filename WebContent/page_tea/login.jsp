@@ -77,8 +77,8 @@ String strYear = Integer.toString(currentCalendar.get(Calendar.YEAR));
 						학급을 추가해주세요.
 						<%}else{ %>
 						
-						<%= teacherDTO.getGrade() %>
-						<%= teacherDTO.getClasses() %>
+						<%= teacherDTO.getGrade() %> 학년
+						<%= teacherDTO.getClasses() %> 반
 						<% } %>
 					</h1>
 				</div>

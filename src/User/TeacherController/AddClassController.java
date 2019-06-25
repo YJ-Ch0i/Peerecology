@@ -99,7 +99,14 @@ public class AddClassController implements Controller {
 			StudentService stuservice = StudentService.getInstance();
 			SchoolService schService = SchoolService.getInstance();
 			TeacherService teaService = TeacherService.getInstance();
-			ArrayList<StudentItem> stuItem_list = new ArrayList<>();					
+			ArrayList<StudentItem> stuItem_list = new ArrayList<>();				
+			
+			if(!schService.isSchoolAlreadyRegister(sch_code))
+			{
+				schService.SchoolRegist(sch_address,sch_name,sch_code);
+			}
+			
+			boolean teaUpdate = teaService.teacherSchoolUpdate(sch_code, grade, grd_num, tea_id);	
 			
 			stuItem_list = stuservice.LoadStudent(file_name, request.getParameter("uploadPath"));
 			  
@@ -107,7 +114,7 @@ public class AddClassController implements Controller {
 				String classAndban = null;
 				int gender = -1;
 				if(stuItem.getBefore_class() != null || stuItem.getBefore_class() != "") {
-				System.out.println("stuItem.getBefore_class()" +stuItem.getBefore_class());	    			  
+				System.out.println("stuItem.getBefore_class()" + stuItem.getBefore_class());	    			  
 				String[] splitBf_class = stuItem.getBefore_class().split("학년 ");
 					if(splitBf_class.length>=2) 
 					{
@@ -116,23 +123,16 @@ public class AddClassController implements Controller {
 					}				
 				}
 				
-				if(stuItem.stu_gender == "남자" || stuItem.stu_gender == "남") {
+				if(stuItem.stu_gender.equals("남자") || stuItem.stu_gender.equals("남")) {
 					gender = 1;
 				}
-				else if(stuItem.stu_gender == "여자" || stuItem.stu_gender == "여") {
+				else if(stuItem.stu_gender.equals("여자") || stuItem.stu_gender.equals("여")) {
 					gender = 2;
 				}
 				
 				StudentDTO students = new StudentDTO(stuItem.getStu_name(), sch_code, grade, grd_num, Integer.parseInt(stuItem.getStu_number()), tea_id, gender, now_time);
 				stuservice.studentRegist(students);								
-			}
-			
-			boolean teaUpdate = teaService.teacherSchoolUpdate(sch_code, grade, grd_num, tea_id);
-			
-			if(!schService.isSchoolAlreadyRegister(sch_code))
-			{
-				schService.SchoolRegist(sch_address,sch_name,sch_code);
-			}
+			}			
 			
 			try {
 				if(teaUpdate == true) {					 
