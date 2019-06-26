@@ -21,4 +21,8 @@ public class StudentService {
 	public boolean studentRegist(StudentDTO dto) {
 		return dao.studentRegist(dto);
 	}
+	
+	public ArrayList<StudentDTO> studentList(String TID, String SCID) {
+		return dao.studentList(TID, SCID);
+	}
 }

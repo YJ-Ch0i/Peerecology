@@ -70,6 +70,19 @@ public class StudentDTO {
 	}
 	
 	public StudentDTO() {}
+	
+	/**
+	 * 전체 생성자
+	 * @param stu_id
+	 * @param name
+	 * @param scid
+	 * @param grade
+	 * @param grd_num
+	 * @param num
+	 * @param tea_id
+	 * @param gender
+	 * @param lastChangeDate
+	 */
 	public StudentDTO(int stu_id, String name, String scid, int grade, int grd_num, int num, String tea_id,
 			int gender, Timestamp lastChangeDate) {
 		super();
@@ -84,6 +97,17 @@ public class StudentDTO {
 		this.lastChangeDate = lastChangeDate;
 	}
 	
+	/**
+	 * 학생등록용 생성자
+	 * @param name
+	 * @param scid
+	 * @param grade
+	 * @param grd_num
+	 * @param num
+	 * @param tea_id
+	 * @param gender
+	 * @param lastChangeDate
+	 */
 	public StudentDTO(String name, String scid, int grade, int grd_num, int num, String tea_id, int gender,
 			Timestamp lastChangeDate) {
 		super();

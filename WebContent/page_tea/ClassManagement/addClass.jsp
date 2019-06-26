@@ -95,7 +95,9 @@
 					<div class="mb-20 mb-md-10">
 						<form action="/PeerSys/schoolSearch.jsp" method="post" id="form"
 							role="form">
-
+							
+							<h3>본인이 소속되어 있는 학교를 선택 해 주세요.</h3>
+							
 							<input type="text" name="schoolNm" id="schoolNm"
 								value="<%if( request.getAttribute("sch_name")!=null){ %> <%= request.getAttribute("sch_name") %> <%} %>"
 								class="input-md form-control" placeholder="검색 할 학교명을입력해주세요.">
@@ -104,14 +106,14 @@
 								value="학교검색">
 
 						</form>
-
 					</div>
-					<% } %>
-					<form action="csv_upload.jsp" method="post"
-						enctype="multipart/form-data">
-
-						첨부 파일 : <input type="file" name="file"><br /> <input
-							type="submit" value="파일 업로드">
+					<% } else{
+						%>			
+					<form action="csv_upload.jsp" method="post"	enctype="multipart/form-data">
+						
+						<h3>학급 내 학생명부 CSV파일을 양식에 맞춰 선택한 후 업로드하기 버튼을 눌러주세요</h3>
+						첨부 파일 : <input type="file" name="file"><br/> 
+						<input type="submit" value="업로드하기">
 	
 					<br><br>
 					</form>
@@ -146,6 +148,8 @@
 							class="btn btn-mod btn-circle btn-medium">뒤로가기</a>
 					</form>
 					<%=uploadPath %>
+					
+					<%} %>
 					<!-- End Col -->
 				</div>
 				<!-- End Row -->
@@ -191,9 +195,6 @@
 		src="/PeerSys/style/js/jquery.magnific-popup.min.js"></script>
 	<!-- Replace test API Key "AIzaSyAZsDkJFLS0b59q7cmW0EprwfcfUA8d9dg" with your own one below 
         **** You can get API Key here - https://developers.google.com/maps/documentation/javascript/get-api-key -->
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZsDkJFLS0b59q7cmW0EprwfcfUA8d9dg"></script>
-	<script type="text/javascript" src="/PeerSys/style/js/gmap3.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/wow.min.js"></script>
 	<script type="text/javascript"
 		src="/PeerSys/style/js/masonry.pkgd.min.js"></script>
