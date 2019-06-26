@@ -77,8 +77,8 @@ String strYear = Integer.toString(currentCalendar.get(Calendar.YEAR));
 						학급을 추가해주세요.
 						<%}else{ %>
 						
-						<%= teacherDTO.getGrade() %>
-						<%= teacherDTO.getClasses() %>
+						<%= teacherDTO.getGrade() %> 학년
+						<%= teacherDTO.getClasses() %> 반
 						<% } %>
 					</h1>
 				</div>
@@ -137,9 +137,6 @@ String strYear = Integer.toString(currentCalendar.get(Calendar.YEAR));
 		src="/PeerSys/style/js/jquery.magnific-popup.min.js"></script>
 	<!-- Replace test API Key "AIzaSyAZsDkJFLS0b59q7cmW0EprwfcfUA8d9dg" with your own one below 
         **** You can get API Key here - https://developers.google.com/maps/documentation/javascript/get-api-key -->
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZsDkJFLS0b59q7cmW0EprwfcfUA8d9dg"></script>
-	<script type="text/javascript" src="/PeerSys/style/js/gmap3.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/wow.min.js"></script>
 	<script type="text/javascript"
 		src="/PeerSys/style/js/masonry.pkgd.min.js"></script>

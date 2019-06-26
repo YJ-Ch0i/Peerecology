@@ -6,7 +6,7 @@
 
 		<!-- Footer Logo -->
 		<div class="local-scroll mb-30 wow fadeInUp" data-wow-duration="1.5s">
-			<a href="#top"><img src="style/images/logo-footer.png" width="78"
+			<a href="#top"><img src="/PeerSys/style/images/logo-footer.png" width="78"
 				height="36" alt="" /></a>
 		</div>
 		<!-- End Footer Logo -->

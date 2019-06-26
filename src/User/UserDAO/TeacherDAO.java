@@ -225,7 +225,7 @@ public class TeacherDAO {
 		return teacherDTO;
 	}
 	
-	public boolean teacherSchoolUpdate(String scid, int grade, int grd_num) {
+	public boolean teacherSchoolUpdate(String scid, int grade, int grd_num, String tea_id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
@@ -235,7 +235,8 @@ public class TeacherDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, scid);
 			pstmt.setInt(2, grade);
-			pstmt.setInt(3, grd_num);			
+			pstmt.setInt(3, grd_num);	
+			pstmt.setString(4, tea_id);
 			pstmt.executeUpdate();
 			
 			return true;
