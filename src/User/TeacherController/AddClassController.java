@@ -2,9 +2,10 @@ package User.TeacherController;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -93,7 +94,8 @@ public class AddClassController implements Controller {
 	       return;
 	    }
 	    
-	    Timestamp now_time = new Timestamp(System.currentTimeMillis());
+	    Calendar calendar = new GregorianCalendar();		//날짜 객체 생성을 위한 calendar
+		Date date = new Date(calendar.getTimeInMillis()); //현재의 날짜 객체
 	    
 	    if(tea_id != "" &&file_name!="" && sch_code != "" && grade != -1 && grd_num != -1){
 			StudentService stuservice = StudentService.getInstance();
@@ -130,7 +132,7 @@ public class AddClassController implements Controller {
 					gender = 2;
 				}
 				
-				StudentDTO students = new StudentDTO(stuItem.getStu_name(), sch_code, grade, grd_num, Integer.parseInt(stuItem.getStu_number()), tea_id, gender, now_time);
+				StudentDTO students = new StudentDTO(stuItem.getStu_name(), sch_code, grade, grd_num, Integer.parseInt(stuItem.getStu_number()), tea_id, gender, date);
 				stuservice.studentRegist(students);								
 			}			
 			

@@ -1,6 +1,6 @@
 package User.UserDTO;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class StudentDTO {
 
@@ -12,7 +12,7 @@ public class StudentDTO {
 	private int num;
 	private String tea_id;
 	private int gender;
-	private Timestamp lastChangeDate;
+	private Date lastChangeDate;
 	
 	public int getStu_id() {
 		return stu_id;
@@ -62,10 +62,10 @@ public class StudentDTO {
 	public void setGender(int gender) {
 		this.gender = gender;
 	}
-	public Timestamp getLastChangeDate() {
+	public Date getLastChangeDate() {
 		return lastChangeDate;
 	}
-	public void setLastChangeDate(Timestamp lastChangeDate) {
+	public void setLastChangeDate(Date lastChangeDate) {
 		this.lastChangeDate = lastChangeDate;
 	}
 	
@@ -84,7 +84,7 @@ public class StudentDTO {
 	 * @param lastChangeDate
 	 */
 	public StudentDTO(int stu_id, String name, String scid, int grade, int grd_num, int num, String tea_id,
-			int gender, Timestamp lastChangeDate) {
+			int gender, Date lastChangeDate) {
 		super();
 		this.stu_id = stu_id;
 		this.name = name;
@@ -109,7 +109,7 @@ public class StudentDTO {
 	 * @param lastChangeDate
 	 */
 	public StudentDTO(String name, String scid, int grade, int grd_num, int num, String tea_id, int gender,
-			Timestamp lastChangeDate) {
+			Date lastChangeDate) {
 		super();
 		this.name = name;
 		this.scid = scid;
