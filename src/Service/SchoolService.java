@@ -29,4 +29,7 @@ public class SchoolService {
 		return dao.school_List();
 	}
 	
+	public SchoolDTO getSchoolToSCID(String SCID) {
+		return dao.getSchoolToSCID(SCID);
+	}
 }

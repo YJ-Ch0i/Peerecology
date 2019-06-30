@@ -1,3 +1,5 @@
+<%@page import="School.SchoolDTO.SchoolDTO"%>
+<%@page import="Service.SchoolService"%>
 <%@page import="User.UserDTO.TeacherDTO"%>
 <%@page import="User.UserDTO.StudentDTO"%>
 <%@page import="java.util.ArrayList"%>
@@ -73,31 +75,99 @@
 				<%                    
                    TeacherService teaService = TeacherService.getInstance();    
 				   TeacherDTO teacher = teaService.teacherInfo(tea_id);
+				   SchoolService schService = SchoolService.getInstance();	
+				   SchoolDTO school = schService.getSchoolToSCID(teacher.getSCID());
                    StudentService studentService = StudentService.getInstance();
-                   ArrayList<StudentDTO> list = studentService.studentList(tea_id, teacher.getSCID());      
+                   ArrayList<StudentDTO> stu_list = studentService.studentList(tea_id, teacher.getSCID());      
                    
                    %>
-				<ul
-					class="works-grid work-grid-5 clearfix font-alt hover-white hide-titles"
-					id="work-grid">
-
-					<% for(int i=0; i<list.size(); i++){
-                    %>
-					<li class="work-item mix all">
-						<form action="#" method="post">
-							<input type="hidden" value="<%=list.get(i).getStu_id() %>" name="stu_id"> 
-							<input type="hidden" value="<%=list.get(i).getScid() %>" name="scid">
-							<input type="hidden" value="<%=list.get(i).getGrade() %>" name="grade">
-							<input type="hidden" value="<%=list.get(i).getGrd_num() %>" name="grd_num">
-							<button type="submit" style="margin: 10% 10% 10% 15%"
-								class="btn btn-mod btn-circle btn-small">
-								<%= list.get(i).getName() %>
-							</button>
-						</form>
-
-					</li>
-					<%} %>
-				</ul>
+				 <div class="row">
+				 	<h3 class="hs-line-11 font-alt mb-20 mb-xs-0">학급 학생 관리</h3>
+				 	<div class="col-md-10"></div>
+                  	<div class="col-md-2">       
+                  		<a href="#" class="btn btn-mod btn-circle btn-medium">학생 추가</a> 
+                  	</div>
+                 </div>
+                 <div class="row">
+                 	<br>                
+                 </div>
+                 <div class="row">
+                  	<div>       
+                        <table class="table table-striped">
+                            <tr>
+                                <th class="">
+									학교
+                                </th>
+                                <th>
+									학년
+                                </th>
+                                <th>
+									반
+                                </th>
+                                <th>
+									번호
+                                </th>
+                                <th>
+									성별
+                                </th>
+                                <th>
+									이름
+                                </th>
+                                <th>
+                                	재학 여부
+                                </th>
+                                <th>
+                                	재학/전학 변환
+                                </th>
+                            </tr>
+                            
+                            <%
+                           		String gender = "";
+                            	String transf = "";
+                            	for(StudentDTO stu : stu_list){
+                            		if(stu.getGender() == 1){
+                                		gender = "남자";
+                                	}
+                            		if(stu.getGender() == 2){
+                            			gender = "여자";
+                            		}
+                            		if(stu.isTransfer() == true){
+                            			transf = "재학";
+                            		}
+                            		if(stu.isTransfer() == false){
+                            			transf = "전학";
+                            		}
+                            %>
+                            <tr>
+                                <td class="hidden-xs">
+                                    <%=school.getScname() %>
+                                </td>
+                                <td>
+                                    <%=stu.getGrade() %> 학년
+                                </td>
+                                <td>
+                                    <%=stu.getGrd_num() %> 반
+                                </td>
+                                <td>
+                                    <%=stu.getNum() %>
+                                </td>
+                                <td>
+                                    <%=gender %>
+                                </td>
+                                <td>
+                                    <%=stu.getName() %>
+                                </td>
+                                <td>
+                                	<%=transf %>
+                                </td>
+                                <td>                                    
+                                    <a href="#"><i class="fa fa-times"></i> <span class="hidden-xs">전학처리</span></a>
+                                </td>
+                            <% } %>
+                            </tr>
+                    	</table>
+	            	</div>	     	            	      
+	            </div>                               
 			</div>
 		</section>
 		<!-- End Section -->

@@ -13,6 +13,7 @@ public class StudentDTO {
 	private String tea_id;
 	private int gender;
 	private Date lastChangeDate;
+	private boolean isTransfer;
 	
 	public int getStu_id() {
 		return stu_id;
@@ -68,6 +69,12 @@ public class StudentDTO {
 	public void setLastChangeDate(Date lastChangeDate) {
 		this.lastChangeDate = lastChangeDate;
 	}
+	public boolean isTransfer() {
+		return isTransfer;
+	}
+	public void setTransfer(boolean isTransfer) {
+		this.isTransfer = isTransfer;
+	}
 	
 	public StudentDTO() {}
 	
@@ -82,9 +89,10 @@ public class StudentDTO {
 	 * @param tea_id
 	 * @param gender
 	 * @param lastChangeDate
+	 * @param isTransfer
 	 */
 	public StudentDTO(int stu_id, String name, String scid, int grade, int grd_num, int num, String tea_id,
-			int gender, Date lastChangeDate) {
+			int gender, Date lastChangeDate, boolean isTransfer) {
 		super();
 		this.stu_id = stu_id;
 		this.name = name;
@@ -95,6 +103,7 @@ public class StudentDTO {
 		this.tea_id = tea_id;
 		this.gender = gender;
 		this.lastChangeDate = lastChangeDate;
+		this.isTransfer = isTransfer;
 	}
 	
 	/**
