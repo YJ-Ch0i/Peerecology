@@ -20,6 +20,8 @@ public class FrontController  extends HttpServlet{
 		list = new HashMap<String, Controller>();
 		list.put("/stuLogin.st", new StudentLoginController());
 		list.put("/StudentTransfer.st", new StudentTransferController());
+		list.put("/AddStudent.st", new StudentAddController());		
+		list.put("/SearchGrade.st", new SearchGradeController());
 		}
 		
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

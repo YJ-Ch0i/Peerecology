@@ -31,7 +31,6 @@
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
 
-<script type="text/javascript" src="/PeerSys/style/js/studentTransfer.js"></script>
 </head>
 
 <% String tea_id = (String)session.getAttribute("tea_id"); 
@@ -93,7 +92,7 @@
 				 	<h3 class="hs-line-11 font-alt mb-20 mb-xs-0">학급 학생 관리</h3>
 				 	<div class="col-md-10"></div>
                   	<div class="col-md-2">       
-                  		<a href="#" class="btn btn-mod btn-circle btn-medium">전학생 추가하기</a> 
+                  		<a href="addStudent.jsp" class="btn btn-mod btn-circle btn-medium">전학생 추가하기</a> 
                   	</div>
                  </div>
                  <div class="row">
@@ -169,13 +168,8 @@
                                 <td>
                                 	<%=transf %>
                                 </td>
-                                <td> 
-                                	<form id="transfForm" action="/PeerSys/StudentTransfer.st" method="post">
-                                		<input type="hidden" id="stu_name" name="stu_name" value="<%= stu.getName()%>">
-	                                    <i class="fa fa-times"></i><input id="transf" type="button"
-	                                    class="btn btn-mod btn-circle btn-small" value="전학 처리">
-                                	</form>                                   
-                                    <!-- <a href="#" style="text-decoration:none"><i class="fa fa-times"></i><span class="hidden-xs">전학처리</span></a> -->                                                                        
+                                <td>                                 	
+                                	<a class="btn btn-mod btn-circle btn-small" href="/PeerSys/StudentTransfer.st?stu_name=<%=stu.getName() %>" onclick="transfer()" style="text-decoration:none"><i class="fa fa-times"></i><span class="hidden-xs">전학처리</span></a>                                                                                                                                             
                                 </td>
                             <% } %>
                             </tr>
@@ -220,6 +214,7 @@
 	<script type="text/javascript" src="/PeerSys/style/js/contact-form.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.ajaxchimp.min.js"></script>
 	<!--[if lt IE 10]><script type="text/javascript" src="js/placeholder.js"></script><![endif]-->
+	<script type="text/javascript" src="/PeerSys/style/js/studentTransfer.js"></script>
 
 </body>
 </html>

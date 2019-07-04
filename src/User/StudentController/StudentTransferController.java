@@ -30,9 +30,19 @@ public class StudentTransferController implements Controller {
 		if(request.getParameter("stu_name") != "") {
 			stu_name = request.getParameter("stu_name");
 		}
+		
+		System.out.println(stu_name);
 		if(session.getAttribute("tea_id") != ""){
 			tea_id = (String) session.getAttribute("tea_id");
 		}
+		
+		// TODO
+		/*if(request.getAttribute("stu_name") != "") {
+			stu_name = (String) request.getAttribute("stu_name");
+		}
+		if(session.getAttribute("tea_id") != ""){
+			tea_id = (String) session.getAttribute("tea_id");
+		}*/
 		
 		TeacherDTO teacher = teaService.teacherInfo(tea_id);
 		StudentDTO student = stuService.getStudent(stu_name, tea_id, teacher.getSCID());
@@ -57,5 +67,4 @@ public class StudentTransferController implements Controller {
 			return;
 		}
 	}
-
 }
