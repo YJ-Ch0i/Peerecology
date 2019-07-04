@@ -18,6 +18,11 @@ public class SchoolDAO {
 		return dao;
 	}
 	
+	/**
+	 * 학교 이름을 이용하여 학교정보 반환
+	 * @param sch_name
+	 * @return
+	 */
 	public ArrayList<SchoolDTO> SearchSchoolAddress(String sch_name) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -42,6 +47,12 @@ public class SchoolDAO {
 		}
 		return school;
 	}
+	
+	/**
+	 * 학교 코드를 이용하여 DB에 등록 되어있는지 확인
+	 * @param sch_code
+	 * @return
+	 */
 	public boolean isSchoolAlreadyRegister(String sch_code) {
 		Connection conn = null;
 		Statement stmt = null;
@@ -62,6 +73,14 @@ public class SchoolDAO {
 		}
 		return false;
 	}
+	
+	/**
+	 * DB에 학교 등록
+	 * @param sch_address
+	 * @param sch_name
+	 * @param sch_code
+	 * @return
+	 */
 	public int SchoolRegist(String sch_address, String sch_name, String sch_code) {
 	
 		Connection conn = null;
@@ -83,6 +102,11 @@ public class SchoolDAO {
 		}
 		return -1;
 	}
+	
+	/**
+	 * 저장된 학교 전부 검색
+	 * @return
+	 */
 	public ArrayList<SchoolDTO> school_List() {
 		
 		Connection conn = null;
@@ -105,5 +129,41 @@ public class SchoolDAO {
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
          return list;
+	}
+	
+	/**
+	 * SCID로 검색하여 학교객체 반환
+	 * @param SCID
+	 * @return
+	 */
+	public SchoolDTO getSchoolToSCID(String SCID) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		SchoolDTO dto = new SchoolDTO();
+		
+		String sql = "SELECT * FROM school_info WHERE SCID=?";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, SCID);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto.setScid(rs.getString(1));
+				dto.setScname(rs.getString(2));
+				dto.setScaddress(rs.getString(3));
+			}
+			
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(rs != null) try {rs.close();} catch(SQLException ex) {ex.printStackTrace();}
+			if(pstmt != null) try {pstmt.close();} catch(SQLException ex) {ex.printStackTrace();}
+			if(conn != null) try {conn.close();} catch(SQLException ex) {ex.printStackTrace();}
+		}
+		return dto;
 	}
 }

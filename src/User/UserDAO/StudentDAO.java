@@ -98,7 +98,7 @@ public class StudentDAO {
 			pstmt.setInt(5, dto.getNum());
 			pstmt.setString(6, dto.getTea_id());
 			pstmt.setInt(7, dto.getGender());
-			pstmt.setTimestamp(8, dto.getLastChangeDate());
+			pstmt.setDate(8, dto.getLastChangeDate());
 			
 			pstmt.executeUpdate();
 			return true;
@@ -119,7 +119,7 @@ public class StudentDAO {
 		
 		ArrayList<StudentDTO> list = new ArrayList<>();
 		
-		String sql = "SELECT * FROM user_students WHERE TID=? AND SCID=?";
+		String sql = "SELECT * FROM user_students WHERE TID=? AND SCID=? ORDER BY num";
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -128,7 +128,7 @@ public class StudentDAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				list.add(new StudentDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getString(7), rs.getInt(8), rs.getTimestamp(9)));
+				list.add(new StudentDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getString(7), rs.getInt(8), rs.getDate(9), rs.getBoolean(10)));
 			}
 		}
 		catch(Exception ex) {
