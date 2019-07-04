@@ -25,6 +25,42 @@ public class StudentDAO {
 		return dao;
 	}
 	
+	public StudentDTO getStudent(String name, String TID, String SCID) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs = null;
+		StudentDTO dto = new StudentDTO();
+
+		String sql = "SELECT * FROM user_students WHERE name=? AND TID=? AND SCID=?";
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, TID);
+			pstmt.setString(3, SCID);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto.setStu_id(rs.getInt(1));
+				dto.setName(rs.getString(2));;
+				dto.setScid(rs.getString(3));
+				dto.setGrade(rs.getInt(4));
+				dto.setGrd_num(rs.getInt(5));
+				dto.setNum(rs.getInt(6));
+				dto.setTea_id(TID);
+				dto.setTransfer(rs.getBoolean("isTransfer"));
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return dto;
+	}
 	
 	public ArrayList<StudentItem> LoadStudent(String file_name, String upload_path) {
 		ArrayList<StudentItem> resultlist = new ArrayList<StudentItem>();
@@ -140,5 +176,59 @@ public class StudentDAO {
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
 		return list;
+	}
+	
+	public boolean studentTransfer(StudentDTO dto) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		
+		String sql = "UPDATE user_students SET isTransfer=0 WHERE name=? AND SCID=? AND TID=?";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getName());
+			pstmt.setString(2, dto.getScid());
+			pstmt.setString(3, dto.getTea_id());
+			pstmt.executeUpdate();
+			return true;			
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {			
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return false;
+	}
+	
+	public int studentLogin(StudentDTO dto) {		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT num FROM user_students WHERE TID=? AND SCID=? AND name=?";
+
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				if (rs.getInt(1) == dto.getNum())
+					return 1;
+				else
+					return 0;
+			}
+			return -1;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		} finally {		
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return -2;
 	}
 }

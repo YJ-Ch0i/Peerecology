@@ -30,15 +30,23 @@
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
+
+<script type="text/javascript" src="/PeerSys/style/js/studentTransfer.js"></script>
 </head>
 
 <% String tea_id = (String)session.getAttribute("tea_id"); 
    TeacherService service = TeacherService.getInstance();
    Boolean isEmailChecked =service.getEamilChecked(tea_id);
-   if(isEmailChecked==false){ %>
-<script> 
-   alert("이메일 인증 먼저 해주세요.");
-   location.href="/PeerSys/page_tea/login.jsp";
+   
+   if(session.getAttribute("tea_id") == null){%>
+   <script>
+   		alert("로그인을 해주세요.");
+		location.href="/PeerSys/page_tea/login.jsp";
+   </script>
+   <%} else if(isEmailChecked==false){ %>
+	<script> 
+   		alert("이메일 인증 먼저 해주세요.");
+   		location.href="/PeerSys/page_tea/login.jsp";
    </script>
 <%} %>
 <body class="appear-animate">
@@ -85,7 +93,7 @@
 				 	<h3 class="hs-line-11 font-alt mb-20 mb-xs-0">학급 학생 관리</h3>
 				 	<div class="col-md-10"></div>
                   	<div class="col-md-2">       
-                  		<a href="#" class="btn btn-mod btn-circle btn-medium">학생 추가</a> 
+                  		<a href="#" class="btn btn-mod btn-circle btn-medium">전학생 추가하기</a> 
                   	</div>
                  </div>
                  <div class="row">
@@ -117,13 +125,14 @@
                                 	재학 여부
                                 </th>
                                 <th>
-                                	재학/전학 변환
+                                	재학/전학 처리
                                 </th>
                             </tr>
                             
                             <%
                            		String gender = "";
                             	String transf = "";
+                            	
                             	for(StudentDTO stu : stu_list){
                             		if(stu.getGender() == 1){
                                 		gender = "남자";
@@ -160,8 +169,13 @@
                                 <td>
                                 	<%=transf %>
                                 </td>
-                                <td>                                    
-                                    <a href="#"><i class="fa fa-times"></i> <span class="hidden-xs">전학처리</span></a>
+                                <td> 
+                                	<form id="transfForm" action="/PeerSys/StudentTransfer.st" method="post">
+                                		<input type="hidden" id="stu_name" name="stu_name" value="<%= stu.getName()%>">
+	                                    <i class="fa fa-times"></i><input id="transf" type="button"
+	                                    class="btn btn-mod btn-circle btn-small" value="전학 처리">
+                                	</form>                                   
+                                    <!-- <a href="#" style="text-decoration:none"><i class="fa fa-times"></i><span class="hidden-xs">전학처리</span></a> -->                                                                        
                                 </td>
                             <% } %>
                             </tr>
