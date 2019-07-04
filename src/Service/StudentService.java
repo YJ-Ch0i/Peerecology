@@ -14,6 +14,10 @@ public class StudentService {
 		return service;
 	}
 	
+	public StudentDTO getStudent(String name, String TID, String SCID) {
+		return dao.getStudent(name, TID, SCID);
+	}
+	
 	public ArrayList<StudentItem> LoadStudent(String file_name, String upload_path) {
 		return dao.LoadStudent(file_name, upload_path);
 	}
@@ -24,5 +28,13 @@ public class StudentService {
 	
 	public ArrayList<StudentDTO> studentList(String TID, String SCID) {
 		return dao.studentList(TID, SCID);
+	}
+	
+	public boolean studentTransfer(StudentDTO dto) {
+		return dao.studentTransfer(dto);
+	}
+	
+	public int studentLogin(StudentDTO dto) {		
+		return dao.studentLogin(dto);
 	}
 }

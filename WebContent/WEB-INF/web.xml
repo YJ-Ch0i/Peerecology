@@ -27,6 +27,23 @@
 		<servlet-name>adminFront</servlet-name>
 		<url-pattern> *.ad </url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>studentFront</servlet-name>
+		<servlet-class>User.StudentController.FrontController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>studentFront</servlet-name>
+		<url-pattern> *.st </url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>schoolFront</servlet-name>
+		<servlet-class>School.SchoolController.FrontController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>schoolFront</servlet-name>
+		<url-pattern> *.sc </url-pattern>
+	</servlet-mapping>
 	
 	<context-param>
 		<param-name>admin_id</param-name>
