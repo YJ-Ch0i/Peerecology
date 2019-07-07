@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="Service.QuestionService" %>
+<%@ page import="SurveyRelationDTO.QuestionTrandTypeDTO" %>
+<%@ page import="java.util.*" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +21,7 @@
 
 <!-- CSS -->
 <link rel="stylesheet" href="/PeerSys/style/css/bootstrap.min.css">
-<link rel="stylesheet" href="/PeerSys/style/css/style.css">
+<link rel="stylesheet" href="/PeerSys/style/css/style.css?version=1">
 <link rel="stylesheet" href="/PeerSys/style/css/style-responsive.css">
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
@@ -25,7 +29,9 @@
 
 </head>
 <body class="appear-animate">
+<% 
 
+%>
 	<!-- Page Loader -->
 	<div class="page-loader">
 		<div class="loader">Loading...</div>
@@ -34,57 +40,20 @@
 
 	<!-- Page Wrap -->
 	<div class="page" id="top">
-
-		<!-- Navigation panel -->
-		<%@include file="../../pageInclude/Header.jsp"%>
-		<!-- End Navigation panel -->
-
-		<!-- Head Section -->
-		<section class="small-section bg-gray-lighter">
-			<div class="relative container align-left">
-
-				<div class="row">
-
-					<div class="col-md-8">
-						<h2 class="hs-line-11 font-alt mb-20 mb-xs-0">설문문항 만들기</h2>
-						<div class="hs-line-4 font-alt black"></div>
-					</div>
-
-				</div>
+			<section class="page-section" >
+			<div class="row">
+                                
+			<form method="post" action="/PeerSys/trandAdd.qs" id="form" role="form">
+			
+			<div class="mb-20 mb-md-10">
+										<!-- Name -->
+			<label>성향 이름 : <input type="text" name="trand_title" id="name" class="input-md form-control" maxlength="100"></label>
+			<input type="submit"  class="btn btn-mod btn-circle btn-medium" value="추가하기">
 			</div>
-		</section>
-		<!-- End Head Section -->
-
-		<!-- Section -->
-		<section class="page-section">
-			<div class="container relative">
-
-				<!-- Row -->
-				<div class="row">
-
-					<div class="col-sm-6 mb-xs-40">
-						<button onclick="location.href='QuestionAddPage.jsp'"
-							class="btn btn-mod btn-circle btn-large" style="margin: 0 auto">추가하기</button>
-						
-
-					</div>
-
-					<!-- End Col -->
-
-				</div>
-				<!-- End Row -->
-
+			</form>
 			</div>
-		</section>
-		<!-- End Section -->
-
-		<!-- Footer -->
-		<%@ include file="../../pageInclude/Footer.jsp"%>
-		<!-- End Footer -->
-
+			</section>
 	</div>
-	<!-- End Page Wrap -->
-
 
 	<!-- JS -->
 	<script type="text/javascript"

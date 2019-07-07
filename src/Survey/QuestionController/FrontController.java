@@ -1,4 +1,4 @@
-package User.AdminController;
+package Survey.QuestionController;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -18,8 +18,8 @@ public class FrontController  extends HttpServlet{
 	public void init(ServletConfig config) throws ServletException {
 		
 		list = new HashMap<String, Controller>();
-		list.put("/adminLogin.ad", new AdminLoginController());
-		list.put("/adminLogout.ad", new AdminLogoutController());
+		list.put("/trandDelete.qs", new TrandDeleteController());
+		list.put("/trandAdd.qs", new TrandAddController());
 		}
 		
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

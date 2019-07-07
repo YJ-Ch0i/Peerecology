@@ -44,6 +44,14 @@
 		<servlet-name>schoolFront</servlet-name>
 		<url-pattern> *.sc </url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>QuestionFront</servlet-name>
+		<servlet-class>Survey.QuestionController.FrontController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>QuestionFront</servlet-name>
+		<url-pattern> *.qs </url-pattern>
+	</servlet-mapping>
 	
 	<context-param>
 		<param-name>admin_id</param-name>

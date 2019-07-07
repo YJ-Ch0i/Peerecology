@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="Service.QuestionService" %>
+<%@ page import="SurveyRelationDTO.QuestionTrandTypeDTO" %>
+<%@ page import="java.util.*" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,16 +21,14 @@
 
 <!-- CSS -->
 <link rel="stylesheet" href="/PeerSys/style/css/bootstrap.min.css">
-<link rel="stylesheet" href="/PeerSys/style/css/style.css">
+<link rel="stylesheet" href="/PeerSys/style/css/style.css?version=1">
 <link rel="stylesheet" href="/PeerSys/style/css/style-responsive.css">
-<link rel="stylesheet" href="/PeerSys/style/css/animate.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
 
 </head>
 <body class="appear-animate">
-
 	<!-- Page Loader -->
 	<div class="page-loader">
 		<div class="loader">Loading...</div>
@@ -37,7 +39,7 @@
 	<div class="page" id="top">
 
 		<!-- Navigation panel -->
-		<%@include file="../pageInclude/Header.jsp"%>
+		<%@include file="/pageInclude/Header.jsp"%>
 		<!-- End Navigation panel -->
 
 		<!-- Head Section -->
@@ -45,28 +47,58 @@
 			<div class="relative container align-left">
 
 				<div class="row">
-					<h1 class="hs-line-11 font-alt mb-20 mb-xs-0">관리자</h1>
+
+					<div class="col-md-8">
+						<h2 class="hs-line-11 font-alt mb-20 mb-xs-0">설문문항 만들기</h2>
+						<div class="hs-line-4 font-alt black"></div>
+					</div>
+
 				</div>
 			</div>
 		</section>
 		<!-- End Head Section -->
-
 
 		<!-- Section -->
 		<section class="page-section">
 			<div class="container relative">
 
 				<!-- Row -->
-				<div class="row"></div>
+				<div class="row">
+<% 
+QuestionService queSerivce = QuestionService.getInstance(); 
+ArrayList<QuestionTrandTypeDTO> questions = new ArrayList<QuestionTrandTypeDTO>();
+questions = queSerivce.showAllTrand();
+%>
+					<ul class="nav nav-tabs tpl-tabs animate">
+					<li class="active">
+                                    <a href="#all" data-toggle="tab">All</a>
+                                </li>
+					<% for(int i=0; i<questions.size(); i++){ %>
+					
+                                <li>
+                                    <a href="#<%=questions.get(i).getQ_trandDescipt() %>" data-toggle="tab"><%=questions.get(i).getQ_trandDescipt()%></a>
+                                </li>
+                    <%} %>
+                    </ul>
+                    <p>
+                    <p>
+                    
+						<a href="QuestionAddPage.jsp" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">문항 추가하기</a>
+						<a href="QuestionTrandAddPage.jsp" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">성향 추가하기</a>
+						<a href="QuestionTrandDeletePage.jsp" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">성향 삭제하기</a>
+						
+
+					<!-- End Col -->
+
+				</div>
 				<!-- End Row -->
 
 			</div>
 		</section>
 		<!-- End Section -->
 
-
 		<!-- Footer -->
-		<%@ include file="../pageInclude/Footer.jsp"%>
+		<%@ include file="/pageInclude/Footer.jsp"%>
 		<!-- End Footer -->
 
 	</div>
@@ -118,4 +150,3 @@
 
 </body>
 </html>
-

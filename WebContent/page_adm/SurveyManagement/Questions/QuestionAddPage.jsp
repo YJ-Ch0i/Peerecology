@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="Service.QuestionService" %>
+<%@ page import="SurveyRelationDTO.QuestionTrandTypeDTO" %>
+<%@ page import="java.util.*" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,60 +21,41 @@
 
 <!-- CSS -->
 <link rel="stylesheet" href="/PeerSys/style/css/bootstrap.min.css">
-<link rel="stylesheet" href="/PeerSys/style/css/style.css">
+<link rel="stylesheet" href="/PeerSys/style/css/style.css?version=1">
 <link rel="stylesheet" href="/PeerSys/style/css/style-responsive.css">
-<link rel="stylesheet" href="/PeerSys/style/css/animate.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
 
 </head>
 <body class="appear-animate">
-
+<% 
+QuestionService queSerivce = QuestionService.getInstance(); 
+ArrayList<QuestionTrandTypeDTO> questions = new ArrayList<QuestionTrandTypeDTO>();
+questions = queSerivce.showAllTrand();
+%>
 	<!-- Page Loader -->
 	<div class="page-loader">
 		<div class="loader">Loading...</div>
 	</div>
 	<!-- End Page Loader -->
-
 	<!-- Page Wrap -->
 	<div class="page" id="top">
-
-		<!-- Navigation panel -->
-		<%@include file="../pageInclude/Header.jsp"%>
-		<!-- End Navigation panel -->
-
-		<!-- Head Section -->
-		<section class="small-section bg-gray-lighter">
-			<div class="relative container align-left">
-
-				<div class="row">
-					<h1 class="hs-line-11 font-alt mb-20 mb-xs-0">관리자</h1>
-				</div>
+			<section class="page-section">
+			<div class="row">
+			<% if(questions.size()!=0) {%>
+			성향 : <select class="input-md form-control">
+			<% for(int i=0; i<questions.size(); i++){ %>
+			<option><%=questions.get(i).getQ_trandDescipt() %></option>
+			<%} %>
+			<%}else{ %>
+			<script> alert('성향을 먼저 만들어 주세요.'); </script>
+			<script> location.href = 'QuestionTrandAddPage.jsp' </script>
+			<%} %>
+            </select>
 			</div>
-		</section>
-		<!-- End Head Section -->
-
-
-		<!-- Section -->
-		<section class="page-section">
-			<div class="container relative">
-
-				<!-- Row -->
-				<div class="row"></div>
-				<!-- End Row -->
-
-			</div>
-		</section>
-		<!-- End Section -->
-
-
-		<!-- Footer -->
-		<%@ include file="../pageInclude/Footer.jsp"%>
-		<!-- End Footer -->
-
+			</section>
 	</div>
-	<!-- End Page Wrap -->
 
 
 	<!-- JS -->
@@ -118,4 +103,3 @@
 
 </body>
 </html>
-

@@ -37,7 +37,7 @@
 				<!-- 설문조사 결과 메뉴 SurveyResult -->
 				<li><a href="/PeerSys/page_adm/SurveyResult/selectSurvey.jsp"
 					class="mn-has-sub active"> 설문조사 결과 </a></li>
-				<li><a href="/PeerSys/adminLogout.am" class="mn-has-sub">
+				<li><a href="/PeerSys/adminLogout.ad" class="mn-has-sub">
 						로그아웃 </a></li>
 				<!-- Divider -->
 				<li><a>&nbsp;</a></li>

@@ -66,9 +66,8 @@
 						
 						<button onclick="location.href='SurveyAddPage.jsp'"
 							class="btn btn-mod btn-circle btn-large" style="margin: 0 auto">설문조사 추가하기</button>
-						<button onclick="location.href='QuestionAddPage.jsp'"
+						<button onclick="location.href='Questions/QuestionPage.jsp'"
 							class="btn btn-mod btn-circle btn-large" style="margin: 0 auto">설문문항 추가하기</button>
-						
 
 					</div>
 

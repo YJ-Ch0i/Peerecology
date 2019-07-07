@@ -8,6 +8,13 @@ public class QuestionDTO {
 	private int QOfferSeq;
 	private String offerTitle;
 	
+	
+	public QuestionDTO(int QID, String title, int QType, int Ttype) {
+		this.QID = QID;
+		this.title = title;
+		this.QType = QType;
+		this.Ttype = Ttype;
+	}
 	public int getQID() {
 		return QID;
 	}
