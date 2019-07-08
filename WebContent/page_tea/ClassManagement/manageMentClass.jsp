@@ -130,10 +130,7 @@
                             
                             <%
                            		String gender = "";
-                            	String transf = "";                            
-                            	int count = 0;
-                            	//int count = teaService.getStuCount(teacher);
-                            	int stu_count = stu_list.size();
+                            	String transf = "";
                             	
                             	for(StudentDTO stu : stu_list){
                             		if(stu.getGender() == 1){
@@ -172,13 +169,9 @@
                                 	<%=transf %>
                                 </td>
                                 <td>                                 	
-                                	<!-- <a id="transf" class="btn btn-mod btn-circle btn-small" href="<%=stu.getName() %>" onclick="transfer()" style="text-decoration:none"><%=stu.getName() %> <i class="fa fa-times"></i><span class="hidden-xs"> 전학처리하기</span></a> -->
-                                	<form id="transForm" method="post" action="/PeerSys/StudentTransfer.st?stu_name=<%=stu.getName() %>">
-                                		<input type="text" value="<%=stu.getName() %>">        	
-                                		<input type="button" name="transf11" class="btn btn-mod btn-circle btn-small" value="<%=count%>번"><i class="fa fa-times"></i><span class="hidden-xs">전학처리하기</span>
-                                	</form>                                                                                                                                             
+                                	<a class="btn btn-mod btn-circle btn-small" href="/PeerSys/StudentTransfer.st?stu_name=<%=stu.getName() %>" onclick="transfer()" style="text-decoration:none"><i class="fa fa-times"></i><span class="hidden-xs">전학처리</span></a>                                                                                                                                             
                                 </td>
-                            <% count++; } %>
+                            <% } %>
                             </tr>
                     	</table>
 	            	</div>	     	            	      

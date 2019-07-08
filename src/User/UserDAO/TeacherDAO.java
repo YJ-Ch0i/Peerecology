@@ -251,34 +251,5 @@ public class TeacherDAO {
 		return false;
 	}
 	
-	public int getStuCount(TeacherDTO dto) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		int count = 0;
-		
-		String sql = "SELECT COUNT(*) FROM user_students WHERE TID=? AND SCID=? AND grade=? AND class=?";
-
-		try {
-			conn = DBConn.getConnection();
-			pstmt = conn.prepareStatement(sql);	
-			pstmt.setString(1, dto.getTID());
-			pstmt.setString(2, dto.getSCID());
-			pstmt.setInt(3, dto.getGrade());
-			pstmt.setInt(4, dto.getClasses());
-			rs = pstmt.executeQuery();
-			
-			if (rs.next()) {
-				count = rs.getInt(1);
-			}			
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		} finally {		
-			if(rs != null) try{rs.close();}catch(SQLException sqle){}
-			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
-			if(conn != null) try{conn.close();}catch(SQLException sqle){}
-		}
-		return count;
-	}
+	
 }

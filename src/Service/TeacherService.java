@@ -37,8 +37,4 @@ public class TeacherService {
 	public boolean teacherSchoolUpdate(String scid, int grade, int grd_num, String tea_id) {
 		return dao.teacherSchoolUpdate(scid, grade, grd_num, tea_id);
 	}
-	
-	public int getStuCount(TeacherDTO dto) {
-		return dao.getStuCount(dto);
-	}
 }
