@@ -20,6 +20,8 @@ public class FrontController  extends HttpServlet{
 		list = new HashMap<String, Controller>();
 		list.put("/trandDelete.qs", new TrandDeleteController());
 		list.put("/trandAdd.qs", new TrandAddController());
+		list.put("/typeAdd.qs", new TypeAddController());
+		list.put("/typeDelete.qs", new TypeDeleteController());
 		}
 		
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

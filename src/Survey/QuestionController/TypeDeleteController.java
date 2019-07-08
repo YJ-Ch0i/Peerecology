@@ -10,27 +10,26 @@ import javax.servlet.http.HttpServletResponse;
 import Controller.Controller;
 import Service.QuestionService;
 
-public class TrandDeleteController implements Controller {
+public class TypeDeleteController implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         
-		String[] deleteTrandValues = request.getParameterValues("deleteTrandValues");
+		String[] deleteTypeValues = request.getParameterValues("deleteTypeValues");
 		
 		QuestionService queSerivce = QuestionService.getInstance();
-		for(int i=0; i<deleteTrandValues.length; i++)
+		for(int i=0; i<deleteTypeValues.length; i++)
 		{
 			
-			String[] deleteSplitValues = deleteTrandValues[i].split("&Split");
-			int deleteReuslt = queSerivce.queTrandDelete(Integer.parseInt(deleteSplitValues[0]));
+			String[] deleteSplitValues = deleteTypeValues[i].split("&Split");
+			int deleteReuslt = queSerivce.queTypeDelete(Integer.parseInt(deleteSplitValues[0]));
 			if(deleteReuslt==-1)
 			{
 				PrintWriter script = response.getWriter();
 				script.println("<script charset=\'euc-kr\'>");
-				script.println("alert('설문문항 중에 성향이 "+deleteSplitValues[1]+"가 포함 되어있습니다.')");
+				script.println("alert('설문문항 중에 유형이 "+deleteSplitValues[1]+"가 포함 되어있습니다.')");
 				script.println("history.back();");
 				script.println("</script>");
 				script.close();
@@ -43,6 +42,6 @@ public class TrandDeleteController implements Controller {
 		script.println("parent.document.location.reload();");
 		script.println("</script>");
 		script.close();
-		
 	}
+
 }

@@ -1,15 +1,9 @@
 package SurveyRelationDAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
-import School.SchoolDTO.SchoolDTO;
-import SurveyRelationDTO.QuestionDTO;
-import SurveyRelationDTO.QuestionTrandTypeDTO;
+import SurveyRelationDTO.*;
 import Util.DBConn;
 
 public class QuestionDAO {
@@ -23,7 +17,7 @@ public class QuestionDAO {
 	public ArrayList<QuestionTrandTypeDTO> showAllTrand() {
 		Connection conn=null;
 		Statement stmt = null;
-		ArrayList<QuestionTrandTypeDTO> questions = new ArrayList<QuestionTrandTypeDTO>();
+		ArrayList<QuestionTrandTypeDTO> queTrands = new ArrayList<QuestionTrandTypeDTO>();
 		ResultSet rs = null;
 		String SQL ="Select * from q_trand_type";
 		try {
@@ -33,7 +27,7 @@ public class QuestionDAO {
 			while(rs.next()) 
 			{
 				QuestionTrandTypeDTO questionDTO = new QuestionTrandTypeDTO(rs.getInt("q_trandID"), rs.getString("descript"));
-				questions.add(questionDTO);
+				queTrands.add(questionDTO);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -41,9 +35,31 @@ public class QuestionDAO {
 			if(stmt != null) try{stmt.close();}catch(SQLException sqle){}
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
-		return questions;
+		return queTrands;
 	}
-	
+	public ArrayList<QuestionTypeDTO> showAllType() {
+		Connection conn=null;
+		Statement stmt = null;
+		ArrayList<QuestionTypeDTO> queTypes = new ArrayList<QuestionTypeDTO>();
+		ResultSet rs = null;
+		String SQL ="Select * from q_type";
+		try {
+			conn = DBConn.getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(SQL);
+			while(rs.next()) 
+			{
+				QuestionTypeDTO questionDTO = new QuestionTypeDTO(rs.getInt("q_typeID"),rs.getString("descript"));
+				queTypes.add(questionDTO);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(stmt != null) try{stmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return queTypes;
+	}
 	public ArrayList<QuestionDTO> showAllQuestion() {
 		Connection conn=null;
 		Statement stmt = null;
@@ -66,6 +82,23 @@ public class QuestionDAO {
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
 		return questions;
+	}
+	public void queTypeRegister(String typeTitle) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		
+		String SQL ="INSERT INTO q_type(descript) VALUES (?)";
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, typeTitle);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
 	}
 	
 	public void queTrandRegister(String trandTitle) {
@@ -107,7 +140,27 @@ public class QuestionDAO {
 		}
 		return isSuccess;
 	}
-	
+	public int queTypeDelete(int typeNum) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		int isSuccess = 0;
+		String SQL ="DELETE FROM q_type where q_typeID=?";
+		
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, typeNum);
+			pstmt.executeUpdate();
+			return isSuccess;
+		}catch(Exception e) {
+			isSuccess = -1;
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return isSuccess;
+	}
 	public void questionRegister(QuestionDTO questionDTO) {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -152,6 +205,8 @@ public class QuestionDAO {
 		}
 		}
 	}
+
+	
 	
 }
 

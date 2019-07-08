@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="Service.QuestionService" %>
-<%@ page import="SurveyRelationDTO.QuestionTrandTypeDTO" %>
+<%@ page import="SurveyRelationDTO.*" %>
 <%@ page import="java.util.*" %>
 
 <!DOCTYPE html>
@@ -31,8 +31,10 @@
 <body class="appear-animate">
 <% 
 QuestionService queSerivce = QuestionService.getInstance(); 
-ArrayList<QuestionTrandTypeDTO> questions = new ArrayList<QuestionTrandTypeDTO>();
-questions = queSerivce.showAllTrand();
+ArrayList<QuestionTrandTypeDTO> queTrands = new ArrayList<QuestionTrandTypeDTO>();
+ArrayList<QuestionTypeDTO> queTypes = new ArrayList<QuestionTypeDTO>();
+queTrands = queSerivce.showAllTrand();
+queTypes = queSerivce.showAllType();
 %>
 	<!-- Page Loader -->
 	<div class="page-loader">
@@ -43,17 +45,28 @@ questions = queSerivce.showAllTrand();
 	<div class="page" id="top">
 			<section class="page-section">
 			<div class="row">
-			<% if(questions.size()!=0) {%>
-			성향 : <select class="input-md form-control">
-			<% for(int i=0; i<questions.size(); i++){ %>
-			<option><%=questions.get(i).getQ_trandDescipt() %></option>
-			<%} %>
+			<% if(queTrands.size()!=0) {%>
+			 성향 : <select class="input-md form-control"> 
+			<% for(int i=0; i<queTrands.size(); i++){ %>
+			<option><%=queTrands.get(i).getQ_trandDescipt() %></option>
+			
+			<%} %></select>
 			<%}else{ %>
 			<script> alert('성향을 먼저 만들어 주세요.'); </script>
 			<script> location.href = 'QuestionTrandAddPage.jsp' </script>
 			<%} %>
-            </select>
-			</div>
+            
+            <p></p>
+            유형 :   <select class="input-md form-control"> 
+			<% for(int i=0; i<queTypes.size(); i++){ %>
+			<option><%=queTypes.get(i).getDescript() %></option>
+			<%} %>
+			</select>
+     <p></p>
+            문항 이름 : <input type="text" name="trand_title" id="name" class="input-md form-control" maxlength="100">
+     <p></p>
+     
+            </div>
 			</section>
 	</div>
 

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="Service.QuestionService" %>
-<%@ page import="SurveyRelationDTO.*" %>
+<%@ page import="SurveyRelationDTO.QuestionTrandTypeDTO" %>
 <%@ page import="java.util.*" %>
 
 <!DOCTYPE html>
@@ -21,7 +21,7 @@
 
 <!-- CSS -->
 <link rel="stylesheet" href="/PeerSys/style/css/bootstrap.min.css">
-<link rel="stylesheet" href="/PeerSys/style/css/style.css?version=2">
+<link rel="stylesheet" href="/PeerSys/style/css/style.css?version=1">
 <link rel="stylesheet" href="/PeerSys/style/css/style-responsive.css">
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
@@ -29,6 +29,11 @@
 
 </head>
 <body class="appear-animate">
+<% 
+QuestionService queSerivce = QuestionService.getInstance(); 
+ArrayList<QuestionTrandTypeDTO> questions = new ArrayList<QuestionTrandTypeDTO>();
+questions = queSerivce.showAllTrand();
+%>
 	<!-- Page Loader -->
 	<div class="page-loader">
 		<div class="loader">Loading...</div>
@@ -37,79 +42,27 @@
 
 	<!-- Page Wrap -->
 	<div class="page" id="top">
-
-		<!-- Navigation panel -->
-		<%@include file="/pageInclude/Header.jsp"%>
-		<!-- End Navigation panel -->
-
-		<!-- Head Section -->
-		<section class="small-section bg-gray-lighter">
-			<div class="relative container align-left">
-
-				<div class="row">
-
-					<div class="col-md-8">
-						<h2 class="hs-line-11 font-alt mb-20 mb-xs-0">설문문항 만들기</h2>
-						<div class="hs-line-4 font-alt black"></div>
-					</div>
-
-				</div>
+			<section class="page-section" >
+			<div class="row">
+			<form method="POST" action="/PeerSys/trandDelete.qs" id="form" role="form">
+			 <ul class="works-grid work-grid-5 work-grid-gut clearfix font-alt hover-white">
+			 
+             <%for(int i=0; i<questions.size(); i++){ %>           
+             <li>
+             <label class="checkbox-inline">
+             <input type="checkbox" name="deleteTrandValues" id="inlineCheckbox1"
+              value="<%=questions.get(i).getQ_trandType()+"&Split"+ questions.get(i).getQ_trandDescipt()%>">
+             <%= questions.get(i).getQ_trandDescipt() %>
+             </label>
+             </li>
+			 <%} %>
+			 </ul>
+			 <p style="clear:both;"></p>
+			 <input type="submit"  style="float:right" class="btn btn-mod btn-circle btn-medium" value="삭제하기">
+			</form>
 			</div>
-		</section>
-		<!-- End Head Section -->
-
-		<!-- Section -->
-		<section class="page-section">
-			<div class="container relative">
-
-				<!-- Row -->
-				
-<% 
-QuestionService queSerivce = QuestionService.getInstance(); 
-ArrayList<QuestionDTO> questions = new ArrayList<QuestionDTO>();
-ArrayList<QuestionTrandTypeDTO> queTypes = new ArrayList<QuestionTrandTypeDTO>();
-queTypes = queSerivce.showAllTrand();
-questions = queSerivce.showAllQuestion();
-%>
-					<div class="works-filter font-alt">
-					<% for(int i=0; i<queTypes.size(); i++){ %>
-					
-                    <a href="#<%=queTypes.get(i).getQ_trandType()%>" class="filter" data-filter=".<%=queTypes.get(i).getQ_trandType()%>"><%=queTypes.get(i).getQ_trandDescipt()%></a>
-                               
-                    <%} %>
-                    
-                    </div>
-                    
-                <ul class="works-grid work-grid-5 clearfix font-alt hover-white hide-titles" id="work-grid">
-                    <% for(int i=0; i<questions.size(); i++){ %>
-                        <li class="work-item mix <%=questions.get(i).getTtype() %>">
-                    <%=questions.get(i).getTitle() %> 
-                        </li>
-                    <%} %>
-                </ul>
-                    <p>
-                    <p>
-                    
-						<a href="QuestionAddPage.jsp" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">문항 추가하기</a>
-						<a href="TrandAddPage.jsp" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">성향 추가하기</a>
-						<a href="TrandDeletePage.jsp" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">성향 삭제하기</a>
-						<a href="TypeAddPage.jsp" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">유형 추가하기</a>
-						<a href="TypeDeletePage.jsp" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">유형 삭제하기</a>
-
-					<!-- End Col -->
-
-
-			</div>
-		</section>
-		<!-- End Section -->
-
-		<!-- Footer -->
-		<%@ include file="/pageInclude/Footer.jsp"%>
-		<!-- End Footer -->
-
+			</section>
 	</div>
-	<!-- End Page Wrap -->
-
 
 	<!-- JS -->
 	<script type="text/javascript"

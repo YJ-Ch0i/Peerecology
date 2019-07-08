@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="Service.QuestionService" %>
-<%@ page import="SurveyRelationDTO.QuestionTrandTypeDTO" %>
+<%@ page import="SurveyRelationDTO.QuestionTypeDTO" %>
 <%@ page import="java.util.*" %>
 
 <!DOCTYPE html>
@@ -31,8 +31,8 @@
 <body class="appear-animate">
 <% 
 QuestionService queSerivce = QuestionService.getInstance(); 
-ArrayList<QuestionTrandTypeDTO> questions = new ArrayList<QuestionTrandTypeDTO>();
-questions = queSerivce.showAllTrand();
+ArrayList<QuestionTypeDTO> types = new ArrayList<QuestionTypeDTO>();
+types = queSerivce.showAllType();
 %>
 	<!-- Page Loader -->
 	<div class="page-loader">
@@ -44,15 +44,15 @@ questions = queSerivce.showAllTrand();
 	<div class="page" id="top">
 			<section class="page-section" >
 			<div class="row">
-			<form method="POST" action="/PeerSys/trandDelete.qs" id="form" role="form">
+			<form method="POST" action="/PeerSys/typeDelete.qs" id="form" role="form">
 			 <ul class="works-grid work-grid-5 work-grid-gut clearfix font-alt hover-white">
 			 
-             <%for(int i=0; i<questions.size(); i++){ %>           
+             <%for(int i=0; i<types.size(); i++){ %>           
              <li>
              <label class="checkbox-inline">
              <input type="checkbox" name="deleteTypeValues" id="inlineCheckbox1"
-              value="<%=questions.get(i).getQ_trandType()+"&Split"+ questions.get(i).getQ_trandDescipt()%>">
-             <%= questions.get(i).getQ_trandDescipt() %>
+              value="<%=types.get(i).getQ_typeID()+"&Split"+ types.get(i).getDescript() %>">
+             <%= types.get(i).getDescript() %>
              </label>
              </li>
 			 <%} %>
