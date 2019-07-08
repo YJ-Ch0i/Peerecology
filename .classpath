@@ -12,6 +12,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0"/>
 	<classpathentry kind="lib" path="D:/2019 백업/Peerecology/Peerecology/WebContent/WEB-INF/lib/activation.jar"/>
@@ -19,5 +20,18 @@
 	<classpathentry kind="lib" path="D:/2019 백업/Peerecology/Peerecology/WebContent/WEB-INF/lib/mail.jar"/>
 	<classpathentry kind="lib" path="D:/2019 백업/Peerecology/Peerecology/WebContent/WEB-INF/lib/mysql-connector-java-5.1.45-bin.jar"/>
 	<classpathentry kind="lib" path="D:/2019 백업/Peerecology/Peerecology/WebContent/WEB-INF/lib/opencsv-4.6.jar"/>
+=======
+	<classpathentry kind="lib" path="C:/Users/박형서/Desktop/GitHub/Peerecology/WebContent/WEB-INF/lib/activation.jar"/>
+	<classpathentry kind="lib" path="C:/Users/박형서/Desktop/GitHub/Peerecology/WebContent/WEB-INF/lib/cos.jar"/>
+	<classpathentry kind="lib" path="C:/Users/박형서/Desktop/GitHub/Peerecology/WebContent/WEB-INF/lib/mail.jar"/>
+	<classpathentry kind="lib" path="C:/Users/박형서/Desktop/GitHub/Peerecology/WebContent/WEB-INF/lib/mysql-connector-java-5.1.45-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/박형서/Desktop/GitHub/Peerecology/WebContent/WEB-INF/lib/opencsv-4.6.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0"/>
+>>>>>>> master
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

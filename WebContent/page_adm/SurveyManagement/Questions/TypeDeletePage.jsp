@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="Service.QuestionService" %>
+<%@ page import="SurveyRelationDTO.QuestionTypeDTO" %>
+<%@ page import="java.util.*" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +21,7 @@
 
 <!-- CSS -->
 <link rel="stylesheet" href="/PeerSys/style/css/bootstrap.min.css">
-<link rel="stylesheet" href="/PeerSys/style/css/style.css">
+<link rel="stylesheet" href="/PeerSys/style/css/style.css?version=1">
 <link rel="stylesheet" href="/PeerSys/style/css/style-responsive.css">
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
@@ -25,7 +29,11 @@
 
 </head>
 <body class="appear-animate">
-
+<% 
+QuestionService queSerivce = QuestionService.getInstance(); 
+ArrayList<QuestionTypeDTO> types = new ArrayList<QuestionTypeDTO>();
+types = queSerivce.showAllType();
+%>
 	<!-- Page Loader -->
 	<div class="page-loader">
 		<div class="loader">Loading...</div>
@@ -34,57 +42,27 @@
 
 	<!-- Page Wrap -->
 	<div class="page" id="top">
-
-		<!-- Navigation panel -->
-		<%@include file="../../pageInclude/Header.jsp"%>
-		<!-- End Navigation panel -->
-
-		<!-- Head Section -->
-		<section class="small-section bg-gray-lighter">
-			<div class="relative container align-left">
-
-				<div class="row">
-
-					<div class="col-md-8">
-						<h2 class="hs-line-11 font-alt mb-20 mb-xs-0">설문문항 만들기</h2>
-						<div class="hs-line-4 font-alt black"></div>
-					</div>
-
-				</div>
+			<section class="page-section" >
+			<div class="row">
+			<form method="POST" action="/PeerSys/typeDelete.qs" id="form" role="form">
+			 <ul class="works-grid work-grid-5 work-grid-gut clearfix font-alt hover-white">
+			 
+             <%for(int i=0; i<types.size(); i++){ %>           
+             <li>
+             <label class="checkbox-inline">
+             <input type="checkbox" name="deleteTypeValues" id="inlineCheckbox1"
+              value="<%=types.get(i).getQ_typeID()+"&Split"+ types.get(i).getDescript() %>">
+             <%= types.get(i).getDescript() %>
+             </label>
+             </li>
+			 <%} %>
+			 </ul>
+			 <p style="clear:both;"></p>
+			 <input type="submit"  style="float:right" class="btn btn-mod btn-circle btn-medium" value="삭제하기">
+			</form>
 			</div>
-		</section>
-		<!-- End Head Section -->
-
-		<!-- Section -->
-		<section class="page-section">
-			<div class="container relative">
-
-				<!-- Row -->
-				<div class="row">
-
-					<div class="col-sm-6 mb-xs-40">
-						<button onclick="location.href='QuestionAddPage.jsp'"
-							class="btn btn-mod btn-circle btn-large" style="margin: 0 auto">추가하기</button>
-						
-
-					</div>
-
-					<!-- End Col -->
-
-				</div>
-				<!-- End Row -->
-
-			</div>
-		</section>
-		<!-- End Section -->
-
-		<!-- Footer -->
-		<%@ include file="../../pageInclude/Footer.jsp"%>
-		<!-- End Footer -->
-
+			</section>
 	</div>
-	<!-- End Page Wrap -->
-
 
 	<!-- JS -->
 	<script type="text/javascript"

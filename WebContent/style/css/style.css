@@ -889,8 +889,6 @@ hr.black {
 
 .btn-mod.btn-border-w {
 	color: #fff;
-	border: 2px solid rgba(255, 255, 255, .75);
-	background: transparent;
 }
 
 .btn-mod.btn-border-w:hover, .btn-mod.btn-border-w:focus {
@@ -3563,7 +3561,7 @@ px
 	margin: 0 0 45px 0;
 	font-size: 13px;
 	text-transform: uppercase;
-	text-align: center;
+	text-align: left;
 	letter-spacing: 0.4em;
 	color: #555;
 	cursor: default;

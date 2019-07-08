@@ -69,11 +69,12 @@
                     SchoolService service = SchoolService.getInstance();
         			%>
 
-				<% for(int i=0; i<list.size(); i++){
-                    %>
+				<% for(int i=0; i<list.size(); i++){ %>
+				
 				<% if(list.get(i).contains("1-")) {%>
 				<li class="work-item mix firstGrade">
-					<%} %> <% if(list.get(i).contains("2-")) {%>
+				<%} %> 
+				<% if(list.get(i).contains("2-")) {%>
 				
 				<li class="work-item mix secondGrade">
 					<%} %> <% if(list.get(i).contains("3-")) {%>
@@ -88,16 +89,19 @@
 					<%} %> <% if(list.get(i).contains("6-")) {%>
 				
 				<li class="work-item mix 6thGrade">
-					<%} %> <%if(!request.getAttribute("adminSearching").equals("admin")){%><form
+					<%} %> 
+				<%if(!request.getAttribute("adminSearching").equals("admin")){%><form
 						action="/Survey/studentSearch.st" method="post">
 						<%}else{ %>
 						<form action="/Survey/surveyStart.sv" method="post">
 							<% }%>
 							<input type="hidden" name="grade_class"
-								value="<%= list.get(i) %>"> <input type="hidden"
+								value="<%= list.get(i) %>"> 
+							<input type="hidden"
 								name="sch_code" value="<%= request.getAttribute("sch_code") %>">
 							<input type="hidden" name="sch_name"
-								value="<%= request.getAttribute("sch_name") %>"> <input
+								value="<%= request.getAttribute("sch_name") %>"> 
+							<input
 								type="submit" value="<%= (String) list.get(i) %>"
 								style="margin: 0% 0% 0% 15%"
 								class="btn btn-mod btn-circle btn-small">
