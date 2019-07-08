@@ -46,7 +46,12 @@ public class StudentTransferController implements Controller {
 		
 		TeacherDTO teacher = teaService.teacherInfo(tea_id);
 		StudentDTO student = stuService.getStudent(stu_name, tea_id, teacher.getSCID());
-		boolean stuTransf = stuService.studentTransfer(student);
+		
+		boolean stuTransf = false;
+		if(stu_name != "") {
+			stuTransf = stuService.studentTransfer(student);
+		}
+		
 		
 		if(stuTransf == true) {
 			PrintWriter script =response.getWriter();
