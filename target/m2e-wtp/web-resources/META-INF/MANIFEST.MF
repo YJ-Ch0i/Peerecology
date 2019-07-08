@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: yeong
 Build-Jdk: 11.0.1
+=======
+Built-By: 박형서
+Build-Jdk: 10.0.2
+>>>>>>> master
 Created-By: Maven Integration for Eclipse
 
