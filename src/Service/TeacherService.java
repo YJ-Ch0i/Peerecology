@@ -1,5 +1,7 @@
 package Service;
 
+import java.util.ArrayList;
+
 import User.UserDAO.*;
 import User.UserDTO.*;
 
@@ -36,5 +38,8 @@ public class TeacherService {
 	}
 	public boolean teacherSchoolUpdate(String scid, int grade, int grd_num, String tea_id) {
 		return dao.teacherSchoolUpdate(scid, grade, grd_num, tea_id);
+	}
+	public ArrayList<TeacherDTO> searchGradeUseTeacher(String scid) {
+		return dao.searchGradeUseTeacher(scid);
 	}
 }

@@ -1,9 +1,13 @@
 package User.UserDAO;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
-import User.UserDTO.*;
-import Util.*;
+import User.UserDTO.TeacherDTO;
+import Util.DBConn;
 
 public class TeacherDAO {
 	
@@ -245,5 +249,35 @@ public class TeacherDAO {
 		return false;
 	}
 	
-	
+	/**
+	 * 학교선택 후 학년 반 선택을 위한 검색
+	 * @param scid
+	 */
+	public ArrayList<TeacherDTO> searchGradeUseTeacher(String scid) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<TeacherDTO> list = new ArrayList<>();
+		
+		String sql = "SELECT * FROM user_teachers WHERE SCID=? ORDER BY grade, class";
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, scid);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				list.add(new TeacherDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getBoolean(7), rs.getString(8)));
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {			
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}	
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}			
+		}
+		return list;
+	}
 }

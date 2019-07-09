@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="Service.ClassService"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="User.UserDTO.StudentDTO"%>
 <!DOCTYPE html>
@@ -16,16 +15,16 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 <!-- Favicons -->
-<link rel="shortcut icon" href="/Survey/style/images/favicon.png">
+<link rel="shortcut icon" href="/PeerSys/style/images/favicon.png">
 
 <!-- CSS -->
-<link rel="stylesheet" href="/Survey/style/css/bootstrap.min.css">
-<link rel="stylesheet" href="/Survey/style/css/style.css">
-<link rel="stylesheet" href="/Survey/style/css/style-responsive.css">
-<link rel="stylesheet" href="/Survey/style/css/animate.min.css">
-<link rel="stylesheet" href="/Survey/style/css/vertical-rhythm.min.css">
-<link rel="stylesheet" href="/Survey/style/css/owl.carousel.css">
-<link rel="stylesheet" href="/Survey/style/css/magnific-popup.css">
+<link rel="stylesheet" href="/PeerSys/style/css/bootstrap.min.css">
+<link rel="stylesheet" href="/PeerSys/style/css/style.css">
+<link rel="stylesheet" href="/PeerSys/style/css/style-responsive.css">
+<link rel="stylesheet" href="/PeerSys/style/css/animate.min.css">
+<link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
+<link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
+<link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
 
 </head>
 <body class="appear-animate">
@@ -52,22 +51,22 @@
 				<% for(int i=0; i<list.size(); i++){
                     %>
 				<li class="work-item mix all">
-					<form action="/Survey/studentLogin.st" method="post">
+					<form id="form<%= list.get(i).getNum() %>" method="post">
 						<input type="hidden" name="stu_id"
-							value="<%=list.get(i).getStu_id() %>"> <input
-							type="hidden" name="grade_class"
-							value="<%= request.getAttribute("grade_class") %>"> <input
-							type="hidden" name="sch_name"
-							value="<%= request.getAttribute("sch_name") %>"> <input
-							type="hidden" name="stu_name"
-							value="<%= list.get(i).getStu_name() %>"> <input
-							type="hidden" name="class_id"
-							value="<%= list.get(i).getClass_id() %>"> <input
-							type="hidden" name="stu_num"
-							value="<%= list.get(i).getStu_num() %>"> <input
-							type="submit" value="<%= list.get(i).getStu_num() %>"
+							value="<%=list.get(i).getStu_id() %>"> 
+							<input type="hidden" name="grade"
+							value="<%= request.getAttribute("grade") %>"> 
+							<input type="hidden" name="grd_num"
+							value="<%= request.getAttribute("grd_num") %>">
+							<input type="hidden" name="sch_name"
+							value="<%= request.getAttribute("sch_name") %>"> 
+							<input type="hidden" name="stu_name"
+							value="<%= list.get(i).getName() %>">
+							<input type="hidden" name="stu_num"
+							value="<%= list.get(i).getNum() %>"> 
+							<input type="button" value="<%= list.get(i).getNum() %>"
 							style="margin: 10% 10% 10% 15%"
-							class="btn btn-mod btn-circle btn-small">
+							class="btn btn-mod btn-circle btn-small" onClick="checkStudent(this.form)">
 					</form>
 				</li>
 				<%} %>
@@ -93,47 +92,30 @@
 
 
 	<!-- JS -->
-	<script type="text/javascript"
-		src="/Survey/style/js/jquery-1.11.2.min.js"></script>
-	<script type="text/javascript"
-		src="/Survey/style/js/jquery.easing.1.3.js"></script>
-	<script type="text/javascript" src="/Survey/style/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/Survey/style/js/SmoothScroll.js"></script>
-	<script type="text/javascript"
-		src="/Survey/style/js/jquery.scrollTo.min.js"></script>
-	<script type="text/javascript"
-		src="/Survey/style/js/jquery.localScroll.min.js"></script>
-	<script type="text/javascript"
-		src="/Survey/style/js/jquery.viewport.mini.js"></script>
-	<script type="text/javascript" src="/Survey/style/js/jquery.countTo.js"></script>
-	<script type="text/javascript" src="/Survey/style/js/jquery.appear.js"></script>
-	<script type="text/javascript" src="/Survey/style/js/jquery.sticky.js"></script>
-	<script type="text/javascript"
-		src="/Survey/style/js/jquery.parallax-1.1.3.js"></script>
-	<script type="text/javascript" src="/Survey/style/js/jquery.fitvids.js"></script>
-	<script type="text/javascript"
-		src="/Survey/style/js/owl.carousel.min.js"></script>
-	<script type="text/javascript"
-		src="/Survey/style/js/isotope.pkgd.min.js"></script>
-	<script type="text/javascript"
-		src="/Survey/style/js/imagesloaded.pkgd.min.js"></script>
-	<script type="text/javascript"
-		src="/Survey/style/js/jquery.magnific-popup.min.js"></script>
-	<!-- Replace test API Key "AIzaSyAZsDkJFLS0b59q7cmW0EprwfcfUA8d9dg" with your own one below 
-        **** You can get API Key here - https://developers.google.com/maps/documentation/javascript/get-api-key -->
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZsDkJFLS0b59q7cmW0EprwfcfUA8d9dg"></script>
-	<script type="text/javascript" src="/Survey/style/js/gmap3.min.js"></script>
-	<script type="text/javascript" src="/Survey/style/js/wow.min.js"></script>
-	<script type="text/javascript"
-		src="/Survey/style/js/masonry.pkgd.min.js"></script>
-	<script type="text/javascript"
-		src="/Survey/style/js/jquery.simple-text-rotator.min.js"></script>
-	<script type="text/javascript" src="/Survey/style/js/all.js"></script>
-	<script type="text/javascript" src="/Survey/style/js/contact-form.js"></script>
-	<script type="text/javascript"
-		src="/Survey/style/js/jquery.ajaxchimp.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.easing.1.3.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/SmoothScroll.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.scrollTo.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.localScroll.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.viewport.mini.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.countTo.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.appear.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.sticky.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.parallax-1.1.3.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.fitvids.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/owl.carousel.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/isotope.pkgd.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/imagesloaded.pkgd.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.magnific-popup.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/wow.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/masonry.pkgd.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.simple-text-rotator.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/all.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/contact-form.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.ajaxchimp.min.js"></script>
 	<!--[if lt IE 10]><script type="text/javascript" src="js/placeholder.js"></script><![endif]-->
+	<script type="text/javascript" src="/PeerSys/style/js/studentTransfer.js"></script>
 
 </body>
 </html>

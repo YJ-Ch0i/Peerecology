@@ -168,8 +168,13 @@
                                 <td>
                                 	<%=transf %>
                                 </td>
-                                <td>                                 	
-                                	<a class="btn btn-mod btn-circle btn-small" href="/PeerSys/StudentTransfer.st?stu_name=<%=stu.getName() %>" onclick="transfer()" style="text-decoration:none"><i class="fa fa-times"></i><span class="hidden-xs">전학처리</span></a>                                                                                                                                             
+                                <td>                      
+                                	<form id="transForm<%= stu.getNum()%>" method="post">
+                                		<input type="hidden" name="stu_name" value="<%= stu.getName()%>">
+                                		<input type="hidden" name="stu_num" value="<%= stu.getNum()%>>">
+                                		<input type="button" class="btn btn-mod btn-circle btn-small" value="전학처리하기" onClick="transferProcess(this.form)">
+                                	</form>                                 	
+                                	<!-- <a class="btn btn-mod btn-circle btn-small" href="/PeerSys/StudentTransfer.st?stu_name=<%=stu.getName() %>" onclick="transfer()" style="text-decoration:none"><i class="fa fa-times"></i><span class="hidden-xs">전학처리</span></a> -->                                                                                                                                             
                                 </td>
                             <% } %>
                             </tr>

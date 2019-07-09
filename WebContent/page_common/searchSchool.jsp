@@ -60,7 +60,7 @@
 						<td><%= (String) list.get(i).getScaddress() %></td>
 						<td style="width: 150px"><%= list.get(i).getScname() %></td>
 						<td>
-							<form action="/Survey/findGradeToSchCode.cs" method="post">
+							<form action="/PeerSys/selectClass.st" method="post">
 								<input type="hidden" name="sch_code" value="<%=list.get(i).getScid() %>"> 
 								<input type="hidden" name="sch_name" value="<%=list.get(i).getScname() %>"> 
 								<input type="hidden" name="sch_address" value="<%= list.get(i).getScaddress() %>"> 
