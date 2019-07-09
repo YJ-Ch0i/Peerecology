@@ -7,6 +7,34 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<script language="javascript">
+
+function changeInput(offerSeq) 
+{
+if(offerSeq==-1)
+{
+	document.all('layer1').style.visibility="visible";
+}
+else
+{
+	document.all('layer1').style.visibility="hidden";
+	document.getElementById('inputBox').innerHTML = ""; 
+}
+}
+
+function addInput(offerSeq) {
+var strInput = "<br>";
+document.getElementById('inputBox').innerHTML = "";
+
+for (var i=1; i <= offerSeq; i++) {
+  strInput += "&nbsp;&nbsp; "+i+"번 내용: <input type=\"text\" name=\"type_OfferTitle"+i+"\" class=\"input-md form-control\" maxlength=\"100\"><br>";
+}
+
+document.getElementById('inputBox').innerHTML = strInput; 
+}
+</script>
+
 <title>Rhythm &mdash; One & Multi Page Creative Theme</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
@@ -57,15 +85,40 @@ queTypes = queSerivce.showAllType();
 			<%} %>
             
             <p></p>
-            유형 :   <select class="input-md form-control"> 
+           	 유형 :   
+           	<select class="input-md form-control" id="whatType" onChange="changeInput(this.value);"> 
 			<% for(int i=0; i<queTypes.size(); i++){ %>
-			<option><%=queTypes.get(i).getDescript() %></option>
+			<option value="<%=i%>"><%=queTypes.get(i).getDescript() %></option>
 			<%} %>
+			<option value="-1">직접 입력하기</option>
 			</select>
-     <p></p>
-            문항 이름 : <input type="text" name="trand_title" id="name" class="input-md form-control" maxlength="100">
-     <p></p>
-     
+			<p></p>
+			<div id="layer1" style="visibility:hidden">
+			질문 개수 :  <select name="offerSeq" class="input-md form-control" onChange="addInput(this.value);">
+										<option value="0">주관식</option>
+										<option value="0">또래지명</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                      </select>
+            </div>   
+			<div id="inputBox">
+			<br>
+			</div>
+		    <p></p>
+		          문항 이름 : <input type="text" name="trand_title" id="name" class="input-md form-control" maxlength="100">
+		    <p></p>
+      		역산 : 
+      		<select class="input-md form-control"> 
+			<option value="1"> 역산아니다.</option>
+			<option value="0"> 역산이다.</option>
+			</select>
+			<p></p>
+     		<input type="submit"  style="float:right" class="btn btn-mod btn-circle btn-medium" value="추가하기">
+			
             </div>
 			</section>
 	</div>

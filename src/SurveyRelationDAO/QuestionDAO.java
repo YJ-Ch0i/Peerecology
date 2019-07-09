@@ -72,7 +72,7 @@ public class QuestionDAO {
 			rs = stmt.executeQuery(SQL);
 			while(rs.next()) 
 			{
-				QuestionDTO questionDTO = new QuestionDTO(rs.getInt("QID"),rs.getString("title"),rs.getInt("Qtype"),rs.getInt("Ttype"));
+				QuestionDTO questionDTO = new QuestionDTO(rs.getInt("QID"),rs.getString("title"),rs.getInt("Qtype"),rs.getInt("Ttype"),rs.getBoolean("isReverseType"));
 				questions.add(questionDTO);
 			}
 		}catch(Exception e) {
@@ -87,12 +87,12 @@ public class QuestionDAO {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		
-		String SQL ="INSERT INTO q_type(descript,q_typeOfferSeq) VALUES (?)";
+		String SQL ="INSERT INTO q_type(descript,q_typeOfferSeq) VALUES (?,?)";
 		try {
 			conn =DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, typeTitle);
-			pstmt.setInt(1, offerSeq);
+			pstmt.setInt(2, offerSeq);
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -162,6 +162,27 @@ public class QuestionDAO {
 		}
 		return isSuccess;
 	}
+	public int queTypeOfferDelete(int typeNum) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		int isSuccess = 0;
+		String SQL ="DELETE FROM question_offer where q_typeID=?";
+		
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, typeNum);
+			pstmt.executeUpdate();
+			return isSuccess;
+		}catch(Exception e) {
+			isSuccess = -1;
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return isSuccess;
+	}
 	public void questionRegister(QuestionDTO questionDTO) {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -189,7 +210,7 @@ public class QuestionDAO {
 		String[] offerSplit = offers.split(",");
 		for(int i=0; i<offerSplit.length; i++)
 		{
-		String SQL ="INSERT INTO question_offer(q_typeID, QOfferSeq, title) VALUES (LAST_INSERT_ID(),?,?)";
+		String SQL ="INSERT INTO question_offer(q_typeID, QOfferSeq, title) VALUES ((SELECT MAX(q_typeID) FROM q_type),?,?)";
 		try {
 			conn =DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
@@ -206,8 +227,60 @@ public class QuestionDAO {
 		}
 		}
 	}
-
-	
+	public QuestionDTO showQuestion(int QID) {
+		Connection conn=null;	
+		Statement stmt = null;
+		QuestionDTO questionDTO = new QuestionDTO();
+		ResultSet rs = null;
+		String SQL ="SELECT * FROM question WHERE QID='"+QID+"'";
+		try {
+			conn =DBConn.getConnection();
+			stmt = conn.createStatement();
+            rs = stmt.executeQuery(SQL);
+			if(rs.next()) 
+			{
+				questionDTO.setQID(rs.getInt("QID"));
+				questionDTO.setTitle(rs.getString("title"));
+				questionDTO.setQType(rs.getInt("QType"));
+				questionDTO.setTtype(rs.getInt("Ttype"));
+				questionDTO.setReverseType(rs.getBoolean("isReverseType"));
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(stmt != null) try{stmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return questionDTO;
+	}
+	public ArrayList<QuestionOfferDTO> showQuestionOffer(int q_typeID) {
+		Connection conn=null;	
+		Statement stmt = null;
+		ArrayList<QuestionOfferDTO> questionOfferList = new ArrayList<QuestionOfferDTO>();
+		ResultSet rs = null;
+		String SQL ="SELECT * FROM question_offer WHERE q_typeID='"+q_typeID+"'";
+		try {
+			conn =DBConn.getConnection();
+			stmt = conn.createStatement();
+            rs = stmt.executeQuery(SQL);
+			while(rs.next()) 
+			{
+				QuestionOfferDTO questionOfferDTO = new QuestionOfferDTO();
+				questionOfferDTO.setQ_typeID(rs.getInt("q_typeID"));
+				questionOfferDTO.setqOfferSeq(rs.getInt("QOfferSeq"));
+				questionOfferDTO.setTitle(rs.getString("title"));
+				questionOfferList.add(questionOfferDTO);
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(stmt != null) try{stmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return questionOfferList;
+	}
 	
 }
 

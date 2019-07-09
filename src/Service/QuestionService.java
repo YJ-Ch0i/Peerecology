@@ -34,7 +34,16 @@ public class QuestionService {
 	public int queTypeDelete(int trandNum) {
 		return dao.queTypeDelete(trandNum);
 	}
+	public int queTypeOfferDelete(int typeNum){
+		return dao.queTypeOfferDelete(typeNum);
+	}
 	public void questionOfferRegister(int QoferSeq, String offers) {
 		dao.questionOfferRegister(QoferSeq, offers);
+	}
+	public ArrayList<QuestionOfferDTO> showQuestionOffer(int q_typeID) {
+		return dao.showQuestionOffer(q_typeID);
+	}
+	public QuestionDTO showQuestion(int QID) {
+		return dao.showQuestion(QID);
 	}
 }

@@ -35,6 +35,10 @@ public class TypeDeleteController implements Controller {
 				script.close();
 				return;
 			}
+			else 
+			{
+				queSerivce.queTypeOfferDelete(Integer.parseInt(deleteSplitValues[0]));
+			}
 		}
 		PrintWriter script = response.getWriter();
 		script.println("<script>");

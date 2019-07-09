@@ -14,7 +14,7 @@ var strInput = "";
 document.getElementById('inputBox').innerHTML = "";
 
 for (var i=1; i <= offerSeq; i++) {
-  strInput += "&nbsp;&nbsp; "+i+"번 내용: <input type=\"text\" name=\"type_OfferTitle"+i+" id=\"name\" class=\"input-md form-control\" maxlength=\"100\"><br><br>";
+  strInput += "&nbsp;&nbsp; "+i+"번 내용: <input type=\"text\" name=\"type_OfferTitle"+i+"\" class=\"input-md form-control\" maxlength=\"100\"><br><br>";
 }
 
 document.getElementById('inputBox').innerHTML = strInput; 
