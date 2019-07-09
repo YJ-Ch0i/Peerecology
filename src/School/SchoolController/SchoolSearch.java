@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,7 +12,7 @@ import Controller.Controller;
 import School.SchoolDTO.SchoolDTO;
 import Service.SchoolService;
 
-public class SchoolSearch implements Controller {
+public class SchoolSearch implements Controller{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,4 +53,5 @@ public class SchoolSearch implements Controller {
 			}
 		}
 	}
+
 }

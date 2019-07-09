@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="Service.QuestionService" %>
+<%@ page import="SurveyRelationDTO.QuestionTypeDTO" %>
+<%@ page import="java.util.*" %>
+<%@ page import="SurveyRelationDTO.*" %>
 <!DOCTYPE html>
 <html>
 <head>
+
+</script>
 <title>Rhythm &mdash; One & Multi Page Creative Theme</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
@@ -17,115 +23,76 @@
 
 <!-- CSS -->
 <link rel="stylesheet" href="/PeerSys/style/css/bootstrap.min.css">
-<link rel="stylesheet" href="/PeerSys/style/css/style.css">
+<link rel="stylesheet" href="/PeerSys/style/css/style.css?version=1">
 <link rel="stylesheet" href="/PeerSys/style/css/style-responsive.css">
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-2.1.0.min.js?ver=1"></script>
-
 
 </head>
 <body class="appear-animate">
 
+<%
+int QID = 0;
+if(request.getParameter("numbering") != null)
+{
+	QID = Integer.parseInt(request.getParameter("numbering"));
+}
+%>
 	<!-- Page Loader -->
 	<div class="page-loader">
 		<div class="loader">Loading...</div>
 	</div>
 	<!-- End Page Loader -->
-
+<%
+QuestionService queService = QuestionService.getInstance();
+QuestionDTO questionDTO = queService.showQuestion(QID);
+ArrayList<QuestionOfferDTO> questionOfferList = queService.showQuestionOffer(questionDTO.getQType());
+ArrayList<QuestionTrandTypeDTO> queTrands = queService.showAllTrand();
+ArrayList<QuestionTypeDTO> queTypes = queService.showAllType();
+%>
 	<!-- Page Wrap -->
 	<div class="page" id="top">
-		<!-- Section -->
-		<section class="page-section">
-			<div class="container relative">
-
-				<!-- Row -->
-				<div class="row">
-
-					<div class="col-sm-6 mb-xs-40">
-
-						<!-- Toggle -->
-						<dl class="toggle">
-
-							<div class="firstOption">
-								또래지명 <label class="radio-inline"> <input type="radio"
-									onclick="display1()" name="que_type" value="또래지명"> <img
-									width="200%" height="200%"
-									src="/PeerSys/style/img/ex_ddorae.png">
-								</label>
-							</div>
-							<div class="firstOption">
-								N지 선다(N개 보기 변경) <label class="radio-inline"> <input
-									type="radio" onclick="display2()" name="que_type"
-									value="N지 선다(N개 보기 변경)"> <img width="200%"
-									height="200%" src="/PeerSys/style/img/ex_Nselect_version2.png">
-								</label>
-
-							</div>
-
-							<div class="firstOption">
-								N지 선다(체크 형식) <label class="radio-inline"> <input
-									type="radio" name="que_type" id="que_type" onclick="display4()"
-									value="N지 선다(체크 형식)"> <img width="200%" height="200%"
-									src="/PeerSys/style/img/ex_Nselect_version2.png">
-								</label>
-							</div>
-
-							<div class="firstOption">
-								N지 선다(2개 보기 변경) <label class="radio-inline"> <input
-									type="radio" onclick="display3()" name="que_type"
-									value="N지 선다(2개 보기 변경)"> <img width="200%"
-									height="200%" src="/PeerSys/style/img/ex_Nselect_version5.png">
-								</label>
-							</div>
-							<div class="firstOption">
-								주관식 <label class="radio-inline"> <input type="radio"
-									name="que_type" id="que_type" onclick="display5()" value="주관식">
-									<img width="200%" height="200%"
-									src="/PeerSys/style/img/ex_subjective_question.png">
-								</label>
-							</div>
-							<div id="option1" style="display: none">
-								<%@ include file="../include/surveyType1.jsp"%>
-							</div>
-							<div id="option2" style="display: none">
-								<%@ include file="../include/surveyType2.jsp"%>
-							</div>
-							<div id="option3" style="display: none">
-								<%@ include file="../include/surveyType3.jsp"%>
-							</div>
-							<div id="option4" style="display: none">
-								<%@ include file="../include/surveyType4.jsp"%>
-							</div>
-							<div id="option5" style="display: none">
-								<%@ include file="../include/surveyType5.jsp"%>
-							</div>
-
-						</dl>
-						<!-- End Toggle -->
-					</div>
-
-					<!-- End Col -->
-
-				</div>
-				<!-- End Row -->
-
-			</div>
-		</section>
-		<!-- End Section -->
-
+			<section class="page-section" >
+			<form method="post" action="/PeerSys/questionUpdate.qs" id="form" role="form">
+			
+			<div class="row">
+			성향 : 
+			<select class="input-md form-control"> 
+			<% for(int i=0; i<queTrands.size(); i++){ %>
+			<option <% if(queTrands.get(i).getQ_trandType()==questionDTO.getTtype()) {%> selected <%} %> ><%=queTrands.get(i).getQ_trandDescipt() %></option>
+			<%} %>
+			</select>
+			<p></p>
+			 유형 :   
+           	<select class="input-md form-control"> 
+			<% for(int i=0; i<queTypes.size(); i++){ %>
+			<option <% if(queTypes.get(i).getQ_typeID()==questionDTO.getQType()) {%> selected <%} %>> <%=queTypes.get(i).getDescript() %></option>
+			<%} %>
+			</select>
+			<p></p>
+			<% if(questionOfferList.size()!=0){ %>
+			<% for(int i=0; i<questionOfferList.size(); i++){ %>
+			<%= i+1 %>번 문항 : <%= questionOfferList.get(i).getTitle() %> <p></p>
+			<%} %>
+			<%} %>
+			
+			<p></p>
+          	 문항 이름 : <input type="text" name="trand_title" id="name" class="input-md form-control" maxlength="100" value="<%=questionDTO.getTitle() %>">
+     		<p></p>
+     		역산 : 
+      		<select class="input-md form-control"> 
+			<option <% if(questionDTO.isReverseType() ==true) {%> selected <%} %> value="1"> 역산아니다.</option>
+			<option <% if(questionDTO.isReverseType() ==false) {%> selected <%} %> value="0"> 역산이다.</option>
+			</select>
+			<p></p>
+     		<input type="submit"  style="float:right" class="btn btn-mod btn-medium btn-round" value="수정하기">
+            </div>
+            </form>
+            </section>
 	</div>
-	<!-- End Page Wrap -->
-
-
 
 	<!-- JS -->
-	<script type="text/javascript"
-		src="/PeerSys/style/js/showSurvey.js?ver=9"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/surveyTypeDisplay.js?ver=6"></script>
 	<script type="text/javascript"
 		src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript"

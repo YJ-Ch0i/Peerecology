@@ -14,7 +14,7 @@ var strInput = "";
 document.getElementById('inputBox').innerHTML = "";
 
 for (var i=1; i <= offerSeq; i++) {
-  strInput += "&nbsp;&nbsp; "+i+"번 내용: <input type=\"text\" name=\"type_OfferTitle"+i+" id=\"name\" class=\"input-md form-control\" maxlength=\"100\"><br><br>";
+  strInput += "&nbsp;&nbsp; "+i+"번 내용: <input type=\"text\" name=\"type_OfferTitle"+i+"\" class=\"input-md form-control\" maxlength=\"100\"><br><br>";
 }
 
 document.getElementById('inputBox').innerHTML = strInput; 
@@ -78,7 +78,7 @@ document.getElementById('inputBox').innerHTML = strInput;
             <div id="inputBox">
             
             </div>
-			<input type="submit" style="float:right;" class="btn btn-mod btn-circle btn-medium" value="추가하기">
+			<input type="submit" style="float:right;" class="btn btn-mod btn-medium btn-round" value="추가하기">
 			
 			</form>
 			</div>

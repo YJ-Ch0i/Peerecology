@@ -24,16 +24,16 @@ public class TeacherRegistController implements Controller {
 		String t_mail = ""; String t_pass = ""; String t_rePass = "";
 		
 		if(request.getParameter("tea_id") !=""){
-			t_mail = (String) request.getParameter("tea_id");
+			t_mail = request.getParameter("tea_id");
 		}
 		if(request.getParameter("tea_pass") !=""){
-			t_pass = (String) request.getParameter("tea_pass");
+			t_pass = request.getParameter("tea_pass");
 		}
 		if(request.getParameter("re-pass") !=""){
-			t_rePass = (String) request.getParameter("re-pass");
+			t_rePass = request.getParameter("re-pass");
 		}
 		if(request.getParameter("tea_name") !=""){
-			t_name = (String) request.getParameter("tea_name");
+			t_name = request.getParameter("tea_name");
 		}
 
 		Calendar currentCalendar = Calendar.getInstance();

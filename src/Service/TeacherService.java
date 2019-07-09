@@ -1,7 +1,7 @@
 package Service;
 
-import User.UserDAO.TeacherDAO;
-import User.UserDTO.TeacherDTO;
+import User.UserDAO.*;
+import User.UserDTO.*;
 
 public class TeacherService {
 

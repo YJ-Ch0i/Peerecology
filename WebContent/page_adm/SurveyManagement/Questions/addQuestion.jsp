@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="Service.QuestionService" %>
-<%@ page import="SurveyRelationDTO.QuestionTrandTypeDTO" %>
+<%@ page import="SurveyRelationDTO.*" %>
 <%@ page import="java.util.*" %>
 
 <!DOCTYPE html>
@@ -30,7 +30,9 @@
 </head>
 <body class="appear-animate">
 <% 
-
+QuestionService queSerivce = QuestionService.getInstance(); 
+ArrayList<QuestionTypeDTO> types = new ArrayList<QuestionTypeDTO>();
+types = queSerivce.showAllType();
 %>
 	<!-- Page Loader -->
 	<div class="page-loader">
@@ -40,19 +42,46 @@
 
 	<!-- Page Wrap -->
 	<div class="page" id="top">
-			<section class="page-section" >
-			<div class="row">
-                                
-			<form method="post" action="/PeerSys/trandAdd.qs" id="form" role="form">
+			<section class="page-section">
+			<div class="container relative">
+
+				<!-- Row -->
+				
+<% 
+ArrayList<QuestionDTO> questions = new ArrayList<QuestionDTO>();
+ArrayList<QuestionTrandTypeDTO> queTypes = new ArrayList<QuestionTrandTypeDTO>();
+queTypes = queSerivce.showAllTrand();
+questions = queSerivce.showAllQuestion();
+%>
+					<form method="POST" action="/PeerSys/questionAdd.qs" id="form" role="form">
+			 
+					<div class="works-filter font-alt">
+					
+					<a href="#" class="filter active" data-filter="*"><모든 문항></a> 
+					<% for(int i=0; i<queTypes.size(); i++){ %>
+					
+                    <a href="#<%=queTypes.get(i).getQ_trandType()%>" class="filter" data-filter=".<%=queTypes.get(i).getQ_trandType()%>"> < <%=queTypes.get(i).getQ_trandDescipt()%> >
+                    </a>
+                    <%} %>
+                    </div>
+                    
+                <ul class="works-grid work-grid-5 clearfix font-alt hover-white hide-titles" id="work-grid">
+                    <% for(int i=0; i<questions.size(); i++){ %>
+                     <li class="work-item mix <%=questions.get(i).getTtype() %>">
+                    <div class="mb-20 mb-md-10">
+                                    <label class="checkbox-inline">
+                                         <input type="checkbox" name="" id="inlineCheckbox1" value=""><%=questions.get(i).getTitle() %>
+                                    </label>
+                     
+                     </div>
+                     </li>
+                    <%} %>
+                </ul>
+                 <input type="submit" style="float:right" class="btn btn-mod btn-medium btn-round" value="추가하기">
+                 </form>
+			</div>
 			
-			<div class="mb-20 mb-md-10">
-										<!-- Name -->
-			<label>성향 이름 : <input type="text" name="trand_title" id="name" class="input-md form-control" maxlength="100"></label>
-			<input type="submit"  class="btn btn-mod btn-medium btn-round" value="추가하기">
-			</div>
-			</form>
-			</div>
-			</section>
+		</section>
 	</div>
 
 	<!-- JS -->

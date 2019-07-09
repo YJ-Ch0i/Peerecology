@@ -83,7 +83,8 @@ questions = queSerivce.showAllQuestion();
                 <ul class="works-grid work-grid-5 clearfix font-alt hover-white hide-titles" id="work-grid">
                     <% for(int i=0; i<questions.size(); i++){ %>
                         <li class="work-item mix <%=questions.get(i).getTtype() %>">
-                    <%=questions.get(i).getTitle() %> 
+                    <a href="showQuestion.jsp?numbering=<%=questions.get(i).getQID() %>" style="margin:5%;" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">
+                    <%=questions.get(i).getTitle() %> </a>
                         </li>
                     <%} %>
                 </ul>

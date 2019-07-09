@@ -5,15 +5,24 @@ public class QuestionDTO {
 	private String title;
 	private int QType;
 	private int Ttype;
-	private int QOfferSeq;
-	private String offerTitle;
+	private boolean isReverseType;
 	
-	
-	public QuestionDTO(int QID, String title, int QType, int Ttype) {
+	public QuestionDTO(int QID, String title, int QType, int Ttype, boolean isReverseType) {
 		this.QID = QID;
 		this.title = title;
 		this.QType = QType;
 		this.Ttype = Ttype;
+		this.setReverseType(isReverseType);
+	}
+	public QuestionDTO(String title, int QType, int Ttype, boolean isReverseType) {
+		
+		this.title = title;
+		this.QType = QType;
+		this.Ttype = Ttype;
+		this.setReverseType(isReverseType);
+	}
+	public QuestionDTO() 
+	{
 	}
 	public int getQID() {
 		return QID;
@@ -39,16 +48,10 @@ public class QuestionDTO {
 	public void setTtype(int ttype) {
 		Ttype = ttype;
 	}
-	public int getQOfferSeq() {
-		return QOfferSeq;
+	public boolean isReverseType() {
+		return isReverseType;
 	}
-	public void setQOfferSeq(int qOfferSeq) {
-		QOfferSeq = qOfferSeq;
-	}
-	public String getOfferTitle() {
-		return offerTitle;
-	}
-	public void setOfferTitle(String offerTitle) {
-		this.offerTitle = offerTitle;
+	public void setReverseType(boolean isReverseType) {
+		this.isReverseType = isReverseType;
 	}
 }

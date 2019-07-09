@@ -5,8 +5,8 @@
 <%@ page import="java.util.Enumeration"%>
 <%@ page import="User.UserDTO.TeacherDTO" %>
 <% String tea_id = (String)session.getAttribute("tea_id"); 
-	String uploadPath = request.getSession().getServletContext().getRealPath("/upload/");
-	String realUploadPath = uploadPath.substring(12);
+   String uploadPath = request.getSession().getServletContext().getRealPath("/upload/");
+   String realUploadPath = uploadPath.substring(12);
    TeacherService teacherService = TeacherService.getInstance();
    TeacherDTO teacherDTO = new TeacherDTO();
    teacherDTO = teacherService.teacherInfo(tea_id);

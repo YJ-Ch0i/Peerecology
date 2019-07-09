@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import Controller.Controller;
 import Service.TeacherService;
-import User.UserDTO.TeacherDTO;
 import Util.SHA256;
 
 public class EmailCheckController implements Controller {

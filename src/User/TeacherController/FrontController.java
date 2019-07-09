@@ -16,6 +16,7 @@ public class FrontController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	HashMap<String, Controller> list = null;
 	
+	@Override
 	public void init(ServletConfig config) throws ServletException {
 		
 		list = new HashMap<String, Controller>();
@@ -27,6 +28,7 @@ public class FrontController extends HttpServlet{
 		list.put("/classAdd.tc", new AddClassController());
 		}
 		
+	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		  response.setCharacterEncoding("euc-kr");  request.setCharacterEncoding("UTF-8");
 		  String url = request.getRequestURI();

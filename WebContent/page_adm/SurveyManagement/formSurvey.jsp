@@ -64,10 +64,10 @@
 
 					<div class="col-sm-6 mb-xs-40">
 						
-						<button onclick="location.href='SurveyAddPage.jsp'"
-							class="btn btn-mod btn-circle btn-large" style="margin: 0 auto">설문조사 추가하기</button>
+						<button onclick="location.href='versionAddPage.jsp'"
+							class="btn btn-mod btn-border btn-large btn-round" style="margin: 0 auto">설문조사 추가하기</button>
 						<button onclick="location.href='Questions/QuestionPage.jsp'"
-							class="btn btn-mod btn-circle btn-large" style="margin: 0 auto">설문문항 추가하기</button>
+							class="btn btn-mod btn-border btn-large btn-round" style="margin: 0 auto">설문문항 추가하기</button>
 
 					</div>
 

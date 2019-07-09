@@ -2,9 +2,8 @@ package Service;
 
 import java.util.ArrayList;
 
-import User.UserDAO.StudentDAO;
-import User.UserDTO.StudentDTO;
-import User.UserDTO.StudentItem;
+import User.UserDAO.*;
+import User.UserDTO.*;
 
 public class StudentService {
 	private static StudentService service = new StudentService();

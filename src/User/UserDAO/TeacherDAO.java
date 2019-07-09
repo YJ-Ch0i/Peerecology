@@ -1,15 +1,9 @@
 package User.UserDAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
-import java.util.Calendar;
+import java.sql.*;
 
-import User.UserDTO.TeacherDTO;
-import Util.DBConn;
+import User.UserDTO.*;
+import Util.*;
 
 public class TeacherDAO {
 	
