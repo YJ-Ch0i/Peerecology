@@ -2,7 +2,7 @@ package Service;
 
 import java.util.ArrayList;
 
-import SurveyRelationDAO.QuestionDAO;
+import SurveyRelationDAO.*;
 import SurveyRelationDTO.*;
 
 

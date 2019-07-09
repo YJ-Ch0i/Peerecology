@@ -1,19 +1,13 @@
 package User.UserDAO;
 
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.sql.*;
+import java.util.*;
 
 import com.opencsv.CSVReader;
 
-import User.UserDTO.StudentDTO;
-import User.UserDTO.StudentItem;
-import Util.DBConn;
+import User.UserDTO.*;
+import Util.*;
 
 public class StudentDAO {
 

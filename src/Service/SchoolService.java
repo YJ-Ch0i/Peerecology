@@ -2,8 +2,8 @@ package Service;
 
 import java.util.ArrayList;
 
-import School.SchoolDAO.SchoolDAO;
-import School.SchoolDTO.SchoolDTO;
+import School.SchoolDAO.*;
+import School.SchoolDTO.*;
 
 public class SchoolService {
 	private static SchoolService service = new SchoolService();

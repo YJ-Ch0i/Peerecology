@@ -45,10 +45,10 @@ public class AddClassController implements Controller {
 	       tea_id = (String) session.getAttribute("tea_id");
 	    }	    
 	    if(request.getParameter("sch_name") != ""){
-	       sch_name = (String) request.getParameter("sch_name");
+	       sch_name = request.getParameter("sch_name");
 	    }
 	    if(request.getParameter("sch_code") != ""){
-	       sch_code = (String) request.getParameter("sch_code");
+	       sch_code = request.getParameter("sch_code");
 	    }
 	    if(request.getParameter("grade_num") != ""){
 		   grade = Integer.parseInt(request.getParameter("grade_num"));
@@ -57,7 +57,7 @@ public class AddClassController implements Controller {
 		   grd_num = Integer.parseInt(request.getParameter("class_num"));
 	    }
 	    if(request.getParameter("sch_address") !=""){
-	       sch_address = (String) request.getParameter("sch_address");
+	       sch_address = request.getParameter("sch_address");
 	    }
 	    if(session.getAttribute("file_name") != ""){
 	       file_name = session.getAttribute("file_name").toString();

@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import SurveyRelationDTO.*;
-import Util.DBConn;
+import Util.*;
 
 public class QuestionDAO {
 	
