@@ -25,13 +25,16 @@ public class QuestionService {
 	public void queTrandRegister(String trandTitle){
 		dao.queTrandRegister(trandTitle);
 	}
-	public void queTypeRegister(String typeTitle){
-		dao.queTypeRegister(typeTitle);
+	public void queTypeRegister(String typeTitle, int offerSeq){
+		dao.queTypeRegister(typeTitle, offerSeq);
 	}
 	public int queTrandDelete(int trandNum) {
 		return dao.queTrandDelete(trandNum);
 	}
 	public int queTypeDelete(int trandNum) {
 		return dao.queTypeDelete(trandNum);
+	}
+	public void questionOfferRegister(int QoferSeq, String offers) {
+		dao.questionOfferRegister(QoferSeq, offers);
 	}
 }

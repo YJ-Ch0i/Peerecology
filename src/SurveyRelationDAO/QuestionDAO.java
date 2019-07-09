@@ -83,15 +83,16 @@ public class QuestionDAO {
 		}
 		return questions;
 	}
-	public void queTypeRegister(String typeTitle) {
+	public void queTypeRegister(String typeTitle, int offerSeq) {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		
-		String SQL ="INSERT INTO q_type(descript) VALUES (?)";
+		String SQL ="INSERT INTO q_type(descript,q_typeOfferSeq) VALUES (?)";
 		try {
 			conn =DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, typeTitle);
+			pstmt.setInt(1, offerSeq);
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -182,17 +183,17 @@ public class QuestionDAO {
 		}
 	}
 	
-	public void questionOfferRegister(QuestionDTO questionDTO, String offers) {
-		Connection conn=null;
+	public void questionOfferRegister(int QoferSeq, String offers) {
+		Connection conn=null;	
 		PreparedStatement pstmt=null;
 		String[] offerSplit = offers.split(",");
 		for(int i=0; i<offerSplit.length; i++)
 		{
-		String SQL ="INSERT INTO question_offer(QID, QOfferSeq, title) VALUES (LAST_INSERT_ID(),?,?)";
+		String SQL ="INSERT INTO question_offer(q_typeID, QOfferSeq, title) VALUES (LAST_INSERT_ID(),?,?)";
 		try {
 			conn =DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, i);
+			pstmt.setInt(1, i+1);
 			pstmt.setString(2, offerSplit[i]);
 			
 			pstmt.executeUpdate();

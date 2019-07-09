@@ -16,6 +16,10 @@ public class TypeAddController implements Controller {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String type_title = request.getParameter("type_title");
+		String strOfferSeq = request.getParameter("offerSeq");
+		int offerSeq = Integer.parseInt(strOfferSeq);
+		
+		
 		if(type_title=="")
 		{
 			PrintWriter script = response.getWriter();
@@ -28,8 +32,19 @@ public class TypeAddController implements Controller {
 		}
 		else 
 		{
+			
 			QuestionService queService = QuestionService.getInstance();
-			queService.queTypeRegister(type_title);
+			queService.queTypeRegister(type_title, offerSeq);
+			
+			if(offerSeq!=0)
+			{
+				String titles = "";
+				for(int i=0; i<offerSeq; i++)
+				{
+					titles += request.getParameter("type_OfferTitle")+",";
+				}
+				queService.questionOfferRegister(offerSeq,titles);
+			}
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('Success!')");

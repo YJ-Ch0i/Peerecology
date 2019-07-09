@@ -7,6 +7,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script language="javascript">
+
+function addInput(offerSeq) {
+var strInput = "";
+document.getElementById('inputBox').innerHTML = "";
+
+for (var i=1; i <= offerSeq; i++) {
+  strInput += "&nbsp;&nbsp; "+i+"번 내용: <input type=\"text\" name=\"type_OfferTitle"+i+" id=\"name\" class=\"input-md form-control\" maxlength=\"100\"><br><br>";
+}
+
+document.getElementById('inputBox').innerHTML = strInput; 
+}
+
+</script>
 <title>Rhythm &mdash; One & Multi Page Creative Theme</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
@@ -45,12 +59,27 @@
                                 
 			<form method="post" action="/PeerSys/typeAdd.qs" id="form" role="form">
 			
-			<div class="mb-20 mb-md-10">
+			
 										
-			<label>유형 이름 : <input type="text" name="type_title" id="name" class="input-md form-control" maxlength="100"></label>
-			<label>질문 개수 : <input type="text" name="type_title" id="name" class="input-md form-control" maxlength="100"></label>
-			<input type="submit"  class="btn btn-mod btn-circle btn-medium" value="추가하기">
-			</div>
+			유형 이름 : <input type="text" name="type_title" id="name" class="input-md form-control" maxlength="100">
+			<p></p> 
+			질문 개수 :  <select name="offerSeq" class="input-md form-control" onChange="addInput(this.value);">
+										<option value="0">주관식</option>
+										<option value="0">또래지명</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                      </select>
+                      
+            <p></p>
+            <div id="inputBox">
+            
+            </div>
+			<input type="submit" style="float:right;" class="btn btn-mod btn-circle btn-medium" value="추가하기">
+			
 			</form>
 			</div>
 			</section>
