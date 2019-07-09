@@ -48,7 +48,7 @@
 			<div class="mb-20 mb-md-10">
 										<!-- Name -->
 			<label>성향 이름 : <input type="text" name="trand_title" id="name" class="input-md form-control" maxlength="100"></label>
-			<input type="submit"  class="btn btn-mod btn-circle btn-medium" value="추가하기">
+			<input type="submit"  class="btn btn-mod btn-medium btn-round" value="추가하기">
 			</div>
 			</form>
 			</div>

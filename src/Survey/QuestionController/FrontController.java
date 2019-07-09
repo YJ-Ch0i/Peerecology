@@ -19,6 +19,7 @@ public class FrontController  extends HttpServlet{
 	public void init(ServletConfig config) throws ServletException {
 		
 		list = new HashMap<String, Controller>();
+		list.put("/questionAdd.qs", new QuestionAddController());
 		list.put("/trandDelete.qs", new TrandDeleteController());
 		list.put("/trandAdd.qs", new TrandAddController());
 		list.put("/typeAdd.qs", new TypeAddController());

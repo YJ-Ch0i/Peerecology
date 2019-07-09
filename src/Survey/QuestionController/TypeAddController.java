@@ -42,7 +42,6 @@ public class TypeAddController implements Controller {
 				for(int i=0; i<offerSeq; i++)
 				{
 					titles += request.getParameter("type_OfferTitle"+(i+1))+",";
-					System.out.println(request.getParameter("type_OfferTitle1"));
 				}
 				queService.questionOfferRegister(offerSeq,titles);
 			}

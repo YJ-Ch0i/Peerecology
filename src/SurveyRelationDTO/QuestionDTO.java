@@ -14,6 +14,13 @@ public class QuestionDTO {
 		this.Ttype = Ttype;
 		this.setReverseType(isReverseType);
 	}
+	public QuestionDTO(String title, int QType, int Ttype, boolean isReverseType) {
+		
+		this.title = title;
+		this.QType = QType;
+		this.Ttype = Ttype;
+		this.setReverseType(isReverseType);
+	}
 	public QuestionDTO() 
 	{
 	}

@@ -58,7 +58,7 @@ types = queSerivce.showAllType();
 			 <%} %>
 			 </ul>
 			 <p style="clear:both;"></p>
-			 <input type="submit"  style="float:right" class="btn btn-mod btn-circle btn-medium" value="삭제하기">
+			 <input type="submit"  style="float:right" class="btn btn-mod btn-medium btn-round" value="삭제하기">
 			</form>
 			</div>
 			</section>

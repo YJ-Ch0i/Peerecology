@@ -78,7 +78,7 @@ document.getElementById('inputBox').innerHTML = strInput;
             <div id="inputBox">
             
             </div>
-			<input type="submit" style="float:right;" class="btn btn-mod btn-circle btn-medium" value="추가하기">
+			<input type="submit" style="float:right;" class="btn btn-mod btn-medium btn-round" value="추가하기">
 			
 			</form>
 			</div>

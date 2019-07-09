@@ -14,21 +14,33 @@ function changeInput(offerSeq)
 {
 if(offerSeq==-1)
 {
-	document.all('layer1').style.visibility="visible";
+	var strInput = "&nbsp; 유형 이름 : <input type=\"text\" name=\"type_title\" id=\"name\" class=\"input-md form-control\" maxlength=\"100\"><p><p/>"
+		+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 질문 개수 : <select name=\"offerSeq\" class=\"input-md form-control\" onChange=\"addInput(this.value);\">"
+		+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;						<option value=\"0\">주관식</option>"
+		+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;						<option value=\"0\">또래지명</option>"
+	    +"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                      <option value=\"1\">1</option>"
+	    +"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                      <option value=\"2\">2</option>"
+	    +"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                      <option value=\"3\">3</option>"
+	    +"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                      <option value=\"4\">4</option>"
+	    +"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                      <option value=\"5\">5</option>"
+	    +"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                      <option value=\"6\">6</option>"
+	    +"          </select>"
+	    +"<p></p>";
+	document.getElementById('isSelectCreate').innerHTML=strInput;
 }
 else
 {
-	document.all('layer1').style.visibility="hidden";
+	document.getElementById('isSelectCreate').innerHTML="";
 	document.getElementById('inputBox').innerHTML = ""; 
 }
 }
 
 function addInput(offerSeq) {
-var strInput = "<br>";
+var strInput = "";
 document.getElementById('inputBox').innerHTML = "";
 
 for (var i=1; i <= offerSeq; i++) {
-  strInput += "&nbsp;&nbsp; "+i+"번 내용: <input type=\"text\" name=\"type_OfferTitle"+i+"\" class=\"input-md form-control\" maxlength=\"100\"><br>";
+  strInput += "&nbsp;&nbsp; "+i+"번 내용: <input type=\"text\" name=\"type_OfferTitle"+i+"\" class=\"input-md form-control\" maxlength=\"100\"> <p></p>";
 }
 
 document.getElementById('inputBox').innerHTML = strInput; 
@@ -73,52 +85,54 @@ queTypes = queSerivce.showAllType();
 	<div class="page" id="top">
 			<section class="page-section">
 			<div class="row">
+			<form method="post" action="/PeerSys/questionAdd.qs" id="form" role="form">
 			<% if(queTrands.size()!=0) {%>
-			 성향 : <select class="input-md form-control"> 
+			 성향 : <select name="que_trandTypeID" class="input-md form-control"> 
 			<% for(int i=0; i<queTrands.size(); i++){ %>
-			<option><%=queTrands.get(i).getQ_trandDescipt() %></option>
-			
+			<option value="<%=queTrands.get(i).getQ_trandType()%>"><%=queTrands.get(i).getQ_trandDescipt() %></option>
 			<%} %></select>
 			<%}else{ %>
 			<script> alert('성향을 먼저 만들어 주세요.'); </script>
-			<script> location.href = 'QuestionTrandAddPage.jsp' </script>
+			<script> location.href = 'TrandAddPage.jsp' </script>
 			<%} %>
-            
             <p></p>
            	 유형 :   
-           	<select class="input-md form-control" id="whatType" onChange="changeInput(this.value);"> 
+           	<select class="input-md form-control" name="que_typeID" id="whatType" onChange="changeInput(this.value);"> 
 			<% for(int i=0; i<queTypes.size(); i++){ %>
-			<option value="<%=i%>"><%=queTypes.get(i).getDescript() %></option>
+			<option value="<%=queTypes.get(i).getQ_typeID() %>"><%=queTypes.get(i).getDescript() %></option>
 			<%} %>
-			<option value="-1">직접 입력하기</option>
+			<option value="-1" selected>직접 입력하기</option>
 			</select>
 			<p></p>
-			<div id="layer1" style="visibility:hidden">
-			질문 개수 :  <select name="offerSeq" class="input-md form-control" onChange="addInput(this.value);">
+			<div id="isSelectCreate">
+			&nbsp;&nbsp;&nbsp;유형 이름 : <input type="text" name="type_title" id="name" class="input-md form-control" maxlength="100">
+			<p></p> 
+			&nbsp;&nbsp;&nbsp;질문 개수 :  <select name="offerSeq" class="input-md form-control" onChange="addInput(this.value);">
 										<option value="0">주관식</option>
 										<option value="0">또래지명</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                      </select>
+			                            <option value="1">1</option>
+			                            <option value="2">2</option>
+			                            <option value="3">3</option>
+			                            <option value="4">4</option>
+			                            <option value="5">5</option>
+			                            <option value="6">6</option>
+			          </select>
+          
+			<p></p>
             </div>   
 			<div id="inputBox">
-			<br>
 			</div>
-		    <p></p>
-		          문항 이름 : <input type="text" name="trand_title" id="name" class="input-md form-control" maxlength="100">
+			<p></p>
+		          문항 이름 : <input type="text" name="que_title" id="name" class="input-md form-control" maxlength="100">
 		    <p></p>
       		역산 : 
-      		<select class="input-md form-control"> 
+      		<select name="isReverseType" class="input-md form-control"> 
 			<option value="1"> 역산아니다.</option>
 			<option value="0"> 역산이다.</option>
 			</select>
 			<p></p>
-     		<input type="submit"  style="float:right" class="btn btn-mod btn-circle btn-medium" value="추가하기">
-			
+     		<input type="submit"  style="float:right" class="btn btn-mod btn-medium btn-round" value="추가하기">
+			</form>
             </div>
 			</section>
 	</div>

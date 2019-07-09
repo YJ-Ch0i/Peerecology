@@ -187,14 +187,14 @@ public class QuestionDAO {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		
-		String SQL ="INSERT INTO question(title, QType, Ttype) VALUES (?,?,?,?)";
+		String SQL ="INSERT INTO question(title, QType, Ttype,isReverseType) VALUES (?,?,?,?)";
 		try {
 			conn =DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, questionDTO.getTitle());
 			pstmt.setInt(2, questionDTO.getQType());
 			pstmt.setInt(3, questionDTO.getTtype());
-			
+			pstmt.setBoolean(4, questionDTO.isReverseType());
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -203,7 +203,25 @@ public class QuestionDAO {
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
 	}
-	
+	public void questionDifferentRegister(QuestionDTO questionDTO) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		
+		String SQL ="INSERT INTO question(title, QType, Ttype,isReverseType) VALUES (?,(SELECT MAX(q_typeID) FROM q_type),?,?)";
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, questionDTO.getTitle());
+			pstmt.setInt(2, questionDTO.getTtype());
+			pstmt.setBoolean(3, questionDTO.isReverseType());
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+	}
 	public void questionOfferRegister(int QoferSeq, String offers) {
 		Connection conn=null;	
 		PreparedStatement pstmt=null;

@@ -86,7 +86,7 @@ ArrayList<QuestionTypeDTO> queTypes = queService.showAllType();
 			<option <% if(questionDTO.isReverseType() ==false) {%> selected <%} %> value="0"> 역산이다.</option>
 			</select>
 			<p></p>
-     		<input type="submit"  style="float:right" class="btn btn-mod btn-circle btn-medium" value="수정하기">
+     		<input type="submit"  style="float:right" class="btn btn-mod btn-medium btn-round" value="수정하기">
             </div>
             </form>
             </section>

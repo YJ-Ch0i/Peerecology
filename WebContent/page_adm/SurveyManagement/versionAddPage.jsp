@@ -25,31 +25,6 @@
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-2.1.0.min.js?ver=1"></script>
-
-
-
-<script type="text/javascript">
-         var cnt=1;
-       function add_item(){
-           
-          
-           document.getElementById("cnt").value=cnt;
-           windowObj = window.open('addSurvey.jsp','name','resizable=no width=800px height=600px');
-         cnt++;
-       }
-       function remove_item1(obj){
-           document.getElementById('field').removeChild(obj.parentNode);
-       }
-       function remove_item2(index){
-          for(var i=1; i<100;i++){
-             var id="del"+index
-             var tag=document.getElementById(id)
-              tag.remove();
-             
-          }
-       }
-    </script>
-
 </head>
 <body class="appear-animate">
 
@@ -89,26 +64,24 @@
 				<!-- Row -->
 				<div class="row">
 
-					<div class="col-sm-6 mb-xs-40">
-						<!-- Toggle -->
-							<form method="post" action="/PeerSys/versionRegister.vc" id="form"
-								role="form" class="form" style="height: 100%; width: 200%;">
-								<input type="text" name="version_name" id="version_name"
-									placeholder="버젼 이름"><br>
-								<br>
-								<br>
-								<br>
-								<br> <input type="hidden" id="cnt" name="cnt" value="">
-								<div id="field"></div>
-								<button type="submit" class="btn btn-mod btn-circle btn-small"
-									value="등록">등록</button>
-							</form>
-							<br>
-							<input type="button" class="btn btn-mod btn-circle btn-small"
-								value="문항 추가" onclick="add_item()">
-							<br>
-
+				<form method="post" action="/PeerSys/versionRegister.vc" id="form"
+					role="form" class="form" >
+					설문 이름 : <input type="text" name="trand_title" id="name" class="input-md form-control" maxlength="100">
+					<p></p>
+					
+					<div id="addedQuestion">
 					</div>
+					
+					<p></p>
+					
+					<input type="submit" style="float:right; " class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe" value="버전 등록하기">
+					
+					<a href="Questions/addQuestion.jsp" style="float:right; margin-right:5%" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">
+					문항 추가하기
+					</a>
+				 </form>
+
+					
 				</div>
 				<!-- End Row -->
 
