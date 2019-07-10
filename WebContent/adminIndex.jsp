@@ -3,6 +3,7 @@
 <% if(session.getAttribute("tea_id")!=null){  %>
 <script> location.href = 'page_tea/login.jsp' </script>
 <%} %>
+
 <% if(session.getAttribute("stu_id")!=null){  %>
 <script> location.href = 'page_stu/login.jsp' </script>
 <%} %>
