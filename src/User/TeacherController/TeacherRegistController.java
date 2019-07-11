@@ -46,7 +46,6 @@ public class TeacherRegistController implements Controller {
 		TeacherDTO teacher = new TeacherDTO(t_mail, t_pass, t_name, false , strYear);
 			
 			int result = service.teacherRegister(teacher);
-			System.out.println(result);
 			if(result==1){
 				session.setAttribute("tea_id", t_mail);
 				response.sendRedirect("/PeerSys/emailSendAction.tc");

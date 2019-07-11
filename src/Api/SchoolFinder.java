@@ -95,8 +95,6 @@ public class SchoolFinder {
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");
         
-        System.out.println("Response code: " + conn.getResponseCode());
-        
         BufferedReader rd;
         if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
             rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -111,7 +109,6 @@ public class SchoolFinder {
         }
         rd.close();
         conn.disconnect();
-        System.out.println(sb.toString());
       return sb.toString();
     }
    
@@ -136,7 +133,7 @@ public class SchoolFinder {
          list.add(item);
       }
       
-      System.out.println(doc);
+      
       
       return list;
    }

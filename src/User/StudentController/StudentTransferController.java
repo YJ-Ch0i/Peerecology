@@ -31,7 +31,6 @@ public class StudentTransferController implements Controller {
 			stu_name = request.getParameter("stu_name");
 		}
 		
-		System.out.println(stu_name);
 		if(session.getAttribute("tea_id") != ""){
 			tea_id = (String) session.getAttribute("tea_id");
 		}

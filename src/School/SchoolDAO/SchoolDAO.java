@@ -120,7 +120,7 @@ public class SchoolDAO {
            rs = pstmt.executeQuery();
            
            while(rs.next()) {
-              list.add(new SchoolDTO(rs.getString("sch_address"),rs.getString("sch_name"),rs.getString("sch_code")));
+              list.add(new SchoolDTO(rs.getString("SCID"),rs.getString("name"),rs.getString("address")));
            }
          }catch(Exception ex) {
 			ex.printStackTrace();
@@ -151,9 +151,9 @@ public class SchoolDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				dto.setScid(rs.getString(1));
-				dto.setScname(rs.getString(2));
-				dto.setScaddress(rs.getString(3));
+				dto.setSCID(rs.getString(1));
+				dto.setName(rs.getString(2));
+				dto.setAddress(rs.getString(3));
 			}
 			
 		}catch(Exception ex) {

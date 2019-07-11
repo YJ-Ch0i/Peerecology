@@ -14,7 +14,7 @@ public class DBConn
 		}
 		catch(Exception e)
 		{
-			System.out.println(e);
+			
 		}
 		return conn;
 	}
