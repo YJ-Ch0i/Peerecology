@@ -84,9 +84,9 @@ schList = schService.school_List();
 				<ul class="works-grid work-grid-5 clearfix font-alt hover-white hide-titles" style="margin-bottom:5%" id="work-grid">
 				<%if(schList.size()!=0){ %>
 				<%for(int i=0; i<schList.size(); i++){ %>
-                        <li class="work-item mix <%if(schList.get(i).getScname().contains("초등학교")){%>Elementary<%}else{%>Middle<%}%>">
+                        <li class="work-item mix <%if(schList.get(i).getName().contains("초등학교")){%>Elementary<%}else{%>Middle<%}%>">
                         <label class="checkbox-inline">
-                                        <input type="checkbox" id="inlineCheckbox1" value="option1"><%=schList.get(i).getScname() %>
+                                        <input type="checkbox" id="inlineCheckbox1" value="option1"><%=schList.get(i).getName() %>
                         </label>
                 <%} %>
                 <%}else{ %>

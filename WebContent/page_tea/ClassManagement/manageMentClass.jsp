@@ -148,7 +148,7 @@
                             %>
                             <tr>
                                 <td class="hidden-xs">
-                                    <%=school.getScname() %>
+                                    <%=school.getName() %>
                                 </td>
                                 <td>
                                     <%=stu.getGrade() %> 학년
