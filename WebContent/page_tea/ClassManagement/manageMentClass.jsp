@@ -121,10 +121,10 @@
 									이름
                                 </th>
                                 <th>
-                                	재학 여부
+                                	재학/전학 처리
                                 </th>
                                 <th>
-                                	재학/전학 처리
+                                	학생 결과보기
                                 </th>
                             </tr>
                             
@@ -138,12 +138,6 @@
                                 	}
                             		if(stu.getGender() == 2){
                             			gender = "여자";
-                            		}
-                            		if(stu.isTransfer() == true){
-                            			transf = "재학";
-                            		}
-                            		if(stu.isTransfer() == false){
-                            			transf = "전학";
                             		}
                             %>
                             <tr>
@@ -165,9 +159,6 @@
                                 <td>
                                     <%=stu.getName() %>
                                 </td>
-                                <td>
-                                	<%=transf %>
-                                </td>
                                 <td>                      
                                 	<form id="transForm<%= stu.getNum()%>" method="post">
                                 		<input type="hidden" name="stu_name" value="<%= stu.getName()%>">
@@ -175,6 +166,16 @@
                                 		<input type="button" class="btn btn-mod btn-circle btn-small" value="전학처리하기" onClick="transferProcess(this.form)">
                                 	</form>                                 	
                                 	<!-- <a class="btn btn-mod btn-circle btn-small" href="/PeerSys/StudentTransfer.st?stu_name=<%=stu.getName() %>" onclick="transfer()" style="text-decoration:none"><i class="fa fa-times"></i><span class="hidden-xs">전학처리</span></a> -->                                                                                                                                             
+                                </td>
+                                <td>                      
+                                	<form id="result<%= stu.getNum()%>" method="post">
+                                		<input type="hidden" name="sch_name" value="<%= school.getName() %>">
+                                		<input type="hidden" name="stu_grade" value="<%= stu.getGrade()%>">
+                                		<input type="hidden" name="stu_grdnum" value="<%= stu.getGrd_num()%>">
+                                		<input type="hidden" name="stu_num" value="<%= stu.getNum()%>>">
+                                		<input type="hidden" name="stu_name" value="<%= stu.getName()%>">                                		
+                                		<input type="button" class="btn btn-mod btn-circle btn-small" value="결과보기" onClick="resultProcess(this.form)">
+                                	</form>                                 	                                	                                                                                                                                           
                                 </td>
                             <% } %>
                             </tr>

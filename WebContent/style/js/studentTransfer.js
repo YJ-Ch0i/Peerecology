@@ -45,3 +45,23 @@ function checkStudent(f){
 		return;
 	}
 }
+
+function resultProcess(f){
+	
+	var sch_name = f.sch_name.value;
+	var grade = f.stu_grade.value;
+	var grd_num = f.stu_grdnum.value;
+	var stu_num = f.stu_num.value;
+	var stu_name = f.stu_name.value;
+	
+	var check = confirm(stu_name + " 학생의 결과를 확인 하시겠습니까?");
+	
+	if(check == true){
+		f.action="#"
+		f.submit();
+	}
+	else if(check == false){
+		alert("취소하였습니다.");
+		return;
+	}
+}
