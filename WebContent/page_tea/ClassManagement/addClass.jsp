@@ -147,7 +147,6 @@
 						<a href="#" style="margin: 5% 0 0 0;"
 							class="btn btn-mod btn-circle btn-medium">뒤로가기</a>
 					</form>
-					<%=uploadPath %>
 					
 					<%} %>
 					<!-- End Col -->

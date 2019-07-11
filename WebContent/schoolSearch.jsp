@@ -14,7 +14,6 @@
 request.setCharacterEncoding("UTF-8");
 String uploadPath = request.getRealPath("upload");
 String schoolNm =(String) request.getParameter("schoolNm");
-System.out.println(schoolNm);
 SchoolFinder sf = new SchoolFinder();
 ArrayList<Item> list = new ArrayList<Item>();
 list = sf.getItemList(schoolNm);

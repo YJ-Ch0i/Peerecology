@@ -116,7 +116,6 @@ public class AddClassController implements Controller {
 				String classAndban = null;
 				int gender = -1;
 				if(stuItem.getBefore_class() != null || stuItem.getBefore_class() != "") {
-				System.out.println("stuItem.getBefore_class()" + stuItem.getBefore_class());	    			  
 				String[] splitBf_class = stuItem.getBefore_class().split("학년 ");
 					if(splitBf_class.length>=2) 
 					{

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="Service.*" %>
-<%@ page import="School.SchoolDTO.SchoolDTO" %>
 <%@ page import="java.util.*" %>
+<%@ page import="School.SchoolDTO.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,20 +14,20 @@
 <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+<!-- Favicons -->
+<link rel="shortcut icon" href="/PeerSys/style/images/favicon.png">
 <script language="javascript">
 
 function searchSchool()
 {
 	var schoolNm = document.getElementById("schoolNm").value;
-	$("#clickHref").attr("href","/PeerSys/page_common/searchSchool2.jsp?schoolNm="+schoolNm+"");
+	location.href="/PeerSys/page_common/searchSchool2.jsp?schoolNm="+schoolNm+"";
 }
 </script>
-
-<!-- Favicons -->
-<link rel="shortcut icon" href="/PeerSys/style/images/favicon.png">
 <!-- CSS -->
 <link rel="stylesheet" href="/PeerSys/style/css/bootstrap.min.css">
-<link rel="stylesheet" href="/PeerSys/style/css/style.css">
+<link rel="stylesheet" href="/PeerSys/style/css/style.css?version=1">
 <link rel="stylesheet" href="/PeerSys/style/css/style-responsive.css">
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
@@ -35,85 +35,35 @@ function searchSchool()
 
 </head>
 <body class="appear-animate">
-
 	<!-- Page Loader -->
 	<div class="page-loader">
 		<div class="loader">Loading...</div>
 	</div>
 	<!-- End Page Loader -->
-
 	<!-- Page Wrap -->
 	<div class="page" id="top">
-
-		<!-- Navigation panel -->
-		<%@include file="../../pageInclude/Header.jsp"%>
-		<!-- End Navigation panel -->
-
-
-
-		<!-- Head Section -->
-		<section class="small-section bg-gray-lighter">
-			<div class="relative container align-left">
-
-				<div class="row">
-
-					<div class="col-md-8">
-						<h2 class="hs-line-11 font-alt mb-20 mb-xs-0">설문조사 진행</h2>
-						<div class="hs-line-4 font-alt black"></div>
-					</div>
-
-				</div>
-			</div>
-		</section>
-		<!-- End Head Section -->
-
-
-		<!-- Section -->
-		<section class="page-section">
-			<div class="container relative">
-<%
-SchoolService schService = SchoolService.getInstance();
-ArrayList<SchoolDTO> schList = new ArrayList<SchoolDTO>();
-schList = schService.school_List();
-%>
-				<div class="works-filter font-alt">
-				<a href="#" class="filter active" data-filter="*" >모든학교</a>
-				<a href="#Elementary" class="filter" data-filter=".Elementary">초등학교</a>
-                <a href="#Middle" class="filter" data-filter=".Middle">중학교</a>
-                <p></p>
-				<ul class="works-grid work-grid-5 clearfix font-alt hover-white hide-titles" style="margin-bottom:5%" id="work-grid">
-				<%if(schList.size()!=0){ %>
-				<%for(int i=0; i<schList.size(); i++){ %>
-                        <li class="work-item mix <%if(schList.get(i).getScname().contains("초등학교")){%>Elementary<%}else{%>Middle<%}%>">
-                        <label class="checkbox-inline">
-                                        <input type="checkbox" id="inlineCheckbox1" value="option1"><%=schList.get(i).getScname() %>
-                        </label>
-                <%} %>
-                <%}else{ %>
-              	 등록되어 있는 학교가 없습니다.
-                <%} %>
-                </ul>
-                </div>
-                			<input id="schoolNm" name="schoolNm" type="text" class="input-md form-control" placeholder="학교명을 검색해주세요.">
-							<a id="clickHref" href="/PeerSys/page_common/searchSchool2.jsp" onclick="searchSchool()" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">
-							 검색 
-							 </a>
-							
-						<p></p>
-				  	
-
-					
-				
-			</div>
-		</section>
-		<!-- End Section -->
-
-		<!-- Footer -->
-		<%@ include file="../../pageInclude/Footer.jsp"%>
-		<!-- End Footer -->
-
+			<section class="page-section">
+			<div class="row">
+			<% String schoolNm = request.getParameter("schoolNm"); 
+			   SchoolService schService = SchoolService.getInstance();
+			   ArrayList<SchoolDTO> schList = new ArrayList<SchoolDTO>();
+			   schList = schService.SearchSchoolAddress(schoolNm);
+			%>
+			<input id="schoolNm" name="schoolNm" type="text" class="input-md form-control" placeholder="학교명을 검색해주세요.">
+			<button id="clickHref" onclick="searchSchool()" class="btn btn-mod btn-border-w btn-medium btn-round lightbox">
+			검색 
+			</button>
+			<p></p>
+			<% if(schList.size()==0) {%>
+			등록 되어있지 않은 학교입니다.
+			<%}else{%>
+			<%for(int i=0; i<schList.size(); i++){ %>
+			<%= schList.get(i).getScname() + " " + schList.get(i).getScaddress() %>
+			<%} %>
+			<%} %>
+            </div>
+			</section>
 	</div>
-	<!-- End Page Wrap -->
 
 
 	<!-- JS -->

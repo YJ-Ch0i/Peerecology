@@ -32,7 +32,6 @@ public class EmailCheckController implements Controller {
 			tea_id = (String) session.getAttribute("tea_id");
 		}
 
-		System.out.println("tea_id :: " + tea_id);
 		if(tea_id == null)	
 		{
 			PrintWriter script = response.getWriter();
@@ -48,7 +47,6 @@ public class EmailCheckController implements Controller {
 		TeacherService teaService = TeacherService.getInstance();
 		
 		String u_email = tea_id;
-		System.out.println("user_email :: " + u_email);
 		boolean isRight = (new SHA256().getSHA256(u_email).equals(code)) ? true : false;
 		if(isRight == true)
 		{
