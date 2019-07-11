@@ -86,7 +86,7 @@ schList = schService.school_List();
 				<%for(int i=0; i<schList.size(); i++){ %>
                         <li class="work-item mix <%if(schList.get(i).getName().contains("초등학교")){%>Elementary<%}else{%>Middle<%}%>">
                         <label class="checkbox-inline">
-                                        <input type="checkbox" id="inlineCheckbox1" value="option1"><%=schList.get(i).getName() %>
+                                        <input type="checkbox" name="checkSch" value="<%=schList.get(i).getSCID() %>"><%=schList.get(i).getName() %>
                         </label>
                 <%} %>
                 <%}else{ %>

@@ -24,6 +24,25 @@ function searchSchool()
 	var schoolNm = document.getElementById("schoolNm").value;
 	location.href="/PeerSys/page_common/searchSchool2.jsp?schoolNm="+schoolNm+"";
 }
+function addSchool()
+{
+	var chk_box = document.getElementsByName("inlineCheckbox1");
+	var checked_Box = parent.document.getElementsByName("checkSch");
+	for(var i=0; i<chk_box.length; i++)
+		{
+		if(chk_box[i].checked == true)
+			{
+			for(var k=0; k<checked_Box.length; k++)
+			{
+				if(checked_Box[k].value == chk_box[i].value)
+					{
+					checked_Box[k].checked = true;
+					}
+			}
+			}
+		}
+	alert('추가되었습니다.');
+}
 </script>
 <!-- CSS -->
 <link rel="stylesheet" href="/PeerSys/style/css/bootstrap.min.css">
@@ -57,11 +76,24 @@ function searchSchool()
 			<% if(schList.size()==0) {%>
 			등록 되어있지 않은 학교입니다.
 			<%}else{%>
+			<table class="table table-striped">
+                            <tr>
+                                <th>선택</th>
+                                <th>학교 이름</th>
+                                <th>학교 주소</th>
+                            </tr>
 			<%for(int i=0; i<schList.size(); i++){ %>
-			<%= schList.get(i).getScname() + " " + schList.get(i).getScaddress() %>
+			<tr>
+			<td><input type="checkbox" name="inlineCheckbox1" value="<%=schList.get(i).getSCID()%>"></td>
+			<td><%= schList.get(i).getName()%> </td>
+			<td><%= schList.get(i).getAddress() %></td>
+			</tr>
 			<%} %>
+			</table>
 			<%} %>
             </div>
+            <p></p>
+            <button style="float:right" onclick="addSchool()" class="btn btn-mod btn-medium btn-round" > 추가하기</button>
 			</section>
 	</div>
 
