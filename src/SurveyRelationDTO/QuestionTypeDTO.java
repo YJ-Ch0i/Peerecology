@@ -5,15 +5,17 @@ public class QuestionTypeDTO {
 	private int q_typeID;
 	private String descript;
 	private int q_typeOfferSeq;
+	private boolean q_typeDirection;
 	
 	public QuestionTypeDTO(int q_typeID, String descript) {
 		this.q_typeID = q_typeID;
 		this.descript = descript;
 	}
-	public QuestionTypeDTO(int q_typeID, String descript,int q_typeOfferSeq) {
+	public QuestionTypeDTO(int q_typeID, String descript,int q_typeOfferSeq,boolean q_typeDirection) {
 		this.q_typeID = q_typeID;
 		this.descript = descript;
 		this.q_typeOfferSeq = q_typeOfferSeq;
+		this.q_typeDirection = q_typeDirection;
 	}
 	public int getQ_typeID() {
 		return q_typeID;
@@ -32,6 +34,12 @@ public class QuestionTypeDTO {
 	}
 	public void setQ_typeOfferSeq(int q_typeOfferSeq) {
 		this.q_typeOfferSeq = q_typeOfferSeq;
+	}
+	public boolean isQ_typeDirection() {
+		return q_typeDirection;
+	}
+	public void setQ_typeDirection(boolean q_typeDirection) {
+		this.q_typeDirection = q_typeDirection;
 	}
 	
 	

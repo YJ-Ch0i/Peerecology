@@ -14,7 +14,13 @@ function changeInput(offerSeq)
 {
 if(offerSeq==-1)
 {
-	var strInput = "&nbsp; 유형 이름 : <input type=\"text\" name=\"type_title\" id=\"name\" class=\"input-md form-control\" maxlength=\"100\"><p><p/>"
+	var strInput = 
+		"&nbsp;&nbsp;&nbsp;보기 방향 :  <select name=\"q_typeDirection\" class=\"input-md form-control\" onChange=\"offerDirection(this.value);\">"
+		+"	<option value=\"0\" selected>선택해주세요.</option>"
+		+"	<option value=\"1\">세로 보기형</option>"
+		+"	<option value=\"2\">가로 보기형</option>"
+		+"	</select> <p></p>"
+		+"&nbsp; 유형 이름 : <input type=\"text\" name=\"type_title\" id=\"name\" class=\"input-md form-control\" maxlength=\"100\"><p><p/>"
 		+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 질문 개수 : <select name=\"offerSeq\" class=\"input-md form-control\" onChange=\"addInput(this.value);\">"
 		+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;						<option value=\"0\">주관식</option>"
 		+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;						<option value=\"0\">또래지명</option>"
@@ -26,6 +32,7 @@ if(offerSeq==-1)
 	    +"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                      <option value=\"6\">6</option>"
 	    +"          </select>"
 	    +"<p></p>";
+	    
 	document.getElementById('isSelectCreate').innerHTML=strInput;
 }
 else
@@ -107,6 +114,12 @@ queTypes = queSerivce.showAllType();
 			<div id="isSelectCreate">
 			&nbsp;&nbsp;&nbsp;유형 이름 : <input type="text" name="type_title" id="name" class="input-md form-control" maxlength="100">
 			<p></p> 
+			&nbsp;&nbsp;&nbsp;보기 방향 :  <select name="q_typeDirection" class="input-md form-control" onChange="offerDirection(this.value);">
+	                   						<option value="0" selected>선택해주세요.</option>
+											<option value="1">세로 보기형</option>
+											<option value="2">가로 보기형</option>
+				  	  					</select>
+			<p></p>
 			&nbsp;&nbsp;&nbsp;질문 개수 :  <select name="offerSeq" class="input-md form-control" onChange="addInput(this.value);">
 										<option value="0">주관식</option>
 										<option value="0">또래지명</option>
@@ -117,7 +130,9 @@ queTypes = queSerivce.showAllType();
 			                            <option value="5">5</option>
 			                            <option value="6">6</option>
 			          </select>
-          
+			          <p></p>
+            
+			<p></p>
 			<p></p>
             </div>   
 			<div id="inputBox">

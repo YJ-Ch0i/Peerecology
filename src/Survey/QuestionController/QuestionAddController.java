@@ -20,6 +20,9 @@ public class QuestionAddController implements Controller {
 		String strQue_typeID = request.getParameter("que_typeID");
 		String que_title = request.getParameter("que_title");
 		String strIsReverseType = request.getParameter("isReverseType");
+		String strQ_typeDirection = request.getParameter("q_typeDirection");
+		boolean q_typeDirection = true;
+		if(strQ_typeDirection.equals("2")) q_typeDirection = false;
 		int que_trandTypeID = Integer.parseInt(strQue_trandTypeID);
 		int que_typeID = Integer.parseInt(strQue_typeID);
 		boolean isReverseType = true;
@@ -39,7 +42,7 @@ public class QuestionAddController implements Controller {
 			String strOfferSeq = request.getParameter("offerSeq");
 			int offerSeq = Integer.parseInt(strOfferSeq);
 			
-			queService.queTypeRegister(type_title, offerSeq);
+			queService.queTypeRegister(type_title, offerSeq,q_typeDirection);
 			
 			if(offerSeq!=0)
 			{

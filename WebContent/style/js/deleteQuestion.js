@@ -26,11 +26,11 @@ if(cnt==1)
 	var replaceText = "<p id=\"text"+(deleteNumbering+1)+"\" style=\"display:inline;\">" +(deleteNumbering+1)+ "번 문항 : </p>";
 	var replaceQuestionName = "name=\"questionName" +(deleteNumbering+1)+" \"";
 	var replaceOnclick = "onclick=\"deleteQuestion("+(deleteNumbering+1)+")\"";
-	var replaceName = "name=\"questionId" +(deleteNumbering+1)+ "\"";
+	//var replaceName = "name=\"questionId" +(deleteNumbering+1)+ "\"";
 	completeDeleteString = completeDeleteString.replace(replaceText,"<p id=\"text"+(numbering)+"\" style=\"display:inline;\">" +(numbering)+ "번 문항 : </p>");
 	completeDeleteString = completeDeleteString.replace(replaceQuestionName,"name=\"questionName" +(numbering)+" \"");
 	completeDeleteString = completeDeleteString.replace(replaceOnclick,"onclick=\"deleteQuestion("+(numbering)+")\"");
-	completeDeleteString = completeDeleteString.replace(replaceName,"name=\"questionId" +(numbering)+ "\"");
+	//completeDeleteString = completeDeleteString.replace(replaceName,"name=\"questionId" +(numbering)+ "\"");
 	}
 else
 {
@@ -41,11 +41,11 @@ for(var i=cnt; i>=0;i--)
 	var replaceText = "<p id=\"text"+(deleteNumbering+1)+"\" style=\"display:inline;\">" +(deleteNumbering+1)+ "번 문항 : </p>";
 	var replaceQuestionName = "name=\"questionName" +(deleteNumbering+1)+" \"";
 	var replaceOnclick = "onclick=\"deleteQuestion("+(deleteNumbering+1)+")\"";
-	var replaceName = "name=\"questionId" +(deleteNumbering+1)+ "\"";
+	//var replaceName = "name=\"questionId" +(deleteNumbering+1)+ "\"";
 	completeDeleteString = completeDeleteString.replace(replaceText,"<p id=\"text"+(numbering)+"\" style=\"display:inline;\">" +(numbering)+ "번 문항 : </p>");
 	completeDeleteString = completeDeleteString.replace(replaceQuestionName,"name=\"questionName" +(numbering)+" \"");
 	completeDeleteString = completeDeleteString.replace(replaceOnclick,"onclick=\"deleteQuestion("+(numbering)+")\"");
-	completeDeleteString = completeDeleteString.replace(replaceName,"name=\"questionId" +(numbering)+ "\"");
+	//completeDeleteString = completeDeleteString.replace(replaceName,"name=\"questionId" +(numbering)+ "\"");
 	numbering++;
 	deleteNumbering++;
 	}

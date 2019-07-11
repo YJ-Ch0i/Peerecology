@@ -46,9 +46,8 @@ var size = checkQuestions.length;
 			inputCheckQuestions +="<p id=\"text"+cnt+"\" style=\"display:inline;\">"+ cnt + "번 문항 : </p>"
 								+ "<input type=\"text\" name=\"questionName" +cnt+" \" id=\"name\"" 
 							 	+"class=\"input-md form-control\" maxlength=\"100\" readonly value=\""+questionNumber[0]+"\">"
-							 	+"<input type=\"button\" value=\"삭제하기\" style=\"font-size: 15px; height: 35px;\" onclick=\"deleteQuestion("+cnt+")\""
-								+"<input type=\"hidden\" value=\"" +questionNumber[1]+ "\" name=\"questionId" +cnt+ "\" "
-							 	+"class=\"btn btn-mod btn-border btn-round\">"
+							 	+"<input type=\"button\" value=\"삭제하기\" style=\"font-size: 15px; height: 35px;\" onclick=\"deleteQuestion("+cnt+")\">"
+								+"<input type=\"hidden\" value=\"" + questionNumber[1] + "\" name=\"questionId\">"
 							 	+"<p></p>";
 			}
 	}

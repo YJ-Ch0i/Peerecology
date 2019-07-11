@@ -46,8 +46,8 @@ if(request.getParameter("numbering") != null)
 	<!-- End Page Loader -->
 <%
 QuestionService queService = QuestionService.getInstance();
-QuestionDTO questionDTO = queService.showQuestion(QID);
-ArrayList<QuestionOfferDTO> questionOfferList = queService.showQuestionOffer(questionDTO.getQType());
+AllDescQuestionDTO questionDTO = queService.showQuestion(QID);
+ArrayList<QuestionOfferDTO> questionOfferList = queService.showQuestionOffer(questionDTO.getQue_typeID());
 ArrayList<QuestionTrandTypeDTO> queTrands = queService.showAllTrand();
 ArrayList<QuestionTypeDTO> queTypes = queService.showAllType();
 %>
@@ -60,30 +60,38 @@ ArrayList<QuestionTypeDTO> queTypes = queService.showAllType();
 			성향 : 
 			<select class="input-md form-control"> 
 			<% for(int i=0; i<queTrands.size(); i++){ %>
-			<option <% if(queTrands.get(i).getQ_trandType()==questionDTO.getTtype()) {%> selected <%} %> ><%=queTrands.get(i).getQ_trandDescipt() %></option>
+			<option <% if(queTrands.get(i).getQ_trandDescipt().equals(questionDTO.getQue_trandTitle())) {%> selected <%} %> ><%=queTrands.get(i).getQ_trandDescipt() %></option>
 			<%} %>
 			</select>
 			<p></p>
 			 유형 :   
            	<select class="input-md form-control"> 
 			<% for(int i=0; i<queTypes.size(); i++){ %>
-			<option <% if(queTypes.get(i).getQ_typeID()==questionDTO.getQType()) {%> selected <%} %>> <%=queTypes.get(i).getDescript() %></option>
+			<option <% if(queTypes.get(i).getDescript().equals(questionDTO.getQue_typeTitle())) {%> selected <%} %>> <%=queTypes.get(i).getDescript() %></option>
 			<%} %>
 			</select>
 			<p></p>
 			<% if(questionOfferList.size()!=0){ %>
 			<% for(int i=0; i<questionOfferList.size(); i++){ %>
+			<!-- 세로보기 문항 -->
+			<% if(questionDTO.isQ_typeDirection()==true){ %>
 			<%= i+1 %>번 문항 : <%= questionOfferList.get(i).getTitle() %> <p></p>
+			<!-- 가로보기 문항 -->
+			<%}else{ %>
+			<label class="radio-inline">
+            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"><%= questionOfferList.get(i).getTitle() %>
+        	</label>
+			<%} %>
 			<%} %>
 			<%} %>
 			
 			<p></p>
-          	 문항 이름 : <input type="text" name="trand_title" id="name" class="input-md form-control" maxlength="100" value="<%=questionDTO.getTitle() %>">
+          	 문항 이름 : <input type="text" name="trand_title" id="name" class="input-md form-control" maxlength="100" value="<%=questionDTO.getQue_title() %>">
      		<p></p>
      		역산 : 
       		<select class="input-md form-control"> 
-			<option <% if(questionDTO.isReverseType() ==true) {%> selected <%} %> value="1"> 역산아니다.</option>
-			<option <% if(questionDTO.isReverseType() ==false) {%> selected <%} %> value="0"> 역산이다.</option>
+			<option <% if(questionDTO.isQue_isReverseType() ==true) {%> selected <%} %> value="1"> 역산아니다.</option>
+			<option <% if(questionDTO.isQue_isReverseType() ==false) {%> selected <%} %> value="0"> 역산이다.</option>
 			</select>
 			<p></p>
      		<input type="submit"  style="float:right" class="btn btn-mod btn-medium btn-round" value="수정하기">

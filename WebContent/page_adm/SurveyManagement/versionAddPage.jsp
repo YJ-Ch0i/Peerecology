@@ -67,16 +67,14 @@
 
 				<form method="post" action="/PeerSys/versionRegister.sv" id="addQuestion" name="addQuestion"
 					role="form" class="form" >
-					설문 이름 : <input type="text" name="trand_title" id="name" class="input-md form-control" maxlength="100">
+					설문 이름 : <input type="text" name="version_title" id="name" class="input-md form-control" maxlength="100">
 					<p></p>
-					
 					<div id="addedQuestion">
 					</div>
 					
 					<p></p>
 					
-					<input type="submit" style="float:right; " class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe" value="버전 등록하기">
-					
+					<input type="submit" style="float:right; " class="btn btn-mod btn-medium btn-round" value="버전 등록하기">
 					<a href="Questions/addQuestionToVersion.jsp" style="float:right; margin-right:5%" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">
 					문항 추가하기
 					</a>
