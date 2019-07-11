@@ -18,9 +18,10 @@ public class TypeAddController implements Controller {
 		String type_title = request.getParameter("type_title");
 		String strOfferSeq = request.getParameter("offerSeq");
 		int offerSeq = Integer.parseInt(strOfferSeq);
-		
-		
-		if(type_title=="")
+		String strQ_typeDirection = request.getParameter("q_typeDirection");
+		boolean q_typeDirection = true;
+		if(strQ_typeDirection.equals("2")) q_typeDirection = false;
+		if(type_title==null || strQ_typeDirection==null)
 		{
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
@@ -34,7 +35,7 @@ public class TypeAddController implements Controller {
 		{
 			
 			QuestionService queService = QuestionService.getInstance();
-			queService.queTypeRegister(type_title, offerSeq);
+			queService.queTypeRegister(type_title, offerSeq, q_typeDirection);
 			
 			if(offerSeq!=0)
 			{

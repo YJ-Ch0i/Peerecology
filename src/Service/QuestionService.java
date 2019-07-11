@@ -25,8 +25,8 @@ public class QuestionService {
 	public void queTrandRegister(String trandTitle){
 		dao.queTrandRegister(trandTitle);
 	}
-	public void queTypeRegister(String typeTitle, int offerSeq){
-		dao.queTypeRegister(typeTitle, offerSeq);
+	public void queTypeRegister(String typeTitle, int offerSeq, boolean q_typeDirection){
+		dao.queTypeRegister(typeTitle, offerSeq,q_typeDirection);
 	}
 	public void questionRegister(QuestionDTO questionDTO) {
 		dao.questionRegister(questionDTO);
@@ -49,7 +49,7 @@ public class QuestionService {
 	public ArrayList<QuestionOfferDTO> showQuestionOffer(int q_typeID) {
 		return dao.showQuestionOffer(q_typeID);
 	}
-	public QuestionDTO showQuestion(int QID) {
+	public AllDescQuestionDTO showQuestion(int QID) {
 		return dao.showQuestion(QID);
 	}
 }

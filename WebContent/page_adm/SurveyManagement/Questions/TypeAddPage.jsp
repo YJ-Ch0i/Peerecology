@@ -9,7 +9,8 @@
 <head>
 <script language="javascript">
 
-function addInput(offerSeq) {
+function addInput(offerSeq) 
+{
 var strInput = "";
 document.getElementById('inputBox').innerHTML = "";
 
@@ -20,6 +21,28 @@ for (var i=1; i <= offerSeq; i++) {
 document.getElementById('inputBox').innerHTML = strInput; 
 }
 
+function offerDirection(directionSeq)
+{
+	if(directionSeq == 1)
+		{
+		document.all.offerDirection1.visibility      = 'show'    ; 
+        document.all.offerDirection1.style.visibility = 'visible' ; 
+        document.all.offerDirection2.visibility      = 'hide'    ; 
+        document.all.offerDirection2.style.visibility = 'hidden'  ; 
+		}
+	else if(directionSeq == 2){
+		document.all.offerDirection2.visibility      = 'show'    ; 
+        document.all.offerDirection2.style.visibility = 'visible' ; 
+        document.all.offerDirection1.visibility      = 'hide'    ; 
+        document.all.offerDirection1.style.visibility = 'hidden'  ; 
+		}
+	else{
+        document.all.offerDirection2.visibility      = 'hide'    ; 
+        document.all.offerDirection2.style.visibility = 'hidden'  ;  
+        document.all.offerDirection1.visibility      = 'hide'    ; 
+        document.all.offerDirection1.style.visibility = 'hidden'  ; 
+	}
+}
 </script>
 <title>Rhythm &mdash; One & Multi Page Creative Theme</title>
 <meta name="description" content="">
@@ -56,7 +79,7 @@ document.getElementById('inputBox').innerHTML = strInput;
 	<div class="page" id="top">
 			<section class="page-section" >
 			<div class="row">
-                                
+            <div class="container relative">      
 			<form method="post" action="/PeerSys/typeAdd.qs" id="form" role="form">
 			
 			
@@ -75,12 +98,30 @@ document.getElementById('inputBox').innerHTML = strInput;
                       </select>
                       
             <p></p>
+	                   보기 방향 :  <select name="q_typeDirection" class="input-md form-control" onChange="offerDirection(this.value);">
+	                   						<option value="0" selected>선택해주세요.</option>
+											<option value="1">세로 보기형</option>
+											<option value="2">가로 보기형</option>
+				  	  </select>
+			<p></p>
+			<div class="row multi-columns-row mb-30 mb-xs-10">
+            <div class="col-md-6 col-lg-6 mb-md-10">
+            
+            <div id="offerDirection1" class="post-prev-img" style="display: inline;">
+            <img src="/PeerSys/style/img/ex_Nselect_version2.png" style="width:35%; height:35%;">
+            </div>
+            <div id="offerDirection2" class="post-prev-img" style="display: inline;">
+            <img src="/PeerSys/style/img/ex_Nselect_version5.png" style="width:35%; height:35%;">
+            </div>
+            </div>
+            </div>
             <div id="inputBox">
             
             </div>
 			<input type="submit" style="float:right;" class="btn btn-mod btn-medium btn-round" value="추가하기">
 			
 			</form>
+			</div>
 			</div>
 			</section>
 	</div>

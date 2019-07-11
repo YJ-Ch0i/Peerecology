@@ -83,16 +83,17 @@ public class QuestionDAO {
 		}
 		return questions;
 	}
-	public void queTypeRegister(String typeTitle, int offerSeq) {
+	public void queTypeRegister(String typeTitle, int offerSeq, boolean q_typeDirection) {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		
-		String SQL ="INSERT INTO q_type(descript,q_typeOfferSeq) VALUES (?,?)";
+		String SQL ="INSERT INTO q_type(descript,q_typeOfferSeq,q_typeDirection) VALUES (?,?,?)";
 		try {
 			conn =DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, typeTitle);
 			pstmt.setInt(2, offerSeq);
+			pstmt.setBoolean(3, q_typeDirection);
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -245,23 +246,30 @@ public class QuestionDAO {
 		}
 		}
 	}
-	public QuestionDTO showQuestion(int QID) {
+	public AllDescQuestionDTO showQuestion(int QID) {
 		Connection conn=null;	
 		Statement stmt = null;
-		QuestionDTO questionDTO = new QuestionDTO();
+		AllDescQuestionDTO questionDTO = new AllDescQuestionDTO();
 		ResultSet rs = null;
-		String SQL ="SELECT * FROM question WHERE QID='"+QID+"'";
+		String SQL ="SELECT question.title,qtt.descript,qt.descript,qt.q_typeOfferSeq,qt.q_typeID ,question.isReverseType,qt.q_typeDirection "
+				+ " FROM question,q_trand_type AS qtt,q_type AS qt "
+				+ " WHERE qtt.q_trandID = (SELECT Ttype from question where QID='"+QID+"') "
+				+ " AND question.QID = (SELECT QID from question where QID='"+QID+"') "
+				+ " AND qt.q_typeID = (SELECT QType from question where QID='"+QID+"') ";
 		try {
 			conn =DBConn.getConnection();
 			stmt = conn.createStatement();
             rs = stmt.executeQuery(SQL);
 			if(rs.next()) 
 			{
-				questionDTO.setQID(rs.getInt("QID"));
-				questionDTO.setTitle(rs.getString("title"));
-				questionDTO.setQType(rs.getInt("QType"));
-				questionDTO.setTtype(rs.getInt("Ttype"));
-				questionDTO.setReverseType(rs.getBoolean("isReverseType"));
+				questionDTO.setQID(QID);
+				questionDTO.setQue_title(rs.getString("question.title"));
+				questionDTO.setQue_trandTitle(rs.getString("qtt.descript"));
+				questionDTO.setQue_typeTitle(rs.getString("qt.descript"));
+				questionDTO.setQue_typeID(rs.getInt("qt.q_typeID"));
+				questionDTO.setQue_typeOfferSeq(rs.getInt("qt.q_typeOfferSeq"));
+				questionDTO.setQue_isReverseType(rs.getBoolean("question.isReverseType"));
+				questionDTO.setQ_typeDirection(rs.getBoolean("qt.q_typeDirection"));
 			}
 		}
 		catch(Exception e) {

@@ -3,10 +3,10 @@
 <%@ page import="Service.QuestionService" %>
 <%@ page import="SurveyRelationDTO.*" %>
 <%@ page import="java.util.*" %>
-
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>Rhythm &mdash; One & Multi Page Creative Theme</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
@@ -27,6 +27,35 @@
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
 
+<script language="javascript" >
+
+function addQuestion() {
+var cntQuestion = 0;
+var inputCheckQuestions = ""
+	inputCheckQuestions = parent.document.getElementById('addedQuestion').innerHTML;
+checkQuestions = document.getElementsByName("checkQuestions");
+splitQuestions = inputCheckQuestions.split('input type="text"');
+cnt = splitQuestions.length-1;
+var size = checkQuestions.length;
+	for(var i=0; i<size; i++)
+	{
+		if(checkQuestions[i].checked)
+			{
+			var questionNumber = checkQuestions[i].value.split(',');
+			cnt++;
+			inputCheckQuestions +="<p id=\"text"+cnt+"\" style=\"display:inline;\">"+ cnt + "번 문항 : </p>"
+								+ "<input type=\"text\" name=\"questionName" +cnt+" \" id=\"name\"" 
+							 	+"class=\"input-md form-control\" maxlength=\"100\" readonly value=\""+questionNumber[0]+"\">"
+							 	+"<input type=\"button\" value=\"삭제하기\" style=\"font-size: 15px; height: 35px;\" onclick=\"deleteQuestion("+cnt+")\">"
+								+"<input type=\"hidden\" value=\"" + questionNumber[1] + "\" name=\"questionId\">"
+							 	+"<p></p>";
+			}
+	}
+parent.document.getElementById('addedQuestion').innerHTML = inputCheckQuestions;
+alert('추가되었습니다.')
+self.document.location.reload();
+}
+</script>
 </head>
 <body class="appear-animate">
 <% 
@@ -53,7 +82,7 @@ ArrayList<QuestionTrandTypeDTO> queTypes = new ArrayList<QuestionTrandTypeDTO>()
 queTypes = queSerivce.showAllTrand();
 questions = queSerivce.showAllQuestion();
 %>
-					<form method="POST" action="/PeerSys/questionAdd.qs" id="form" role="form">
+					<form method="POST" name="form1" id="form1" role="form">
 			 
 					<div class="works-filter font-alt">
 					
@@ -68,16 +97,18 @@ questions = queSerivce.showAllQuestion();
                 <ul class="works-grid work-grid-5 clearfix font-alt hover-white hide-titles" id="work-grid">
                     <% for(int i=0; i<questions.size(); i++){ %>
                      <li class="work-item mix <%=questions.get(i).getTtype() %>">
-                    <div class="mb-20 mb-md-10">
+                    <div class="mb-20 mb-md-10" id="hiddingHidden">
                                     <label class="checkbox-inline">
-                                         <input type="checkbox" name="" id="inlineCheckbox1" value=""><%=questions.get(i).getTitle() %>
+                                         <input type="checkbox" name="checkQuestions" id="inlineCheckbox1" value="<%=questions.get(i).getTitle() %>,<%=questions.get(i).getQID()%>">
+                                         <%=questions.get(i).getTitle() %>
                                     </label>
                      
                      </div>
                      </li>
                     <%} %>
                 </ul>
-                 <input type="submit" style="float:right" class="btn btn-mod btn-medium btn-round" value="추가하기">
+                 <input type="button" style="float:right" class="btn btn-mod btn-medium btn-round" value="추가하기" onclick="addQuestion()">
+                 
                  </form>
 			</div>
 			

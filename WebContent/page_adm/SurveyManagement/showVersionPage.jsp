@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="Question.QuestionDTO.QuestionDTO"%>
-<%@ page import="Service.QuestionService"%>
-<%@ page import="User.UserDTO.StudentDTO"%>
+<%@ page import="Service.*"%>
+<%@ page import="SurveyRelationDTO.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,154 +31,61 @@
 <body class="appear-animate">
 
 	<%
-int numbering =0;
-if(request.getParameter("numbering") != null){
-	numbering = Integer.parseInt(request.getParameter("numbering"));
+int surveyNo =0;
+if(request.getParameter("surveyNo") != null)
+{
+	surveyNo = Integer.parseInt(request.getParameter("surveyNo"));
 }
 QuestionService questionService = QuestionService.getInstance();
-questionService.cntQuestions(numbering);
-String version_name = questionService.version_name(numbering);
-ArrayList<QuestionDTO> questionList = questionService.QuestionRoad(numbering);
+SurveyService surveyService = SurveyService.getInstance();
+ArrayList<SurveyManagerDTO> questions = new ArrayList<SurveyManagerDTO>();
+questions = surveyService.showQuestionsToManager(surveyNo);
+ArrayList<AllDescQuestionDTO> roadQuestions = new ArrayList<AllDescQuestionDTO>(); 
+for(int i=0; i<questions.size(); i++)
+{
+	AllDescQuestionDTO question = questionService.showQuestion(questions.get(i).getQID());
+	roadQuestions.add(question);
+}
 %>
 	<!-- Page Loader -->
-	<div class="page-loader">
+		<div class="page-loader">
 		<div class="loader">Loading...</div>
 	</div>
 	<!-- End Page Loader -->
-
 	<!-- Page Wrap -->
 	<div class="page" id="top">
-
-		<!-- Navigation panel -->
-		<%@include file="/pageInclude/Header.jsp"%>
-		<!-- End Navigation panel -->
-	</div>
-	<!-- Section -->
-	
-	<section class="small-section bg-gray-lighter">
-			<div class="relative container align-left">
-
-				<div class="row">
-
-					<div class="col-md-8">
-						<h1 class="hs-line-11 font-alt mb-20 mb-xs-0"><%= version_name %></h1>
-						<div class="hs-line-4 font-alt black"></div>
-					</div>
-
-				</div>
-			</div>
-	</section>
-	<section class="page-section">
-		<form style="margin-left: 25px;">
-			<% for(int i=0; i<questionList.size(); i++){ %>
-			<% if(questionList.get(i).getQue_type().equals("N지 선다(N개 보기 변경)")) {%>
-			<div style="display: block; margin-top: 10px">
-				<div
-					style="display: flex; margin: 0 auto; -webkit-box-pack: justify; justify-content: space-between; text-align: center;">
-					<h4>
-						<%=i+1 %>
-						.
-						<%= questionList.get(i).getQue_text() %>
-					</h4>
-				</div>
-				<% String[] splitQuestExamTxt = questionList.get(i).getExam_text().split(","); %>
-				<% for(int k=0; k<splitQuestExamTxt.length; k++){ %>
-				<label style="width: 100%; margin-top: 1px;"> <input
-					type="radio" id="inlineRadio1" name="inlineRadioOptions"> <%= splitQuestExamTxt[k] %>
-				</label>
-			</div>
-			<%} %>
-			<%} else if(questionList.get(i).getQue_type().equals("N지 선다(체크 형식)")) {%>
-			<div style="display: block; margin-top: 10px">
-				<div
-					style="display: flex; margin: 0 auto; -webkit-box-pack: justify; justify-content: space-between; text-align: center;">
-					<h4>
-						<%=i+1 %>
-						.
-						<%= questionList.get(i).getQue_text() %>
-						(정답 :
-						<%= questionList.get(i).getExample_answer()  %>)
-					</h4>
-				</div>
-				<% String[] splitQuestExamTxt = questionList.get(i).getExam_text().split(","); %>
-				<% for(int k=0; k<splitQuestExamTxt.length; k++){ %>
-				<label style="width: 100%; margin-top: 1px;"> <input
-					type="radio" id="inlineRadio1" name="inlineRadioOptions"> <%= splitQuestExamTxt[k] %>
-				</label>
-			</div>
-			<%} %>
-			<%} else if(questionList.get(i).getQue_type().equals("N지 선다(2개 보기 변경)")) {%>
-			<% String[] splitQuestExamTxt2 = questionList.get(i).getExam_text().split(","); %>
-			<div style="display: block; margin-top: 10px">
-				<div
-					style="display: flex; margin: 5px 0 5px 0; -webkit-box-pack: justify; justify-content: space-between; text-align: center;">
-					<h4>
-						<%= i+1 %>
-						.
-						<%= questionList.get(i).getQue_text() %>
-					</h4>
-				</div>
-				<div style="display: flex; width: 100%">
-					<div
-						style="align-items: stretch; display: flex; flex-grow: 1; flex-direction: column; text-align: center; max-width: 30%;">
-						<div
-							style="align-items: stretch; display: flex; flex-grow: 1; flex-direction: column; text-align: center; max-width: 30%;"></div>
-						<div
-							style="align-items: stretch; display: flex; flex-grow: 1; flex-direction: column; text-align: center; max-width: 30%;">
-							<%= splitQuestExamTxt2[0] %></div>
-					</div>
-					<% for(int q=0; q<questionList.get(i).getExam_cnt() ;q++){ %>
-					<label style="width: 20%">
-						<div
-							style="display: flex; align-item: center; width: 10%; text-align: center; cursor: default; -webkit-box-pack: center; justify-content: center; min-height: 3em; padding: 0 5px"></div>
-						<div
-							style="display: flex; align-item: center; width: 10%; -webkit-box-pack: center; justify-content: center; min-height: 3em; padding: 0 5px">
-							<input type="radio" id="inlineRadio1" name="inlineRadioOptions">
-						</div>
-					</label>
-					<%} %>
-					<div
-						style="align-items: stretch; display: flex; flex-grow: 1; flex-direction: column; text-align: center; max-width: 30%;">
-						<div
-							style="align-items: stretch; display: flex; flex-grow: 1; flex-direction: column; text-align: center; max-width: 20%;"></div>
-						<div
-							style="align-items: stretxch; display: flex; flex-grow: 1; flex-direction: column; text-align: center; max-width: 30%;">
-							<%=splitQuestExamTxt2[1] %></div>
-					</div>
-				</div>
-			</div>
-			<%} else if(questionList.get(i).getQue_type().equals("또래지명")) {%>
-			<div style="width: 80%; margin-top: 10px">
-				<div
-					style="display: flex; margin: 5px 0 5px 0; -webkit-box-pack: justify; justify-content: space-between; text-align: center;">
-					<h4>
-						<%=i+1 %>
-						.
-						<%= questionList.get(i).getQue_text() %>
-					</h4>
-				</div>
-				<%} else if(questionList.get(i).getQue_type().equals("주관식")) {%>
-				<div style="display: block; margin-top: 10px">
-					<div
-						style="display: flex; margin: 5px 0 5px 0; -webkit-box-pack: justify; justify-content: space-between; text-align: center;">
-						<h4>
-							<%=i+1 %>
-							.
-							<%= questionList.get(i).getQue_text() %>
-						</h4>
-					</div>
-				</div>
-				<%} %>
-				<%} %>
+			<section class="page-section" >
 			
-		</form>
-	</section>
-	<!-- End Section -->
-
-	<!-- Footer -->
-	<%@ include file="/pageInclude/Footer.jsp"%>
-	<!-- End Footer -->
-
+			<div class="row">
+			<% for(int i=0; i<roadQuestions.size(); i++ ){%>
+			<%=i+1 %>번 : <%= roadQuestions.get(i).getQue_title() %> ( 성향 -> <%= roadQuestions.get(i).getQue_trandTitle() %> )
+			<p></p>
+			<!-- 주관식일 경우 --> 
+			<%if(roadQuestions.get(i).getQue_typeOfferSeq()==0){%>
+			&nbsp; &nbsp; <input type="text" class="input-md form-control" maxlength="100" readonly value="<%= roadQuestions.get(i).getQue_typeTitle() %>">
+			
+			<!-- 객관식일 경우 -->
+			<%}else{ %>
+			<% 
+				ArrayList<QuestionOfferDTO> queOffer = questionService.showQuestionOffer(roadQuestions.get(i).getQue_typeID()); 
+			    roadQuestions.get(i).setQuestionOffer(queOffer);
+			%>
+			<% for(int k=0; k< queOffer.size(); k++){ %>
+			<% if(roadQuestions.get(i).isQ_typeDirection()==true){ %>
+			&nbsp; &nbsp; <%= k+1 %> 번 : <%=queOffer.get(k).getTitle() %><!-- 가로보기 문항 -->
+			<%}else{ %>
+			<label class="radio-inline">
+            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"><%= queOffer.get(k).getTitle() %>
+        	</label>
+			<%} %>
+			
+			<%} %>
+			<%} %>
+			<p></p>
+			<%}%>
+			</div>
+			
+            </section>
 	</div>
 	<!-- End Page Wrap -->
 

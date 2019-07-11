@@ -6,20 +6,19 @@ public class QuestionDTO {
 	private int QType;
 	private int Ttype;
 	private boolean isReverseType;
-	
 	public QuestionDTO(int QID, String title, int QType, int Ttype, boolean isReverseType) {
 		this.QID = QID;
 		this.title = title;
 		this.QType = QType;
 		this.Ttype = Ttype;
-		this.setReverseType(isReverseType);
+		this.isReverseType = isReverseType;
 	}
 	public QuestionDTO(String title, int QType, int Ttype, boolean isReverseType) {
 		
 		this.title = title;
 		this.QType = QType;
 		this.Ttype = Ttype;
-		this.setReverseType(isReverseType);
+		this.isReverseType = isReverseType;
 	}
 	public QuestionDTO() 
 	{

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import = "Service.SurveyService" %>
+<%@ page import = "SurveyRelationDTO.SurveyDTO" %>
+<%@ page import = "java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +20,7 @@
 
 <!-- CSS -->
 <link rel="stylesheet" href="/PeerSys/style/css/bootstrap.min.css">
-<link rel="stylesheet" href="/PeerSys/style/css/style.css">
+<link rel="stylesheet" href="/PeerSys/style/css/style.css?version=4">
 <link rel="stylesheet" href="/PeerSys/style/css/style-responsive.css">
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
@@ -54,29 +57,52 @@
 			</div>
 		</section>
 		<!-- End Head Section -->
-
+<%
+ArrayList<SurveyDTO> surveyList = new ArrayList<SurveyDTO>();
+SurveyService surveyService = SurveyService.getInstance();
+surveyList = surveyService.showAllSurveys();
+%>
 		<!-- Section -->
 		<section class="page-section">
 			<div class="container relative">
-
-				<!-- Row -->
 				<div class="row">
 
 					<div class="col-sm-6 mb-xs-40">
+					<ul class="works-grid work-grid-5 work-grid-gut clearfix font-alt hover-white" id="work-grid">
+				         
+						<%if(surveyList.size()==0){ %>
+						<p>설문조사를 등록하지 않았습니다.</p>
+						<%}else{ %>
+						<%for(int i=0; i<surveyList.size(); i++){ %>
+						<li class="work-item mix design photography">
+                            <a href="showVersionPage.jsp?surveyNo=<%=surveyList.get(i).getSurveyNo()%>"  style="background:white;" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">
+                            		<div class="work-img">
+										<p style="text-align: center; color:black;">
+											<%= surveyList.get(i).getTitle() %>
+										</p>
+										<div class="work-descr">
+											<p style="text-align: center">미리보기</p>
+										</div>
+									</div>
+                            </a>
+                        </li>
+						<%} %>
+						<%} %>
+						
+				 </ul>
 						
 						<button onclick="location.href='versionAddPage.jsp'"
-							class="btn btn-mod btn-border btn-large btn-round" style="margin: 0 auto">설문조사 추가하기</button>
+							class="btn btn-mod btn-border btn-large btn-round" >설문조사 추가하기</button>
 						<button onclick="location.href='Questions/QuestionPage.jsp'"
-							class="btn btn-mod btn-border btn-large btn-round" style="margin: 0 auto">설문문항 추가하기</button>
-
-					</div>
-
-					<!-- End Col -->
+							class="btn btn-mod btn-border btn-large btn-round" >설문문항 추가하기</button>
 
 				</div>
-				<!-- End Row -->
+				</div>
+				
+					<!-- End Col -->
+	
+				</div>
 
-			</div>
 		</section>
 		<!-- End Section -->
 
