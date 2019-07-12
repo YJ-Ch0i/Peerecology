@@ -91,7 +91,7 @@
 			<ul class="clearlist">
 
 
-				<li><a href="/PeerSys/studentLogout.st" class="mn-has-sub">
+				<li><a href="/PeerSys/stuLogout.st" class="mn-has-sub">
 						로그아웃 </a></li>
 
 				<!-- Divider -->

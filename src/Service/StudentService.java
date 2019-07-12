@@ -29,6 +29,10 @@ public class StudentService {
 		return dao.studentList(TID, SCID);
 	}
 	
+	public ArrayList<StudentDTO> studentListInClass(String SCID, int grade, int grd_num) {
+		return dao.studentListInClass(SCID, grade, grd_num);
+	}
+	
 	public boolean studentTransfer(StudentDTO dto) {
 		return dao.studentTransfer(dto);
 	}

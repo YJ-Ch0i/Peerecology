@@ -20,6 +20,7 @@ public class FrontController  extends HttpServlet{
 		
 		list = new HashMap<String, Controller>();
 		list.put("/versionRegister.sv", new VersionAddController());
+		list.put("/searchSurveyList.sv", new SearchSurveyListController());
 		list.put("/goingSurvey.sv", new GoingVersionController());
 		}
 		

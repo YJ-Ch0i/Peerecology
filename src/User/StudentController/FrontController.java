@@ -22,7 +22,9 @@ public class FrontController  extends HttpServlet{
 		list.put("/stuLogin.st", new StudentLoginController());
 		list.put("/StudentTransfer.st", new StudentTransferController());
 		list.put("/AddStudent.st", new StudentAddController());		
-		list.put("/SearchGrade.st", new SearchGradeController());
+		list.put("/selectClass.st", new SearchClassController());
+		list.put("/studentSearch.st", new SearchStudentController());
+		list.put("/stuLogout.st", new StudentLogoutController());
 		}
 		
 	@Override

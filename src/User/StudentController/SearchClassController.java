@@ -3,14 +3,17 @@ package User.StudentController;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Controller.Controller;
+import Service.TeacherService;
+import User.UserDTO.TeacherDTO;
 
 
-public class SearchGradeController implements Controller {
+public class SearchClassController implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,14 +31,16 @@ public class SearchGradeController implements Controller {
 		//ClassService service = ClassService.getInstance();
 		//ArrayList<String> list = service.ClassSearch(sch_code);
 		//request.setAttribute("list", list);
+		
+		TeacherService teaService = TeacherService.getInstance();
+		ArrayList<TeacherDTO> list = teaService.searchGradeUseTeacher(sch_code);
+		request.setAttribute("list", list);
 		request.setAttribute("sch_code", sch_code);
 		request.setAttribute("sch_name", sch_name);
         request.setAttribute("sch_address", sch_address);
 		request.setAttribute("isElementalSchool", isElementalSchool);
 		request.setAttribute("adminSearching", adminSearching);
-		//RequestDispatcher dc =  request.getRequestDispatcher("/page_common/searchClass.jsp");
-		//dc.forward(request, response);
-
+		RequestDispatcher dc =  request.getRequestDispatcher("/page_common/searchClass.jsp");
+		dc.forward(request, response);
 	}
-
 }
