@@ -34,6 +34,7 @@ public class SearchClassController implements Controller {
 		
 		TeacherService teaService = TeacherService.getInstance();
 		ArrayList<TeacherDTO> list = teaService.searchGradeUseTeacher(sch_code);
+		
 		request.setAttribute("list", list);
 		request.setAttribute("sch_code", sch_code);
 		request.setAttribute("sch_name", sch_name);
