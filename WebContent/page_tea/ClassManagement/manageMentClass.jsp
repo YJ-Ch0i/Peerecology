@@ -170,6 +170,7 @@
                                 <td>                      
                                 	<form id="result<%= stu.getNum()%>" method="post">
                                 		<input type="hidden" name="sch_name" value="<%= school.getName() %>">
+                                		<input type="hidden" name="stu_id" value="<%= stu.getStu_id() %>">
                                 		<input type="hidden" name="stu_grade" value="<%= stu.getGrade()%>">
                                 		<input type="hidden" name="stu_grdnum" value="<%= stu.getGrd_num()%>">
                                 		<input type="hidden" name="stu_num" value="<%= stu.getNum()%>>">
