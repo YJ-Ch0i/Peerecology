@@ -85,7 +85,7 @@
 				<div class="row">
 				
                     <form action="/PeerSys/AddStudent.st" method="post" id="form" role="form">
-                    	<h3><%=teacherDTO.getName()%> 선생님의  <%=school.getScname()%> <%=teacherDTO.getGrade()%> 학년  <%=teacherDTO.getClasses()%> 반</h3>
+                    	<h3><%=teacherDTO.getName()%> 선생님의  <%=school.getName()%> <%=teacherDTO.getGrade()%> 학년  <%=teacherDTO.getClasses()%> 반</h3>
                     	<h4> 전학생의 번호와 성별, 그리고 이름을 입력 해 주세요.</h4>
 							<div class="mb-20 mb-md-10">
 								<input type="text" name="grade_num" class="input-md form-control"
