@@ -96,6 +96,7 @@
 						<%}else{ %>
 						<form action="/PeerSys/surveyStart.sv" method="post">
 							<% }%>
+							<input type="hidden" name="tea_id" value="<%= list.get(i).getTID()%>">
 							<input type="hidden" name="grade" value="<%= list.get(i).getGrade() %>"> 
 							<input type="hidden" name="grd_num" value="<%= list.get(i).getClasses()%>">
 							<input type="hidden" name="sch_code" value="<%= request.getAttribute("sch_code") %>">
