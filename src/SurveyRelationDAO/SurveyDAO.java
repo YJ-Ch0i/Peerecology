@@ -8,9 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import SurveyRelationDTO.QuestionDTO;
-import SurveyRelationDTO.SurveyDTO;
-import SurveyRelationDTO.SurveyManagerDTO;
+import SurveyRelationDTO.*;
 import Util.DBConn;
 
 public class SurveyDAO {
@@ -62,6 +60,32 @@ public class SurveyDAO {
 		}
 		}
 	}
+	public void goingVersionRegister(String[] SCIDs, int surveyNo, String startDate, String endDate) 
+	{
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		
+		String SQL ="INSERT INTO survey_ing(surveyNo,SCID,startDate,endDate) VALUES (?,?,?,?)";
+		for(int i=0; i<SCIDs.length; i++) 
+		{
+		try 
+		{
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, surveyNo);
+			pstmt.setString(2, SCIDs[i]);
+			pstmt.setString(3, startDate);
+			pstmt.setString(4, endDate);
+			pstmt.executeUpdate();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		}
+	}
 	public ArrayList<SurveyDTO> showAllSurveys()
 	{
 		Connection conn=null;	
@@ -73,13 +97,39 @@ public class SurveyDAO {
 			conn =DBConn.getConnection();
 			stmt = conn.createStatement();
             rs = stmt.executeQuery(SQL);
-			if(rs.next()) 
+			while(rs.next()) 
 			{
 				SurveyDTO surveyDTO = new SurveyDTO();
 				surveyDTO.setSurveyNo(rs.getInt("surveyNo"));
 				surveyDTO.setTitle(rs.getString("title"));
-				surveyDTO.setStartDate(rs.getDate("startDate"));
-				surveyDTO.setEndDate(rs.getDate("endDate"));
+				surveyDTO.setOpen(rs.getBoolean("isOpen"));
+				surveyList.add(surveyDTO);
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(stmt != null) try{stmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return surveyList;
+	}
+	public ArrayList<SurveyDTO> showSearchSurveys(String version_title)
+	{
+		Connection conn=null;	
+		Statement stmt = null;
+		ArrayList<SurveyDTO> surveyList = new ArrayList<SurveyDTO>();
+		ResultSet rs = null;
+		String SQL ="SELECT * FROM survey where title Like \"%\" '"+version_title+"' \"%\" ; ";
+		try {
+			conn =DBConn.getConnection();
+			stmt = conn.createStatement();
+            rs = stmt.executeQuery(SQL);
+			while(rs.next()) 
+			{
+				SurveyDTO surveyDTO = new SurveyDTO();
+				surveyDTO.setSurveyNo(rs.getInt("surveyNo"));
+				surveyDTO.setTitle(rs.getString("title"));
 				surveyDTO.setOpen(rs.getBoolean("isOpen"));
 				surveyList.add(surveyDTO);
 			}

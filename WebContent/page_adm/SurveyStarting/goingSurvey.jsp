@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="Service.VersionService"%>
-<%@ page import="Version.VersionDTO.VersionDTO"%>
-<%@ page import="java.util.ArrayList"%>
-test
+<%@ page import="Service.*" %>
+<%@ page import="School.SchoolDTO.SchoolDTO" %>
+<%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,10 +14,8 @@ test
 <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-
 <!-- Favicons -->
 <link rel="shortcut icon" href="/PeerSys/style/images/favicon.png">
-
 <!-- CSS -->
 <link rel="stylesheet" href="/PeerSys/style/css/bootstrap.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/style.css">
@@ -26,7 +23,6 @@ test
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
-
 </head>
 <body class="appear-animate">
 
@@ -52,11 +48,7 @@ test
 				<div class="row">
 
 					<div class="col-md-8">
-						<h2 class="hs-line-11 font-alt mb-20 mb-xs-0">
-							<%= request.getParameter("sch_name") %>
-							<%= request.getParameter("grade_class") %>
-							설문조사 설정
-						</h2>
+						<h2 class="hs-line-11 font-alt mb-20 mb-xs-0">설문조사 진행중인 학교들</h2>
 						<div class="hs-line-4 font-alt black"></div>
 					</div>
 
@@ -69,65 +61,6 @@ test
 		<!-- Section -->
 		<section class="page-section">
 			<div class="container relative">
-
-				<!-- Row -->
-				<div class="row">
-					<%
-                       VersionService service = VersionService.getInstance();
-                       ArrayList<VersionDTO> allList = service.VersionSearch();
-                    %>
-					<% if(allList == null){ %>
-					<script>
-                        alert("현재 추가되어있는 버전이 없습니다.");
-                        location.href='formSurvey.jsp';
-                        </script>
-					<%}else{ %>
-					<form action="/PeerSys/surveyRegister.sv" method="post">
-						<input type="hidden"
-							value="<%= request.getParameter("class_id") %>">
-						<ul
-							class="works-grid work-grid-5 work-grid-gut clearfix font-alt hover-white"
-							id="work-grid">
-
-
-							<% for(int i=0; i<allList.size(); i++ ){ %>
-							<li class="work-item mix design photography">test : <%= allList.get(i).getVersion_id() %>
-								<label class="radio-inline"> <input type="radio"
-									name="version_id" id="inlineRadio1"
-									value="<%=allList.get(i).getVersion_id() %>">선택
-							</label> <a
-								href="/PeerSys/page_admin/SurveyManagement/showVersionPage.jsp?numbering=<%=allList.get(i).getVersion_id()%>"
-								class="work-ext-link">
-									<div class="work-img">
-										<p style="text-align: center">
-											<%= allList.get(i).getTitle() %>
-										</p>
-										<div class="work-descr">
-											<p style="text-align: center">미리보기</p>
-										</div>
-									</div>
-							</a>
-							</li>
-							<%} %>
-							<%} %>
-						</ul>
-						<div class="col-sm-6 mb-xs-40" style="margin: 1%;">
-							<input type="hidden" name="class_id"
-								value="<%= request.getAttribute("class_id") %>"> 시작일 : <input
-								type="date" name="start_date" id="date"
-								class="input-md form-control" style="width: 30%;">
-						</div>
-						<div class="col-sm-6 mb-xs-40" style="margin: 1%;">
-							종료일 : <input type="date" name="end_date" id="date"
-								class="input-md form-control" style="width: 30%;">
-						</div>
-						<div class="col-sm-6 mb-xs-40">
-							<button type="submit" style="float: right;">등록하기</button>
-						</div>
-					</form>
-				</div>
-
-				<!-- End Row -->
 
 			</div>
 		</section>

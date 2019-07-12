@@ -27,5 +27,10 @@ public class SurveyService {
 	public ArrayList<SurveyManagerDTO> showQuestionsToManager(int surveyNo){
 		return dao.showQuestionsToManager(surveyNo);
 	}
-	
+	public ArrayList<SurveyDTO> showSearchSurveys(String version_title){
+		return dao.showSearchSurveys(version_title);
+	}
+	public void goingVersionRegister(String[] SCIDs, int surveyNo, String startDate, String endDate) {
+		dao.goingVersionRegister(SCIDs, surveyNo, startDate, endDate);
+	}
 }

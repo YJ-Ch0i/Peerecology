@@ -57,11 +57,6 @@
 			</div>
 		</section>
 		<!-- End Head Section -->
-<%
-ArrayList<SurveyDTO> surveyList = new ArrayList<SurveyDTO>();
-SurveyService surveyService = SurveyService.getInstance();
-surveyList = surveyService.showAllSurveys();
-%>
 		<!-- Section -->
 		<section class="page-section">
 			<div class="container relative">
@@ -69,7 +64,12 @@ surveyList = surveyService.showAllSurveys();
 
 					<div class="col-sm-6 mb-xs-40">
 					<ul class="works-grid work-grid-5 work-grid-gut clearfix font-alt hover-white" id="work-grid">
-				         
+	
+<%
+ArrayList<SurveyDTO> surveyList = new ArrayList<SurveyDTO>();
+SurveyService surveyService = SurveyService.getInstance();
+surveyList = surveyService.showAllSurveys();
+%>			         
 						<%if(surveyList.size()==0){ %>
 						<p>설문조사를 등록하지 않았습니다.</p>
 						<%}else{ %>
