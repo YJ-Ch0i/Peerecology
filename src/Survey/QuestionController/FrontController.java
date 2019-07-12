@@ -20,6 +20,7 @@ public class FrontController  extends HttpServlet{
 		
 		list = new HashMap<String, Controller>();
 		list.put("/questionAdd.qs", new QuestionAddController());
+		list.put("/questionDelete.qs", new QuestionDeleteController());
 		list.put("/trandDelete.qs", new TrandDeleteController());
 		list.put("/trandAdd.qs", new TrandAddController());
 		list.put("/typeAdd.qs", new TypeAddController());
