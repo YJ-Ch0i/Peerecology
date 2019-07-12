@@ -25,16 +25,14 @@ public class SearchStudentController implements Controller {
 		String sch_name = request.getParameter("sch_name");
 		String sch_address = request.getParameter("sch_address");
 		String tea_id = request.getParameter("tea_id");
-		
 		int grade = Integer.parseInt(grd);
 		int grd_num = Integer.parseInt(num);
 		
 		StudentService service = StudentService.getInstance();
 		ArrayList<StudentDTO> list = service.studentListAttend(tea_id, sch_code, grade, grd_num);
 		
-		System.out.println(list);
-		
 		request.setAttribute("list", list);
+		request.setAttribute("sch_code", sch_code);
 		request.setAttribute("grade", grade);
 		request.setAttribute("grd_num", grd_num);
 		request.setAttribute("sch_name", sch_name);

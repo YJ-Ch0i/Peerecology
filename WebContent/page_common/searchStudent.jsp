@@ -53,18 +53,13 @@
                     %>
 				<li class="work-item mix all">
 					<form id="form<%= list.get(i).getNum() %>" method="post">
-						<input type="hidden" name="stu_id"
-							value="<%=list.get(i).getStu_id() %>"> 
-							<input type="hidden" name="grade"
-							value="<%= request.getAttribute("grade") %>"> 
-							<input type="hidden" name="grd_num"
-							value="<%= request.getAttribute("grd_num") %>">
-							<input type="hidden" name="sch_name"
-							value="<%= request.getAttribute("sch_name") %>"> 
-							<input type="hidden" name="stu_name"
-							value="<%= list.get(i).getName() %>">
-							<input type="hidden" name="stu_num"
-							value="<%= list.get(i).getNum() %>"> 
+						<input type="hidden" name="stu_id" value="<%=list.get(i).getStu_id() %>"> 
+						<input type="hidden" name="grade" value="<%= request.getAttribute("grade") %>"> 
+						<input type="hidden" name="grd_num" value="<%= request.getAttribute("grd_num") %>">
+						<input type="hidden" name="sch_name" value="<%= request.getAttribute("sch_name") %>"> 
+						<input type="hidden" name="stu_name" value="<%= list.get(i).getName() %>">
+						<input type="hidden" name="stu_num" value="<%= list.get(i).getNum() %>"> 
+						<input type="hidden" name="sch_code" value="<%=request.getParameter("sch_code") %>"> 
 							<input type="button" value="<%= list.get(i).getNum() %>"
 							style="margin: 10% 10% 10% 15%"
 							class="btn btn-mod btn-circle btn-small" onClick="checkStudent(this.form)">

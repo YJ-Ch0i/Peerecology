@@ -41,7 +41,7 @@
 		<!-- Navigation panel -->
 		<%@include file="/pageInclude/Header.jsp"%>
 		<!-- End Navigation panel -->
-
+	</div>
 		<!-- Head Section -->
 		<section class="small-section bg-gray-lighter">
 			<div class="relative container align-left">

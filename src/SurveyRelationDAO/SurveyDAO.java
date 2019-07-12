@@ -208,4 +208,33 @@ public class SurveyDAO {
 		}
 		return surveyQuestions;
 	}
+	public SurveyGoingDTO startSurvey(String SCID)
+	{
+		Connection conn=null;	
+		Statement stmt = null;
+		SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO();
+		ResultSet rs = null;
+		
+		String SQL ="SELECT * FROM survey_ing WHERE SCID='"+SCID+"' AND DATE(startDate) >= DATE_FORMAT(NOW(), '\"%\"\"Y-\"%\"m-\"%\"d') AND DATE(endDate) >= DATE_FORMAT(NOW(),'\"%\"Y-\"%\"m-\"%\"d')";
+		try {
+			conn =DBConn.getConnection();
+			stmt = conn.createStatement();
+            rs = stmt.executeQuery(SQL);
+			if(rs.next()) 
+			{
+				surveyGoingDTO.setIngSeq(rs.getInt("ingSeq"));
+				surveyGoingDTO.setSurveyNo(rs.getInt("surveyNo"));
+				surveyGoingDTO.setSCID(rs.getString("SCID"));
+				surveyGoingDTO.setStartDate(rs.getString("startDate"));
+				surveyGoingDTO.setEndDate(rs.getString("endDate"));
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(stmt != null) try{stmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return surveyGoingDTO;
+	}
 }

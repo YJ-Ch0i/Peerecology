@@ -22,11 +22,14 @@ public class StudentLoginController implements Controller {
 		String grd_num = request.getParameter("grd_num");
 		String sch_name = request.getParameter("sch_name");
 		String stu_name = request.getParameter("stu_name");
+		String sch_code = request.getParameter("sch_code");
+		
 		int stu_num = Integer.parseInt(request.getParameter("stu_num").trim());
 		
 		session.setAttribute("stu_id", stu_id);
 		session.setAttribute("stu_desc", sch_name +" "+grade + "학년 " + grd_num + "반 " + stu_name);
-		session.setAttribute("stu_num",stu_num);
+		session.setAttribute("sch_code", sch_code);
+		session.setAttribute("stu_num", stu_num);
 		
 		PrintWriter script = response.getWriter();
 		script.println("<script>");

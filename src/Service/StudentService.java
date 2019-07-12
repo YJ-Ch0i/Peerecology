@@ -16,7 +16,6 @@ public class StudentService {
 	public StudentDTO getStudent(String name, String TID, String SCID) {
 		return dao.getStudent(name, TID, SCID);
 	}
-	
 	public ArrayList<StudentItem> LoadStudent(String file_name, String upload_path) {
 		return dao.LoadStudent(file_name, upload_path);
 	}

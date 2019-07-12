@@ -37,4 +37,7 @@ public class SurveyService {
 	public ArrayList<SurveyGoingDTO> showAllGoingSurveys(){
 		return dao.showAllGoingSurveys();
 	}
+	public SurveyGoingDTO startSurvey(String SCID){
+		return dao.startSurvey(SCID);
+	}
 }

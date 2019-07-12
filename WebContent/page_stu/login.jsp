@@ -47,6 +47,7 @@
 				<div class="row">
 					<h1 class="hs-line-11 font-alt mb-20 mb-xs-0">
 						<%= session.getAttribute("stu_desc") %>
+						
 					</h1>
 				</div>
 			</div>
@@ -60,9 +61,8 @@
 
 				<!-- Row -->
 				<div class="row">
-
-					<form action="/PeerSys/studentStartSurvey.st" method="post">
-						<button type="submit" class="btn btn-mod btn-circle btn-medium">시작하기</button>
+					<form action="/PeerSys/startSurvey.sv" method="post">
+						<button type="submit" class="btn btn-mod btn-circle btn-medium">설문 시작하기</button>
 					</form>
 				</div>
 				<!-- End Row -->
