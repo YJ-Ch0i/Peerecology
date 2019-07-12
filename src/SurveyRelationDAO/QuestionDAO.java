@@ -204,6 +204,27 @@ public class QuestionDAO {
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
 	}
+	public int questionDelete(int QID) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		int isSuccess = 0;
+		String SQL ="DELETE FROM question where QID=?";
+		
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, QID);
+			pstmt.executeUpdate();
+			return isSuccess;
+		}catch(Exception e) {
+			isSuccess = -1;
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return isSuccess;
+	}
 	public void questionDifferentRegister(QuestionDTO questionDTO) {
 		Connection conn=null;
 		PreparedStatement pstmt=null;

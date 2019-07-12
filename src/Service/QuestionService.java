@@ -34,6 +34,9 @@ public class QuestionService {
 	public void questionDifferentRegister(QuestionDTO questionDTO) {
 		dao.questionDifferentRegister(questionDTO);
 	}
+	public int questionDelete(int QID) {
+		return dao.questionDelete(QID);
+	}
 	public int queTrandDelete(int trandNum) {
 		return dao.queTrandDelete(trandNum);
 	}

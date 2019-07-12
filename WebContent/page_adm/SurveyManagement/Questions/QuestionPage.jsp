@@ -85,7 +85,8 @@ questions = queSerivce.showAllQuestion();
                     <% for(int i=0; i<questions.size(); i++){ %>
                         <li class="work-item mix <%=questions.get(i).getTtype() %>">
                     <label class="checkbox-inline">
-                    <input type="checkbox" name="deleteQuestion" id="deleteQuestion" value="<%=questions.get(i).getQID()%>"> 
+                    <input type="checkbox" name="deleteQuestion" id="deleteQuestion" value="<%=questions.get(i).getQID()%>">
+                    <input type="hidden" name="deleteQuestion_title<%=questions.get(i).getQID()%>" value="<%=questions.get(i).getTitle() %>">
                     <a href="showQuestion.jsp?numbering=<%=questions.get(i).getQID() %>" style="margin:5%;" 
                     class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">
                     
