@@ -4,6 +4,7 @@ import java.util.*;
 
 import SurveyRelationDAO.SurveyDAO;
 import SurveyRelationDTO.SurveyDTO;
+import SurveyRelationDTO.SurveyGoingDTO;
 import SurveyRelationDTO.SurveyManagerDTO;
 
 
@@ -32,5 +33,8 @@ public class SurveyService {
 	}
 	public void goingVersionRegister(String[] SCIDs, int surveyNo, String startDate, String endDate) {
 		dao.goingVersionRegister(SCIDs, surveyNo, startDate, endDate);
+	}
+	public ArrayList<SurveyGoingDTO> showAllGoingSurveys(){
+		return dao.showAllGoingSurveys();
 	}
 }

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="Service.*" %>
-<%@ page import="School.SchoolDTO.SchoolDTO" %>
+<%@ page import="SurveyRelationDTO.*" %>
 <%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html>
@@ -46,7 +46,11 @@
 			<div class="relative container align-left">
 
 				<div class="row">
-
+<% 
+	SurveyService surService = SurveyService.getInstance();
+	ArrayList<SurveyGoingDTO> surGoingList = new ArrayList<SurveyGoingDTO>();
+	surGoingList = surService.showAllGoingSurveys();
+%>
 					<div class="col-md-8">
 						<h2 class="hs-line-11 font-alt mb-20 mb-xs-0">설문조사 진행중인 학교들</h2>
 						<div class="hs-line-4 font-alt black"></div>
@@ -57,11 +61,31 @@
 		</section>
 		<!-- End Head Section -->
 
-
 		<!-- Section -->
 		<section class="page-section">
 			<div class="container relative">
-
+			<%if (surGoingList.size()==0){ %>
+			<h3> 설문조사가 진행중인 학교가 없습니다. </h3>
+			<%}else{ %>
+			<table class="table table-striped">
+                            <tr>
+                                <th>학교 이름</th>
+                                <th>설문 이름</th>
+                                <th>시작일</th>
+                                <th>종료일</th>
+                                <th>상세보기</th>
+                            </tr>
+			<%for(int i=0; i<surGoingList.size(); i++){ %>
+			<tr>
+			<td><%= surGoingList.get(i).getSCID_name() %></td>
+			<td><%= surGoingList.get(i).getSurvey_title() %> </td>
+			<td><%= surGoingList.get(i).getStartDate() %></td>
+			<td><%= surGoingList.get(i).getEndDate() %></td>
+			<td><button class="btn btn-mod btn-medium btn-round">진행상황보기</button></td>
+			</tr>
+			<%} %>
+			</table>
+			<%} %>
 			</div>
 		</section>
 		<!-- End Section -->
