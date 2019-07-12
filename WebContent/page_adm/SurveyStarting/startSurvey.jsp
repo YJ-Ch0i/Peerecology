@@ -21,8 +21,28 @@ function searchSchool()
 	var schoolNm = document.getElementById("schoolNm").value;
 	$("#clickHref").attr("href","/PeerSys/page_common/searchSchool2.jsp?schoolNm="+schoolNm+"");
 }
+function versionPick()
+{
+	var checkSchs = document.getElementsByName("checkSch");
+	
+	var str = ""
+	for(var i=0; i<checkSchs.length; i++)
+		{
+		if(checkSchs[i].checked==true)
+			{
+			str += checkSchs[i].value + ",";
+			}
+		}
+	if(str == "")
+	{
+		alert('진행할 학교를 체크 해주세요!');
+	}
+	else
+	{
+	$("#clickVersionPick").attr("href","/PeerSys/page_common/versionPick.jsp?str="+str+"");
+	}
+}
 </script>
-
 <!-- Favicons -->
 <link rel="shortcut icon" href="/PeerSys/style/images/favicon.png">
 <!-- CSS -->
@@ -32,7 +52,6 @@ function searchSchool()
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
-
 </head>
 <body class="appear-animate">
 
@@ -95,10 +114,12 @@ schList = schService.school_List();
                 </ul>
                 </div>
                 			<input id="schoolNm" name="schoolNm" type="text" class="input-md form-control" placeholder="학교명을 검색해주세요.">
-							<a id="clickHref" href="/PeerSys/page_common/searchSchool2.jsp" onclick="searchSchool()" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">
+							<a id="clickHref" href="" onclick="searchSchool()" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">
 							 검색 
+							</a>
+							<a id="clickVersionPick" href="" onclick="versionPick()" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">
+							 진행하기
 							 </a>
-							
 						<p></p>
 				  	
 

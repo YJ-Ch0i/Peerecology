@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="Service.StudentService"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="User.UserDTO.StudentDTO"%>
 <!DOCTYPE html>
@@ -43,7 +44,7 @@
 			<h3 style="text-align: center;">자신의 번호를 선택해주세요.</h3>
 			<%
                     ArrayList<StudentDTO> list = (ArrayList<StudentDTO>) request.getAttribute("list");
-        			%>
+        	%>
 			<ul
 				class="works-grid work-grid-5 clearfix font-alt hover-white hide-titles"
 				id="work-grid">

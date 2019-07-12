@@ -57,13 +57,13 @@
 					<% for(int i=0; i<list.size(); i++){
                     %>
 					<tr>
-						<td><%= (String) list.get(i).getScaddress() %></td>
-						<td style="width: 150px"><%= list.get(i).getScname() %></td>
+						<td><%= (String) list.get(i).getAddress() %></td>
+						<td style="width: 150px"><%= list.get(i).getName() %></td>
 						<td>
-							<form action="/PeerSys/selectClass.st" method="post">
-								<input type="hidden" name="sch_code" value="<%=list.get(i).getScid() %>"> 
-								<input type="hidden" name="sch_name" value="<%=list.get(i).getScname() %>"> 
-								<input type="hidden" name="sch_address" value="<%= list.get(i).getScaddress() %>"> 
+							<form action="/Survey/findGradeToSchCode.cs" method="post">
+								<input type="hidden" name="sch_code" value="<%=list.get(i).getSCID() %>"> 
+								<input type="hidden" name="sch_name" value="<%=list.get(i).getName() %>"> 
+								<input type="hidden" name="sch_address" value="<%= list.get(i).getAddress() %>"> 
 								<input type="hidden" name="adminSearching" value="<%=request.getAttribute("adminSearching") %>"> 
 								<input type="submit" value="선택" style="margin: 0% 0% 0% 15%" class="btn btn-mod btn-circle btn-small">
 							</form>
