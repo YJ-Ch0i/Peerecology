@@ -72,6 +72,7 @@ queTypes = queSerivce.showAllTrand();
 questions = queSerivce.showAllQuestion();
 %>
 					<div class="works-filter font-alt">
+					<form action="/PeerSys/questionDelete.qs" method="POST">
 					<% for(int i=0; i<queTypes.size(); i++){ %>
 					
                     <a href="#<%=queTypes.get(i).getQ_trandType()%>" class="filter" data-filter=".<%=queTypes.get(i).getQ_trandType()%>"><%=queTypes.get(i).getQ_trandDescipt()%></a>
@@ -83,8 +84,13 @@ questions = queSerivce.showAllQuestion();
                 <ul class="works-grid work-grid-5 clearfix font-alt hover-white hide-titles" id="work-grid">
                     <% for(int i=0; i<questions.size(); i++){ %>
                         <li class="work-item mix <%=questions.get(i).getTtype() %>">
-                    <a href="showQuestion.jsp?numbering=<%=questions.get(i).getQID() %>" style="margin:5%;" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">
+                    <label class="checkbox-inline">
+                    <input type="checkbox" name="deleteQuestion" id="deleteQuestion" value="<%=questions.get(i).getQID()%>"> 
+                    <a href="showQuestion.jsp?numbering=<%=questions.get(i).getQID() %>" style="margin:5%;" 
+                    class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">
+                    
                     <%=questions.get(i).getTitle() %> </a>
+                    </label>
                         </li>
                     <%} %>
                 </ul>
@@ -92,11 +98,12 @@ questions = queSerivce.showAllQuestion();
                     <p>
                     
 						<a href="QuestionAddPage.jsp" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">문항 추가하기</a>
+						<input type="submit" class="btn btn-mod btn-medium btn-round" value="문항 삭제하기">
 						<a href="TrandAddPage.jsp" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">성향 추가하기</a>
 						<a href="TrandDeletePage.jsp" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">성향 삭제하기</a>
 						<a href="TypeAddPage.jsp" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">유형 추가하기</a>
 						<a href="TypeDeletePage.jsp" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">유형 삭제하기</a>
-
+					</form>
 					<!-- End Col -->
 
 
