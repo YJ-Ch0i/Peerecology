@@ -71,7 +71,8 @@ SurveyService surveyService = SurveyService.getInstance();
 surveyList = surveyService.showAllSurveys();
 %>			         
 						<%if(surveyList.size()==0){ %>
-						<p>설문조사를 등록하지 않았습니다.</p>
+						<div class="col-sm-6 mb-xs-40" style="width:100%; margin-bottom:5%;">설문조사를 등록하지 않았습니다.</div>
+						
 						<%}else{ %>
 						<%for(int i=0; i<surveyList.size(); i++){ %>
 						<li class="work-item mix design photography">

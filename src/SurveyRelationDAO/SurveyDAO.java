@@ -124,22 +124,16 @@ public class SurveyDAO {
 		ArrayList<SurveyGoingDTO> surveyGoingList = new ArrayList<SurveyGoingDTO>();
 		ResultSet rs = null;
 		
-		String SQL ="(SELECT surveyNo FROM survey_ing WHERE DATE(startDate) >= DATE_FORMAT(NOW(), '\"%\"\"Y-\"%\"m-\"%\"d')AND DATE(endDate) >= DATE_FORMAT(NOW(),'\"%\"Y-\"%\"m-\"%\"d'))";
-		String SQL1 ="(SELECT SCID FROM survey_ing WHERE DATE(startDate) >= DATE_FORMAT(NOW(),'\"%\"Y-\"%\"m-\"%\"d') AND DATE(endDate) >= DATE_FORMAT(NOW(),'\"%\"Y-\"%\"m-\"%\"d'))";
-		String SQL2 ="SELECT surIng.*,sch.name,sur.title from survey_ing AS surIng, school_info AS sch, survey AS sur "
-				+ "where sur.surveyNo="+SQL+" AND sch.SCID="+SQL1+" AND "
-				+ "DATE(surIng.startDate) >= DATE_FORMAT(NOW(),'\"%\"Y-\"%\"m-\"%\"d') AND DATE(surIng.endDate) >= DATE_FORMAT(NOW(),'\"%\"Y-\"%\"m-\"%\"d')";
+		String SQL ="SELECT * FROM survey_ing WHERE DATE(startDate) >= DATE_FORMAT(NOW(), '\"%\"\"Y-\"%\"m-\"%\"d')AND DATE(endDate) >= DATE_FORMAT(NOW(),'\"%\"Y-\"%\"m-\"%\"d')";
 		try {
 			conn =DBConn.getConnection();
 			stmt = conn.createStatement();
-            rs = stmt.executeQuery(SQL2);
+            rs = stmt.executeQuery(SQL);
 			while(rs.next()) 
 			{
 				SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO();
-				surveyGoingDTO.setIngSeq(rs.getInt("surIng.ingSeq"));
-				surveyGoingDTO.setSurveyNo(rs.getInt("surIng.surveyNo"));
-				surveyGoingDTO.setSurvey_title(rs.getString("sur.title"));
-				surveyGoingDTO.setSCID_name(rs.getString("sch.name"));
+				surveyGoingDTO.setIngSeq(rs.getInt("ingSeq"));
+				surveyGoingDTO.setSurveyNo(rs.getInt("surveyNo"));
 				surveyGoingDTO.setSCID(rs.getString("surIng.SCID"));
 				surveyGoingDTO.setStartDate(rs.getString("surIng.startDate"));
 				surveyGoingDTO.setEndDate(rs.getString("surIng.endDate"));
@@ -181,6 +175,32 @@ public class SurveyDAO {
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
 		return surveyList;
+	}
+	public SurveyDTO showSearchSurveyToSurveyNo(int surveyNo)
+	{
+		Connection conn=null;	
+		Statement stmt = null;
+		SurveyDTO surveyDTO = new SurveyDTO();
+		ResultSet rs = null;
+		String SQL ="SELECT * FROM survey where surveyNo='"+surveyNo+"'; ";
+		try {
+			conn =DBConn.getConnection();
+			stmt = conn.createStatement();
+            rs = stmt.executeQuery(SQL);
+			while(rs.next()) 
+			{
+				surveyDTO.setSurveyNo(rs.getInt("surveyNo"));
+				surveyDTO.setTitle(rs.getString("title"));
+				surveyDTO.setOpen(rs.getBoolean("isOpen"));
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(stmt != null) try{stmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return surveyDTO;
 	}
 	public ArrayList<SurveyDTO> showSearchSurveys(String version_title)
 	{
