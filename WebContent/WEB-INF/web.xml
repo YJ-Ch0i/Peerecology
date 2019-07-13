@@ -57,6 +57,14 @@
     <servlet-name>SurveyFront</servlet-name>
     <url-pattern> *.sv </url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>AnswerFront</servlet-name>
+    <servlet-class>Survey.AnswerController.FrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AnswerFront</servlet-name>
+    <url-pattern> *.as </url-pattern>
+  </servlet-mapping>
   <context-param>
     <param-name>admin_id</param-name>
     <param-value>admin</param-value>

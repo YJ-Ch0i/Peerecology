@@ -29,6 +29,9 @@ public class StudentLogoutController implements Controller {
 		}else {
 			session.removeAttribute("stu_id");
 			session.removeAttribute("stu_desc");
+			session.removeAttribute("grd_num");
+			session.removeAttribute("sch_code");
+			session.removeAttribute("stu_num");
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('로그아웃 되었습니다.');");

@@ -188,7 +188,7 @@ public class QuestionDAO {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		
-		String SQL ="INSERT INTO question(title, QType, Ttype,isReverseType) VALUES (?,?,?,?)";
+		String SQL ="INSERT INTO question(title, QType, Ttype,isReverseType,que_answer) VALUES (?,?,?,?,?)";
 		try {
 			conn =DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
@@ -196,6 +196,7 @@ public class QuestionDAO {
 			pstmt.setInt(2, questionDTO.getQType());
 			pstmt.setInt(3, questionDTO.getTtype());
 			pstmt.setBoolean(4, questionDTO.isReverseType());
+			pstmt.setString(5, questionDTO.getQue_answer());
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -229,13 +230,14 @@ public class QuestionDAO {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		
-		String SQL ="INSERT INTO question(title, QType, Ttype,isReverseType) VALUES (?,(SELECT MAX(q_typeID) FROM q_type),?,?)";
+		String SQL ="INSERT INTO question(title, QType, Ttype,isReverseType,que_answer) VALUES (?,(SELECT MAX(q_typeID) FROM q_type),?,?,?)";
 		try {
 			conn =DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, questionDTO.getTitle());
 			pstmt.setInt(2, questionDTO.getTtype());
 			pstmt.setBoolean(3, questionDTO.isReverseType());
+			pstmt.setString(4, questionDTO.getQue_answer());
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -272,7 +274,7 @@ public class QuestionDAO {
 		Statement stmt = null;
 		AllDescQuestionDTO questionDTO = new AllDescQuestionDTO();
 		ResultSet rs = null;
-		String SQL ="SELECT question.title,qtt.descript,qt.descript,qt.q_typeOfferSeq,qt.q_typeID ,question.isReverseType,qt.q_typeDirection "
+		String SQL ="SELECT question.title,question.que_answer,qtt.descript,qt.descript,qt.q_typeOfferSeq,qt.q_typeID ,question.isReverseType,qt.q_typeDirection"
 				+ " FROM question,q_trand_type AS qtt,q_type AS qt "
 				+ " WHERE qtt.q_trandID = (SELECT Ttype from question where QID='"+QID+"') "
 				+ " AND question.QID = (SELECT QID from question where QID='"+QID+"') "
@@ -285,6 +287,7 @@ public class QuestionDAO {
 			{
 				questionDTO.setQID(QID);
 				questionDTO.setQue_title(rs.getString("question.title"));
+				questionDTO.setQue_answer(rs.getString("question.que_answer"));
 				questionDTO.setQue_trandTitle(rs.getString("qtt.descript"));
 				questionDTO.setQue_typeTitle(rs.getString("qt.descript"));
 				questionDTO.setQue_typeID(rs.getInt("qt.q_typeID"));

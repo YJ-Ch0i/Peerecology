@@ -40,7 +40,7 @@ QuestionService questionService = QuestionService.getInstance();
 SurveyService surveyService = SurveyService.getInstance();
 ArrayList<SurveyManagerDTO> questions = new ArrayList<SurveyManagerDTO>();
 questions = surveyService.showQuestionsToManager(surveyNo);
-ArrayList<AllDescQuestionDTO> roadQuestions = new ArrayList<AllDescQuestionDTO>(); 
+ArrayList<AllDescQuestionDTO> roadQuestions = new ArrayList<AllDescQuestionDTO>();
 for(int i=0; i<questions.size(); i++)
 {
 	AllDescQuestionDTO question = questionService.showQuestion(questions.get(i).getQID());
@@ -58,7 +58,8 @@ for(int i=0; i<questions.size(); i++)
 			
 			<div class="row">
 			<% for(int i=0; i<roadQuestions.size(); i++ ){%>
-			<%=i+1 %>번 : <%= roadQuestions.get(i).getQue_title() %> ( 성향 -> <%= roadQuestions.get(i).getQue_trandTitle() %> )
+			<%=i+1 %>번 : <%= roadQuestions.get(i).getQue_title() %> ( 성향 -> <%= roadQuestions.get(i).getQue_trandTitle() %> ) 
+			<%if( roadQuestions.get(i).getQue_answer() != null ){ %> ( 정답 -> <%=roadQuestions.get(i).getQue_answer() %> ) <%} %>
 			<p></p>
 			<!-- 주관식일 경우 --> 
 			<%if(roadQuestions.get(i).getQue_typeOfferSeq()==0){%>

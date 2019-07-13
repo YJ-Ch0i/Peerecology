@@ -21,14 +21,18 @@ public class QuestionAddController implements Controller {
 		String que_title = request.getParameter("que_title");
 		String strIsReverseType = request.getParameter("isReverseType");
 		String strQ_typeDirection = request.getParameter("q_typeDirection");
+		String questionAnswer = request.getParameter("questionAnswer");
 		boolean q_typeDirection = true;
+		if(strQ_typeDirection!=null)
+		{
 		if(strQ_typeDirection.equals("2")) q_typeDirection = false;
+		}
 		int que_trandTypeID = Integer.parseInt(strQue_trandTypeID);
 		int que_typeID = Integer.parseInt(strQue_typeID);
 		boolean isReverseType = true;
 		if(strIsReverseType.equals("0")) {isReverseType = false;}
 		
-		QuestionDTO questionDTO = new QuestionDTO(que_title,que_typeID,que_trandTypeID,isReverseType);
+		QuestionDTO questionDTO = new QuestionDTO(que_title,que_typeID,que_trandTypeID,isReverseType,questionAnswer);
 		QuestionService queService = QuestionService.getInstance();
 
 		

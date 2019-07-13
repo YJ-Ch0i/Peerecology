@@ -58,19 +58,19 @@ ArrayList<QuestionTypeDTO> queTypes = queService.showAllType();
 			
 			<div class="row">
 			성향 : 
-			 <input type="text" name="trand_title" readonly id="name" class="input-md form-control" maxlength="100" value="<%=questionDTO.getQue_trandTitle() %>">
-			<p></p>
-			 유형 :  <input type="text" name="trand_title" readonly id="name" class="input-md form-control" maxlength="100" value="<%=questionDTO.getQue_typeTitle() %>">
-			<p></p>
-          	 문항 이름 : <input type="text" name="trand_title" readonly id="name" class="input-md form-control" maxlength="100" value="<%=questionDTO.getQue_title() %>">
-     		<p></p>
-     		역산 : <input type="text" class="input-md form-control" maxlength="100"  readonly
-     			value=" <% if(questionDTO.isQue_isReverseType() ==true) {%>역산이 아니다.<%} %> <% if(questionDTO.isQue_isReverseType() ==false) {%>역산이다. <%}%>">
-			<p></p>
-			<%if( questionDTO.getQue_answer() != null ){ %>
-			정답 :  <input type="text" name="question_answer" readonly class="input-md form-control" maxlength="100" value="<%=questionDTO.getQue_answer() %>">
-			<p></p>
+			<select class="input-md form-control"> 
+			<% for(int i=0; i<queTrands.size(); i++){ %>
+			<option <% if(queTrands.get(i).getQ_trandDescipt().equals(questionDTO.getQue_trandTitle())) {%> selected <%} %> ><%=queTrands.get(i).getQ_trandDescipt() %></option>
 			<%} %>
+			</select>
+			<p></p>
+			 유형 :   
+           	<select class="input-md form-control"> 
+			<% for(int i=0; i<queTypes.size(); i++){ %>
+			<option <% if(queTypes.get(i).getDescript().equals(questionDTO.getQue_typeTitle())) {%> selected <%} %>> <%=queTypes.get(i).getDescript() %></option>
+			<%} %>
+			</select>
+			<p></p>
 			<% if(questionOfferList.size()!=0){ %>
 			<% for(int i=0; i<questionOfferList.size(); i++){ %>
 			<!-- 세로보기 문항 -->
@@ -86,7 +86,20 @@ ArrayList<QuestionTypeDTO> queTypes = queService.showAllType();
 			<%} %>
 			
 			<p></p>
-     		</div>
+          	 문항 이름 : <input type="text" name="trand_title" id="name" class="input-md form-control" maxlength="100" value="<%=questionDTO.getQue_title() %>">
+     		<p></p>
+     		역산 : 
+      		<select class="input-md form-control"> 
+			<option <% if(questionDTO.isQue_isReverseType() ==true) {%> selected <%} %> value="1"> 역산아니다.</option>
+			<option <% if(questionDTO.isQue_isReverseType() ==false) {%> selected <%} %> value="0"> 역산이다.</option>
+			</select>
+			<p></p>
+			<%if( questionDTO.getQue_answer() != null ){ %>
+			정답 :  <input type="text" name="question_answer" id="name" class="input-md form-control" maxlength="100" value="<%= questionDTO.getQue_answer() %>">
+			<p></p>
+			<%} %>
+     		<input type="submit"  style="float:right" class="btn btn-mod btn-medium btn-round" value="수정하기">
+            </div>
             </form>
             </section>
 	</div>

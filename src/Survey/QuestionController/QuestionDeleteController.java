@@ -46,14 +46,15 @@ public class QuestionDeleteController implements Controller {
 			return;
 				}
 			}
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('Success Delete!')");
-			script.println("document.location.reload();");
-			script.println("</script>");
-			script.close();
+			
 			
 		}
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('Success Delete! Press F5')");
+		script.println("history.back();");
+		script.println("</script>");
+		script.close();
 	}
 
 }

@@ -3,6 +3,7 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="Service.*"%>
 <%@ page import="SurveyRelationDTO.*"%>
+<%@ page import="User.UserDTO.StudentDTO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,11 +30,16 @@
 
 </head>
 <body class="appear-animate">
-	<% 
+	<%
+	//설문지의 question 인덱스들
 	ArrayList<SurveyManagerDTO> queManagerList = new ArrayList<SurveyManagerDTO>();
 	queManagerList = (ArrayList<SurveyManagerDTO>)request.getAttribute("questionsDTO");
-	QuestionService queSerivce = QuestionService.getInstance();
+	
 	AllDescQuestionDTO queList = new AllDescQuestionDTO();
+	// 같은 반 다른학생들의 정보
+	ArrayList<StudentDTO> OtherStuList = new ArrayList<StudentDTO>();
+	OtherStuList = (ArrayList<StudentDTO>)session.getAttribute("OtherStuList");
+	QuestionService queSerivce = QuestionService.getInstance();
     %>
 	<!-- Page Loader -->
 	<div class="page-loader">
@@ -65,10 +71,10 @@
 	<section class="page-section" style="padding:50px 0">
 	<div class="container relative">
 	<div class="row">
-	<form action="/Survey/registerSurveyResult.rs" method="post">
-    
+	<form action="/PeerSys/surveyAnswerRegister.as" method="post">
 	<%for(int i=0; i<queManagerList.size();i++){ %>
-	<div class="mb-20 mb-md-10"> 
+	<input type="hidden" name="QID" value="<%=queManagerList.get(i).getQID() %>">
+	<div class="mb-20 mb-md-10" style="margin-bottom:5%"> 
 	<% 
 		queList = queSerivce.showQuestion(queManagerList.get(i).getQID()); 
 	%>
@@ -86,28 +92,34 @@
 			<!-- 세로보기 문항 -->
 			<% if(queList.isQ_typeDirection()==true){ %>
 			<label class="radio-inline"> 
-				<input type="radio" name="inlineRadioOptions<%=i+1%>" id="inlineRadio1" value="option1"><%= queOffer.get(k).getTitle() %>
+				<input type="radio" name="checkAnswer<%=i%>" id="inlineRadio1" value="<%=k+1%>"><%= queOffer.get(k).getTitle() %>
 			</label>
 			<!-- 가로보기 문항 -->
 			<%}else{ %>
 			<p></p>
 			<label class="radio-inline">
-	          	<input type="radio" name="inlineRadioOptions<%=i+1%>" id="inlineRadio1" value="option1">
+	          	<input type="radio" name="checkAnswer<%=i%>" id="inlineRadio1" value="<%=k+1%>">
 	          	<%= queOffer.get(k).getTitle() %>
 		    </label>
 			<%} %>
 		 <%} %> 
 	<!-- 또래지명일 경우 -->
 	<%}else if(queList.getQue_typeTitle().equals("또래지명")){ %>
-	
+	<% for(int k=0; k<OtherStuList.size(); k++) {%>
+	<label class="checkbox-inline"> 
+				<input type="checkbox" name="checkDDorae<%=i%>" id="checkBox" value="<%=OtherStuList.get(k).getStu_id() %>">
+				<%= OtherStuList.get(k).getName() %>
+	</label>
+	<%} %>
 	<!-- 주관식일 경우 -->
 	
 	<%}else{ %>
-	
-	<%} %>
-	
+	<input type="text" name="checkAnswer<%=i%>" id="tea_name" class="input-md form-control" placeholder="" maxlength="100" required>
 	<%} %>
 	</div>
+	<%} %>
+	
+	<input type="submit" style="float:right" class="btn btn-mod btn-medium btn-round" >
 	</form>
 	</div>
 	</div>

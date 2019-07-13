@@ -41,7 +41,9 @@ public class StartSurveyController implements Controller {
 		{
 			ArrayList<SurveyManagerDTO> questionsDTO = new ArrayList<SurveyManagerDTO>();
 			questionsDTO = surService.showQuestionsToManager(surveyGoingDTO.getSurveyNo());
+			surveyGoingDTO = surService.findIngSurvey(surveyGoingDTO.getSurveyNo(), sch_code);
 			request.setAttribute("questionsDTO", questionsDTO);
+			session.setAttribute("surveyGoingDTO", surveyGoingDTO);
 			RequestDispatcher dc = request.getRequestDispatcher("/page_stu/SurveyPage.jsp");
 			dc.forward(request, response);
 		}

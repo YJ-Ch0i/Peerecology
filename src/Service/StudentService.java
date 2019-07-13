@@ -35,7 +35,9 @@ public class StudentService {
 	public ArrayList<StudentDTO> studentListAttend (String TID, String SCID, int grade, int grd_num) {
 		return dao.studentListAttend(TID, SCID, grade, grd_num);
 	}
-	
+	public ArrayList<StudentDTO> findStudentToGradeSCID(int SID, String SCID, int grade, int classes){
+		return dao.findStudentToGradeSCID(SID,SCID, grade, classes);
+	}
 	public boolean studentTransfer(StudentDTO dto) {
 		return dao.studentTransfer(dto);
 	}

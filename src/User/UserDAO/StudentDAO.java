@@ -141,7 +141,37 @@ public class StudentDAO {
 		}
 		return false;
 	}
-	
+	public ArrayList<StudentDTO> findStudentToGradeSCID(int SID ,String SCID, int grade, int classes){
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs = null;
+		
+		ArrayList<StudentDTO> list = new ArrayList<>();
+		
+		String sql = "SELECT * FROM user_students WHERE SID NOT IN (?) AND isTransfer=1 AND SCID=? AND grade=? AND class=? ORDER BY num";
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, SID);
+			pstmt.setString(2, SCID);
+			pstmt.setInt(3, grade);
+			pstmt.setInt(4, classes);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				list.add(new StudentDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getString(7), rs.getInt(8), rs.getDate(9), rs.getBoolean(10)));
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return list;
+	}
 	public ArrayList<StudentDTO> studentList(String TID, String SCID) {
 		Connection conn=null;
 		PreparedStatement pstmt=null;

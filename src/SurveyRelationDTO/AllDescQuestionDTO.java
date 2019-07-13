@@ -9,6 +9,7 @@ public class AllDescQuestionDTO {
 	private int que_typeID;
 	private String que_typeTitle;
 	private int que_typeOfferSeq;
+	private String que_answer;
 	private boolean que_isReverseType;
 	private boolean q_typeDirection;
 	private ArrayList<QuestionOfferDTO> questionOffer;
@@ -65,5 +66,11 @@ public class AllDescQuestionDTO {
 	}
 	public void setQ_typeDirection(boolean q_typeDirection) {
 		this.q_typeDirection = q_typeDirection;
+	}
+	public String getQue_answer() {
+		return que_answer;
+	}
+	public void setQue_answer(String que_answer) {
+		this.que_answer = que_answer;
 	}
 }

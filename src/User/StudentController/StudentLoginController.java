@@ -2,6 +2,7 @@ package User.StudentController;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Controller.Controller;
+import Service.StudentService;
+import User.UserDTO.StudentDTO;
 
 public class StudentLoginController implements Controller {
 
@@ -23,10 +26,14 @@ public class StudentLoginController implements Controller {
 		String sch_name = request.getParameter("sch_name");
 		String stu_name = request.getParameter("stu_name");
 		String sch_code = request.getParameter("sch_code");
+		String stu_num = request.getParameter("stu_num");
 		
-		int stu_num = Integer.parseInt(request.getParameter("stu_num").trim());
+		StudentService stuService = StudentService.getInstance();
+		ArrayList<StudentDTO> OtherStuList = new ArrayList<StudentDTO>();
+		OtherStuList = stuService.findStudentToGradeSCID(Integer.parseInt(stu_id),sch_code, Integer.parseInt(grade), Integer.parseInt(grd_num));
 		
 		session.setAttribute("stu_id", stu_id);
+		session.setAttribute("OtherStuList", OtherStuList);
 		session.setAttribute("stu_desc", sch_name +" "+grade + "학년 " + grd_num + "반 " + stu_name);
 		session.setAttribute("sch_code", sch_code);
 		session.setAttribute("stu_num", stu_num);

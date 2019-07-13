@@ -8,52 +8,6 @@
 <html>
 <head>
 
-<script language="javascript">
-
-function changeInput(offerSeq) 
-{
-if(offerSeq==-1)
-{
-	var strInput = 
-		"&nbsp;&nbsp;&nbsp;보기 방향 :  <select name=\"q_typeDirection\" class=\"input-md form-control\" onChange=\"offerDirection(this.value);\">"
-		+"	<option value=\"0\" selected>선택해주세요.</option>"
-		+"	<option value=\"1\">세로 보기형</option>"
-		+"	<option value=\"2\">가로 보기형</option>"
-		+"	</select> <p></p>"
-		+"&nbsp; 유형 이름 : <input type=\"text\" name=\"type_title\" id=\"name\" class=\"input-md form-control\" maxlength=\"100\"><p><p/>"
-		+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 질문 개수 : <select name=\"offerSeq\" class=\"input-md form-control\" onChange=\"addInput(this.value);\">"
-		+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;						<option value=\"0\">주관식</option>"
-		+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;						<option value=\"0\">또래지명</option>"
-	    +"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                      <option value=\"1\">1</option>"
-	    +"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                      <option value=\"2\">2</option>"
-	    +"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                      <option value=\"3\">3</option>"
-	    +"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                      <option value=\"4\">4</option>"
-	    +"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                      <option value=\"5\">5</option>"
-	    +"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                      <option value=\"6\">6</option>"
-	    +"          </select>"
-	    +"<p></p>";
-	    
-	document.getElementById('isSelectCreate').innerHTML=strInput;
-}
-else
-{
-	document.getElementById('isSelectCreate').innerHTML="";
-	document.getElementById('inputBox').innerHTML = ""; 
-}
-}
-
-function addInput(offerSeq) {
-var strInput = "";
-document.getElementById('inputBox').innerHTML = "";
-
-for (var i=1; i <= offerSeq; i++) {
-  strInput += "&nbsp;&nbsp; "+i+"번 내용: <input type=\"text\" name=\"type_OfferTitle"+i+"\" class=\"input-md form-control\" maxlength=\"100\"> <p></p>";
-}
-
-document.getElementById('inputBox').innerHTML = strInput; 
-}
-</script>
-
 <title>Rhythm &mdash; One & Multi Page Creative Theme</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
@@ -141,11 +95,19 @@ queTypes = queSerivce.showAllType();
 		          문항 이름 : <input type="text" name="que_title" id="name" class="input-md form-control" maxlength="100">
 		    <p></p>
       		역산 : 
-      		<select name="isReverseType" class="input-md form-control"> 
+      		<select name="isReverseType" class="input-md form-control" > 
 			<option value="1"> 역산아니다.</option>
 			<option value="0"> 역산이다.</option>
 			</select>
 			<p></p>
+			정답 여부 : 
+			<select name="isAnswer" class="input-md form-control" onChange="isQuestionAnswering(this.value);"> 
+			<option value="0"> 정답이 없다.</option>
+			<option value="1"> 정답이 있다.</option>
+			</select>
+			<p></p>
+			<div id="inputAnswer">
+			</div>
      		<input type="submit"  style="float:right" class="btn btn-mod btn-medium btn-round" value="추가하기">
 			</form>
             </div>
@@ -154,46 +116,34 @@ queTypes = queSerivce.showAllType();
 
 
 	<!-- JS -->
-	<script type="text/javascript"
-		src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/jquery.easing.1.3.js"></script>
+	
+	<script type="text/javascript" src="/PeerSys/style/js/addQuestionFuc.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/SmoothScroll.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/jquery.scrollTo.min.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/jquery.localScroll.min.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/jquery.viewport.mini.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.scrollTo.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.localScroll.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.viewport.mini.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.countTo.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.appear.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.sticky.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/jquery.parallax-1.1.3.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.parallax-1.1.3.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.fitvids.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/owl.carousel.min.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/isotope.pkgd.min.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/imagesloaded.pkgd.min.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/jquery.magnific-popup.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/owl.carousel.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/isotope.pkgd.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/imagesloaded.pkgd.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.magnific-popup.min.js"></script>
 	<!-- Replace test API Key "AIzaSyAZsDkJFLS0b59q7cmW0EprwfcfUA8d9dg" with your own one below 
         **** You can get API Key here - https://developers.google.com/maps/documentation/javascript/get-api-key -->
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZsDkJFLS0b59q7cmW0EprwfcfUA8d9dg"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZsDkJFLS0b59q7cmW0EprwfcfUA8d9dg"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/gmap3.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/wow.min.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/masonry.pkgd.min.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/jquery.simple-text-rotator.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/masonry.pkgd.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.simple-text-rotator.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/all.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/contact-form.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/jquery.ajaxchimp.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.ajaxchimp.min.js"></script>
 	<!--[if lt IE 10]><script type="text/javascript" src="js/placeholder.js"></script><![endif]-->
 
 </body>
