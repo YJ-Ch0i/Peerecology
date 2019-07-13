@@ -37,6 +37,7 @@ checkQuestions = document.getElementsByName("checkQuestions");
 splitQuestions = inputCheckQuestions.split('input type="text"');
 cnt = splitQuestions.length-1;
 var size = checkQuestions.length;
+
 	for(var i=0; i<size; i++)
 	{
 		if(checkQuestions[i].checked)
@@ -54,6 +55,7 @@ var size = checkQuestions.length;
 parent.document.getElementById('addedQuestion').innerHTML = inputCheckQuestions;
 alert('추가되었습니다.')
 self.document.location.reload();
+	
 }
 </script>
 </head>
@@ -95,6 +97,7 @@ questions = queSerivce.showAllQuestion();
                     </div>
                     
                 <ul class="works-grid work-grid-5 clearfix font-alt hover-white hide-titles" id="work-grid">
+                <%if(questions.size()==0){ %> 문항을 아직 등록하지 않으셨습니다. <%} %>
                     <% for(int i=0; i<questions.size(); i++){ %>
                      <li class="work-item mix <%=questions.get(i).getTtype() %>">
                     <div class="mb-20 mb-md-10" id="hiddingHidden">

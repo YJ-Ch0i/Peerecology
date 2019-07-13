@@ -75,9 +75,8 @@ queTypes = queSerivce.showAllType();
 				  	  					</select>
 			<p></p>
 			&nbsp;&nbsp;&nbsp;질문 개수 :  <select name="offerSeq" class="input-md form-control" onChange="addInput(this.value);">
-										<option value="0">주관식</option>
-										<option value="0">또래지명</option>
-			                            <option value="1">1</option>
+										<option value="0">선택해주세요</option>
+									 	<option value="1">1</option>
 			                            <option value="2">2</option>
 			                            <option value="3">3</option>
 			                            <option value="4">4</option>

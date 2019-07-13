@@ -43,4 +43,7 @@ public class SurveyService {
 	public SurveyGoingDTO findIngSurvey(int surveyNo, String SCID){
 		return dao.findIngSurvey(surveyNo, SCID);
 	}
+	public SurveyDTO showSearchSurveyToSurveyNo(int surveyNo){
+		return dao.showSearchSurveyToSurveyNo(surveyNo);
+	}
 }

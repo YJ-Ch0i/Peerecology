@@ -50,6 +50,9 @@
 	SurveyService surService = SurveyService.getInstance();
 	ArrayList<SurveyGoingDTO> surGoingList = new ArrayList<SurveyGoingDTO>();
 	surGoingList = surService.showAllGoingSurveys();
+	SchoolService schService = SchoolService.getInstance();
+	
+	
 %>
 					<div class="col-md-8">
 						<h2 class="hs-line-11 font-alt mb-20 mb-xs-0">설문조사 진행중인 학교들</h2>
@@ -77,8 +80,8 @@
                             </tr>
 			<%for(int i=0; i<surGoingList.size(); i++){ %>
 			<tr>
-			<td><%= surGoingList.get(i).getSCID_name() %></td>
-			<td><%= surGoingList.get(i).getSurvey_title() %> </td>
+			<td><%= schService.getSchoolToSCID(surGoingList.get(i).getSCID()).getName() %></td>
+			<td><%= surService.showSearchSurveyToSurveyNo(surGoingList.get(i).getSurveyNo()).getTitle() %> </td>
 			<td><%= surGoingList.get(i).getStartDate() %></td>
 			<td><%= surGoingList.get(i).getEndDate() %></td>
 			<td><button class="btn btn-mod btn-medium btn-round">진행상황보기</button></td>

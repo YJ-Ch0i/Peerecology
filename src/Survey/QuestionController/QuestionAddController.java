@@ -22,10 +22,10 @@ public class QuestionAddController implements Controller {
 		String strIsReverseType = request.getParameter("isReverseType");
 		String strQ_typeDirection = request.getParameter("q_typeDirection");
 		String questionAnswer = request.getParameter("questionAnswer");
-		boolean q_typeDirection = true;
+		boolean q_typeDirection = false;
 		if(strQ_typeDirection!=null)
 		{
-		if(strQ_typeDirection.equals("2")) q_typeDirection = false;
+		if(strQ_typeDirection.equals("2")) {q_typeDirection = true;}
 		}
 		int que_trandTypeID = Integer.parseInt(strQue_trandTypeID);
 		int que_typeID = Integer.parseInt(strQue_typeID);
