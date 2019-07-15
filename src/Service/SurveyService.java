@@ -1,11 +1,14 @@
 package Service;
 
+import java.sql.Date;
 import java.util.*;
 
 import SurveyRelationDAO.SurveyDAO;
+import SurveyRelationDTO.Stu_ans_ViewDTO;
 import SurveyRelationDTO.SurveyDTO;
 import SurveyRelationDTO.SurveyGoingDTO;
 import SurveyRelationDTO.SurveyManagerDTO;
+import view.viewDTO.SearchEndsurveyDTO;
 
 
 public class SurveyService {
@@ -45,5 +48,17 @@ public class SurveyService {
 	}
 	public SurveyDTO showSearchSurveyToSurveyNo(int surveyNo){
 		return dao.showSearchSurveyToSurveyNo(surveyNo);
+	}
+	
+	public ArrayList<SurveyGoingDTO> searchSurveyToTeacher(int surveyNo, String scid) {
+		return dao.searchSurveyToTeacher(surveyNo, scid);
+	}
+	
+	public ArrayList<SearchEndsurveyDTO> searchEndSurvey(String SCID) {
+		return dao.searchEndSurvey(SCID);
+	}
+	
+	public ArrayList<Stu_ans_ViewDTO> searchAnswer(int surNo, int ingSeq, String scid, Date start, Date end) {
+		return dao.searchAnswer(surNo, ingSeq, scid, start, end);
 	}
 }

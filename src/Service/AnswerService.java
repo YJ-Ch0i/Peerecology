@@ -1,5 +1,7 @@
 package Service;
 
+import java.util.ArrayList;
+
 import SurveyRelationDAO.AnswerDAO;
 import SurveyRelationDTO.SurveyAnswerDTO;
 
@@ -15,5 +17,9 @@ public class AnswerService {
 	}
 	public void multiAnswerRegister(String[] ddoraeAnswer) {
 		dao.multiAnswerRegister(ddoraeAnswer);
+	}
+	
+	public ArrayList<SurveyAnswerDTO> getAnswers(int ingSeq) {
+		return dao.getAnswers(ingSeq);
 	}
 }

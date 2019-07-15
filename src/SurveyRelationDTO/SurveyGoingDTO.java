@@ -8,6 +8,7 @@ public class SurveyGoingDTO {
 	private String survey_title;
 	private String startDate;
 	private String endDate;
+	
 	public SurveyGoingDTO() {
 		
 	}

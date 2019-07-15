@@ -1,5 +1,6 @@
 package Service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import SurveyRelationDAO.*;
@@ -13,15 +14,25 @@ public class QuestionService {
 	public static QuestionService getInstance() {
 		return service;
 	}
+	
+	public ArrayList<QuestionTrandTypeDTO> searchTrandList(int surNo, int ingSeq, String scid, Date start, Date end) {
+		return dao.searchTrandList(surNo, ingSeq, scid, start, end);
+	}
+	public QuestionTrandTypeDTO searchTrand(int trandID) {
+		return dao.searchTrand(trandID);
+	}
 	public ArrayList<QuestionDTO> showAllQuestion() {
 		return dao.showAllQuestion();
-		}
+	}
 	public ArrayList<QuestionTrandTypeDTO> showAllTrand() {
 	return dao.showAllTrand();
 	}
 	public ArrayList<QuestionTypeDTO> showAllType() {
 		return dao.showAllType();
-		}
+	}
+	public ArrayList<QuestionTypeDTO> showAllType(int qtype) {
+		return dao.showAllType(qtype);
+	}
 	public void queTrandRegister(String trandTitle){
 		dao.queTrandRegister(trandTitle);
 	}

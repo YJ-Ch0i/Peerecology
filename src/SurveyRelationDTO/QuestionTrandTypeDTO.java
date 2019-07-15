@@ -4,6 +4,7 @@ public class QuestionTrandTypeDTO {
 	private int q_trandType;
 	private String q_trandDescipt;
 	
+	public QuestionTrandTypeDTO() {}
 	public QuestionTrandTypeDTO(int q_trandType, String q_trandDescipt) {
 		this.setQ_trandType(q_trandType);
 		this.setQ_trandDescipt(q_trandDescipt);

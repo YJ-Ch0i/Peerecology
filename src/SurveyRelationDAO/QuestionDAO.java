@@ -14,6 +14,67 @@ public class QuestionDAO {
 	public static QuestionDAO getInstance() {
 		return dao;
 	}
+	
+	public ArrayList<QuestionTrandTypeDTO> searchTrandList(int surNo, int ingSeq, String scid, Date start, Date end) {
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<QuestionTrandTypeDTO> trandList = new ArrayList<QuestionTrandTypeDTO>();
+		
+		String sql = "SELECT Ttype, qttdes FROM student_answer WHERE surveyNo=? AND ingSeq=? AND scid=? AND startDate=? AND endDate=? GROUP BY Ttype ORDER BY num, QID";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, surNo);
+			pstmt.setInt(2, ingSeq);
+			pstmt.setString(3, scid);
+			pstmt.setDate(4, start);
+			pstmt.setDate(5, end);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				trandList.add(new QuestionTrandTypeDTO(rs.getInt(1), rs.getString(2)));
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return trandList;
+	}
+	
+	public QuestionTrandTypeDTO searchTrand(int trandID) {
+		Connection conn=null;
+		PreparedStatement pstmt = null;
+		QuestionTrandTypeDTO queTrand = null;
+		ResultSet rs = null;
+		String SQL ="Select * from q_trand_type WHERE q_trandID=?";
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, trandID);
+			rs = pstmt.executeQuery();
+			while(rs.next()) 
+			{
+				queTrand = new QuestionTrandTypeDTO();
+				queTrand.setQ_trandType(rs.getInt(1));
+				queTrand.setQ_trandDescipt(rs.getString(2));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return queTrand;
+	}
+	
 	public ArrayList<QuestionTrandTypeDTO> showAllTrand() {
 		Connection conn=null;
 		Statement stmt = null;
@@ -60,6 +121,34 @@ public class QuestionDAO {
 		}
 		return queTypes;
 	}
+	
+	public ArrayList<QuestionTypeDTO> showAllType(int qtype) {
+		Connection conn=null;
+		PreparedStatement pstmt = null;
+		ArrayList<QuestionTypeDTO> queTypes = new ArrayList<QuestionTypeDTO>();
+		ResultSet rs = null;
+		String SQL ="Select * from search_qtype WHERE QType=?";
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, qtype);
+			rs = pstmt.executeQuery();
+			while(rs.next()) 
+			{
+				QuestionTypeDTO questionDTO = new QuestionTypeDTO(rs.getInt("QType"),rs.getString("descript"));
+				queTypes.add(questionDTO);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return queTypes;
+	}
+	
+	
 	public ArrayList<QuestionDTO> showAllQuestion() {
 		Connection conn=null;
 		Statement stmt = null;

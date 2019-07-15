@@ -1,15 +1,19 @@
 package SurveyRelationDAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import SurveyRelationDTO.*;
+import SurveyRelationDTO.Stu_ans_ViewDTO;
+import SurveyRelationDTO.SurveyDTO;
+import SurveyRelationDTO.SurveyGoingDTO;
+import SurveyRelationDTO.SurveyManagerDTO;
 import Util.DBConn;
+import view.viewDTO.SearchEndsurveyDTO;
 
 public class SurveyDAO {
 	
@@ -93,9 +97,11 @@ public class SurveyDAO {
 		SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO();
 		ResultSet rs = null;
 		
-		String SQL2 ="SELECT * from survey_ing "
+		/*String SQL2 ="SELECT * from survey_ing "
 				+ " where surveyNo='"+surveyNo+"' AND SCID='"+SCID+"'"
-				+ " AND DATE(startDate) >= DATE_FORMAT(NOW(),'\"%\"Y-\"%\"m-\"%\"d') AND DATE(endDate) >= DATE_FORMAT(NOW(),'\"%\"Y-\"%\"m-\"%\"d')";
+				+ " AND DATE(startDate) >= DATE_FORMAT(NOW(),'\"%\"Y-\"%\"m-\"%\"d') AND DATE(endDate) >= DATE_FORMAT(NOW(),'\"%\"Y-\"%\"m-\"%\"d')";*/
+		
+		String SQL2 = "SELECT * FROM survey_ing WHERE surveyNo=" + surveyNo + " AND SCID= '" + SCID + "' AND DATE(NOW()) BETWEEN startDate AND endDate";
 		try {
 			conn =DBConn.getConnection();
 			stmt = conn.createStatement();
@@ -134,9 +140,9 @@ public class SurveyDAO {
 				SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO();
 				surveyGoingDTO.setIngSeq(rs.getInt("ingSeq"));
 				surveyGoingDTO.setSurveyNo(rs.getInt("surveyNo"));
-				surveyGoingDTO.setSCID(rs.getString("surIng.SCID"));
-				surveyGoingDTO.setStartDate(rs.getString("surIng.startDate"));
-				surveyGoingDTO.setEndDate(rs.getString("surIng.endDate"));
+				surveyGoingDTO.setSCID(rs.getString("SCID"));
+				surveyGoingDTO.setStartDate(rs.getString("startDate"));
+				surveyGoingDTO.setEndDate(rs.getString("endDate"));
 				surveyGoingList.add(surveyGoingDTO);
 			}
 		}
@@ -287,5 +293,135 @@ public class SurveyDAO {
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
 		return surveyGoingDTO;
+	}
+	
+	public ArrayList<SurveyGoingDTO> searchSurveyToTeacher(int surveyNo, String scid) {
+		
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<SurveyGoingDTO> surveyList = new ArrayList<SurveyGoingDTO>();
+		
+		String sql = "SELECT * FROM survey_ing WHERE surveyNo=? AND SCID=? AND DATE(NOW()) >= endDate";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, surveyNo);
+			pstmt.setString(2, scid);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO();
+				surveyGoingDTO.setIngSeq(rs.getInt("ingSeq"));
+				surveyGoingDTO.setSurveyNo(rs.getInt("surveyNo"));
+				surveyGoingDTO.setSCID(rs.getString("SCID"));
+				surveyGoingDTO.setStartDate(rs.getString("startDate"));
+				surveyGoingDTO.setEndDate(rs.getString("endDate"));
+				surveyList.add(surveyGoingDTO);
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return surveyList;
+	}
+	
+
+	/**
+	 * 학교 코드를 이용하여 해당 학교에서 기간이 끝난 설문조사 목록을 가져옴
+	 * @param SCID
+	 * @return
+	 */
+	public ArrayList<SearchEndsurveyDTO> searchEndSurvey(String SCID) {
+		
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<SearchEndsurveyDTO> surveyList = new ArrayList<SearchEndsurveyDTO>();
+		
+		String sql = "SELECT * FROM search_endsurvey_view WHERE SCID=?";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, SCID);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				SearchEndsurveyDTO dto = new SearchEndsurveyDTO();
+				dto.setSurveyNo(rs.getInt(1));
+				dto.setIngSeq(rs.getInt(2));
+				dto.setSCID(rs.getString(3));
+				dto.setStartDate(rs.getDate(4));
+				dto.setEndDate(rs.getDate(5));
+				dto.setTitle(rs.getString(6));
+				surveyList.add(dto);
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return surveyList;
+	}
+	
+	public ArrayList<Stu_ans_ViewDTO> searchAnswer(int surNo, int ingSeq, String scid, Date start, Date end) {
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Stu_ans_ViewDTO> answerList = new ArrayList<Stu_ans_ViewDTO>();
+		
+		String sql = "SELECT * FROM student_answer WHERE surveyNo=? AND ingSeq=? AND scid=? AND startDate=? AND endDate=? ORDER BY num, QID";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, surNo);
+			pstmt.setInt(2, ingSeq);
+			pstmt.setString(3, scid);
+			pstmt.setDate(4, start);
+			pstmt.setDate(5, end);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Stu_ans_ViewDTO dto = new Stu_ans_ViewDTO();
+				dto.setQID(rs.getInt(1));
+				dto.setStu_id(rs.getInt(2));
+				dto.setStu_num(rs.getInt(3));
+				dto.setStu_name(rs.getString(4));
+				dto.setAnswerV(rs.getInt(5));
+				dto.setSurveyNo(rs.getInt(6));
+				dto.setIngSeq(rs.getInt(7));
+				dto.setSCID(rs.getString(8));
+				dto.setStartDate(rs.getDate(9));
+				dto.setEndDate(rs.getDate(10));
+				dto.setQType(rs.getInt(11));
+				dto.setQtDes(rs.getString(12));
+				dto.settType(rs.getInt(13));
+				dto.setQttDes(rs.getString(14));
+				dto.setReverse(rs.getBoolean(15));
+				
+				answerList.add(dto);
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return answerList;
 	}
 }

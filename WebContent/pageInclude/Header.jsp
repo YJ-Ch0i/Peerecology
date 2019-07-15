@@ -57,7 +57,7 @@
 				<li>
 					<!-- Item With Sub -->
 				<li><a
-					href="/PeerSys/page_tea/SurveyResult/findStudentPage.jsp"
+					href="/PeerSys/page_tea/SurveyResult/findSurveyPage.jsp"
 					class="mn-has-sub"> 설문조사 결과 </a> <!-- End Sub Multilevel --></li>
 				<!-- End Item With Sub -->
 
