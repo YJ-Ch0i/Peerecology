@@ -272,7 +272,8 @@ public class SurveyDAO {
 		SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO();
 		ResultSet rs = null;
 		
-		String SQL ="SELECT * FROM survey_ing WHERE SCID='"+SCID+"' AND DATE(startDate) >= DATE_FORMAT(NOW(), '\"%\"\"Y-\"%\"m-\"%\"d') AND DATE(endDate) >= DATE_FORMAT(NOW(),'\"%\"Y-\"%\"m-\"%\"d')";
+		//String SQL ="SELECT * FROM survey_ing WHERE SCID='"+SCID+"' AND DATE(startDate) >= DATE_FORMAT(NOW(), '\"%\"\"Y-\"%\"m-\"%\"d') AND DATE(endDate) >= DATE_FORMAT(NOW(),'\"%\"Y-\"%\"m-\"%\"d')";
+		String SQL = "SELECT * FROM survey_ing WHERE SCID= '" + SCID + "' AND DATE(NOW()) BETWEEN startDate AND endDate";
 		try {
 			conn =DBConn.getConnection();
 			stmt = conn.createStatement();

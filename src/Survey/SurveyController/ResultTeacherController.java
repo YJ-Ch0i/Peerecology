@@ -109,7 +109,7 @@ public class ResultTeacherController implements Controller {
 											} else if (questionDescList.get(i).isQue_isReverseType() == true) {
 												score = Integer.parseInt(answers.get(j).getAnswerValue().trim());
 												total = score + total;
-											}
+											}											 
 										}
 									}																
 								}
