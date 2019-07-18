@@ -140,7 +140,7 @@ public class AddClassController implements Controller {
 	               session.setAttribute("tea_id", tea_id);
 	               PrintWriter script =response.getWriter();
 	               script.println("<script>");
-	               script.println("alert('학급 등록이 완료되었습니다.')");
+	               script.println("alert('Certified!!')");
 	               script.println("location.href='page_tea/login.jsp';");
 	               script.println("</script>");
 	               script.close();
@@ -149,7 +149,7 @@ public class AddClassController implements Controller {
 				else {
 					PrintWriter script =response.getWriter();
 					script.println("<script>");
-					script.println("alert('오류가 발생했습니다.')");
+					script.println("alert('Error...')");
 					script.println("history.back();");
 					script.println("</script>");
 					script.close();

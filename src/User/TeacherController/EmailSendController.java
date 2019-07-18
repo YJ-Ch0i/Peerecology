@@ -39,7 +39,7 @@ public class EmailSendController implements Controller {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('Please Login First!');");
-			script.println("location.href = 'index.jsp'");
+			script.println("location.href = '/PeerSys/index.jsp'");
 			script.println("</script>");
 			script.close();
 			return;
@@ -52,13 +52,14 @@ public class EmailSendController implements Controller {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('Already Certified!');");
-			script.println("location.href = 'PeerSys/teacherIndex.jsp'");
+			script.println("location.href = '/PeerSys/teacherIndex.jsp'");
 			script.println("</script>");
 			script.close();
 			return;
 		}
 		
-		String host = "http://localhost:8080/PeerSys/";
+		//String host = "http://localhost:8080/PeerSys/";
+		String host = "http://peerecology.cafe24.com/PeerSys/";
 		String href = "emailCheckAction.tc";
 		String from = "yeong_4310@yi.ac.kr";				
 		String to = tea_id;
@@ -93,7 +94,7 @@ public class EmailSendController implements Controller {
 		    PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('Please Email Check!!.');");
-			script.println("location.href = 'index.jsp'");
+			script.println("location.href = '/PeerSys/index.jsp'");
 			script.println("</script>");
 			script.close();
 			return;

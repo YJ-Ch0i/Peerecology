@@ -30,7 +30,7 @@ public class TeacherDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String sql = "select TID from user_teachers where TID = ?";
+		String sql = "SELECT TID FROM user_teachers WHERE TID = ?";
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(sql);
