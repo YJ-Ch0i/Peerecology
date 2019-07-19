@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import SurveyRelationDTO.Stu_ans_ViewDTO;
 import SurveyRelationDTO.SurveyDTO;
@@ -123,20 +125,27 @@ public class SurveyDAO {
 		}
 		return surveyGoingDTO;
 	}
-	public ArrayList<SurveyGoingDTO> showAllGoingSurveys()
+	public ArrayList<SurveyGoingDTO> showAllGoingSurveys() throws ParseException
 	{
 		Connection conn=null;	
 		Statement stmt = null;
 		ArrayList<SurveyGoingDTO> surveyGoingList = new ArrayList<SurveyGoingDTO>();
 		ResultSet rs = null;
+		SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd");
+		String strThisDate = format1.format(System.currentTimeMillis());
+		java.util.Date thisDate = new SimpleDateFormat("yyyy-MM-dd").parse(strThisDate);
+		String SQL ="SELECT * FROM survey_ing;";
 		
-		String SQL ="SELECT * FROM survey_ing WHERE DATE(startDate) >= DATE_FORMAT(NOW(), '\"%\"\"Y-\"%\"m-\"%\"d')AND DATE(endDate) >= DATE_FORMAT(NOW(),'\"%\"Y-\"%\"m-\"%\"d')";
 		try {
 			conn =DBConn.getConnection();
 			stmt = conn.createStatement();
             rs = stmt.executeQuery(SQL);
 			while(rs.next()) 
 			{
+				java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("endDate")); 
+				int compareDate = thisDate.compareTo(date);
+				if(compareDate<=0) 
+				{
 				SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO();
 				surveyGoingDTO.setIngSeq(rs.getInt("ingSeq"));
 				surveyGoingDTO.setSurveyNo(rs.getInt("surveyNo"));
@@ -144,6 +153,43 @@ public class SurveyDAO {
 				surveyGoingDTO.setStartDate(rs.getString("startDate"));
 				surveyGoingDTO.setEndDate(rs.getString("endDate"));
 				surveyGoingList.add(surveyGoingDTO);
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(stmt != null) try{stmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return surveyGoingList;
+	}
+	public ArrayList<SurveyGoingDTO> showAllSurveysThisYear()
+	{
+		Connection conn=null;	
+		Statement stmt = null;
+		ArrayList<SurveyGoingDTO> surveyGoingList = new ArrayList<SurveyGoingDTO>();
+		ResultSet rs = null;
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy");
+		String strThisYear = format1.format (System.currentTimeMillis());
+		int thisYear = Integer.parseInt(strThisYear);
+		String SQL ="SELECT * FROM survey_ing";
+			try {
+			conn =DBConn.getConnection();
+			stmt = conn.createStatement();
+            rs = stmt.executeQuery(SQL);
+			while(rs.next()) 
+			{
+				if(thisYear==Integer.parseInt(rs.getString("startDate").substring(0, 4)))
+				{
+				SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO();
+				surveyGoingDTO.setIngSeq(rs.getInt("ingSeq"));
+				surveyGoingDTO.setSurveyNo(rs.getInt("surveyNo"));
+				surveyGoingDTO.setSCID(rs.getString("SCID"));
+				surveyGoingDTO.setStartDate(rs.getString("startDate"));
+				surveyGoingDTO.setEndDate(rs.getString("endDate"));
+				surveyGoingList.add(surveyGoingDTO);
+				}
 			}
 		}
 		catch(Exception e) {
