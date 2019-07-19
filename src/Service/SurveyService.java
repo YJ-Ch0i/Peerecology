@@ -41,8 +41,11 @@ public class SurveyService {
 	public ArrayList<SurveyGoingDTO> showAllGoingSurveys() throws ParseException{
 		return dao.showAllGoingSurveys();
 	}
-	public ArrayList<SurveyGoingDTO> showAllSurveysThisYear(){
-		return dao.showAllSurveysThisYear();
+	public ArrayList<SurveyGoingDTO> showAllResultSurvey() throws ParseException{
+		return dao.showAllResultSurvey();
+	}
+	public ArrayList<SurveyGoingDTO> showResultSurvey(String SCID_name) throws ParseException{
+		return dao.showResultSurvey(SCID_name);
 	}
 	public SurveyGoingDTO startSurvey(String SCID){
 		return dao.startSurvey(SCID);

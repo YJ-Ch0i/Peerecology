@@ -67,24 +67,21 @@
 	<% 
 	SurveyService surService = SurveyService.getInstance();
 	SchoolService schService = SchoolService.getInstance();
-	ArrayList<SurveyGoingDTO> surThisYear = new ArrayList<SurveyGoingDTO>();
-	surThisYear = surService.showAllSurveysThisYear();
-	SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd");
-	String strThisDate = format1.format(System.currentTimeMillis());
-	Date thisDate = new SimpleDateFormat("yyyy-MM-dd").parse(strThisDate);
+	ArrayList<SurveyGoingDTO> schResultSur = new ArrayList<SurveyGoingDTO>();
+	ArrayList<SurveyGoingDTO> schFindResultSur = new ArrayList<SurveyGoingDTO>();
+	schResultSur = surService.showAllResultSurvey();
+	String input_schoolNm = request.getParameter("input_schoolNm");
 	%>
-					<form action="schoolSearch.sc" method="post"
-									class="form-inline form mb-20" role="form">
+					<form id="formHref" action="" class="form-inline form mb-20" role="form">
 									<div class="search-wrap" style="width: 60%;">
-										<button class="search-button animate" type="submit"
-											title="Start Search">
+										<button class="search-button animate"  title="Start Search">
 											<i class="fa fa-search"></i>
 										</button>
 										<input style="width: 60%" type="text" name="input_schoolNm"
 											class="form-control search-field" placeholder="학교명을 검색해주세요.">
 									</div>
 					</form>
-			<%if (surThisYear.size()==0){ %>
+			<%if (schResultSur.size()==0){ %>
 			<h3> 설문조사한 학교가 없습니다. </h3>
 			<%}else{ %>
 			<table class="table table-striped">
@@ -95,24 +92,31 @@
                                 <th>종료일</th>
                                 <th>상세보기</th>
                             </tr>
-			<%for(int i=0; i<surThisYear.size(); i++){ %>
+            <%if(input_schoolNm==null){ %>
+			<%for(int i=0; i<schResultSur.size(); i++){ %>
 			<tr>
-			<td><%= schService.getSchoolToSCID(surThisYear.get(i).getSCID()).getName() %></td>
-			<td><%= surService.showSearchSurveyToSurveyNo(surThisYear.get(i).getSurveyNo()).getTitle() %> </td>
-			<td><%= surThisYear.get(i).getStartDate() %></td>
-			<td><%= surThisYear.get(i).getEndDate() %></td>
+			<td><%= schService.getSchoolToSCID(schResultSur.get(i).getSCID()).getName() %></td>
+			<td><%= surService.showSearchSurveyToSurveyNo(schResultSur.get(i).getSurveyNo()).getTitle() %> </td>
+			<td><%= schResultSur.get(i).getStartDate() %></td>
+			<td><%= schResultSur.get(i).getEndDate() %></td>
 			<td>
-			<% 
-			Date date = new SimpleDateFormat("yyyy-MM-dd").parse(surThisYear.get(i).getEndDate()); 
-			int compareDate = thisDate.compareTo(date);
-			%>
-			<%if(compareDate >= 0){ %>
 			<button class="btn btn-mod btn-medium btn-round">결과보기</button>
-			<%}else{ %>
-			진행중입니다.
-			<%} %>
 			</td>
 			</tr>
+			<%} %>
+			<%}else{ %>
+			<% schFindResultSur = surService.showResultSurvey(input_schoolNm); %>
+			<% for(int i=0; i<schFindResultSur.size(); i++){ %>
+			<tr>
+			<td><%= schFindResultSur.get(i).getSCID_name() %></td>
+			<td><%= surService.showSearchSurveyToSurveyNo(schResultSur.get(i).getSurveyNo()).getTitle() %> </td>
+			<td><%= schResultSur.get(i).getStartDate() %></td>
+			<td><%= schResultSur.get(i).getEndDate() %></td>
+			<td>
+			<button class="btn btn-mod btn-medium btn-round">결과보기</button>
+			</td>
+			</tr>
+			<%} %>
 			<%} %>
 			</table>
 			<%} %>

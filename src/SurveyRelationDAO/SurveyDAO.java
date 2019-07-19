@@ -134,7 +134,7 @@ public class SurveyDAO {
 		SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd");
 		String strThisDate = format1.format(System.currentTimeMillis());
 		java.util.Date thisDate = new SimpleDateFormat("yyyy-MM-dd").parse(strThisDate);
-		String SQL ="SELECT * FROM survey_ing;";
+		String SQL ="SELECT * FROM survey_ing AS surIng, school_info AS sch WHERE sch.SCID=surIng.SCID GROUP BY surIng.ingSeq ORDER BY DATE(surIng.endDate) ASC;";
 		
 		try {
 			conn =DBConn.getConnection();
@@ -142,16 +142,17 @@ public class SurveyDAO {
             rs = stmt.executeQuery(SQL);
 			while(rs.next()) 
 			{
-				java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("endDate")); 
+				java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("surIng.endDate")); 
 				int compareDate = thisDate.compareTo(date);
 				if(compareDate<=0) 
 				{
 				SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO();
-				surveyGoingDTO.setIngSeq(rs.getInt("ingSeq"));
-				surveyGoingDTO.setSurveyNo(rs.getInt("surveyNo"));
-				surveyGoingDTO.setSCID(rs.getString("SCID"));
-				surveyGoingDTO.setStartDate(rs.getString("startDate"));
-				surveyGoingDTO.setEndDate(rs.getString("endDate"));
+				surveyGoingDTO.setIngSeq(rs.getInt("surIng.ingSeq"));
+				surveyGoingDTO.setSurveyNo(rs.getInt("surIng.surveyNo"));
+				surveyGoingDTO.setSCID_name(rs.getString("sch.name"));
+				surveyGoingDTO.setSCID(rs.getString("surIng.SCID"));
+				surveyGoingDTO.setStartDate(rs.getString("surIng.startDate"));
+				surveyGoingDTO.setEndDate(rs.getString("surIng.endDate"));
 				surveyGoingList.add(surveyGoingDTO);
 				}
 			}
@@ -164,30 +165,74 @@ public class SurveyDAO {
 		}
 		return surveyGoingList;
 	}
-	public ArrayList<SurveyGoingDTO> showAllSurveysThisYear()
+	public ArrayList<SurveyGoingDTO> showResultSurvey(String SCID_name) throws ParseException
 	{
 		Connection conn=null;	
 		Statement stmt = null;
 		ArrayList<SurveyGoingDTO> surveyGoingList = new ArrayList<SurveyGoingDTO>();
 		ResultSet rs = null;
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy");
-		String strThisYear = format1.format (System.currentTimeMillis());
-		int thisYear = Integer.parseInt(strThisYear);
-		String SQL ="SELECT * FROM survey_ing";
+		SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd");
+		String strThisDate = format1.format(System.currentTimeMillis());
+		java.util.Date thisDate = new SimpleDateFormat("yyyy-MM-dd").parse(strThisDate);
+		
+		String SQL ="SELECT * FROM survey_ing AS surIng, school_info AS sch where sch.name='"+SCID_name+"' "
+				+ " AND sch.SCID=surIng.SCID GROUP BY surIng.ingSeq";
 			try {
 			conn =DBConn.getConnection();
 			stmt = conn.createStatement();
             rs = stmt.executeQuery(SQL);
 			while(rs.next()) 
 			{
-				if(thisYear==Integer.parseInt(rs.getString("startDate").substring(0, 4)))
+				java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("surIng.endDate")); 
+				int compareDate = thisDate.compareTo(date);
+				if(compareDate<0) 
 				{
 				SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO();
-				surveyGoingDTO.setIngSeq(rs.getInt("ingSeq"));
-				surveyGoingDTO.setSurveyNo(rs.getInt("surveyNo"));
-				surveyGoingDTO.setSCID(rs.getString("SCID"));
-				surveyGoingDTO.setStartDate(rs.getString("startDate"));
-				surveyGoingDTO.setEndDate(rs.getString("endDate"));
+				surveyGoingDTO.setIngSeq(rs.getInt("surIng.ingSeq"));
+				surveyGoingDTO.setSurveyNo(rs.getInt("surIng.surveyNo"));
+				surveyGoingDTO.setSCID(rs.getString("surIng.SCID"));
+				surveyGoingDTO.setSCID_name(rs.getString("sch.name"));
+				surveyGoingDTO.setStartDate(rs.getString("surIng.startDate"));
+				surveyGoingDTO.setEndDate(rs.getString("surIng.endDate"));
+				surveyGoingList.add(surveyGoingDTO);
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(stmt != null) try{stmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return surveyGoingList;
+	}
+	public ArrayList<SurveyGoingDTO> showAllResultSurvey() throws ParseException
+	{
+		Connection conn=null;	
+		Statement stmt = null;
+		ArrayList<SurveyGoingDTO> surveyGoingList = new ArrayList<SurveyGoingDTO>();
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
+		String strThisDate = format1.format (System.currentTimeMillis());
+		java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strThisDate);
+		ResultSet rs = null;
+		String SQL ="SELECT * FROM survey_ing AS surIng, school_info AS sch WHERE surIng.SCID=sch.SCID GROUP BY surIng.ingSeq ORDER BY DATE(surIng.startDate) ASC;";
+			try {
+			conn =DBConn.getConnection();
+			stmt = conn.createStatement();
+            rs = stmt.executeQuery(SQL);
+			while(rs.next()) 
+			{
+				java.util.Date dbDate = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("surIng.endDate"));
+				int compare = dbDate.compareTo(date);
+				if(compare<0) 
+				{
+				SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO();
+				surveyGoingDTO.setIngSeq(rs.getInt("surIng.ingSeq"));
+				surveyGoingDTO.setSurveyNo(rs.getInt("surIng.surveyNo"));
+				surveyGoingDTO.setSCID(rs.getString("surIng.SCID"));
+				surveyGoingDTO.setSCID_name(rs.getString("sch.name"));
+				surveyGoingDTO.setStartDate(rs.getString("surIng.startDate"));
+				surveyGoingDTO.setEndDate(rs.getString("surIng.endDate"));
 				surveyGoingList.add(surveyGoingDTO);
 				}
 			}

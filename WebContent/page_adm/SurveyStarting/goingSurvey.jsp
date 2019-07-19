@@ -80,7 +80,7 @@
                             </tr>
 			<%for(int i=0; i<surGoingList.size(); i++){ %>
 			<tr>
-			<td><%= schService.getSchoolToSCID(surGoingList.get(i).getSCID()).getName() %></td>
+			<td><%= surGoingList.get(i).getSCID_name() %></td>
 			<td><%= surService.showSearchSurveyToSurveyNo(surGoingList.get(i).getSurveyNo()).getTitle() %> </td>
 			<td><%= surGoingList.get(i).getStartDate() %></td>
 			<td><%= surGoingList.get(i).getEndDate() %></td>
