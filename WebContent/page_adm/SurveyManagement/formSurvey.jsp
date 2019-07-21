@@ -25,6 +25,7 @@
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 </head>
 <body class="appear-animate">
@@ -58,29 +59,28 @@
 		</section>
 		<!-- End Head Section -->
 		<!-- Section -->
-		<section class="page-section">
+		<section class="page-section" style="padding:50px 0;">
 			<div class="container relative">
-				<div class="row">
-
-					<div class="col-sm-6 mb-xs-40">
-					<ul class="works-grid work-grid-5 work-grid-gut clearfix font-alt hover-white" id="work-grid">
-	
+				
+					<div class="col-sm-6 mb-xs-40" style="width:100%;">
+					 <ul class="works-grid work-grid-5 work-grid-gut clearfix font-alt hover-white">
+			
 <%
 ArrayList<SurveyDTO> surveyList = new ArrayList<SurveyDTO>();
 SurveyService surveyService = SurveyService.getInstance();
 surveyList = surveyService.showAllSurveys();
 %>			         
 						<%if(surveyList.size()==0){ %>
-						<div class="col-sm-6 mb-xs-40" style="width:100%; margin-bottom:5%;">설문조사를 등록하지 않았습니다.</div>
-						
+						<p>버젼이 등록되있지 않습니다.</p>
 						<%}else{ %>
 						<%for(int i=0; i<surveyList.size(); i++){ %>
-						<li class="work-item mix design photography">
-                            <a href="showVersionPage.jsp?surveyNo=<%=surveyList.get(i).getSurveyNo()%>"  style="background:white;" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">
+						<li class="work-item mix design photography" style="margin:4%; width:15%">
+                            <a href="showVersionPage.jsp?surveyNo=<%=surveyList.get(i).getSurveyNo()%>"   class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe" style="background:white; padding:0;">
                             		<div class="work-img">
 										<p style="text-align: center; color:black;">
 											<%= surveyList.get(i).getTitle() %>
 										</p>
+										<span></span>
 										<div class="work-descr">
 											<p style="text-align: center">미리보기</p>
 										</div>
@@ -91,13 +91,18 @@ surveyList = surveyService.showAllSurveys();
 						<%} %>
 						
 				 </ul>
-						
+				 <p></p>
+				 <p></p>
+			 <ul class="pagination" style="list-stlye-type:none; text-align:center;">
+    
+  			 </ul>
+  			 <p></p>
 						<button onclick="location.href='versionAddPage.jsp'"
 							class="btn btn-mod btn-border btn-large btn-round" >설문조사 추가하기</button>
 						<button onclick="location.href='Questions/QuestionPage.jsp'"
 							class="btn btn-mod btn-border btn-large btn-round" >설문문항 추가하기</button>
 
-				</div>
+				
 				</div>
 				
 					<!-- End Col -->
@@ -116,6 +121,7 @@ surveyList = surveyService.showAllSurveys();
 
 
 	<!-- JS -->
+	<script type="text/javascript" src="/PeerSys/style/js/pagingFormSurvey.js?version=3"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/bootstrap.min.js"></script>

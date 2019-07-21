@@ -11,9 +11,8 @@ function pagination(){
             num_pages++;
             num_pages=Math.floor(num_pages++);
         }
-  
         for(var i=1; i<=num_pages; i++){
-            jQuery('.pagination').append("<li><a>"+i+"</a></li>");
+            jQuery('.pagination').append("<li style=\"display: inline; padding: 5px; cursor:pointer;\"><a style=\"cursor:pointer;\">"+i+"</a></li>");
       jQuery('.pagination li:nth-child(2)').addClass("active");
       jQuery('.pagination a').addClass("pagination-link");
         }

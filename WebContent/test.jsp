@@ -10,200 +10,40 @@
 <link rel="stylesheet" href="test.css?version=55">
 </head>
 <body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js" 
+type="text/javascript"></script>
+<script type="text/javascript">
 
+$(document).ready(function(){
+
+    $(".slidingDiv").show();
+    $(".show_hide").show();
+
+$('.show_hide').click(function(){
+$(".slidingDiv").slideToggle();
+});
+
+});
+
+</script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script type="text/javascript" src="test.js"></script> 
+<script type="text/javascript" src="test.js?version=2"></script> 
+<div id="stick_footer_title"><a class="show_hide" href="#">Toggle Menu
+ &#x25BC;</a></div>
+<div class="slidingDiv">
+<div id="stickyfooter">
 
-<div class="table-responsive">
-  <table class="table table-bordered table-hover">
-    <thead>
-      <tr>
-        <th>Page</th>
-        <th>Visits</th>
-        <th>New Visits</th>
-        <th>Revenue</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>/index.html</td>
-        <td>1265</td>
-        <td>32.3%</td>
-        <td>$321.33</td>
-      </tr>
-      <tr>
-        <td>/about.html</td>
-        <td>261</td>
-        <td>33.3%</td>
-        <td>$234.12</td>
-      </tr>
-      <tr>
-        <td>/sales.html</td>
-        <td>665</td>
-        <td>21.3%</td>
-        <td>$16.34</td>
-      </tr>
-      <tr>
-        <td>/blog.html</td>
-        <td>9516</td>
-        <td>89.3%</td>
-        <td>$1644.43</td>
-      </tr>
-      <tr>
-        <td>/404.html</td>
-        <td>23</td>
-        <td>34.3%</td>
-        <td>$23.52</td>
-      </tr>
-      <tr>
-        <td>/services.html</td>
-        <td>421</td>
-        <td>60.3%</td>
-        <td>$724.32</td>
-      </tr>
-      <tr>
-        <td>/blog/post.html</td>
-        <td>1233</td>
-        <td>93.2%</td>
-        <td>$126.34</td>
-      </tr>
-      <tr>
-        <td>/index.html</td>
-        <td>1265</td>
-        <td>32.3%</td>
-        <td>$321.33</td>
-      </tr>
-      <tr>
-        <td>/about.html</td>
-        <td>261</td>
-        <td>33.3%</td>
-        <td>$234.12</td>
-      </tr>
-      <tr>
-        <td>/sales.html</td>
-        <td>665</td>
-        <td>21.3%</td>
-        <td>$16.34</td>
-      </tr>
-      <tr>
-        <td>/blog.html</td>
-        <td>9516</td>
-        <td>89.3%</td>
-        <td>$1644.43</td>
-      </tr>
-      <tr>
-        <td>/404.html</td>
-        <td>23</td>
-        <td>34.3%</td>
-        <td>$23.52</td>
-      </tr>
-      <tr>
-        <td>/services.html</td>
-        <td>421</td>
-        <td>60.3%</td>
-        <td>$724.32</td>
-      </tr>
-      <tr>
-        <td>/blog/post.html</td>
-        <td>1233</td>
-        <td>93.2%</td>
-        <td>$126.34</td>
-      </tr>
-      <tr>
-        <td>/index.html</td>
-        <td>1265</td>
-        <td>32.3%</td>
-        <td>$321.33</td>
-      </tr>
-      <tr>
-        <td>/about.html</td>
-        <td>261</td>
-        <td>33.3%</td>
-        <td>$234.12</td>
-      </tr>
-      <tr>
-        <td>/sales.html</td>
-        <td>665</td>
-        <td>21.3%</td>
-        <td>$16.34</td>
-      </tr>
-      <tr>
-        <td>/blog.html</td>
-        <td>9516</td>
-        <td>89.3%</td>
-        <td>$1644.43</td>
-      </tr>
-      <tr>
-        <td>/404.html</td>
-        <td>23</td>
-        <td>34.3%</td>
-        <td>$23.52</td>
-      </tr>
-      <tr>
-        <td>/services.html</td>
-        <td>421</td>
-        <td>60.3%</td>
-        <td>$724.32</td>
-      </tr>
-      <tr>
-        <td>/blog/post.html</td>
-        <td>1233</td>
-        <td>93.2%</td>
-        <td>$126.34</td>
-      </tr>
-      <tr>
-        <td>/index.html</td>
-        <td>1265</td>
-        <td>32.3%</td>
-        <td>$321.33</td>
-      </tr>
-      <tr>
-        <td>/about.html</td>
-        <td>261</td>
-        <td>33.3%</td>
-        <td>$234.12</td>
-      </tr>
-      <tr>
-        <td>/sales.html</td>
-        <td>665</td>
-        <td>21.3%</td>
-        <td>$16.34</td>
-      </tr>
-      <tr>
-        <td>/blog.html</td>
-        <td>9516</td>
-        <td>89.3%</td>
-        <td>$1644.43</td>
-      </tr>
- 
-      <tr>
-        <td>/404.html</td>
-        <td>23</td>
-        <td>34.3%</td>
-        <td>$23.52</td>
-      </tr>
-      <tr>
-        <td>/services.html</td>
-        <td>421</td>
-        <td>60.3%</td>
-        <td>$724.32</td>
-      </tr>
-      <tr>
-        <td>/blog/post.html</td>
-        <td>1233</td>
-        <td>93.2%</td>
-        <td>$126.34</td>
-      </tr>
- 
-    </tbody>
-  </table>
-  <ul class="pagination">
-    
-  </ul>
+<ul id="footer_menu"> 
+    <li class="imgmenu"><a href="#"></a></li>
+
+    <li><a href="#intro">Intro</a></li>
+    <li><a href="#photos">Photos</a></li>
+
+</ul>
 </div>
-
+    </div>
 </body>
 </html>
