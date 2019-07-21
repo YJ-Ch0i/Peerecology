@@ -23,6 +23,8 @@
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+	
 </head>
 <body class="appear-animate">
 
@@ -71,6 +73,7 @@
 			<h3> 설문조사가 진행중인 학교가 없습니다. </h3>
 			<%}else{ %>
 			<table class="table table-striped">
+			<thead>
                             <tr>
                                 <th>학교 이름</th>
                                 <th>설문 이름</th>
@@ -78,6 +81,8 @@
                                 <th>종료일</th>
                                 <th>상세보기</th>
                             </tr>
+            </thead>
+            <tbody>
 			<%for(int i=0; i<surGoingList.size(); i++){ %>
 			<tr>
 			<td><%= surGoingList.get(i).getSCID_name() %></td>
@@ -87,8 +92,12 @@
 			<td><button class="btn btn-mod btn-medium btn-round">진행상황보기</button></td>
 			</tr>
 			<%} %>
+			</tbody>
 			</table>
 			<%} %>
+			<ul class="pagination" style="list-stlye-type:none; text-align:center ">
+				  
+			</ul>
 			</div>
 		</section>
 		<!-- End Section -->
@@ -102,46 +111,34 @@
 
 
 	<!-- JS -->
-	<script type="text/javascript"
-		src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/jquery.easing.1.3.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/pagingScript.js?version=7"></script>
+	
+	<script type="text/javascript" src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/SmoothScroll.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/jquery.scrollTo.min.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/jquery.localScroll.min.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/jquery.viewport.mini.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.scrollTo.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.localScroll.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.viewport.mini.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.countTo.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.appear.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.sticky.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/jquery.parallax-1.1.3.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.parallax-1.1.3.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.fitvids.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/owl.carousel.min.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/isotope.pkgd.min.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/imagesloaded.pkgd.min.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/jquery.magnific-popup.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/owl.carousel.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/isotope.pkgd.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/imagesloaded.pkgd.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.magnific-popup.min.js"></script>
 	<!-- Replace test API Key "AIzaSyAZsDkJFLS0b59q7cmW0EprwfcfUA8d9dg" with your own one below 
         **** You can get API Key here - https://developers.google.com/maps/documentation/javascript/get-api-key -->
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZsDkJFLS0b59q7cmW0EprwfcfUA8d9dg"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZsDkJFLS0b59q7cmW0EprwfcfUA8d9dg"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/gmap3.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/wow.min.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/masonry.pkgd.min.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/jquery.simple-text-rotator.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/masonry.pkgd.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.simple-text-rotator.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/all.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/contact-form.js"></script>
-	<script type="text/javascript"
-		src="/PeerSys/style/js/jquery.ajaxchimp.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/jquery.ajaxchimp.min.js"></script>
 	<!--[if lt IE 10]><script type="text/javascript" src="js/placeholder.js"></script><![endif]-->
 
 </body>

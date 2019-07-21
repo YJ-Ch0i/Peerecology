@@ -55,7 +55,41 @@ public class StudentDAO {
 		}
 		return dto;
 	}
-	
+	public ArrayList<StudentDTO> findStudent(String name) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs = null;
+		ArrayList<StudentDTO> stuList = new ArrayList<StudentDTO>();
+
+		String sql = "SELECT * FROM user_students AS stu, school_info AS sch WHERE stu.name LIKE \"%\" ? \"%\" AND stu.SCID=sch.SCID ";
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				StudentDTO stuDTO = new StudentDTO();
+				stuDTO.setStu_id(rs.getInt("stu.SID"));
+				stuDTO.setName(rs.getString("stu.name"));;
+				stuDTO.setScid(rs.getString("sch.name"));
+				stuDTO.setGrade(rs.getInt("stu.grade"));
+				stuDTO.setGrd_num(rs.getInt("stu.class"));
+				stuDTO.setNum(rs.getInt("stu.num"));
+				stuDTO.setGender(rs.getInt("stu.gender"));
+				stuList.add(stuDTO);
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return stuList;
+	}
 	public ArrayList<StudentItem> LoadStudent(String file_name, String upload_path) {
 		ArrayList<StudentItem> resultlist = new ArrayList<StudentItem>();
 
@@ -317,5 +351,35 @@ public class StudentDAO {
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
 		return -2;
+	}
+	public ArrayList<StudentDTO> showAllStudent() {
+		Connection conn=null;
+		Statement stmt = null;
+		ArrayList<StudentDTO> stuList = new ArrayList<StudentDTO>();
+		ResultSet rs = null;
+		String SQL ="Select * from user_students AS stu, school_info AS sch where stu.SCID=sch.SCID GROUP BY stu.SID;";
+		try {
+			conn = DBConn.getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(SQL);
+			while(rs.next()) 
+			{
+				StudentDTO stuDTO = new StudentDTO();
+				stuDTO.setStu_id(rs.getInt("stu.SID"));
+				stuDTO.setName(rs.getString("stu.name"));
+				stuDTO.setScid(rs.getString("sch.name"));
+				stuDTO.setGrade(rs.getInt("stu.grade"));
+				stuDTO.setGrd_num(rs.getInt("stu.class"));
+				stuDTO.setNum(rs.getInt("stu.num"));
+				stuDTO.setGender(rs.getInt("stu.gender"));
+				stuList.add(stuDTO);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(stmt != null) try{stmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return stuList;
 	}
 }

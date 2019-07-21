@@ -175,7 +175,7 @@ public class SurveyDAO {
 		String strThisDate = format1.format(System.currentTimeMillis());
 		java.util.Date thisDate = new SimpleDateFormat("yyyy-MM-dd").parse(strThisDate);
 		
-		String SQL ="SELECT * FROM survey_ing AS surIng, school_info AS sch where sch.name='"+SCID_name+"' "
+		String SQL ="SELECT * FROM survey_ing AS surIng, school_info AS sch where sch.name LIKE \"%\" '"+SCID_name+"' \"%\" "
 				+ " AND sch.SCID=surIng.SCID GROUP BY surIng.ingSeq";
 			try {
 			conn =DBConn.getConnection();

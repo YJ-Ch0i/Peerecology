@@ -27,7 +27,8 @@
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
-
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+	
 </head>
 <body class="appear-animate">
 
@@ -85,6 +86,7 @@
 			<h3> 설문조사한 학교가 없습니다. </h3>
 			<%}else{ %>
 			<table class="table table-striped">
+			<thead>
                             <tr>
                                 <th>학교 이름</th>
                                 <th>설문 이름</th>
@@ -92,6 +94,8 @@
                                 <th>종료일</th>
                                 <th>상세보기</th>
                             </tr>
+            </thead>
+            <tbody>
             <%if(input_schoolNm==null){ %>
 			<%for(int i=0; i<schResultSur.size(); i++){ %>
 			<tr>
@@ -120,16 +124,18 @@
 			<%} %>
 			<%}else{ %>
 			<tr>
-			<td span="4">검색결과 존재하지 않습니다.</td>
+			<td colspan="5" >검색결과 존재하지 않습니다.</td>
 			</tr>
 			<%} %>
 			<%} %>
+			</tbody>
 			</table>
 			<%} %>
 					
 				</div>
-				
-					<!-- End Col -->
+				<ul class="pagination" style="list-stlye-type:none; text-align:center ">
+				  
+				</ul>
 	
 				</div>
 
@@ -145,9 +151,10 @@
 
 
 	<!-- JS -->
+	<script type="text/javascript" src="/PeerSys/style/js/pagingScript.js?version=7"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.easing.1.3.js"></script>
-	<script type="text/javascript" src="/PeerSys/style/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/bootstrap.min.js?version=5"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/SmoothScroll.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.scrollTo.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.localScroll.min.js"></script>

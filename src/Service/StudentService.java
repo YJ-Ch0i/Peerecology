@@ -16,6 +16,9 @@ public class StudentService {
 	public StudentDTO getStudent(String name, String TID, String SCID) {
 		return dao.getStudent(name, TID, SCID);
 	}
+	public ArrayList<StudentDTO> findStudent(String name) {
+		return dao.findStudent(name);
+	}
 	public ArrayList<StudentItem> LoadStudent(String file_name, String upload_path) {
 		return dao.LoadStudent(file_name, upload_path);
 	}
@@ -27,7 +30,9 @@ public class StudentService {
 	public ArrayList<StudentDTO> studentList(String TID, String SCID) {
 		return dao.studentList(TID, SCID);
 	}
-	
+	public ArrayList<StudentDTO> showAllStudent() {
+		return dao.showAllStudent();
+	}
 	public ArrayList<StudentDTO> studentListInClass(String SCID, int grade, int grd_num) {
 		return dao.studentListInClass(SCID, grade, grd_num);
 	}
@@ -45,4 +50,5 @@ public class StudentService {
 	public int studentLogin(StudentDTO dto) {		
 		return dao.studentLogin(dto);
 	}
+	
 }
