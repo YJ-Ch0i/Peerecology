@@ -30,6 +30,7 @@
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 </head>
 
@@ -101,64 +102,32 @@
                  <div class="row">
                   	<div>       
                         <table class="table table-striped">
+                        <thead>
                             <tr>
-                                <th class="">
-									학교
-                                </th>
-                                <th>
-									학년
-                                </th>
-                                <th>
-									반
-                                </th>
-                                <th>
-									번호
-                                </th>
-                                <th>
-									성별
-                                </th>
-                                <th>
-									이름
-                                </th>
-                                <th>
-                                	재학/전학 처리
-                                </th>
-                                <th>
-                                	학생 결과보기
-                                </th>
+                                <th class=""> 학교 </th>
+                                <th> 학년 </th>
+                                <th> 반 </th>
+                                <th> 번호 </th>
+                                <th> 성별 </th>
+                                <th> 이름 </th>
+                                <th> 재학/전학 처리 </th>
+                                <th> 학생 결과보기 </th>
                             </tr>
-                            
+                         </thead>
                             <%
                            		String gender = "";
-                            	String transf = "";
-                            	
-                            	for(StudentDTO stu : stu_list){
-                            		if(stu.getGender() == 1){
-                                		gender = "남자";
-                                	}
-                            		if(stu.getGender() == 2){
-                            			gender = "여자";
-                            		}
+                            	String transf = ""; 
+                            	for(StudentDTO stu : stu_list){ if(stu.getGender() == 1){ gender = "남자"; }
+                            		if(stu.getGender() == 2){ gender = "여자"; }
                             %>
+                            <tbody>
                             <tr>
-                                <td class="hidden-xs">
-                                    <%=school.getName() %>
-                                </td>
-                                <td>
-                                    <%=stu.getGrade() %> 학년
-                                </td>
-                                <td>
-                                    <%=stu.getGrd_num() %> 반
-                                </td>
-                                <td>
-                                    <%=stu.getNum() %>
-                                </td>
-                                <td>
-                                    <%=gender %>
-                                </td>
-                                <td>
-                                    <%=stu.getName() %>
-                                </td>
+                                <td class="hidden-xs">   <%=school.getName() %>   </td>
+                                <td>  <%=stu.getGrade() %> 학년 </td>
+                                <td> <%=stu.getGrd_num() %> 반 </td>
+                                <td>  <%=stu.getNum() %> </td>
+                                <td>  <%=gender %> </td>
+                                <td> <%=stu.getName() %> </td>
                                 <td>                      
                                 	<form id="transForm<%= stu.getNum()%>" method="post">
                                 		<input type="hidden" name="stu_name" value="<%= stu.getName()%>">
@@ -180,7 +149,11 @@
                                 </td>
                             <% } %>
                             </tr>
+                            </tbody>
                     	</table>
+                    	<ul class="pagination" style="list-stlye-type:none; text-align:center ">
+				  
+						</ul>
 	            	</div>	     	            	      
 	            </div>                               
 			</div>
@@ -196,6 +169,7 @@
 
 
 	<!-- JS -->
+	<script type="text/javascript" src="/PeerSys/style/js/pagingScript.js?version=2"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/bootstrap.min.js"></script>

@@ -17,7 +17,7 @@ public class QuestionDeleteController implements Controller {
 		// TODO Auto-generated method stub
 		String[] deleteQuestion = request.getParameterValues("deleteQuestion");
 		
-		if(deleteQuestion.length==0)
+		if(deleteQuestion == null)
 		{
 			PrintWriter script = response.getWriter();
 			script.println("<script>");

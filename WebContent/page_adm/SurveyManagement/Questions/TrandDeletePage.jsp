@@ -26,6 +26,7 @@
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 </head>
 <body class="appear-animate">
@@ -58,13 +59,19 @@ questions = queSerivce.showAllTrand();
 			 <%} %>
 			 </ul>
 			 <p style="clear:both;"></p>
+			 <ul class="pagination" style="list-stlye-type:none; text-align:center;">
+    
+  			</ul>
+  			<p></p>
 			 <input type="submit"  style="float:right" class="btn btn-mod btn-medium btn-round" value="삭제하기">
 			</form>
+			
 			</div>
 			</section>
 	</div>
 
 	<!-- JS -->
+	<script type="text/javascript" src="/PeerSys/style/js/pagingLiLabel.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/bootstrap.min.js"></script>

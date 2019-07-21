@@ -154,7 +154,7 @@ public class QuestionDAO {
 		Statement stmt = null;
 		ArrayList<QuestionDTO> questions = new ArrayList<QuestionDTO>();
 		ResultSet rs = null;
-		String SQL ="Select * from question";
+		String SQL ="Select * from question where isShowing=1";
 		try {
 			conn = DBConn.getConnection();
 			stmt = conn.createStatement();
@@ -298,7 +298,7 @@ public class QuestionDAO {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		int isSuccess = 0;
-		String SQL ="DELETE FROM question where QID=?";
+		String SQL ="UPDATE question set isShowing=0 where QID=?";
 		
 		try {
 			conn =DBConn.getConnection();

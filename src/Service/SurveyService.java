@@ -1,6 +1,7 @@
 package Service;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.*;
 
 import SurveyRelationDAO.SurveyDAO;
@@ -37,8 +38,14 @@ public class SurveyService {
 	public void goingVersionRegister(String[] SCIDs, int surveyNo, String startDate, String endDate) {
 		dao.goingVersionRegister(SCIDs, surveyNo, startDate, endDate);
 	}
-	public ArrayList<SurveyGoingDTO> showAllGoingSurveys(){
+	public ArrayList<SurveyGoingDTO> showAllGoingSurveys() throws ParseException{
 		return dao.showAllGoingSurveys();
+	}
+	public ArrayList<SurveyGoingDTO> showAllResultSurvey() throws ParseException{
+		return dao.showAllResultSurvey();
+	}
+	public ArrayList<SurveyGoingDTO> showResultSurvey(String SCID_name) throws ParseException{
+		return dao.showResultSurvey(SCID_name);
 	}
 	public SurveyGoingDTO startSurvey(String SCID){
 		return dao.startSurvey(SCID);

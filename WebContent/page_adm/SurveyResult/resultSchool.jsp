@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import = "Service.SurveyService" %>
-<%@ page import = "SurveyRelationDTO.SurveyDTO" %>
-<%@ page import = "java.util.ArrayList" %>
+<%@ page import = "Service.SchoolService" %>
+<%@ page import ="java.text.SimpleDateFormat"%>
+<%@ page import = "SurveyRelationDTO.SurveyGoingDTO" %>
+<%@ page import = "java.util.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +28,7 @@
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
-
+	
 </head>
 <body class="appear-animate">
 
@@ -50,7 +52,7 @@
 				<div class="row">
 
 					<div class="col-md-8">
-						<h2 class="hs-line-11 font-alt mb-20 mb-xs-0">설문조사 유형</h2>
+						<h2 class="hs-line-11 font-alt mb-20 mb-xs-0">설문조사 결과</h2>
 						<div class="hs-line-4 font-alt black"></div>
 					</div>
 
@@ -59,53 +61,81 @@
 		</section>
 		<!-- End Head Section -->
 		<!-- Section -->
-		<section class="page-section" style="padding:50px 0;">
+		<section class="page-section">
 			<div class="container relative">
-				
-					<div class="col-sm-6 mb-xs-40" style="width:100%;">
-					 <ul class="works-grid work-grid-5 work-grid-gut clearfix font-alt hover-white">
-			
-<%
-ArrayList<SurveyDTO> surveyList = new ArrayList<SurveyDTO>();
-SurveyService surveyService = SurveyService.getInstance();
-surveyList = surveyService.showAllSurveys();
-%>			         
-						<%if(surveyList.size()==0){ %>
-						<p>버젼이 등록되있지 않습니다.</p>
-						<%}else{ %>
-						<%for(int i=0; i<surveyList.size(); i++){ %>
-						<li class="work-item mix design photography" style="margin:4%; width:15%">
-                            <a href="showVersionPage.jsp?surveyNo=<%=surveyList.get(i).getSurveyNo()%>"   class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe" style="background:white; padding:0;">
-                            		<div class="work-img">
-										<p style="text-align: center; color:black;">
-											<%= surveyList.get(i).getTitle() %>
-										</p>
-										<span></span>
-										<div class="work-descr">
-											<p style="text-align: center">미리보기</p>
-										</div>
+				<div class="row">
+					
+	<% 
+	SurveyService surService = SurveyService.getInstance();
+	SchoolService schService = SchoolService.getInstance();
+	ArrayList<SurveyGoingDTO> schResultSur = new ArrayList<SurveyGoingDTO>();
+	ArrayList<SurveyGoingDTO> schFindResultSur = new ArrayList<SurveyGoingDTO>();
+	schResultSur = surService.showAllResultSurvey();
+	String input_schoolNm = request.getParameter("input_schoolNm");
+	%>
+					<form id="formHref" action="" class="form-inline form mb-20" role="form">
+									<div class="search-wrap" style="width: 60%;">
+										<button class="search-button animate"  title="Start Search">
+											<i class="fa fa-search"></i>
+										</button>
+										<input style="width: 60%" type="text" name="input_schoolNm"
+											class="form-control search-field" placeholder="학교명을 검색해주세요.">
 									</div>
-                            </a>
-                        </li>
-						<%} %>
-						<%} %>
-						
-				 </ul>
-				 <p></p>
-				 <p></p>
-			 <ul class="pagination" style="list-stlye-type:none; text-align:center;">
-    
-  			 </ul>
-  			 <p></p>
-						<button onclick="location.href='versionAddPage.jsp'"
-							class="btn btn-mod btn-border btn-large btn-round" >설문조사 추가하기</button>
-						<button onclick="location.href='Questions/QuestionPage.jsp'"
-							class="btn btn-mod btn-border btn-large btn-round" >설문문항 추가하기</button>
-
-				
+					</form>
+			<%if (schResultSur.size()==0){ %>
+			<h3> 설문조사한 학교가 없습니다. </h3>
+			<%}else{ %>
+			<table class="table table-striped">
+			<thead>
+                            <tr>
+                                <th>학교 이름</th>
+                                <th>설문 이름</th>
+                                <th>시작일</th>
+                                <th>종료일</th>
+                                <th>상세보기</th>
+                            </tr>
+            </thead>
+            <tbody>
+            <%if(input_schoolNm==null){ %>
+			<%for(int i=0; i<schResultSur.size(); i++){ %>
+			<tr>
+			<td><%= schService.getSchoolToSCID(schResultSur.get(i).getSCID()).getName() %></td>
+			<td><%= surService.showSearchSurveyToSurveyNo(schResultSur.get(i).getSurveyNo()).getTitle() %> </td>
+			<td><%= schResultSur.get(i).getStartDate() %></td>
+			<td><%= schResultSur.get(i).getEndDate() %></td>
+			<td>
+			<button class="btn btn-mod btn-medium btn-round">결과보기</button>
+			</td>
+			</tr>
+			<%} %>
+			<%}else{ %>
+			<% schFindResultSur = surService.showResultSurvey(input_schoolNm); %>
+			<% if(schFindResultSur.size()!=0){ %>
+			<% for(int i=0; i<schFindResultSur.size(); i++){ %>
+			<tr>
+			<td><%= schFindResultSur.get(i).getSCID_name() %></td>
+			<td><%= surService.showSearchSurveyToSurveyNo(schFindResultSur.get(i).getSurveyNo()).getTitle() %> </td>
+			<td><%= schFindResultSur.get(i).getStartDate() %></td>
+			<td><%= schFindResultSur.get(i).getEndDate() %></td>
+			<td>
+			<button class="btn btn-mod btn-medium btn-round">결과보기</button>
+			</td>
+			</tr>
+			<%} %>
+			<%}else{ %>
+			<tr>
+			<td colspan="5" >검색결과 존재하지 않습니다.</td>
+			</tr>
+			<%} %>
+			<%} %>
+			</tbody>
+			</table>
+			<%} %>
+					
 				</div>
-				
-					<!-- End Col -->
+				<ul class="pagination" style="list-stlye-type:none; text-align:center ">
+				  
+				</ul>
 	
 				</div>
 
@@ -121,10 +151,10 @@ surveyList = surveyService.showAllSurveys();
 
 
 	<!-- JS -->
-	<script type="text/javascript" src="/PeerSys/style/js/pagingFormSurvey.js?version=3"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/pagingScript.js?version=7"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.easing.1.3.js"></script>
-	<script type="text/javascript" src="/PeerSys/style/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/bootstrap.min.js?version=5"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/SmoothScroll.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.scrollTo.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.localScroll.min.js"></script>

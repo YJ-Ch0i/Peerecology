@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import = "Service.SurveyService" %>
-<%@ page import = "SurveyRelationDTO.SurveyDTO" %>
+<%@ page import = "Service.StudentService" %>
+<%@ page import = "User.UserDTO.StudentDTO" %>
 <%@ page import = "java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>Rhythm &mdash; One & Multi Page Creative Theme</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
@@ -26,10 +27,15 @@
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
-
+	
 </head>
 <body class="appear-animate">
-
+<%
+	StudentService stuService = StudentService.getInstance();
+	ArrayList<StudentDTO> stuList = new ArrayList<StudentDTO>();
+	ArrayList<StudentDTO> stuFindResult = new ArrayList<StudentDTO>();
+	stuList = stuService.showAllStudent();
+%>
 	<!-- Page Loader -->
 	<div class="page-loader">
 		<div class="loader">Loading...</div>
@@ -50,7 +56,7 @@
 				<div class="row">
 
 					<div class="col-md-8">
-						<h2 class="hs-line-11 font-alt mb-20 mb-xs-0">설문조사 유형</h2>
+						<h2 class="hs-line-11 font-alt mb-20 mb-xs-0">설문조사 결과</h2>
 						<div class="hs-line-4 font-alt black"></div>
 					</div>
 
@@ -59,54 +65,64 @@
 		</section>
 		<!-- End Head Section -->
 		<!-- Section -->
-		<section class="page-section" style="padding:50px 0;">
+		<section class="page-section">
 			<div class="container relative">
-				
-					<div class="col-sm-6 mb-xs-40" style="width:100%;">
-					 <ul class="works-grid work-grid-5 work-grid-gut clearfix font-alt hover-white">
-			
-<%
-ArrayList<SurveyDTO> surveyList = new ArrayList<SurveyDTO>();
-SurveyService surveyService = SurveyService.getInstance();
-surveyList = surveyService.showAllSurveys();
-%>			         
-						<%if(surveyList.size()==0){ %>
-						<p>버젼이 등록되있지 않습니다.</p>
-						<%}else{ %>
-						<%for(int i=0; i<surveyList.size(); i++){ %>
-						<li class="work-item mix design photography" style="margin:4%; width:15%">
-                            <a href="showVersionPage.jsp?surveyNo=<%=surveyList.get(i).getSurveyNo()%>"   class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe" style="background:white; padding:0;">
-                            		<div class="work-img">
-										<p style="text-align: center; color:black;">
-											<%= surveyList.get(i).getTitle() %>
-										</p>
-										<span></span>
-										<div class="work-descr">
-											<p style="text-align: center">미리보기</p>
-										</div>
+				<div class="row">
+				<% String input_stuNm = request.getParameter("input_stuNm"); %>
+					<form id="formHref" action="" class="form-inline form mb-20" role="form">
+									<div class="search-wrap" style="width: 60%;">
+										<button class="search-button animate"  title="Start Search">
+											<i class="fa fa-search"></i>
+										</button>
+										<input style="width: 60%" type="text" name="input_stuNm"
+											class="form-control search-field" placeholder="학생 이름을 검색해주세요.">
 									</div>
-                            </a>
-                        </li>
-						<%} %>
-						<%} %>
-						
-				 </ul>
-				 <p></p>
-				 <p></p>
-			 <ul class="pagination" style="list-stlye-type:none; text-align:center;">
-    
-  			 </ul>
-  			 <p></p>
-						<button onclick="location.href='versionAddPage.jsp'"
-							class="btn btn-mod btn-border btn-large btn-round" >설문조사 추가하기</button>
-						<button onclick="location.href='Questions/QuestionPage.jsp'"
-							class="btn btn-mod btn-border btn-large btn-round" >설문문항 추가하기</button>
-
-				
+					</form>
+				<table class="table table-striped" style="text-align:center">
+				<thead>
+                            <tr>
+                                <th>이름</th>
+                                <th>학교</th>
+                                <th>성별</th>
+                                <th>학년</th>
+                                <th>반</th>
+                                <th>번호</th>
+                                <th>상세보기</th>
+                                </tr>
+               </thead>
+               <tbody>
+               <% if(input_stuNm == null ){ %>
+               <%for(int i=0; i<stuList.size(); i++){ %>
+               <tr>
+               <th><%=stuList.get(i).getName() %></th>
+               <th><%=stuList.get(i).getScid() %></th>
+               <th><%if(stuList.get(i).getGender()==2){%>여자<%}else{ %>남자<%} %></th>
+               <th><%=stuList.get(i).getGrade() %></th>
+               <th><%=stuList.get(i).getGrd_num() %></th>
+               <th><%=stuList.get(i).getNum() %></th>
+               <th><button class="btn btn-mod btn-medium btn-round">상세보기</button></th>
+               </tr>
+               <%} %>
+               <%}else{ %>
+               <% stuFindResult = stuService.findStudent(input_stuNm); %>
+               <%for(int i=0; i<stuFindResult.size(); i++){ %>
+               <tr>
+               <th><%=stuFindResult.get(i).getName() %></th>
+               <th><%=stuFindResult.get(i).getScid() %></th>
+               <th><%if(stuFindResult.get(i).getGender()==2){%>여자<%}else{ %>남자<%} %></th>
+               <th><%=stuFindResult.get(i).getGrade() %></th>
+               <th><%=stuFindResult.get(i).getGrd_num() %></th>
+               <th><%=stuFindResult.get(i).getNum() %></th>
+               <th><button class="btn btn-mod btn-medium btn-round">상세보기</button></th>
+               </tr>
+               <%} %>
+               <%} %>
+               </tbody>
+               </table>
 				</div>
-				
-					<!-- End Col -->
-	
+				<ul class="pagination" style="list-stlye-type:none; text-align:center ">
+				  
+				</ul>
 				</div>
 
 		</section>
@@ -121,7 +137,7 @@ surveyList = surveyService.showAllSurveys();
 
 
 	<!-- JS -->
-	<script type="text/javascript" src="/PeerSys/style/js/pagingFormSurvey.js?version=3"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/pagingScript.js?version=2"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/bootstrap.min.js"></script>

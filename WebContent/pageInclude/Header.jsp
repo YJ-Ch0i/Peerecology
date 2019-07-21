@@ -35,8 +35,15 @@
 					</ul></li>
 
 				<!-- 설문조사 결과 메뉴 SurveyResult -->
-				<li><a href="/PeerSys/page_adm/SurveyResult/selectSurvey.jsp"
-					class="mn-has-sub active"> 설문조사 결과 </a></li>
+				<li><a href="#" class="mn-has-sub"> 설문조사 결과  <i class="fa fa-angle-down"></i></a>
+					<ul class="mn-sub mn-has-multi">
+						<li>
+							<!-- formSurvey.jsp에 있는 유형 중 한가지를 선택해서 쓸 수 있도록 만들기. --> 
+							<a href="/PeerSys/page_adm/SurveyResult/resultSchool.jsp"> 학교별 결과 </a> 
+							<a href="/PeerSys/page_adm/SurveyResult/resultStudent.jsp"> 학생 검색 </a>
+						</li>
+					</ul>
+				</li>
 				<li><a href="/PeerSys/adminLogout.ad" class="mn-has-sub">
 						로그아웃 </a></li>
 				<!-- Divider -->
