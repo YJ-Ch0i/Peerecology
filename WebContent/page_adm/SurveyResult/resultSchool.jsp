@@ -106,15 +106,21 @@
 			<%} %>
 			<%}else{ %>
 			<% schFindResultSur = surService.showResultSurvey(input_schoolNm); %>
+			<% if(schFindResultSur.size()!=0){ %>
 			<% for(int i=0; i<schFindResultSur.size(); i++){ %>
 			<tr>
 			<td><%= schFindResultSur.get(i).getSCID_name() %></td>
-			<td><%= surService.showSearchSurveyToSurveyNo(schResultSur.get(i).getSurveyNo()).getTitle() %> </td>
-			<td><%= schResultSur.get(i).getStartDate() %></td>
-			<td><%= schResultSur.get(i).getEndDate() %></td>
+			<td><%= surService.showSearchSurveyToSurveyNo(schFindResultSur.get(i).getSurveyNo()).getTitle() %> </td>
+			<td><%= schFindResultSur.get(i).getStartDate() %></td>
+			<td><%= schFindResultSur.get(i).getEndDate() %></td>
 			<td>
 			<button class="btn btn-mod btn-medium btn-round">결과보기</button>
 			</td>
+			</tr>
+			<%} %>
+			<%}else{ %>
+			<tr>
+			<td span="4">검색결과 존재하지 않습니다.</td>
 			</tr>
 			<%} %>
 			<%} %>

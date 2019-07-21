@@ -185,7 +185,7 @@ public class SurveyDAO {
 			{
 				java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("surIng.endDate")); 
 				int compareDate = thisDate.compareTo(date);
-				if(compareDate<0) 
+				if(compareDate>0) 
 				{
 				SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO();
 				surveyGoingDTO.setIngSeq(rs.getInt("surIng.ingSeq"));
