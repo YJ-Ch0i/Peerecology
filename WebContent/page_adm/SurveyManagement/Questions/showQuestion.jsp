@@ -70,10 +70,10 @@ ArrayList<QuestionTypeDTO> queTypes = queService.showAllType();
 			<div class="row">
 			<form>
 			<input type="hidden" name="hiddenValue" id="hiddenValue" value="<%=QID %>">
-			성향 : 
+			척도 : 
 			 <input type="text" name="trand_title" readonly id="name" class="input-md form-control" maxlength="100" value="<%=questionDTO.getQue_trandTitle() %>">
 			<p></p>
-			 유형 :  <input type="text" name="trand_title" readonly id="name" class="input-md form-control" maxlength="100" value="<%=questionDTO.getQue_typeTitle() %>">
+			응답 유형 :  <input type="text" name="trand_title" readonly id="name" class="input-md form-control" maxlength="100" value="<%=questionDTO.getQue_typeTitle() %>">
 			<p></p>
           	 문항 이름 : <input type="text" name="trand_title" readonly id="name" class="input-md form-control" maxlength="100" value="<%=questionDTO.getQue_title() %>">
      		<p></p>
@@ -84,10 +84,13 @@ ArrayList<QuestionTypeDTO> queTypes = queService.showAllType();
 			정답 :  <input type="text" name="question_answer" readonly class="input-md form-control" maxlength="100" value="<%=questionDTO.getQue_answer() %>">
 			<p></p>
 			<%} %>
+			
 			<% if(questionOfferList.size()!=0){ %>
+			보기 방식  ↓ <p></p>
 			<% for(int i=0; i<questionOfferList.size(); i++){ %>
 			<!-- 세로보기 문항 -->
 			<% if(questionDTO.isQ_typeDirection()==true){ %>
+			
 			<%= i+1 %>번 문항 : <%= questionOfferList.get(i).getTitle() %> <p></p>
 			<!-- 가로보기 문항 -->
 			<%}else{ %>
@@ -96,9 +99,11 @@ ArrayList<QuestionTypeDTO> queTypes = queService.showAllType();
         	</label>
 			<%} %>
 			<%} %>
+			<%}else{ %>
+			<input type="text" class="input-md form-control" maxlength="100" placeholder="주관식이나 또래지명입니다." readonly>
 			<%} %>
 			<p> </p>
-			<button onclick="confirmUpdate();" type="button" style="float:right" class="btn btn-mod btn-medium btn-round" >수정하기</button>
+			<!-- <button onclick="confirmUpdate();" type="button" style="float:right" class="btn btn-mod btn-medium btn-round" >수정하기</button>  -->
 			</form>
 			</div>
             </section>

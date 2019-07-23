@@ -48,16 +48,16 @@ queTypes = queSerivce.showAllType();
 			<div class="row">
 			<form method="post" action="/PeerSys/questionAdd.qs" id="form" role="form">
 			<% if(queTrands.size()!=0) {%>
-			 성향 : <select name="que_trandTypeID" class="input-md form-control"> 
+			척도 분류 : <select name="que_trandTypeID" class="input-md form-control"> 
 			<% for(int i=0; i<queTrands.size(); i++){ %>
 			<option value="<%=queTrands.get(i).getQ_trandType()%>"><%=queTrands.get(i).getQ_trandDescipt() %></option>
 			<%} %></select>
 			<%}else{ %>
-			<script> alert('성향을 먼저 만들어 주세요.'); </script>
+			<script> alert('척도를 먼저 만들어 주세요.'); </script>
 			<script> location.href = 'TrandAddPage.jsp' </script>
 			<%} %>
             <p></p>
-           	 유형 :   
+           	 응답 유형 :   
            	<select class="input-md form-control" name="que_typeID" id="whatType" onChange="changeInput(this.value);"> 
 			<% for(int i=0; i<queTypes.size(); i++){ %>
 			<option value="<%=queTypes.get(i).getQ_typeID() %>"><%=queTypes.get(i).getDescript() %></option>
@@ -66,7 +66,7 @@ queTypes = queSerivce.showAllType();
 			</select>
 			<p></p>
 			<div id="isSelectCreate">
-			&nbsp;&nbsp;&nbsp;유형 이름 : <input type="text" name="type_title" id="name" class="input-md form-control" maxlength="100">
+			&nbsp;&nbsp;&nbsp;응답 유형 이름 : <input type="text" name="type_title" id="name" class="input-md form-control" maxlength="100">
 			<p></p> 
 			&nbsp;&nbsp;&nbsp;보기 방향 :  <select name="q_typeDirection" class="input-md form-control" onChange="offerDirection(this.value);">
 	                   						<option value="0" selected>선택해주세요.</option>

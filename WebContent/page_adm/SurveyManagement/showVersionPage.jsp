@@ -60,7 +60,7 @@ for(int i=0; i<questions.size(); i++)
 			<div class="row">
 			<% for(int i=0; i<roadQuestions.size(); i++ ){%>
 			<div class="numberQuestion">
-			<%=i+1 %>번 : <%= roadQuestions.get(i).getQue_title() %> ( 성향 -> <%= roadQuestions.get(i).getQue_trandTitle() %> ) 
+			<%=i+1 %>번 : <%= roadQuestions.get(i).getQue_title() %> ( 척도 -> <%= roadQuestions.get(i).getQue_trandTitle() %> ) 
 			<%if( roadQuestions.get(i).getQue_answer() != null ){ %> ( 정답 -> <%=roadQuestions.get(i).getQue_answer() %> ) <%} %>
 			<p></p>
 			<!-- 주관식일 경우 --> 

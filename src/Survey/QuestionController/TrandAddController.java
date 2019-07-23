@@ -15,8 +15,12 @@ public class TrandAddController implements Controller {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		String trand_title = request.getParameter("trand_title");
-		if(trand_title=="")
+		String trandBigName = request.getParameter("trandBigName");
+		String bigTrandTitle = null;
+		QuestionService queService = QuestionService.getInstance();
+		if(trand_title.equals("")||trand_title.equals(" "))
 		{
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
@@ -26,18 +30,56 @@ public class TrandAddController implements Controller {
 			script.close();
 			return;
 		}
-		else 
+		// 직접 입력했을때
+		if(trandBigName.equals("0"))
 		{
-			QuestionService queService = QuestionService.getInstance();
-			queService.queTrandRegister(trand_title);
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('Success!')");
-			script.println("parent.document.location.reload();");
-			script.println("</script>");
-			script.close();
-			return;
+			bigTrandTitle = request.getParameter("bigTrandTitle");
+			if(bigTrandTitle.equals("")||bigTrandTitle.equals(" "))
+			{
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				script.println("alert('Input title Please!!')");
+				script.println("history.back();");
+				script.println("</script>");
+				script.close();
+				return;
+			}
+			else
+			{
+				int isSuccess = queService.trandManagerRegister(bigTrandTitle);
+				if(isSuccess==-1)
+				{
+					PrintWriter script = response.getWriter();
+					script.println("<script>");
+					script.println("alert('척도 분류 이름이 같은 것이 이미 존재합니다.')");
+					script.println("history.back();");
+					script.println("</script>");
+					script.close();
+					return;
+				}
+				else
+				{
+					queService.queTrandRegister(trand_title);
+					PrintWriter script = response.getWriter();
+					script.println("<script>");
+					script.println("alert('Success!')");
+					script.println("parent.document.location.reload();");
+					script.println("</script>");
+					script.close();
+					return;
+				}
+			}
 		}
+		else {
+				queService.queTrandDifferentRegister(trand_title,Integer.parseInt(trandBigName));
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				script.println("alert('Success!')");
+				script.println("parent.document.location.reload();");
+				script.println("</script>");
+				script.close();
+				return;
+			}
 		
 	}
 

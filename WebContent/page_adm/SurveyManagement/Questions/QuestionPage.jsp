@@ -104,10 +104,10 @@ questions = queSerivce.showAllQuestion();
                     
 						<a href="QuestionAddPage.jsp" style="margin-bottom:1%" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">문항 추가하기</a>
 						<input type="submit" style="margin-bottom:1%" class="btn btn-mod btn-medium btn-round" value="문항 삭제하기">
-						<a href="TrandAddPage.jsp" style="margin-bottom:1%" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">성향 추가하기</a>
-						<a href="TrandDeletePage.jsp" style="margin-bottom:1%" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">성향 삭제하기</a>
-						<a href="TypeAddPage.jsp" style="margin-bottom:1%" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">유형 추가하기</a>
-						<a href="TypeDeletePage.jsp" style="margin-bottom:1%" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">유형 삭제하기</a>
+						<a href="TrandAddPage.jsp" style="margin-bottom:1%" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">척도 추가하기</a>
+						<a href="TrandDeletePage.jsp" style="margin-bottom:1%" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">척도 삭제하기</a>
+						<a href="TypeAddPage.jsp" style="margin-bottom:1%" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">응답유형 추가하기</a>
+						<a href="TypeDeletePage.jsp" style="margin-bottom:1%" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">응답유형 삭제하기</a>
 					<!-- End Col -->
 					</form>
 

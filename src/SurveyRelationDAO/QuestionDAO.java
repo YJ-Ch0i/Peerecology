@@ -14,7 +14,34 @@ public class QuestionDAO {
 	public static QuestionDAO getInstance() {
 		return dao;
 	}
-	
+	public ArrayList<QuestionTrandManagerDTO> showAllBigTrands()
+	{
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<QuestionTrandManagerDTO> trandList = new ArrayList<QuestionTrandManagerDTO>();
+		
+		String sql = "SELECT * from q_trand_manager";
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) 
+			{
+				trandList.add(new QuestionTrandManagerDTO(rs.getInt(1), rs.getString(2)));
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return trandList;
+	}
 	public ArrayList<QuestionTrandTypeDTO> searchTrandList(int surNo, int ingSeq, String scid, Date start, Date end) {
 		Connection conn=null;	
 		PreparedStatement pstmt = null;
@@ -191,24 +218,64 @@ public class QuestionDAO {
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
 	}
-	
-	public void queTrandRegister(String trandTitle) {
+	public int trandManagerRegister(String bigTrandTitle) {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
-		
-		String SQL ="INSERT INTO q_trand_type(descript) VALUES (?)";
+		int isSuccess = 0;
+		String SQL ="INSERT INTO q_trand_manager(descript) VALUES (?)";
 		try {
 			conn =DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, trandTitle);
-			
+			pstmt.setString(1, bigTrandTitle);
 			pstmt.executeUpdate();
 		}catch(Exception e) {
+			isSuccess = -1;
 			e.printStackTrace();
 		}finally{
 			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
+		return isSuccess;
+	}
+	
+	public int queTrandRegister(String trandTitle) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		int isSuccess = 0;
+		String SQL ="INSERT INTO q_trand_type(bigTrandID,descript) VALUES ((SELECT MAX(bigTrandID) FROM q_trand_manager),?)";
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, trandTitle);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			isSuccess = -1;
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return isSuccess;
+	}
+	public int queTrandDifferentRegister(String trandTitle,int bigTrandID) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		int isSuccess = 0;
+		String SQL ="INSERT INTO q_trand_type(bigTrandID,descript) VALUES (?,?)";
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, bigTrandID);
+			pstmt.setString(2, trandTitle);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			isSuccess = -1;
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return isSuccess;
 	}
 	public int queTrandDelete(int trandNum) {
 		Connection conn=null;

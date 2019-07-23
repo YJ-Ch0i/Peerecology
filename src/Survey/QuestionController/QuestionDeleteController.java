@@ -15,6 +15,9 @@ public class QuestionDeleteController implements Controller {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
 		String[] deleteQuestion = request.getParameterValues("deleteQuestion");
 		
 		if(deleteQuestion == null)

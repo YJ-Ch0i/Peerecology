@@ -25,12 +25,14 @@ public class FrontController  extends HttpServlet{
 		
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		  response.setCharacterEncoding("euc-kr");  request.setCharacterEncoding("UTF-8");
-		  String url = request.getRequestURI();
-		  String contextPath = request.getContextPath();
-		  String path = url.substring(contextPath.length());
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		String url = request.getRequestURI();
+	    String contextPath = request.getContextPath();
+	    String path = url.substring(contextPath.length());
 		 
-		  Controller subController = list.get(path);
-		  subController.execute(request, response);
+	    Controller subController = list.get(path);
+	    subController.execute(request, response);
 	}
 }

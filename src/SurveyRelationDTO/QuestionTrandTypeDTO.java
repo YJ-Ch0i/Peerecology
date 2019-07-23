@@ -2,6 +2,7 @@ package SurveyRelationDTO;
 
 public class QuestionTrandTypeDTO {
 	private int q_trandType;
+	private int bigTrandID;
 	private String q_trandDescipt;
 	
 	public QuestionTrandTypeDTO() {}
@@ -24,6 +25,12 @@ public class QuestionTrandTypeDTO {
 
 	public void setQ_trandDescipt(String q_trandDescipt) {
 		this.q_trandDescipt = q_trandDescipt;
+	}
+	public int getBigTrandID() {
+		return bigTrandID;
+	}
+	public void setBigTrandID(int bigTrandID) {
+		this.bigTrandID = bigTrandID;
 	}
 	
 	

@@ -100,7 +100,7 @@ function offerDirection(directionSeq)
 			
 			
 										
-			유형 이름 : <input type="text" name="type_title" id="name" class="input-md form-control" maxlength="100">
+			응답 유형 이름 : <input type="text" name="type_title" id="name" class="input-md form-control" maxlength="100">
 			<p></p> 
 			질문 개수 :  <select name="offerSeq" class="input-md form-control" onChange="addInput(this.value);">
 										<option value="0">선택해주세요</option>

@@ -29,7 +29,7 @@ public class TypeDeleteController implements Controller {
 			{
 				PrintWriter script = response.getWriter();
 				script.println("<script charset=\'euc-kr\'>");
-				script.println("alert('설문문항 중에 유형이 "+deleteSplitValues[1]+"가 포함 되어있습니다.')");
+				script.println("alert('설문문항 중에 응답유형이 "+deleteSplitValues[1]+"가 포함 되어있습니다.')");
 				script.println("history.back();");
 				script.println("</script>");
 				script.close();

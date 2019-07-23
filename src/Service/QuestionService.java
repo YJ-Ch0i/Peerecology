@@ -14,7 +14,9 @@ public class QuestionService {
 	public static QuestionService getInstance() {
 		return service;
 	}
-	
+	public ArrayList<QuestionTrandManagerDTO> showAllBigTrands(){
+		return dao.showAllBigTrands();
+	}
 	public ArrayList<QuestionTrandTypeDTO> searchTrandList(int surNo, int ingSeq, String scid, Date start, Date end) {
 		return dao.searchTrandList(surNo, ingSeq, scid, start, end);
 	}
@@ -33,8 +35,14 @@ public class QuestionService {
 	public ArrayList<QuestionTypeDTO> showAllType(int qtype) {
 		return dao.showAllType(qtype);
 	}
-	public void queTrandRegister(String trandTitle){
-		dao.queTrandRegister(trandTitle);
+	public int trandManagerRegister(String bigTrandTitle) {
+		return dao.trandManagerRegister(bigTrandTitle);
+	}
+	public int queTrandRegister(String trandTitle){
+		return dao.queTrandRegister(trandTitle);
+	}
+	public int queTrandDifferentRegister(String trandTitle,int bigTrandID) {
+		return dao.queTrandDifferentRegister(trandTitle, bigTrandID);
 	}
 	public void queTypeRegister(String typeTitle, int offerSeq, boolean q_typeDirection){
 		dao.queTypeRegister(typeTitle, offerSeq,q_typeDirection);
