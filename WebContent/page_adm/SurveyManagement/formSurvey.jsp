@@ -63,6 +63,7 @@
 			<div class="container relative">
 				
 					<div class="col-sm-6 mb-xs-40" style="width:100%;">
+					<form action="/PeerSys/versionDelete.sv">
 					 <ul class="works-grid work-grid-5 work-grid-gut clearfix font-alt hover-white">
 			
 <%
@@ -75,6 +76,9 @@ surveyList = surveyService.showAllSurveys();
 						<%}else{ %>
 						<%for(int i=0; i<surveyList.size(); i++){ %>
 						<li class="work-item mix design photography" style="margin:4%; width:15%">
+						<label class="checkbox-inline">
+						<input type="checkbox" name="deleteVersionValues" id="inlineCheckbox1" value="<%=surveyList.get(i).getSurveyNo()%>">
+            
                             <a href="showVersionPage.jsp?surveyNo=<%=surveyList.get(i).getSurveyNo()%>"   class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe" style="background:white; padding:0;">
                             		<div class="work-img">
 										<p style="text-align: center; color:black;">
@@ -86,23 +90,24 @@ surveyList = surveyService.showAllSurveys();
 										</div>
 									</div>
                             </a>
+                        </label>
                         </li>
 						<%} %>
 						<%} %>
 						
 				 </ul>
 				 <p></p>
-				 <p></p>
 			 <ul class="pagination" style="list-stlye-type:none; text-align:center;">
     
   			 </ul>
   			 <p></p>
-						<button onclick="location.href='versionAddPage.jsp'"
+						<button onclick="location.href='versionAddPage.jsp'" type="button"
 							class="btn btn-mod btn-border btn-large btn-round" >설문조사 추가하기</button>
-						<button onclick="location.href='Questions/QuestionPage.jsp'"
+						<input type="submit"  class="btn btn-mod btn-border btn-large btn-round" value="설문조사 삭제하기">
+						<button onclick="location.href='Questions/QuestionPage.jsp'" type="button"
 							class="btn btn-mod btn-border btn-large btn-round" >설문문항 추가하기</button>
 
-				
+				</form>
 				</div>
 				
 					<!-- End Col -->

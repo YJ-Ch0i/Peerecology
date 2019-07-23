@@ -85,7 +85,7 @@
 			<%if (schResultSur.size()==0){ %>
 			<h3> 설문조사한 학교가 없습니다. </h3>
 			<%}else{ %>
-			<table class="table table-striped">
+			<table class="table table-striped" style="text-align:center">
 			<thead>
                             <tr>
                                 <th>학교 이름</th>

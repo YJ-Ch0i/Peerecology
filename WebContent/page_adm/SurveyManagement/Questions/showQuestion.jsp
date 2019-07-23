@@ -54,7 +54,6 @@ ArrayList<QuestionTypeDTO> queTypes = queService.showAllType();
 	<!-- Page Wrap -->
 	<div class="page" id="top">
 			<section class="page-section" >
-			<form method="post" action="/PeerSys/questionUpdate.qs" id="form" role="form">
 			
 			<div class="row">
 			성향 : 
@@ -84,10 +83,10 @@ ArrayList<QuestionTypeDTO> queTypes = queService.showAllType();
 			<%} %>
 			<%} %>
 			<%} %>
-			
-			<p></p>
-     		</div>
-            </form>
+			<p> </p>
+			<button onclick="location.href='QuestionUpdate.jsp?numbering=<%=QID %>'" type="button" style="float:right"
+							class="btn btn-mod btn-medium btn-round" >수정하기</button>
+			</div>
             </section>
 	</div>
 

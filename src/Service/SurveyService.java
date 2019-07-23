@@ -26,6 +26,9 @@ public class SurveyService {
 	public void versionTitleRegister(String version_title) {
 		dao.versionTitleRegister(version_title);
 	}
+	public int versionDelete(int SurveyNo) {
+		return dao.versionDelete(SurveyNo);
+	}
 	public ArrayList<SurveyDTO> showAllSurveys(){
 		return dao.showAllSurveys();
 	}
