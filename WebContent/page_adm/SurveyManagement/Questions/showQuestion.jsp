@@ -7,7 +7,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<script>
+function confirmUpdate()
+{
+var answer = window.confirm("이미 설문조사에 쓰였던 문항이면 결과가 다르게 보여질수 있습니다. 수정하시겠습니까?")
+var QID = document.getElementById('hiddenValue').value;
+if (answer) {
+	location.href='QuestionUpdate.jsp?numbering='+QID;
+}
+else {
+    //some code
+}
+}
 </script>
 <title>Rhythm &mdash; One & Multi Page Creative Theme</title>
 <meta name="description" content="">
@@ -33,6 +44,7 @@
 <body class="appear-animate">
 
 <%
+
 int QID = 0;
 if(request.getParameter("numbering") != null)
 {
@@ -56,6 +68,8 @@ ArrayList<QuestionTypeDTO> queTypes = queService.showAllType();
 			<section class="page-section" >
 			
 			<div class="row">
+			<form>
+			<input type="hidden" name="hiddenValue" id="hiddenValue" value="<%=QID %>">
 			성향 : 
 			 <input type="text" name="trand_title" readonly id="name" class="input-md form-control" maxlength="100" value="<%=questionDTO.getQue_trandTitle() %>">
 			<p></p>
@@ -84,8 +98,8 @@ ArrayList<QuestionTypeDTO> queTypes = queService.showAllType();
 			<%} %>
 			<%} %>
 			<p> </p>
-			<button onclick="location.href='QuestionUpdate.jsp?numbering=<%=QID %>'" type="button" style="float:right"
-							class="btn btn-mod btn-medium btn-round" >수정하기</button>
+			<button onclick="confirmUpdate();" type="button" style="float:right" class="btn btn-mod btn-medium btn-round" >수정하기</button>
+			</form>
 			</div>
             </section>
 	</div>
