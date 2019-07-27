@@ -8,13 +8,11 @@ function transferProcess(f){
 			f.submit();
 		}
 		else{
-			alert("취소하셨습니다.");
 			return;
 		}
 		
 	}
 	else if(transfer == false){
-		alert("취소하셨습니다.");
 		return;
 	}
 }
@@ -35,13 +33,11 @@ function checkStudent(f){
 			f.submit();
 		}
 		else{
-			alert("취소되었습니다.");
 			return;
 		}
 		
 	}
 	else if(check == false){
-		alert("취소되었습니다.");
 		return;
 	}
 }
@@ -61,7 +57,6 @@ function resultProcess(f){
 		f.submit();
 	}
 	else if(check == false){
-		alert("취소하였습니다.");
 		return;
 	}
 }

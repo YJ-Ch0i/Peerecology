@@ -80,7 +80,8 @@ public class SchoolFinder {
 
    public static String xmlDownload(String schoolNm) throws IOException {
         StringBuilder urlBuilder = new StringBuilder("http://api.data.go.kr/openapi/elesch-mskul-lc-std"); /*URL*/
-        urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=p2hOgfRTM0OmpDYbjg9X5geZlvl8tO6YWBDXU3EZG53xEHcK6GoMr8z5SxoIA9DIkAo1be%2F5ZagqEMnVR8EULw%3D%3D"); /*Service Key*/
+        //urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=p2hOgfRTM0OmpDYbjg9X5geZlvl8tO6YWBDXU3EZG53xEHcK6GoMr8z5SxoIA9DIkAo1be%2F5ZagqEMnVR8EULw%3D%3D"); /*Service Key*/
+        urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=JYY0u%2B%2FBFK2MCblFSKAmYhe85Vh%2FRrgcd5w%2F3XUW3wPwg9N7x937xSNJVgIylpBmXVPMY5jThK0xUyj9m%2BZ4Lg%3D%3D"); /*Service Key*/
         
         String key = "schoolNm";
 
