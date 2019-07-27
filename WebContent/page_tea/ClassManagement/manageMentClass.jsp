@@ -101,7 +101,7 @@
                  </div>
                  <div class="row">
                   	<div>       
-                        <table class="table table-striped">
+                        <table class="table table-striped" style="text-align:center">
                         <thead>
                             <tr>
                                 <th class=""> 학교 </th>

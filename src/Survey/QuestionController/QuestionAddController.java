@@ -16,6 +16,9 @@ public class QuestionAddController implements Controller {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
 		String strQue_trandTypeID = request.getParameter("que_trandTypeID");
 		String strQue_typeID = request.getParameter("que_typeID");
 		String que_title = request.getParameter("que_title");

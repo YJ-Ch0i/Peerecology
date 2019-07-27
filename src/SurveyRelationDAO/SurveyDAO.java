@@ -42,6 +42,27 @@ public class SurveyDAO {
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
 	}
+	public int versionDelete(int SurveyNo) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		int isSuccess = 0;
+		String SQL ="UPDATE survey set isOpen=0 where surveyNo=?";
+		
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, SurveyNo);
+			pstmt.executeUpdate();
+			return isSuccess;
+		}catch(Exception e) {
+			isSuccess = -1;
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return isSuccess;
+	}
 	public void version_QuestionRegister(String[] questions) 
 	{
 		Connection conn=null;

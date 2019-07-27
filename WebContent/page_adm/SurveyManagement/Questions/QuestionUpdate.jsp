@@ -7,8 +7,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-</script>
 <title>Rhythm &mdash; One & Multi Page Creative Theme</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
@@ -28,7 +26,39 @@
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+function changeType(thisValue) 
+{
+if(thisValue!="또래지명" && thisValue!="주관식")
+{
+	$('#isMultipleChoice').show();
+	$('#isEssayQuestion').hide();
+	$('#isReverseType').show();
+}
+else if(thisValue!="또래지명" && thisValue=="주관식")
+{
+	$('#isMultipleChoice').hide();
+	$('#isEssayQuestion').show();
+	$('#isReverseType').hide();
+	$('#isAnswerValue').show();
+}
+else if(thisValue=="또래지명" && thisValue!="주관식")
+{
+	$('#isMultipleChoice').hide();
+	$('#isEssayQuestion').show();
+	$('#isReverseType').hide();
+	$('#isAnswerValue').hide();
+}
+else
+{
+	$('#isMultipleChoice').hide();
+	$('#isEssayQuestion').show();
+	$('#isReverseType').hide();
+}
+}
 
+</script>
 </head>
 <body class="appear-animate">
 
@@ -57,20 +87,48 @@ ArrayList<QuestionTypeDTO> queTypes = queService.showAllType();
 			<form method="post" action="/PeerSys/questionUpdate.qs" id="form" role="form">
 			
 			<div class="row">
-			성향 : 
+			
+			<!-- 척도 -->
+			척도 : 
 			<select class="input-md form-control"> 
 			<% for(int i=0; i<queTrands.size(); i++){ %>
-			<option <% if(queTrands.get(i).getQ_trandDescipt().equals(questionDTO.getQue_trandTitle())) {%> selected <%} %> ><%=queTrands.get(i).getQ_trandDescipt() %></option>
+			<option value= "<%=queTrands.get(i).getQ_trandDescipt() %>" <% if(queTrands.get(i).getQ_trandDescipt().equals(questionDTO.getQue_trandTitle())) {%> selected <%} %> ><%=queTrands.get(i).getQ_trandDescipt() %></option>
 			<%} %>
 			</select>
 			<p></p>
-			 유형 :   
-           	<select class="input-md form-control"> 
+			
+			<!--  유형 -->
+			 응답 유형 :   
+           	<select class="input-md form-control" onChange="changeType(this.value);"> 
 			<% for(int i=0; i<queTypes.size(); i++){ %>
 			<option <% if(queTypes.get(i).getDescript().equals(questionDTO.getQue_typeTitle())) {%> selected <%} %>> <%=queTypes.get(i).getDescript() %></option>
 			<%} %>
 			</select>
 			<p></p>
+          	 문항 이름 : <input type="text" name="trand_title" id="name" class="input-md form-control" maxlength="100" value="<%=questionDTO.getQue_title() %>">
+     		<p></p>
+     		
+     		<!-- 역산 -->
+     		<div id="isReverseType">
+     		역산 : 
+      		<select class="input-md form-control"> 
+			<option <% if(questionDTO.isQue_isReverseType() ==true) {%> selected <%} %> value="1"> 역산아니다.</option>
+			<option <% if(questionDTO.isQue_isReverseType() ==false) {%> selected <%} %> value="0"> 역산이다.</option>
+			</select>
+			<p></p>
+			</div>
+			
+			<!-- 정답부분 -->
+			<div id="isAnswerValue">
+			<% if( questionDTO.getQue_answer() != null ){ %>
+			정답 :  <input type="text" name="question_answer" id="name" class="input-md form-control" maxlength="100" value="<%= questionDTO.getQue_answer() %>" placeholder="정답이 없으면 빈칸으로 남겨주세요.">
+			<p></p>
+			<%}%>
+			</div>
+			
+			<!-- 보기방식 -->
+			<div id="isMultipleChoice">
+			보기 방식 ->
 			<% if(questionOfferList.size()!=0){ %>
 			<% for(int i=0; i<questionOfferList.size(); i++){ %>
 			<!-- 세로보기 문항 -->
@@ -83,21 +141,14 @@ ArrayList<QuestionTypeDTO> queTypes = queService.showAllType();
         	</label>
 			<%} %>
 			<%} %>
+			<%}else{ %>
+			<input type="text" class="input-md form-control" maxlength="100" placeholder="주관식이나 또래지명입니다." readonly>
 			<%} %>
+			</div>
+			<div id="isEssayQuestion">
+			</div>
+			<p></p>
 			
-			<p></p>
-          	 문항 이름 : <input type="text" name="trand_title" id="name" class="input-md form-control" maxlength="100" value="<%=questionDTO.getQue_title() %>">
-     		<p></p>
-     		역산 : 
-      		<select class="input-md form-control"> 
-			<option <% if(questionDTO.isQue_isReverseType() ==true) {%> selected <%} %> value="1"> 역산아니다.</option>
-			<option <% if(questionDTO.isQue_isReverseType() ==false) {%> selected <%} %> value="0"> 역산이다.</option>
-			</select>
-			<p></p>
-			<%if( questionDTO.getQue_answer() != null ){ %>
-			정답 :  <input type="text" name="question_answer" id="name" class="input-md form-control" maxlength="100" value="<%= questionDTO.getQue_answer() %>">
-			<p></p>
-			<%} %>
      		<input type="submit"  style="float:right" class="btn btn-mod btn-medium btn-round" value="수정하기">
             </div>
             </form>

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="Service.QuestionService" %>
 <%@ page import="SurveyRelationDTO.QuestionTrandTypeDTO" %>
+<%@ page import="SurveyRelationDTO.QuestionTrandManagerDTO" %>
 <%@ page import="java.util.*" %>
 
 <!DOCTYPE html>
@@ -26,12 +27,25 @@
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
-
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+function changeDiv(offerSeq)
+{
+	if(offerSeq==0){
+		$('#bigTrandTitle').show();
+	}
+	else{
+		$('#bigTrandTitle').hide();
+	}
+}
+</script>
 </head>
 <body class="appear-animate">
 <% 
-
-%>
+	QuestionService queService = QuestionService.getInstance();
+	ArrayList<QuestionTrandManagerDTO> queTrands = new ArrayList<QuestionTrandManagerDTO>();
+	queTrands = queService.showAllBigTrands();
+%> 
 	<!-- Page Loader -->
 	<div class="page-loader">
 		<div class="loader">Loading...</div>
@@ -46,9 +60,19 @@
 			<form method="post" action="/PeerSys/trandAdd.qs" id="form" role="form">
 			
 			<div class="mb-20 mb-md-10">
-										<!-- Name -->
-			<label>성향 이름 : <input type="text" name="trand_title" id="name" class="input-md form-control" maxlength="100"></label>
-			<input type="submit"  class="btn btn-mod btn-medium btn-round" value="추가하기">
+			척도 분류 : <select name="trandBigName" class="input-md form-control" onChange="changeDiv(this.value);"> 
+			<option value="0">직접 입력하기</option>
+			<% for(int i=0; i<queTrands.size(); i++){ %>
+			<option value="<%=queTrands.get(i).getBigTrandID()%>"><%=queTrands.get(i).getDescript() %></option>
+			<%} %></select>
+			<p></p>
+			<div id="bigTrandTitle">
+			척도 분류 이름 : <input type="text" name="bigTrandTitle" class="input-md form-control" maxlength="100">
+			<p></p>
+			</div>
+			척도 이름 : <input type="text" name="trand_title" id="name" class="input-md form-control" maxlength="100">
+			<p></p>
+			<input type="submit"  class="btn btn-mod btn-medium btn-round" value="추가하기" style="float:right;">
 			</div>
 			</form>
 			</div>
