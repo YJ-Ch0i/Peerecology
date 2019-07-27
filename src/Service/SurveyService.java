@@ -23,8 +23,8 @@ public class SurveyService {
 	public void version_QuestionRegister(String[] questions) {
 		dao.version_QuestionRegister(questions);
 	}
-	public void versionTitleRegister(String version_title) {
-		dao.versionTitleRegister(version_title);
+	public void versionTitleRegister(String version_title,String descript) {
+		dao.versionTitleRegister(version_title, descript);
 	}
 	public int versionDelete(int SurveyNo) {
 		return dao.versionDelete(SurveyNo);

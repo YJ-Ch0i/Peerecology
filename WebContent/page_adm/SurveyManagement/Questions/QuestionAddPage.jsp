@@ -3,7 +3,6 @@
 <%@ page import="Service.QuestionService" %>
 <%@ page import="SurveyRelationDTO.*" %>
 <%@ page import="java.util.*" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,13 +26,15 @@
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
-
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body class="appear-animate">
 <% 
 QuestionService queSerivce = QuestionService.getInstance(); 
 ArrayList<QuestionTrandTypeDTO> queTrands = new ArrayList<QuestionTrandTypeDTO>();
+ArrayList<QuestionTrandManagerDTO> queBigTrands = new ArrayList<QuestionTrandManagerDTO>();
 ArrayList<QuestionTypeDTO> queTypes = new ArrayList<QuestionTypeDTO>();
+queBigTrands = queSerivce.showAllBigTrands();
 queTrands = queSerivce.showAllTrand();
 queTypes = queSerivce.showAllType();
 %>
@@ -48,21 +49,33 @@ queTypes = queSerivce.showAllType();
 			<div class="row">
 			<form method="post" action="/PeerSys/questionAdd.qs" id="form" role="form">
 			<% if(queTrands.size()!=0) {%>
-			척도 분류 : <select name="que_trandTypeID" class="input-md form-control"> 
-			<% for(int i=0; i<queTrands.size(); i++){ %>
-			<option value="<%=queTrands.get(i).getQ_trandType()%>"><%=queTrands.get(i).getQ_trandDescipt() %></option>
-			<%} %></select>
+			척도 분류 : 
+			<select name="trand_managerID" class="input-md form-control" onChange="changeToBigTrand(this.value);"> 
+			<option value="-1" selected>선택해주세요.</option>
+			<% for(int i=0; i<queBigTrands.size(); i++){ %>
+			<option value="<%=queBigTrands.get(i).getBigTrandID()%>"><%=queBigTrands.get(i).getDescript() %></option>
+			<%} %>
+			</select>
 			<%}else{ %>
 			<script> alert('척도를 먼저 만들어 주세요.'); </script>
 			<script> location.href = 'TrandAddPage.jsp' </script>
 			<%} %>
             <p></p>
+            <div id="trandTypeDiv" style="display:none;">
+           	척도 이름 : 
+           	<select name="que_trandTypeID" class="input-md form-control"> 
+			<% for(int i=0; i<queBigTrands.size(); i++){ %>
+			<option value="<%=queTrands.get(i).getQ_trandType()%>"><%=queTrands.get(i).getQ_trandDescipt() %></option>
+			<%} %>
+			</select>
+			<p></p>
+			</div>
            	 응답 유형 :   
            	<select class="input-md form-control" name="que_typeID" id="whatType" onChange="changeInput(this.value);"> 
+			<option value="-1" selected>직접 입력하기</option>
 			<% for(int i=0; i<queTypes.size(); i++){ %>
 			<option value="<%=queTypes.get(i).getQ_typeID() %>"><%=queTypes.get(i).getDescript() %></option>
 			<%} %>
-			<option value="-1" selected>직접 입력하기</option>
 			</select>
 			<p></p>
 			<div id="isSelectCreate">
@@ -93,18 +106,22 @@ queTypes = queSerivce.showAllType();
 			<p></p>
 		          문항 이름 : <input type="text" name="que_title" id="name" class="input-md form-control" maxlength="100">
 		    <p></p>
+		    <div id="isReverseDiv">
       		역산 : 
       		<select name="isReverseType" class="input-md form-control" > 
 			<option value="1"> 역산아니다.</option>
 			<option value="0"> 역산이다.</option>
 			</select>
 			<p></p>
+			</div>
+			<div id="isAnswerValueDiv">
 			정답 여부 : 
 			<select name="isAnswer" class="input-md form-control" onChange="isQuestionAnswering(this.value);"> 
 			<option value="0"> 정답이 없다.</option>
 			<option value="1"> 정답이 있다.</option>
 			</select>
 			<p></p>
+			</div>
 			<div id="inputAnswer">
 			</div>
      		<input type="submit"  style="float:right" class="btn btn-mod btn-medium btn-round" value="추가하기">
@@ -116,7 +133,7 @@ queTypes = queSerivce.showAllType();
 
 	<!-- JS -->
 	
-	<script type="text/javascript" src="/PeerSys/style/js/addQuestionFuc.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/addQuestionFuc.js?version=3"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/bootstrap.min.js"></script>

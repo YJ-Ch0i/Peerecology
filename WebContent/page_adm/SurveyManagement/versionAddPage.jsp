@@ -67,7 +67,9 @@
 
 				<form method="post" action="/PeerSys/versionRegister.sv" id="addQuestion" name="addQuestion"
 					role="form" class="form" >
-					설문 이름 : <input type="text" name="version_title" id="name" class="input-md form-control" maxlength="100">
+					<input type="text" name="version_title" id="name"  placeholder="설문지의 제목을 작성해주세요." class="input-md form-control" maxlength="100">
+					<p></p>
+					<textarea name="version_descript" id="text" class="input-md form-control" rows="8" placeholder="설문지에 대한 설명을 작성해주세요." maxlength="400"></textarea>
 					<p></p>
 					<div id="addedQuestion">
 					</div>

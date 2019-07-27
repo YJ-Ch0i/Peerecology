@@ -25,15 +25,16 @@ public class SurveyDAO {
 	public static SurveyDAO getInstance() {
 		return dao;
 	}
-	public void versionTitleRegister(String version_title) {
+	public void versionTitleRegister(String version_title,String descript) {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		
-		String SQL ="INSERT INTO survey(title) VALUES (?)";
+		String SQL ="INSERT INTO survey(title,descript) VALUES (?,?)";
 		try {
 			conn =DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, version_title);
+			pstmt.setString(2, descript);
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -16,7 +16,8 @@ public class VersionAddController implements Controller {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String version_title = request.getParameter("version_title");
-		if(version_title==null)
+		String version_descript = request.getParameter("version_descript");
+		if(version_title==null || version_descript==null)
 		{
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
@@ -42,7 +43,7 @@ public class VersionAddController implements Controller {
 			else
 			{
 				SurveyService surveyService = SurveyService.getInstance();
-				surveyService.versionTitleRegister(version_title);
+				surveyService.versionTitleRegister(version_title, version_descript);
 				surveyService.version_QuestionRegister(QIDs);
 				
 				PrintWriter script = response.getWriter();
