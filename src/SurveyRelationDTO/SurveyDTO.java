@@ -4,6 +4,8 @@ public class SurveyDTO {
 	private int surveyNo;
 	private String title;
 	private boolean isOpen;
+	private String descript;
+	
 	
 	public SurveyDTO(){	
 	}
@@ -24,5 +26,11 @@ public class SurveyDTO {
 	}
 	public void setOpen(boolean isOpen) {
 		this.isOpen = isOpen;
+	}
+	public String getDescript() {
+		return descript;
+	}
+	public void setDescript(String descript) {
+		this.descript = descript;
 	}
 }

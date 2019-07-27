@@ -23,13 +23,29 @@ if(offerSeq==-1)
 	    
 	document.getElementById('isSelectCreate').innerHTML=strInput;
 }
+else if(offerSeq==1||offerSeq==2)
+{
+	$('#isAnswerValueDiv').hide();
+	$('#isReverseDiv').hide();
+	document.getElementById('isSelectCreate').innerHTML="";
+	document.getElementById('inputBox').innerHTML = ""; 
+}
 else
 {
 	document.getElementById('isSelectCreate').innerHTML="";
 	document.getElementById('inputBox').innerHTML = ""; 
 }
 }
-
+function changeToBigTrand(offerSeq)
+{
+	if(offerSeq == -1)
+		{
+			$('#trandTypeDiv').hide();
+		}
+	else{
+		$('#trandTypeDiv').show();
+		}
+}
 function addInput(offerSeq) {
 var strInput = "";
 document.getElementById('inputBox').innerHTML = "";
