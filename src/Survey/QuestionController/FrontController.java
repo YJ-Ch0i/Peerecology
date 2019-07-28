@@ -25,6 +25,8 @@ public class FrontController  extends HttpServlet{
 		list.put("/trandAdd.qs", new TrandAddController());
 		list.put("/typeAdd.qs", new TypeAddController());
 		list.put("/typeDelete.qs", new TypeDeleteController());
+		list.put("/bigTrandAdd.qs", new BigTrandAddController());
+		list.put("/bigTrandDelete.qs", new BigTrandDeleteController());
 		}
 		
 	@Override

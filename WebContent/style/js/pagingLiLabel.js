@@ -1,5 +1,5 @@
 function pagination(){
-        var req_num_row=10;
+        var req_num_row=6;
         var $tr=jQuery('ul li label');
         var total_num_row=$tr.length;
         var num_pages=0;

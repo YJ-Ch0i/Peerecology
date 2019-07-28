@@ -62,6 +62,10 @@ public class QuestionService {
 	public int queTypeDelete(int trandNum) {
 		return dao.queTypeDelete(trandNum);
 	}
+
+	public int queBigTrandDelete(int trandNum) {
+		return dao.queBigTrandDelete(trandNum);
+	}
 	public int queTypeOfferDelete(int typeNum){
 		return dao.queTypeOfferDelete(typeNum);
 	}

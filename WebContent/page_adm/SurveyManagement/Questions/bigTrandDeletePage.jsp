@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="Service.QuestionService" %>
-<%@ page import="SurveyRelationDTO.*" %>
+<%@ page import="SurveyRelationDTO.QuestionTrandManagerDTO" %>
 <%@ page import="java.util.*" %>
+
 <!DOCTYPE html>
 <html>
 <head>
-
 <title>Rhythm &mdash; One & Multi Page Creative Theme</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
@@ -26,44 +26,14 @@
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-<script language="javascript" >
-
-function addQuestion() {
-var cntQuestion = 0;
-var inputCheckQuestions = ""
-	inputCheckQuestions = parent.document.getElementById('addedQuestion').innerHTML;
-checkQuestions = document.getElementsByName("checkQuestions");
-splitQuestions = inputCheckQuestions.split('input type="text"');
-cnt = splitQuestions.length-1;
-var size = checkQuestions.length;
-
-	for(var i=0; i<size; i++)
-	{
-		if(checkQuestions[i].checked)
-			{
-			var questionNumber = checkQuestions[i].value.split(',');
-			cnt++;
-			inputCheckQuestions +="<p id=\"text"+cnt+"\" style=\"display:inline;\">"+ cnt + "번 문항 : </p>"
-								+ "<input type=\"text\" name=\"questionName" +cnt+" \" id=\"name\"" 
-							 	+"class=\"input-md form-control\" maxlength=\"100\" readonly value=\""+questionNumber[0]+"\">"
-							 	+"<input type=\"button\" value=\"삭제하기\" style=\"font-size: 15px; height: 35px;\" onclick=\"deleteQuestion("+cnt+")\">"
-								+"<input type=\"hidden\" value=\"" + questionNumber[1] + "\" name=\"questionId\">"
-							 	+"<p></p>";
-			}
-	}
-parent.document.getElementById('addedQuestion').innerHTML = inputCheckQuestions;
-alert('추가되었습니다.')
-self.document.location.reload();
-	
-}
-</script>
 </head>
 <body class="appear-animate">
 <% 
 QuestionService queSerivce = QuestionService.getInstance(); 
-ArrayList<QuestionTypeDTO> types = new ArrayList<QuestionTypeDTO>();
-types = queSerivce.showAllType();
+ArrayList<QuestionTrandManagerDTO> trandManageList = new ArrayList<QuestionTrandManagerDTO>();
+trandManageList = queSerivce.showAllBigTrands();
 %>
 	<!-- Page Loader -->
 	<div class="page-loader">
@@ -73,52 +43,35 @@ types = queSerivce.showAllType();
 
 	<!-- Page Wrap -->
 	<div class="page" id="top">
-			<section class="page-section">
-			<div class="container relative">
-
-				<!-- Row -->
-				
-<% 
-ArrayList<QuestionDTO> questions = new ArrayList<QuestionDTO>();
-ArrayList<QuestionTypeDTO> queTypes = new ArrayList<QuestionTypeDTO>();
-queTypes = queSerivce.showAllType();
-questions = queSerivce.showAllQuestion();
-%>
-					<form method="POST" name="form1" id="form1" role="form">
+			<section class="page-section" >
+			<div class="row">
+			<form method="POST" action="/PeerSys/bigTrandDelete.qs" id="form" role="form">
+			 <ul class="works-grid work-grid-5 work-grid-gut clearfix font-alt hover-white">
 			 
-					<div class="works-filter font-alt">
-					
-					<a href="#" class="filter active" data-filter="*"><모든 문항></a> 
-					<% for(int i=0; i<queTypes.size(); i++){ %>
-					
-                    <a href="#<%=queTypes.get(i).getQ_typeID()%>" class="filter" data-filter=".<%=queTypes.get(i).getQ_typeID() %>"> < <%=queTypes.get(i).getDescript() %> >
-                    </a>
-                    <%} %>
-                    </div>
-                    
-                <ul class="works-grid work-grid-5 clearfix font-alt hover-white hide-titles" id="work-grid">
-                <%if(questions.size()==0){ %> 문항을 아직 등록하지 않으셨습니다. <%} %>
-                    <% for(int i=0; i<questions.size(); i++){ %>
-                     <li class="work-item mix <%=questions.get(i).getQType() %>">
-                    <div class="mb-20 mb-md-10" id="hiddingHidden">
-                                    <label class="checkbox-inline">
-                                         <input type="checkbox" name="checkQuestions" id="inlineCheckbox1" value="<%=questions.get(i).getTitle() %>,<%=questions.get(i).getQID()%>">
-                                         <%=questions.get(i).getTitle() %>
-                                    </label>
-                     
-                     </div>
-                     </li>
-                    <%} %>
-                </ul>
-                 <input type="button" style="float:right" class="btn btn-mod btn-medium btn-round" value="추가하기" onclick="addQuestion()">
-                 
-                 </form>
-			</div>
+             <%for(int i=0; i<trandManageList.size(); i++){ %>           
+             <li>
+             <label class="checkbox-inline">
+             <input type="checkbox" name="deleteTrandBigValues" id="inlineCheckbox1"
+              value="<%=trandManageList.get(i).getBigTrandID()%>">
+             <%= trandManageList.get(i).getDescript() %>
+             </label>
+             </li>
+			 <%} %>
+			 </ul>
+			 <p style="clear:both;"></p>
+			 <ul class="pagination" style="list-stlye-type:none; text-align:center;">
+    
+  			</ul>
+  			<p></p>
+			 <input type="submit"  style="float:right" class="btn btn-mod btn-medium btn-round" value="삭제하기">
+			</form>
 			
-		</section>
+			</div>
+			</section>
 	</div>
 
 	<!-- JS -->
+	<script type="text/javascript" src="/PeerSys/style/js/pagingLiLabel.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/bootstrap.min.js"></script>

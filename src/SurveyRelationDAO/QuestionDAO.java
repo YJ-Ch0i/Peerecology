@@ -21,7 +21,7 @@ public class QuestionDAO {
 		ResultSet rs = null;
 		ArrayList<QuestionTrandManagerDTO> trandList = new ArrayList<QuestionTrandManagerDTO>();
 		
-		String sql = "SELECT * from q_trand_manager";
+		String sql = "SELECT * from q_trand_manager where isShowing=True";
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -268,6 +268,27 @@ public class QuestionDAO {
 			pstmt.setInt(1, bigTrandID);
 			pstmt.setString(2, trandTitle);
 			pstmt.executeUpdate();
+		}catch(Exception e) {
+			isSuccess = -1;
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return isSuccess;
+	}
+	public int queBigTrandDelete(int trandNum) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		int isSuccess = 0;
+		String SQL ="UPDATE q_trand_manager SET isShowing=FALSE where bigTrandID=?";
+		
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, trandNum);
+			pstmt.executeUpdate();
+			return isSuccess;
 		}catch(Exception e) {
 			isSuccess = -1;
 			e.printStackTrace();
