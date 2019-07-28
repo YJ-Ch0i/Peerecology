@@ -42,6 +42,7 @@
 
 	<section class="page-section">
 		<div class="container relative">
+		<h3 style="text-align: center;">본인의 반을 선택해주세요.</h3><br><br>
 			<div class="works-filter font-alt align-center">
 				<% boolean isElementalSchool = (boolean) request.getAttribute("isElementalSchool"); %>
 

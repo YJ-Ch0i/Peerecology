@@ -51,13 +51,18 @@ public class RegisterAnswerController implements Controller {
 			}
 			
 		}
+		
+		session.removeAttribute("stu_id");
+		session.removeAttribute("stu_desc");
+		session.removeAttribute("grd_num");
+		session.removeAttribute("sch_code");
+		session.removeAttribute("stu_num");
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
 		script.println("alert('Success!')");
-		script.println("location.href='/PeerSys/index.jsp';");
+		script.println("location.href='/PeerSys/page_stu/complete.jsp';");
 		script.println("</script>");
 		script.close();
 		return;
 	}
-
 }
