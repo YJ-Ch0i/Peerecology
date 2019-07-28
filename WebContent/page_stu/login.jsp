@@ -3,6 +3,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<%
+	String stu_id = (String) session.getAttribute("stu_id");
+	if(stu_id == null){
+%>
+<script>
+alert("잘못된 접근입니다.");
+location.href="/PeerSys/index.jsp";
+</script>
+<%} %>
+
+
 <title>Rhythm &mdash; One & Multi Page Creative Theme</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
@@ -58,7 +70,8 @@
 		<!-- Section -->
 		<section class="page-section">
 			<div class="container relative">
-
+				<h3>시작하기 버튼을 눌러주세요</h3>
+				<h5>---만약 진행 가능한 설문조사가 없으면 자동으로 로그아웃 됩니다---</h5><br><br>
 				<!-- Row -->
 				<div class="row">
 					<form action="/PeerSys/startSurvey.sv" method="post">

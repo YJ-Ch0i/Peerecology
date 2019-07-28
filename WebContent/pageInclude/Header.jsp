@@ -72,9 +72,9 @@
 				<li><a href="#" class="mn-has-sub active"> 학급 관리 <i
 						class="fa fa-angle-down"></i></a>
 					<ul class="mn-sub mn-has-multi">
-						<li><a
-							href="/PeerSys/page_tea/ClassManagement/addClass.jsp"> 학급
-								추가 </a></li>
+						<li>
+						<a onclick="teacherAddClassCheck()"> 학급추가 </a>
+						</li>
 						<li><a
 							href="/PeerSys/page_tea/ClassManagement/manageMentClass.jsp">
 								학생 관리 </a></li>

@@ -28,12 +28,17 @@ public class StartSurveyController implements Controller {
 		SurveyService surService = SurveyService.getInstance();
 		SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO(); 
 		surveyGoingDTO = surService.startSurvey(sch_code);
-		if(surveyGoingDTO==null)
+		if(surveyGoingDTO.getIngSeq() == 0)
 		{
+			session.removeAttribute("stu_id");
+			session.removeAttribute("stu_desc");
+			session.removeAttribute("grd_num");
+			session.removeAttribute("sch_code");
+			session.removeAttribute("stu_num");
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('진행 가능한 설문조사가 없습니다.');");
-			script.println("history.back();");
+			script.println("alert('진행 가능한 설문조사가 없습니다. 자동으로 로그아웃 되었습니다.');");
+			script.println("location.href='/PeerSys/index.jsp'");
 			script.println("</script>");
 			script.close();
 		}

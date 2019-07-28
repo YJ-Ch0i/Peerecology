@@ -167,7 +167,9 @@
 	<script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script type="text/javascript" src="https://code.highcharts.com/modules/export-data.js"></script>
 	<!--[if lt IE 10]><script type="text/javascript" src="js/placeholder.js"></script><![endif]-->
+	<script type="text/javascript" src="/PeerSys/style/js/studentTransfer.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/visualize/stuBarGraph.js"></script>
+	
 	
 </body>
 </html>

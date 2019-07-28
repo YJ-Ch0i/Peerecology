@@ -42,7 +42,7 @@
 
 	<section class="page-section">
 		<div class="container relative">
-
+			<h3 style="text-align: center;">본인이 다니고있는 학교를 선택해주세요.</h3><br><br>
 			<table style="text-align: center; margin: auto;">
 				<tr>
 					<td>학교 주소</td>

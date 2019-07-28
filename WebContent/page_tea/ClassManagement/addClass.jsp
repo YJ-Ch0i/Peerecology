@@ -203,6 +203,7 @@
 	<script type="text/javascript" src="/PeerSys/style/js/contact-form.js"></script>
 	<script type="text/javascript"
 		src="/PeerSys/style/js/jquery.ajaxchimp.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/studentTransfer.js"></script>
 	<!--[if lt IE 10]><script type="text/javascript" src="js/placeholder.js"></script><![endif]-->
 
 </body>

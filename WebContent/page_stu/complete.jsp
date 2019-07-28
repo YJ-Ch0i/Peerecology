@@ -1,11 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="Service.StudentService"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="User.UserDTO.StudentDTO"%>
 <!DOCTYPE html>
 <html>
 <head>
+
+<%
+	//String stu_id = (String) session.getAttribute("stu_id");
+	//if(stu_id == null){
+%>
+<!-- <script>
+alert("잘못된 접근입니다.");
+location.href="/PeerSys/index.jsp";
+</script> -->
+<%//} %>
+
+
 <title>Rhythm &mdash; One & Multi Page Creative Theme</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
@@ -35,55 +44,12 @@
 		<div class="loader">Loading...</div>
 	</div>
 	<!-- End Page Loader -->
-	<!-- Navigation panel -->
-	<%@include file="../../pageInclude/Header.jsp"%>
-	<!-- End Navigation panel -->
+	<script type="text/javascript">          
+		alert('설문조사가 완료되었습니다. 페이지를 종료 해 주세요.');   
+	</script>
+	<br><br><br><br><br><br><br><br><br><br><br>
+	<h1 style="text-align:center">설문조사를 완료 하셨습니다. 페이지를 종료하여 주세요.</h1>
 
-	<section class="page-section">
-		<div class="container relative">
-			<h3 style="text-align: center;">본인의 번호를 선택해주세요.</h3><br><br>
-			<%
-                    ArrayList<StudentDTO> list = (ArrayList<StudentDTO>) request.getAttribute("list");
-        	%>
-			<ul
-				class="works-grid work-grid-5 clearfix font-alt hover-white hide-titles"
-				id="work-grid">
-
-				<% for(int i=0; i<list.size(); i++){
-                    %>
-				<li class="work-item mix all">
-					<form id="form<%= list.get(i).getNum() %>" method="post">
-						<input type="hidden" name="stu_id" value="<%=list.get(i).getStu_id() %>"> 
-						<input type="hidden" name="grade" value="<%= request.getAttribute("grade") %>"> 
-						<input type="hidden" name="grd_num" value="<%= request.getAttribute("grd_num") %>">
-						<input type="hidden" name="sch_name" value="<%= request.getAttribute("sch_name") %>"> 
-						<input type="hidden" name="stu_name" value="<%= list.get(i).getName() %>">
-						<input type="hidden" name="stu_num" value="<%= list.get(i).getNum() %>"> 
-						<input type="hidden" name="sch_code" value="<%=request.getParameter("sch_code") %>"> 
-							<input type="button" value="<%= list.get(i).getNum() %>"
-							style="margin: 10% 10% 10% 15%"
-							class="btn btn-mod btn-circle btn-small" onClick="checkStudent(this.form)">
-					</form>
-				</li>
-				<%} %>
-
-			</ul>
-			<!-- Row -->
-
-
-			<div class="row"></div>
-			<!-- End Row -->
-
-		</div>
-	</section>
-	<!-- End Section -->
-
-
-	<!-- Footer -->
-	<%@ include file="../pageInclude/Footer.jsp"%>
-	<!-- End Footer -->
-
-	</div>
 	<!-- End Page Wrap -->
 
 
@@ -104,6 +70,8 @@
 	<script type="text/javascript" src="/PeerSys/style/js/isotope.pkgd.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/imagesloaded.pkgd.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.magnific-popup.min.js"></script>
+	<!-- Replace test API Key "AIzaSyAZsDkJFLS0b59q7cmW0EprwfcfUA8d9dg" with your own one below 
+        **** You can get API Key here - https://developers.google.com/maps/documentation/javascript/get-api-key -->
 	<script type="text/javascript" src="/PeerSys/style/js/wow.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/masonry.pkgd.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.simple-text-rotator.min.js"></script>
@@ -111,7 +79,6 @@
 	<script type="text/javascript" src="/PeerSys/style/js/contact-form.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.ajaxchimp.min.js"></script>
 	<!--[if lt IE 10]><script type="text/javascript" src="js/placeholder.js"></script><![endif]-->
-	<script type="text/javascript" src="/PeerSys/style/js/studentTransfer.js"></script>
 
 </body>
 </html>
