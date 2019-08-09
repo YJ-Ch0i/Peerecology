@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class SearchEndsurveyDTO {
 
+	private int year;
 	private int surveyNo;
 	private int ingSeq;
 	private String SCID;
@@ -11,6 +12,12 @@ public class SearchEndsurveyDTO {
 	private Date endDate;
 	private String title;
 	
+	public int getYear() {
+		return year;
+	}
+	public void setYear(int year) {
+		this.year = year;
+	}
 	public int getSurveyNo() {
 		return surveyNo;
 	}
@@ -67,4 +74,16 @@ public class SearchEndsurveyDTO {
 		this.endDate = endDate;
 		this.title = title;
 	}
+	public SearchEndsurveyDTO(int year, int surveyNo, int ingSeq, String sCID, Date startDate, Date endDate,
+			String title) {
+		super();
+		this.year = year;
+		this.surveyNo = surveyNo;
+		this.ingSeq = ingSeq;
+		SCID = sCID;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.title = title;
+	}
+	
 }

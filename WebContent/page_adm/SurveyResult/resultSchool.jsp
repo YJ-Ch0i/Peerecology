@@ -90,6 +90,7 @@
                             <tr>
                                 <th>학교 이름</th>
                                 <th>설문 이름</th>
+                                <th>실시 연도</th>
                                 <th>시작일</th>
                                 <th>종료일</th>
                                 <th>상세보기</th>
@@ -101,10 +102,20 @@
 			<tr>
 			<td><%= schService.getSchoolToSCID(schResultSur.get(i).getSCID()).getName() %></td>
 			<td><%= surService.showSearchSurveyToSurveyNo(schResultSur.get(i).getSurveyNo()).getTitle() %> </td>
+			<td><%= surService.searchEndSurveyToDate(schResultSur.get(i).getSCID(), schResultSur.get(i).getEndDate()).getYear() %> </td>
 			<td><%= schResultSur.get(i).getStartDate() %></td>
 			<td><%= schResultSur.get(i).getEndDate() %></td>
 			<td>
-			<button class="btn btn-mod btn-medium btn-round">결과보기</button>
+			<form action="/PeerSys/selectClass.st" method="post">
+           		<input type="hidden" name="sch_name" value="<%= schService.getSchoolToSCID(schResultSur.get(i).getSCID()).getName() %>">
+           		<input type="hidden" name="sch_code" value="<%= schResultSur.get(i).getSCID()%>">
+           		<input type="hidden" name="year" value="<%= surService.searchEndSurveyToDate(schResultSur.get(i).getSCID(), schResultSur.get(i).getEndDate()).getYear()%>">
+           		<input type="hidden" name="title" value="<%= surService.showSearchSurveyToSurveyNo(schResultSur.get(i).getSurveyNo()).getTitle()%>">
+           		<input type="hidden" name="startdate" value="<%= schResultSur.get(i).getStartDate()%>">
+           		<input type="hidden" name="enddate" value="<%= schResultSur.get(i).getEndDate() %>">
+           		<input type="hidden" name="adminSearching" value="admin">                           		
+           		<input type="submit" class="btn btn-mod btn-medium btn-round" value="결과보기">
+           	</form>
 			</td>
 			</tr>
 			<%} %>
@@ -115,10 +126,21 @@
 			<tr>
 			<td><%= schFindResultSur.get(i).getSCID_name() %></td>
 			<td><%= surService.showSearchSurveyToSurveyNo(schFindResultSur.get(i).getSurveyNo()).getTitle() %> </td>
+			<td><%= surService.searchEndSurveyToDate(schResultSur.get(i).getSCID(), schResultSur.get(i).getEndDate()).getYear() %> </td>
 			<td><%= schFindResultSur.get(i).getStartDate() %></td>
 			<td><%= schFindResultSur.get(i).getEndDate() %></td>
 			<td>
-			<button class="btn btn-mod btn-medium btn-round">결과보기</button>
+			<!-- <button class="btn btn-mod btn-medium btn-round">결과보기</button> -->
+			<form action="/PeerSys/selectClass.st" method="post">
+           		<input type="hidden" name="sch_name" value="<%= schFindResultSur.get(i).getSCID_name() %>">
+           		<input type="hidden" name="stu_grade" value="<%= schFindResultSur.get(i).getSCID()%>">
+           		<input type="hidden" name="year" value="<%= surService.searchEndSurveyToDate(schResultSur.get(i).getSCID(), schResultSur.get(i).getEndDate()).getYear()%>">
+           		<input type="hidden" name="title" value="<%= surService.showSearchSurveyToSurveyNo(schResultSur.get(i).getSurveyNo()).getTitle()%>">
+           		<input type="hidden" name="startdate" value="<%= schResultSur.get(i).getStartDate()%>">
+           		<input type="hidden" name="enddate" value="<%= schResultSur.get(i).getEndDate() %>">
+           		<input type="hidden" name="adminSearching" value="admin">                           		
+           		<input type="submit" class="btn btn-mod btn-medium btn-round" value="결과보기">
+           	</form>
 			</td>
 			</tr>
 			<%} %>
@@ -151,7 +173,7 @@
 
 
 	<!-- JS -->
-	<script type="text/javascript" src="/PeerSys/style/js/pagingScript.js?version=7"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/pagingScript.js?version=5"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/bootstrap.min.js?version=5"></script>
@@ -168,10 +190,6 @@
 	<script type="text/javascript" src="/PeerSys/style/js/isotope.pkgd.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/imagesloaded.pkgd.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.magnific-popup.min.js"></script>
-	<!-- Replace test API Key "AIzaSyAZsDkJFLS0b59q7cmW0EprwfcfUA8d9dg" with your own one below 
-        **** You can get API Key here - https://developers.google.com/maps/documentation/javascript/get-api-key -->
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZsDkJFLS0b59q7cmW0EprwfcfUA8d9dg"></script>
-	<script type="text/javascript" src="/PeerSys/style/js/gmap3.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/wow.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/masonry.pkgd.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.simple-text-rotator.min.js"></script>

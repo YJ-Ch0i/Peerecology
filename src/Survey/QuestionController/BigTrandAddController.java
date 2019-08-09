@@ -15,10 +15,12 @@ public class BigTrandAddController implements Controller {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String bigTrandTitle = request.getParameter("bigTrandTitle");	
+		String bigTrandTitle = request.getParameter("bigTrandTitle");
+		String bigTrandExplan = request.getParameter("bigTrandExplan"); 
+		
 		QuestionService queService = QuestionService.getInstance();
 		
-		if(bigTrandTitle.equals("")||bigTrandTitle.equals(" ")||bigTrandTitle==null)
+		if(bigTrandTitle.equals("")||bigTrandTitle.equals(" ")||bigTrandTitle==null || bigTrandExplan.equals("")||bigTrandExplan.equals(" ")||bigTrandExplan==null)
 		{
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
@@ -30,7 +32,7 @@ public class BigTrandAddController implements Controller {
 		}
 		else
 		{
-			int isSuccess = queService.trandManagerRegister(bigTrandTitle);
+			int isSuccess = queService.trandManagerRegister(bigTrandTitle, bigTrandExplan);
 			if(isSuccess==-1)
 			{
 				PrintWriter script = response.getWriter();

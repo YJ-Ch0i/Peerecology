@@ -68,6 +68,7 @@ function changeDiv(offerSeq)
 			<p></p>
 			<div id="bigTrandTitle">
 			척도 분류 이름 : <input type="text" name="bigTrandTitle" class="input-md form-control" maxlength="100">
+			<h4>척도 분류에 대한 설명</h4><textarea name="bigTrandExplan" class="input-md form-control" cols="40" rows="10"></textarea>
 			<p></p>
 			</div>
 			척도 이름 : <input type="text" name="trand_title" id="name" class="input-md form-control" maxlength="100">

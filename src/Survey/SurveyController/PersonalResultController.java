@@ -20,6 +20,7 @@ import Service.StudentService;
 import Service.SurveyService;
 import Service.TeacherService;
 import SurveyRelationDTO.AllDescQuestionDTO;
+import SurveyRelationDTO.QuestionTrandManagerDTO;
 import SurveyRelationDTO.QuestionTrandTypeDTO;
 import SurveyRelationDTO.QuestionTypeDTO;
 import SurveyRelationDTO.SurveyAnswerDTO;
@@ -55,20 +56,28 @@ public class PersonalResultController implements Controller {
 		StudentService stuService = StudentService.getInstance();
 		ArrayList<StudentDTO> attendList = new ArrayList<>();
 		attendList = stuService.studentListAttend(tea_id, teacher.getSCID(), teacher.getGrade(), teacher.getClasses());
+		//재학생 리스트
 
 		SurveyService surService = SurveyService.getInstance();
 
 		QuestionService queService = QuestionService.getInstance();
 		ArrayList<QuestionTrandTypeDTO> trandList = new ArrayList<>();
-		trandList = queService.searchTrandList(survey_no, ingSeq, scid, start, end);
-
+		trandList = queService.searchTrandList(survey_no, ingSeq, scid);
+		//조사한 척도 리스트
+		
+		ArrayList<QuestionTrandManagerDTO> bigTrandList = new ArrayList<>();
+		bigTrandList = queService.searchBigTrandList(survey_no, ingSeq, scid, start, end);
+		//조사한 척도분류 리스트
+		
 		ArrayList<SurveyManagerDTO> svManagerList = new ArrayList<>();
 		svManagerList = surService.showQuestionsToManager(survey_no);
 		ArrayList<AllDescQuestionDTO> questionDescList = new ArrayList<>();
+		//문항 리스트
 
 		AnswerService ansService = AnswerService.getInstance();
 		ArrayList<SurveyAnswerDTO> answers = new ArrayList<>();
 		answers = ansService.getAnswers(ingSeq);
+		//답변들 리스트
 
 		ArrayList<QuestionTypeDTO> allType = new ArrayList<>();
 
@@ -76,6 +85,7 @@ public class PersonalResultController implements Controller {
 			questionDescList.add(queService.showQuestion(svmDTO.getQID()));
 		}
 		allType = queService.showAllType();
+		//모든 문항 타입 리스트
 
 		ArrayList<StudentScore> stu_scoreList = new ArrayList<>();		
 		for (int m = 0; m < trandList.size(); m++) {
@@ -105,8 +115,14 @@ public class PersonalResultController implements Controller {
 													score = 1;
 
 												total = score + total;
-
-											} else if (questionDescList.get(i).isQue_isReverseType() == true) {
+											}
+											else if(allType.get(l).getDescript().equals("또래지명")) {
+												continue;
+											}
+											else if(allType.get(l).getDescript().equals("주관식")) {
+												continue;
+											}
+											else if (questionDescList.get(i).isQue_isReverseType() == true) {
 												score = Integer.parseInt(answers.get(j).getAnswerValue().trim());
 												total = score + total;
 											}											 
@@ -142,10 +158,12 @@ public class PersonalResultController implements Controller {
 		ArrayList<String> totalArray = new ArrayList<>();
 		ArrayList<String> trandArray = new ArrayList<>();
 		ArrayList<String> stuArray = new ArrayList<>();
+		ArrayList<String> bigTrandArray = new ArrayList<>();
 		Gson gson = new Gson();
 		JsonObject totalobject = new JsonObject();
 		JsonObject trandobject = new JsonObject();
 		JsonObject stuobject = new JsonObject();
+		JsonObject bigTrandObject = new JsonObject();
 		
 		for(int i=0; i<stu_scoreList.size(); i++) {
 			totalobject.addProperty("sId", stu_scoreList.get(i).getSid());
@@ -178,6 +196,15 @@ public class PersonalResultController implements Controller {
 			stuArray.add(json);
 		}
 		
+		for(QuestionTrandManagerDTO dto : bigTrandList) {
+			bigTrandObject.addProperty("bigTID", dto.getBigTrandID());
+			bigTrandObject.addProperty("desc", dto.getDescript());
+			bigTrandObject.addProperty("explan", dto.getExplan());
+			
+			String json = gson.toJson(bigTrandObject);
+			bigTrandArray.add(json);
+		}
+		
 		//System.out.println(totalArray);
 		//System.out.println(trandArray);
 		//System.out.println(stuArray);
@@ -192,8 +219,10 @@ public class PersonalResultController implements Controller {
 		request.setAttribute("totalArray", totalArray);
 		request.setAttribute("trandArray", trandArray);
 		request.setAttribute("stuArray", stuArray);
+		request.setAttribute("bigTrandList", bigTrandList);
+		request.setAttribute("bigTrandArray", bigTrandArray);
 
-		RequestDispatcher dc = request.getRequestDispatcher("/page_tea/SurveyResult/resultSurvey.jsp");
+		RequestDispatcher dc = request.getRequestDispatcher("/page_common/privateResult.jsp");
 		dc.forward(request, response);
 	}
 }

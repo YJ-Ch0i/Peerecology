@@ -10,7 +10,12 @@ public class QuestionTrandTypeDTO {
 		this.setQ_trandType(q_trandType);
 		this.setQ_trandDescipt(q_trandDescipt);
 	}
-
+	public QuestionTrandTypeDTO(int q_trandType, int bigTrandID, String q_trandDescipt) {
+		super();
+		this.q_trandType = q_trandType;
+		this.bigTrandID = bigTrandID;
+		this.q_trandDescipt = q_trandDescipt;
+	}
 	public int getQ_trandType() {
 		return q_trandType;
 	}

@@ -22,7 +22,7 @@ public class AdminLogoutController implements Controller {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('이미 로그아웃 된 상태입니다.');");
-			script.println("history.back();");
+			script.println("location.href='/PeerSys/adminIndex.jsp';");
 			script.println("</script>");
 			script.close();
 		}else {

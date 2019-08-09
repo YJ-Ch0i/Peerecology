@@ -23,6 +23,10 @@ public class SearchClassController implements Controller {
 		String sch_name = request.getParameter("sch_name");
 		String adminSearching = request.getParameter("adminSearching");
 		String sch_address = request.getParameter("sch_address");
+		String year = request.getParameter("year");
+		String title = request.getParameter("title");
+		String startdate = request.getParameter("startdate");
+		String enddate = request.getParameter("enddate");
 		
 		boolean isElementalSchool = true;
 		
@@ -41,6 +45,10 @@ public class SearchClassController implements Controller {
         request.setAttribute("sch_address", sch_address);
 		request.setAttribute("isElementalSchool", isElementalSchool);
 		request.setAttribute("adminSearching", adminSearching);
+		request.setAttribute("year", year);
+		request.setAttribute("title", title);
+		request.setAttribute("startdate", startdate);
+		request.setAttribute("enddate", enddate);
 		RequestDispatcher dc =  request.getRequestDispatcher("/page_common/searchClass.jsp");
 		dc.forward(request, response);
 	}

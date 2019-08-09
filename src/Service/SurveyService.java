@@ -68,6 +68,14 @@ public class SurveyService {
 		return dao.searchEndSurvey(SCID);
 	}
 	
+	public ArrayList<SearchEndsurveyDTO> searchEndSurveyToYear(String scid, String year) {
+		return dao.searchEndSurveyToYear(scid, year);
+	}
+	
+	public SearchEndsurveyDTO searchEndSurveyToDate(String scid, String date) {
+		return dao.searchEndSurveyToDate(scid, date);
+	}
+	
 	public ArrayList<Stu_ans_ViewDTO> searchAnswer(int surNo, int ingSeq, String scid, Date start, Date end) {
 		return dao.searchAnswer(surNo, ingSeq, scid, start, end);
 	}

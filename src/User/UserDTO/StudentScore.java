@@ -8,6 +8,7 @@ public class StudentScore {
 	private int qid;
 	private int qType;
 	private int tType;
+	private int bigTrandType;
 	private String answer;
 	private int score = 0;
 	
@@ -46,6 +47,12 @@ public class StudentScore {
 	}
 	public void settType(int tType) {
 		this.tType = tType;
+	}
+	public int getBigTrandType() {
+		return bigTrandType;
+	}
+	public void setBigTrandType(int bigTrandType) {
+		this.bigTrandType = bigTrandType;
 	}
 	public String getAnswer() {
 		return answer;
@@ -88,6 +95,19 @@ public class StudentScore {
 		this.qid = qid;
 		this.qType = qType;
 		this.tType = tType;
+		this.answer = answer;
+		this.score = score;
+	}
+	public StudentScore(int sid, String name, int ingSeq, int qid, int qType, int tType, int bigTrandType,
+			String answer, int score) {
+		super();
+		this.sid = sid;
+		this.name = name;
+		this.ingSeq = ingSeq;
+		this.qid = qid;
+		this.qType = qType;
+		this.tType = tType;
+		this.bigTrandType = bigTrandType;
 		this.answer = answer;
 		this.score = score;
 	}

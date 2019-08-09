@@ -8,6 +8,7 @@ public class Stu_ans_ViewDTO {
 	private int stu_id;
 	private int stu_num;
 	private String stu_name;
+	private boolean isMulti;
 	private int answerV;
 	private int surveyNo;
 	private int ingSeq;
@@ -44,6 +45,12 @@ public class Stu_ans_ViewDTO {
 	}
 	public void setStu_name(String stu_name) {
 		this.stu_name = stu_name;
+	}
+	public boolean isMulti() {
+		return isMulti;
+	}
+	public void setMulti(boolean isMulti) {
+		this.isMulti = isMulti;
 	}
 	public int getAnswerV() {
 		return answerV;
@@ -185,6 +192,28 @@ public class Stu_ans_ViewDTO {
 		this.qtDes = qtDes;
 		this.tType = tType;
 		this.qttDes = qttDes;
+		this.totalScore = totalScore;
+	}
+	public Stu_ans_ViewDTO(int qID, int stu_id, int stu_num, String stu_name, boolean isMulti, int answerV,
+			int surveyNo, int ingSeq, String sCID, Date startDate, Date endDate, int qType, String qtDes, int tType,
+			String qttDes, boolean isReverse, int totalScore) {
+		super();
+		QID = qID;
+		this.stu_id = stu_id;
+		this.stu_num = stu_num;
+		this.stu_name = stu_name;
+		this.isMulti = isMulti;
+		this.answerV = answerV;
+		this.surveyNo = surveyNo;
+		this.ingSeq = ingSeq;
+		SCID = sCID;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		QType = qType;
+		this.qtDes = qtDes;
+		this.tType = tType;
+		this.qttDes = qttDes;
+		this.isReverse = isReverse;
 		this.totalScore = totalScore;
 	}
 	

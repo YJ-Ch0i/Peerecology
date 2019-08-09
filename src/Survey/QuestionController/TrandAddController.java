@@ -18,6 +18,7 @@ public class TrandAddController implements Controller {
 		
 		String trand_title = request.getParameter("trand_title");
 		String trandBigName = request.getParameter("trandBigName");
+		String bigTrandExplan = request.getParameter("bigTrandExplan");
 		String bigTrandTitle = null;
 		QuestionService queService = QuestionService.getInstance();
 		if(trand_title.equals("")||trand_title.equals(" "))
@@ -46,7 +47,7 @@ public class TrandAddController implements Controller {
 			}
 			else
 			{
-				int isSuccess = queService.trandManagerRegister(bigTrandTitle);
+				int isSuccess = queService.trandManagerRegister(bigTrandTitle, bigTrandExplan);
 				if(isSuccess==-1)
 				{
 					PrintWriter script = response.getWriter();

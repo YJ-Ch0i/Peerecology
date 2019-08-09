@@ -4,6 +4,8 @@ var trandArray = document.getElementById("trandArray").value;
 console.log(trandArray);
 var stuArray = document.getElementById("stuArray").value;
 console.log(stuArray);
+var bigTrandArray = document.getElementById("bigTrandArray").value;
+console.log(bigTrandArray);
 
 var totallist = JSON.parse(totalArray);
 var trandlist = JSON.parse(trandArray);
@@ -27,17 +29,19 @@ for(var i=0; i<stulist.length; i++){
 	stu_list.push(stulist[i].name);
 }
 
-var entity = 0;
+
 var avg = 0;
 var avglist = [];
 for(var i=0; i<trandlist.length; i++){
+	var entity = 0;
 	for(var j=0; j<totallist.length; j++){
-		if(totallist[j].trand == trandlist[i].trandID){
+		if(totallist[j].trand === trandlist[i].trandID){
 			entity += totallist[j].score
 		}		
 	}
 	avg = entity/stulist.length;
 	avglist.push(avg);
+	console.log(avglist);
 }
 
 Highcharts.chart('barchart', {

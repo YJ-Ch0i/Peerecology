@@ -60,7 +60,7 @@ public class ResultTeacherController implements Controller {
 
 		QuestionService queService = QuestionService.getInstance();
 		ArrayList<QuestionTrandTypeDTO> trandList = new ArrayList<>();
-		trandList = queService.searchTrandList(survey_no, ingSeq, scid, start, end);
+		trandList = queService.searchTrandList(survey_no, ingSeq, scid);
 
 		ArrayList<SurveyManagerDTO> svManagerList = new ArrayList<>();
 		svManagerList = surService.showQuestionsToManager(survey_no);
@@ -106,10 +106,18 @@ public class ResultTeacherController implements Controller {
 
 												total = score + total;
 
-											} else if (questionDescList.get(i).isQue_isReverseType() == true) {
+											}
+											else if(allType.get(l).getDescript().equals("또래지명")) {
+												continue;
+											}
+											else if(allType.get(l).getDescript().equals("주관식")) {
+												continue;
+											}
+											else if (questionDescList.get(i).isQue_isReverseType() == true) {
 												score = Integer.parseInt(answers.get(j).getAnswerValue().trim());
 												total = score + total;
-											}											 
+											}
+											
 										}
 									}																
 								}

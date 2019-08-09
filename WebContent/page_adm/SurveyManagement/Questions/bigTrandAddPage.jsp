@@ -48,7 +48,8 @@
 			<form method="post" action="/PeerSys/bigTrandAdd.qs" id="form" role="form">
 			
 			<div class="mb-20 mb-md-10">
-			척도 분류 이름: <input type="text" name="bigTrandTitle" class="input-md form-control" maxlength="100">
+			척도 분류 이름: <input type="text" name="bigTrandTitle" class="input-md form-control" maxlength="100"><br><br>
+			<h4>척도 분류에 대한 설명</h4><textarea name="bigTrandExplan" class="input-md form-control" cols="40" rows="10"></textarea>
 			<p></p>
 			<input type="submit"  class="btn btn-mod btn-medium btn-round" value="추가하기" style="float:right;">
 			</div>

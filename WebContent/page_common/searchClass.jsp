@@ -42,7 +42,11 @@
 
 	<section class="page-section">
 		<div class="container relative">
+		<%if(!request.getAttribute("adminSearching").equals("admin")){%>
 		<h3 style="text-align: center;">본인의 반을 선택해주세요.</h3><br><br>
+		<%} else{%>
+		<h3 style="text-align: center;">결과를 확인할 학급을 선택해주세요.</h3><br><br>
+		<%} %>
 			<div class="works-filter font-alt align-center">
 				<% boolean isElementalSchool = (boolean) request.getAttribute("isElementalSchool"); %>
 
@@ -92,21 +96,36 @@
 				
 				<li class="work-item mix 6thGrade">
 					<%} %> 
-				<%if(!request.getAttribute("adminSearching").equals("admin")){%><form
-						action="/PeerSys/studentSearch.st" method="post">
-						<%}else{ %>
-						<form action="/PeerSys/surveyStart.sv" method="post">
-							<% }%>
-							<input type="hidden" name="tea_id" value="<%= list.get(i).getTID()%>">
-							<input type="hidden" name="grade" value="<%= list.get(i).getGrade() %>"> 
-							<input type="hidden" name="grd_num" value="<%= list.get(i).getClasses()%>">
-							<input type="hidden" name="sch_code" value="<%= request.getAttribute("sch_code") %>">
-							<input type="hidden" name="sch_name" value="<%= request.getAttribute("sch_name") %>"> 
-							<input
-								type="submit" value="<%= list.get(i).getGrade()%>학년 <%=list.get(i).getClasses()%>반"
-								style="margin: 0% 0% 0% 15%"
-								class="btn btn-mod btn-circle btn-small">
-						</form>
+				<%if(!request.getAttribute("adminSearching").equals("admin")){%>
+				<form action="/PeerSys/studentSearch.st" method="post">						
+					<input type="hidden" name="tea_id" value="<%= list.get(i).getTID()%>">
+					<input type="hidden" name="grade" value="<%= list.get(i).getGrade() %>"> 
+					<input type="hidden" name="grd_num" value="<%= list.get(i).getClasses()%>">
+					<input type="hidden" name="sch_code" value="<%= request.getAttribute("sch_code") %>">
+					<input type="hidden" name="sch_name" value="<%= request.getAttribute("sch_name") %>"> 
+					<input type="hidden" name="year" value="<%= request.getAttribute("year") %>">
+					<input type="hidden" name="title" value="<%= request.getAttribute("title") %>"> 
+					<input
+						type="submit" value="<%= list.get(i).getGrade()%>학년 <%=list.get(i).getClasses()%>반"
+						style="margin: 0% 0% 0% 15%"
+						class="btn btn-mod btn-circle btn-small">
+				</form>
+				<% }else{ %>
+				<form action="/PeerSys/testResult.sv" method="post">
+					<input type="hidden" name="grade" value="<%= list.get(i).getGrade() %>"> 
+					<input type="hidden" name="grd_num" value="<%= list.get(i).getClasses()%>">
+					<input type="hidden" name="sch_code" value="<%= request.getAttribute("sch_code") %>">
+					<input type="hidden" name="sch_name" value="<%= request.getAttribute("sch_name") %>">
+					<input type="hidden" name="year" value="<%= request.getAttribute("year") %>">
+					<input type="hidden" name="title" value="<%= request.getAttribute("title") %>"> 
+					<input type="hidden" name="startdate" value="<%= request.getAttribute("startdate")%>">
+           			<input type="hidden" name="enddate" value="<%= request.getAttribute("enddate") %>">
+						<input
+					type="submit" value="<%= list.get(i).getGrade()%>학년 <%=list.get(i).getClasses()%>반"
+					style="margin: 0% 0% 0% 15%"
+					class="btn btn-mod btn-circle btn-small">
+				</form>
+					<% }%>
 				</li>
 
 				<%} %>

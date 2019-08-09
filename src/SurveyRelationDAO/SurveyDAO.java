@@ -489,6 +489,95 @@ public class SurveyDAO {
 		return surveyList;
 	}
 	
+	/**
+	 * 학교 코드와 설문을 실시한 연도로 해당 연도의 기간이 종료된 설문들을 가져옴
+	 * @param scid
+	 * @param year
+	 * @return
+	 */
+	public ArrayList<SearchEndsurveyDTO> searchEndSurveyToYear(String scid, String year) {
+		
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<SearchEndsurveyDTO> surveyList = new ArrayList<SearchEndsurveyDTO>();
+		
+		String sql = "SELECT * FROM search_endsurvey_view WHERE SCID=? AND YEAR(endDate)=?";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, scid);
+			pstmt.setString(2, year);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				SearchEndsurveyDTO dto = new SearchEndsurveyDTO();
+				dto.setSurveyNo(rs.getInt(1));
+				dto.setIngSeq(rs.getInt(2));
+				dto.setSCID(rs.getString(3));
+				dto.setStartDate(rs.getDate(4));
+				dto.setEndDate(rs.getDate(5));
+				dto.setTitle(rs.getString(6));
+				surveyList.add(dto);
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return surveyList;
+	}
+	
+	/**
+	 * 학교 코드와 설문이 종료된 날짜로 해당 연도의 기간이 종료된 설문들과 해당 연도를 가져옴 
+	 * @param scid
+	 * @param year
+	 * @return
+	 */
+	public SearchEndsurveyDTO searchEndSurveyToDate(String scid, String date) {
+		
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		SearchEndsurveyDTO dto = new SearchEndsurveyDTO();
+		
+		String sql = "SELECT YEAR(endDate), surveyNo, ingSeq, SCID, startDate, endDate, title FROM search_endsurvey_view WHERE SCID=? AND endDate=?";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, scid);
+			pstmt.setString(2, date);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				dto.setYear(rs.getInt(1));
+				dto.setSurveyNo(rs.getInt(2));
+				dto.setIngSeq(rs.getInt(3));
+				dto.setSCID(rs.getString(4));
+				dto.setStartDate(rs.getDate(5));
+				dto.setEndDate(rs.getDate(6));
+				dto.setTitle(rs.getString(7));
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return dto;
+	}
+	
+	
 	public ArrayList<Stu_ans_ViewDTO> searchAnswer(int surNo, int ingSeq, String scid, Date start, Date end) {
 		Connection conn=null;	
 		PreparedStatement pstmt = null;

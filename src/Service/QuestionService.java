@@ -17,11 +17,20 @@ public class QuestionService {
 	public ArrayList<QuestionTrandManagerDTO> showAllBigTrands(){
 		return dao.showAllBigTrands();
 	}
-	public ArrayList<QuestionTrandTypeDTO> searchTrandList(int surNo, int ingSeq, String scid, Date start, Date end) {
-		return dao.searchTrandList(surNo, ingSeq, scid, start, end);
+	public ArrayList<QuestionTrandTypeDTO> searchTrandList(int surNo, int ingSeq, String scid) {
+		return dao.searchTrandList(surNo, ingSeq, scid);
 	}
 	public QuestionTrandTypeDTO searchTrand(int trandID) {
 		return dao.searchTrand(trandID);
+	}
+	public ArrayList<QuestionTrandManagerDTO> searchBigTrandList(int surNo, int ingSeq, String scid, Date start, Date end) {
+		return dao.searchBigTrandList(surNo, ingSeq, scid, start, end);
+	}
+	public ArrayList<QuestionTrandManagerDTO> getBigTrandList(String scid, Date start, Date end) {
+		return dao.getBigTrandList(scid, start, end);
+	}
+	public ArrayList<QuestionTrandTypeDTO> getTrandToBigTID(int bigTid) {
+		return dao.getTrandToBigTID(bigTid);
 	}
 	public ArrayList<QuestionDTO> showAllQuestion() {
 		return dao.showAllQuestion();
@@ -35,8 +44,8 @@ public class QuestionService {
 	public ArrayList<QuestionTypeDTO> showAllType(int qtype) {
 		return dao.showAllType(qtype);
 	}
-	public int trandManagerRegister(String bigTrandTitle) {
-		return dao.trandManagerRegister(bigTrandTitle);
+	public int trandManagerRegister(String bigTrandTitle, String bigTrandExplan) {
+		return dao.trandManagerRegister(bigTrandTitle, bigTrandExplan);
 	}
 	public int queTrandRegister(String trandTitle){
 		return dao.queTrandRegister(trandTitle);
