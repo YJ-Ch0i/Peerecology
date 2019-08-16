@@ -21,6 +21,7 @@ public class FrontController  extends HttpServlet{
 		list = new HashMap<String, Controller>();
 		list.put("/adminLogin.ad", new AdminLoginController());
 		list.put("/adminLogout.ad", new AdminLogoutController());
+		list.put("/adminClassSearch.ad", new AdminClassSearchController());
 		}
 		
 	@Override

@@ -69,3 +69,23 @@ function teacherAddClassCheck(){
         return false;
     }
 }
+
+function calculate(f){
+	
+	var sch_name = f.sch_name.value;
+	var enddate = f.enddate.value;
+	var title = f.title.value;
+	
+	var check = confirm("선택하신 설문은 " +sch_name + "에서 \n" + enddate + " 까지 실시한 '" + title + "' 입니다. \n해당 설문의 결과를 계산 하시겠습니까?");
+	
+	if(check == true){
+		if(confirm("해당 설문의 결과를 계산합니다.") == true){
+			f.action="/PeerSys/resultCalculate.sv"
+			f.submit();
+		}
+		else return;
+	}
+	else if(check == false){
+		return;
+	}
+}

@@ -24,10 +24,11 @@ public class StartSurveyController implements Controller {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession(); 
 		String sch_code = (String)session.getAttribute("sch_code");
+		String grade = (String) session.getAttribute("grade");
 		
 		SurveyService surService = SurveyService.getInstance();
 		SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO(); 
-		surveyGoingDTO = surService.startSurvey(sch_code);
+		surveyGoingDTO = surService.startSurvey(sch_code, grade);
 		if(surveyGoingDTO.getIngSeq() == 0)
 		{
 			session.removeAttribute("stu_id");
@@ -35,6 +36,7 @@ public class StartSurveyController implements Controller {
 			session.removeAttribute("grd_num");
 			session.removeAttribute("sch_code");
 			session.removeAttribute("stu_num");
+			session.removeAttribute("grade");
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('진행 가능한 설문조사가 없습니다. 자동으로 로그아웃 되었습니다.');");

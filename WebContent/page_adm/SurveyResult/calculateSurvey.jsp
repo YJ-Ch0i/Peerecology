@@ -52,7 +52,7 @@
 				<div class="row">
 
 					<div class="col-md-8">
-						<h2 class="hs-line-11 font-alt mb-20 mb-xs-0">설문조사 결과</h2>
+						<h2 class="hs-line-11 font-alt mb-20 mb-xs-0">진행 완료된 설문조사</h2>
 						<div class="hs-line-4 font-alt black"></div>
 					</div>
 
@@ -70,7 +70,7 @@
 	SchoolService schService = SchoolService.getInstance();
 	ArrayList<SurveyGoingDTO> schResultSur = new ArrayList<SurveyGoingDTO>();
 	ArrayList<SurveyGoingDTO> schFindResultSur = new ArrayList<SurveyGoingDTO>();
-	schResultSur = surService.showCalculatedSurvey();
+	schResultSur = surService.showUncalculatedSurvey();
 	String input_schoolNm = request.getParameter("input_schoolNm");
 	%>
 					<form id="formHref" action="" class="form-inline form mb-20" role="form">
@@ -91,6 +91,7 @@
                                 <th>학교 이름</th>
                                 <th>설문 이름</th>
                                 <th>실시 연도</th>
+                                <th>대상 학년</th>
                                 <th>시작일</th>
                                 <th>종료일</th>
                                 <th>상세보기</th>
@@ -103,47 +104,50 @@
 			<td><%= schService.getSchoolToSCID(schResultSur.get(i).getSCID()).getName() %></td>
 			<td><%= surService.showSearchSurveyToSurveyNo(schResultSur.get(i).getSurveyNo()).getTitle() %> </td>
 			<td><%= surService.searchEndSurveyToDate(schResultSur.get(i).getSCID(), schResultSur.get(i).getEndDate()).getYear() %> </td>
+			<td><%= schResultSur.get(i).getGrade() %></td>
 			<td><%= schResultSur.get(i).getStartDate() %></td>
 			<td><%= schResultSur.get(i).getEndDate() %></td>
 			<td>
-			<form action="/PeerSys/adminClassSearch.ad" method="post">
-				<input type="hidden" name="surveyNo" value="<%= schResultSur.get(i).getSurveyNo()%>">
-				<input type="hidden" name="ingseq" value="<%= schResultSur.get(i).getIngSeq()%>">
+			<form method="post">				
            		<input type="hidden" name="sch_name" value="<%= schService.getSchoolToSCID(schResultSur.get(i).getSCID()).getName() %>">
            		<input type="hidden" name="sch_code" value="<%= schResultSur.get(i).getSCID()%>">
+           		<input type="hidden" name="grade" value="<%= schResultSur.get(i).getGrade()%>">
            		<input type="hidden" name="year" value="<%= surService.searchEndSurveyToDate(schResultSur.get(i).getSCID(), schResultSur.get(i).getEndDate()).getYear()%>">
+           		<input type="hidden" name="ingSeq" value="<%= schResultSur.get(i).getIngSeq()%>">
+           		<input type="hidden" name="surveyNo" value="<%= schResultSur.get(i).getSurveyNo()%>">
            		<input type="hidden" name="title" value="<%= surService.showSearchSurveyToSurveyNo(schResultSur.get(i).getSurveyNo()).getTitle()%>">
            		<input type="hidden" name="startdate" value="<%= schResultSur.get(i).getStartDate()%>">
-           		<input type="hidden" name="enddate" value="<%= schResultSur.get(i).getEndDate() %>">
-           		<input type="hidden" name="adminSearching" value="admin">                           		
-           		<input type="submit" class="btn btn-mod btn-medium btn-round" value="결과보기">
+           		<input type="hidden" name="enddate" value="<%= schResultSur.get(i).getEndDate() %>">           		           	
+           		<input type="button" class="btn btn-mod btn-medium btn-round" onclick="calculate(this.form)" value="결과 계산하기">
            	</form>
 			</td>
 			</tr>
 			<%} %>
 			<%}else{ %>
-			<% schFindResultSur = surService.showResultSurvey(input_schoolNm); %>
+			<% schFindResultSur = surService.showUncalculatedSurvey(input_schoolNm); %>
 			<% if(schFindResultSur.size()!=0){ %>
 			<% for(int i=0; i<schFindResultSur.size(); i++){ %>
 			<tr>
 			<td><%= schFindResultSur.get(i).getSCID_name() %></td>
 			<td><%= surService.showSearchSurveyToSurveyNo(schFindResultSur.get(i).getSurveyNo()).getTitle() %> </td>
 			<td><%= surService.searchEndSurveyToDate(schResultSur.get(i).getSCID(), schResultSur.get(i).getEndDate()).getYear() %> </td>
+			<td><%= schFindResultSur.get(i).getGrade() %></td>
 			<td><%= schFindResultSur.get(i).getStartDate() %></td>
 			<td><%= schFindResultSur.get(i).getEndDate() %></td>
 			<td>
 			<!-- <button class="btn btn-mod btn-medium btn-round">결과보기</button> -->
-			<form action="/PeerSys/adminClassSearch.ad" method="post">
-				<input type="hidden" name="surveyNo" value="<%= schFindResultSur.get(i).getSurveyNo()%>">
-				<input type="hidden" name="ingseq" value="<%= schFindResultSur.get(i).getIngSeq()%>">           		
+			<form method="post">
            		<input type="hidden" name="sch_name" value="<%= schFindResultSur.get(i).getSCID_name() %>">
-           		<input type="hidden" name="stu_grade" value="<%= schFindResultSur.get(i).getSCID()%>">
-           		<input type="hidden" name="year" value="<%= surService.searchEndSurveyToDate(schResultSur.get(i).getSCID(), schResultSur.get(i).getEndDate()).getYear()%>">
-           		<input type="hidden" name="title" value="<%= surService.showSearchSurveyToSurveyNo(schResultSur.get(i).getSurveyNo()).getTitle()%>">
-           		<input type="hidden" name="startdate" value="<%= schResultSur.get(i).getStartDate()%>">
-           		<input type="hidden" name="enddate" value="<%= schResultSur.get(i).getEndDate() %>">
+           		<input type="hidden" name="sch_code" value="<%= schFindResultSur.get(i).getSCID()%>">
+           		<input type="hidden" name="grade" value="<%= schFindResultSur.get(i).getGrade()%>">
+           		<input type="hidden" name="year" value="<%= surService.searchEndSurveyToDate(schFindResultSur.get(i).getSCID(), schResultSur.get(i).getEndDate()).getYear()%>">
+           		<input type="hidden" name="ingSeq" value="<%= schFindResultSur.get(i).getIngSeq()%>">
+           		<input type="hidden" name="surveyNo" value="<%= schFindResultSur.get(i).getSurveyNo()%>">
+           		<input type="hidden" name="title" value="<%= surService.showSearchSurveyToSurveyNo(schFindResultSur.get(i).getSurveyNo()).getTitle()%>">
+           		<input type="hidden" name="startdate" value="<%= schFindResultSur.get(i).getStartDate()%>">
+           		<input type="hidden" name="enddate" value="<%= schFindResultSur.get(i).getEndDate() %>">
            		<input type="hidden" name="adminSearching" value="admin">                           		
-           		<input type="submit" class="btn btn-mod btn-medium btn-round" value="결과보기">
+           		<input type="button" class="btn btn-mod btn-medium btn-round" onClick="calculate(this.form)" value="결과 계산하기">
            	</form>
 			</td>
 			</tr>
@@ -201,6 +205,7 @@
 	<script type="text/javascript" src="/PeerSys/style/js/contact-form.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.ajaxchimp.min.js"></script>
 	<!--[if lt IE 10]><script type="text/javascript" src="js/placeholder.js"></script><![endif]-->
+	<script type="text/javascript" src="/PeerSys/style/js/studentTransfer.js"></script>
 
 </body>
 </html>
