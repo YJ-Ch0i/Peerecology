@@ -19,6 +19,9 @@ public class GoingVersionController implements Controller {
 		String strCheckSurveyNo = request.getParameter("checkSurvey");
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
+		String grd = request.getParameter("grade").trim();
+		
+		int grade = Integer.parseInt(grd);
 		
 		// 체크하지 않았을 경우.
 		if(strCheckSurveyNo==null)
@@ -46,7 +49,7 @@ public class GoingVersionController implements Controller {
 			int checkSurveyNo = Integer.parseInt(strCheckSurveyNo);
 			
 			SurveyService surService = SurveyService.getInstance();
-			surService.goingVersionRegister(strHiddenSchs, checkSurveyNo, startDate, endDate);
+			surService.goingVersionRegister(strHiddenSchs, checkSurveyNo, grade, startDate, endDate);
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('Complete Register!!')");

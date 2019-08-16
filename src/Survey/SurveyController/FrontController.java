@@ -23,10 +23,11 @@ public class FrontController  extends HttpServlet{
 		list.put("/searchSurveyList.sv", new SearchSurveyListController());
 		list.put("/goingSurvey.sv", new GoingVersionController());
 		list.put("/startSurvey.sv", new StartSurveyController());
-		//list.put("/resultTeacher.sv", new ResultTeacherController());
+		list.put("/resultCalculate.sv", new ResultCalculateController());
 		list.put("/resultTeacher.sv", new PersonalResultController());
 		list.put("/versionDelete.sv", new VersionDeleteController());
 		list.put("/testResult.sv", new TestResultController());
+		list.put("/viewResult.sv", new ResultViewController());
 		}
 		
 	@Override

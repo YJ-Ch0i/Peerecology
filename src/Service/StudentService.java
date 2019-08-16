@@ -33,6 +33,11 @@ public class StudentService {
 	public ArrayList<StudentDTO> showAllStudent() {
 		return dao.showAllStudent();
 	}
+	
+	public ArrayList<StudentDTO> getSchoolAttendList(String SCID, int grade, String year) {
+		return dao.getSchoolAttendList(SCID, grade, year);
+	}
+	
 	public ArrayList<StudentDTO> studentListInClass(String SCID, int grade, int grd_num) {
 		return dao.studentListInClass(SCID, grade, grd_num);
 	}

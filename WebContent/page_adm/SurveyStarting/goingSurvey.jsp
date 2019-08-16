@@ -77,6 +77,7 @@
                             <tr>
                                 <th>학교 이름</th>
                                 <th>설문 이름</th>
+                                <th>대상 학년</th>
                                 <th>시작일</th>
                                 <th>종료일</th>
                                 <th>상세보기</th>
@@ -87,6 +88,7 @@
 			<tr>
 			<td><%= surGoingList.get(i).getSCID_name() %></td>
 			<td><%= surService.showSearchSurveyToSurveyNo(surGoingList.get(i).getSurveyNo()).getTitle() %> </td>
+			<td><%= surGoingList.get(i).getGrade() %>학년</td>
 			<td><%= surGoingList.get(i).getStartDate() %></td>
 			<td><%= surGoingList.get(i).getEndDate() %></td>
 			<td><button class="btn btn-mod btn-medium btn-round">진행상황보기</button></td>

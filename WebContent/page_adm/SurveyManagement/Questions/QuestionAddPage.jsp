@@ -133,7 +133,7 @@ queTypes = queSerivce.showAllType();
 
 	<!-- JS -->
 	
-	<script type="text/javascript" src="/PeerSys/style/js/addQuestionFuc.js?version=3"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/addQuestionFuc.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/bootstrap.min.js"></script>

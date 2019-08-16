@@ -62,6 +62,6 @@ function isQuestionAnswering(answerValue){
 		document.getElementById('inputAnswer').innerHTML = "";
 		}
 	else{
-		document.getElementById('inputAnswer').innerHTML = "정답인 내용이나 번호 : <input type=\"text\" name=\"questionAnswer\" class=\"input-md form-control\" maxlength=\"100\"> <p></p>";
+		document.getElementById('inputAnswer').innerHTML = "정답의 키워드 혹은 번호 : <input type=\"text\" name=\"questionAnswer\" class=\"input-md form-control\" maxlength=\"20\" placeholder=\"최대 20글자(공백 포함)\"> <p></p>";
 		}
 }

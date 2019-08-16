@@ -6,6 +6,7 @@ import java.util.*;
 
 import SurveyRelationDAO.SurveyDAO;
 import SurveyRelationDTO.Stu_ans_ViewDTO;
+import SurveyRelationDTO.StudentScoresDTO;
 import SurveyRelationDTO.SurveyDTO;
 import SurveyRelationDTO.SurveyGoingDTO;
 import SurveyRelationDTO.SurveyManagerDTO;
@@ -38,8 +39,8 @@ public class SurveyService {
 	public ArrayList<SurveyDTO> showSearchSurveys(String version_title){
 		return dao.showSearchSurveys(version_title);
 	}
-	public void goingVersionRegister(String[] SCIDs, int surveyNo, String startDate, String endDate) {
-		dao.goingVersionRegister(SCIDs, surveyNo, startDate, endDate);
+	public void goingVersionRegister(String[] SCIDs, int surveyNo, int grade, String startDate, String endDate) {
+		dao.goingVersionRegister(SCIDs, surveyNo, grade, startDate, endDate);
 	}
 	public ArrayList<SurveyGoingDTO> showAllGoingSurveys() throws ParseException{
 		return dao.showAllGoingSurveys();
@@ -47,11 +48,29 @@ public class SurveyService {
 	public ArrayList<SurveyGoingDTO> showAllResultSurvey() throws ParseException{
 		return dao.showAllResultSurvey();
 	}
+	public ArrayList<SurveyGoingDTO> showUncalculatedSurvey() throws ParseException{
+		return dao.showUncalculatedSurvey();
+	}
+	public ArrayList<SurveyGoingDTO> showUncalculatedSurvey(String SCID_name) throws ParseException{
+		return dao.showUncalculatedSurvey(SCID_name);
+	}
+	
+	public ArrayList<SurveyGoingDTO> showCalculatedSurvey() throws ParseException{
+		return dao.showCalculatedSurvey();
+	}
+	
+	public boolean calculateSurvey(StudentScoresDTO dto) {
+		return dao.calculateSurvey(dto);
+	}
+	public void calculateUpdate(int ingSeq, int survey_no) {
+		dao.calculateUpdate(ingSeq, survey_no);
+	}
+	
 	public ArrayList<SurveyGoingDTO> showResultSurvey(String SCID_name) throws ParseException{
 		return dao.showResultSurvey(SCID_name);
 	}
-	public SurveyGoingDTO startSurvey(String SCID){
-		return dao.startSurvey(SCID);
+	public SurveyGoingDTO startSurvey(String SCID, String grade){
+		return dao.startSurvey(SCID, grade);
 	}
 	public SurveyGoingDTO findIngSurvey(int surveyNo, String SCID){
 		return dao.findIngSurvey(surveyNo, SCID);
@@ -78,5 +97,17 @@ public class SurveyService {
 	
 	public ArrayList<Stu_ans_ViewDTO> searchAnswer(int surNo, int ingSeq, String scid, Date start, Date end) {
 		return dao.searchAnswer(surNo, ingSeq, scid, start, end);
+	}
+	
+	public ArrayList<StudentScoresDTO> getClassesScores(int ingSeq, int surveyNo, String SCID, int grade, int grd_num) {
+		return dao.getClassesScores(ingSeq, surveyNo, SCID, grade, grd_num);
+	}
+	
+	public ArrayList<StudentScoresDTO> getClassesAllScores(String SCID, int grade, int grd_num, String year) {
+		return dao.getClassesAllScores(SCID, grade, grd_num, year);
+	}
+	
+	public ArrayList<SurveyGoingDTO> getCalculatedClassSurveyList(int grade, String year) throws ParseException {
+	return dao.getCalculatedClassSurveyList(grade, year);
 	}
 }

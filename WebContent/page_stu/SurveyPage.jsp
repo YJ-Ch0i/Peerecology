@@ -92,13 +92,13 @@
 			<!-- 세로보기 문항 -->
 			<% if(queList.isQ_typeDirection()==false){ %>
 			<label class="radio-inline"> 
-				<input type="radio" name="checkAnswer<%=i%>" id="inlineRadio1" value="<%=k+1%>"><%= queOffer.get(k).getTitle() %>
+				<input type="radio" name="checkAnswer<%=i%>" id="inlineRadio1" value="<%=k+1%>" required><%= queOffer.get(k).getTitle() %>
 			</label>
 			<!-- 가로보기 문항 -->
 			<%}else{ %>
 			<p></p>
 			<label class="radio-inline">
-	          	<input type="radio" name="checkAnswer<%=i%>" id="inlineRadio1" value="<%=k+1%>">
+	          	<input type="radio" name="checkAnswer<%=i%>" id="inlineRadio1" value="<%=k+1%>" required>
 	          	<%= queOffer.get(k).getTitle() %>
 		    </label>
 			<%} %>

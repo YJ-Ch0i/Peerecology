@@ -8,9 +8,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
 
 import SurveyRelationDTO.Stu_ans_ViewDTO;
+import SurveyRelationDTO.StudentScoresDTO;
 import SurveyRelationDTO.SurveyDTO;
 import SurveyRelationDTO.SurveyGoingDTO;
 import SurveyRelationDTO.SurveyManagerDTO;
@@ -88,12 +89,12 @@ public class SurveyDAO {
 		}
 		}
 	}
-	public void goingVersionRegister(String[] SCIDs, int surveyNo, String startDate, String endDate) 
+	public void goingVersionRegister(String[] SCIDs, int surveyNo, int grade, String startDate, String endDate) 
 	{
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		
-		String SQL ="INSERT INTO survey_ing(surveyNo,SCID,startDate,endDate) VALUES (?,?,?,?)";
+		String SQL ="INSERT INTO survey_ing(surveyNo,SCID,grade,startDate,endDate) VALUES (?,?,?,?,?)";
 		for(int i=0; i<SCIDs.length; i++) 
 		{
 		try 
@@ -102,8 +103,9 @@ public class SurveyDAO {
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, surveyNo);
 			pstmt.setString(2, SCIDs[i]);
-			pstmt.setString(3, startDate);
-			pstmt.setString(4, endDate);
+			pstmt.setInt(3, grade);
+			pstmt.setString(4, startDate);
+			pstmt.setString(5, endDate);
 			pstmt.executeUpdate();
 		}
 		catch(Exception e) {
@@ -173,6 +175,7 @@ public class SurveyDAO {
 				surveyGoingDTO.setSurveyNo(rs.getInt("surIng.surveyNo"));
 				surveyGoingDTO.setSCID_name(rs.getString("sch.name"));
 				surveyGoingDTO.setSCID(rs.getString("surIng.SCID"));
+				surveyGoingDTO.setGrade(rs.getInt("surIng.grade"));
 				surveyGoingDTO.setStartDate(rs.getString("surIng.startDate"));
 				surveyGoingDTO.setEndDate(rs.getString("surIng.endDate"));
 				surveyGoingList.add(surveyGoingDTO);
@@ -228,6 +231,49 @@ public class SurveyDAO {
 		}
 		return surveyGoingList;
 	}
+	
+	public ArrayList<SurveyGoingDTO> showUncalculatedSurvey(String SCID_name) throws ParseException
+	{
+		Connection conn=null;	
+		Statement stmt = null;
+		ArrayList<SurveyGoingDTO> surveyGoingList = new ArrayList<SurveyGoingDTO>();
+		ResultSet rs = null;
+		SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd");
+		String strThisDate = format1.format(System.currentTimeMillis());
+		java.util.Date thisDate = new SimpleDateFormat("yyyy-MM-dd").parse(strThisDate);
+		
+		String SQL ="SELECT * FROM survey_ing AS surIng, school_info AS sch where sch.name LIKE \"%\" '"+SCID_name+"' \"%\" "
+				+ " AND sch.SCID=surIng.SCID AND surIng.`isCalculated`=0  GROUP BY surIng.ingSeq";
+			try {
+			conn =DBConn.getConnection();
+			stmt = conn.createStatement();
+            rs = stmt.executeQuery(SQL);
+			while(rs.next()) 
+			{
+				java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("surIng.endDate")); 
+				int compareDate = thisDate.compareTo(date);
+				if(compareDate>0) 
+				{
+				SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO();
+				surveyGoingDTO.setIngSeq(rs.getInt("surIng.ingSeq"));
+				surveyGoingDTO.setSurveyNo(rs.getInt("surIng.surveyNo"));
+				surveyGoingDTO.setSCID(rs.getString("surIng.SCID"));
+				surveyGoingDTO.setSCID_name(rs.getString("sch.name"));
+				surveyGoingDTO.setStartDate(rs.getString("surIng.startDate"));
+				surveyGoingDTO.setEndDate(rs.getString("surIng.endDate"));
+				surveyGoingList.add(surveyGoingDTO);
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(stmt != null) try{stmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return surveyGoingList;
+	}
+	
 	public ArrayList<SurveyGoingDTO> showAllResultSurvey() throws ParseException
 	{
 		Connection conn=null;	
@@ -267,6 +313,184 @@ public class SurveyDAO {
 		}
 		return surveyGoingList;
 	}
+	
+	public ArrayList<SurveyGoingDTO> showCalculatedSurvey() throws ParseException
+	{
+		Connection conn=null;	
+		Statement stmt = null;
+		ArrayList<SurveyGoingDTO> surveyGoingList = new ArrayList<SurveyGoingDTO>();
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
+		String strThisDate = format1.format (System.currentTimeMillis());
+		java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strThisDate);
+		ResultSet rs = null;
+		String SQL ="SELECT * FROM survey_ing AS surIng, school_info AS sch WHERE surIng.SCID=sch.SCID AND surIng.`isCalculated`=1 GROUP BY surIng.ingSeq ORDER BY DATE(surIng.startDate) ASC;";
+			try {
+			conn =DBConn.getConnection();
+			stmt = conn.createStatement();
+            rs = stmt.executeQuery(SQL);
+			while(rs.next()) 
+			{
+				java.util.Date dbDate = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("surIng.endDate"));
+				int compare = dbDate.compareTo(date);
+				if(compare<0) 
+				{
+				SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO();
+				surveyGoingDTO.setIngSeq(rs.getInt("surIng.ingSeq"));
+				surveyGoingDTO.setSurveyNo(rs.getInt("surIng.surveyNo"));
+				surveyGoingDTO.setSCID(rs.getString("surIng.SCID"));
+				surveyGoingDTO.setSCID_name(rs.getString("sch.name"));
+				surveyGoingDTO.setGrade(rs.getInt("surIng.grade"));
+				surveyGoingDTO.setStartDate(rs.getString("surIng.startDate"));
+				surveyGoingDTO.setEndDate(rs.getString("surIng.endDate"));
+				surveyGoingList.add(surveyGoingDTO);
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(stmt != null) try{stmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return surveyGoingList;
+	}
+	
+	public ArrayList<SurveyGoingDTO> getCalculatedClassSurveyList(int grade, String year) throws ParseException
+	{
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		ArrayList<SurveyGoingDTO> surveyGoingList = new ArrayList<SurveyGoingDTO>();
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
+		String strThisDate = format1.format (System.currentTimeMillis());
+		java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strThisDate);
+		ResultSet rs = null;
+		String SQL ="SELECT * FROM survey_ing AS surIng, school_info AS sch WHERE surIng.SCID=sch.SCID AND surIng.grade=? AND YEAR(surIng.endDate)=? AND surIng.`isCalculated`=1 GROUP BY surIng.ingSeq ORDER BY DATE(surIng.startDate) ASC;";
+			try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, grade);
+			pstmt.setString(2, year);
+            rs = pstmt.executeQuery();
+			while(rs.next()) 
+			{
+				java.util.Date dbDate = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("surIng.endDate"));
+				int compare = dbDate.compareTo(date);
+				if(compare<0) 
+				{
+				SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO();
+				surveyGoingDTO.setIngSeq(rs.getInt("surIng.ingSeq"));
+				surveyGoingDTO.setSurveyNo(rs.getInt("surIng.surveyNo"));
+				surveyGoingDTO.setSCID(rs.getString("surIng.SCID"));
+				surveyGoingDTO.setSCID_name(rs.getString("sch.name"));
+				surveyGoingDTO.setGrade(rs.getInt("surIng.grade"));
+				surveyGoingDTO.setStartDate(rs.getString("surIng.startDate"));
+				surveyGoingDTO.setEndDate(rs.getString("surIng.endDate"));
+				surveyGoingList.add(surveyGoingDTO);
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return surveyGoingList;
+	}
+	
+	public ArrayList<SurveyGoingDTO> showUncalculatedSurvey() throws ParseException
+	{
+		Connection conn=null;	
+		Statement stmt = null;
+		ArrayList<SurveyGoingDTO> surveyGoingList = new ArrayList<SurveyGoingDTO>();
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
+		String strThisDate = format1.format (System.currentTimeMillis());
+		java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strThisDate);
+		ResultSet rs = null;
+		String SQL ="SELECT * FROM survey_ing AS surIng, school_info AS sch WHERE surIng.SCID=sch.SCID AND surIng.`isCalculated`=0 GROUP BY surIng.ingSeq ORDER BY DATE(surIng.startDate) ASC;";
+			try {
+			conn =DBConn.getConnection();
+			stmt = conn.createStatement();
+            rs = stmt.executeQuery(SQL);
+			while(rs.next()) 
+			{
+				java.util.Date dbDate = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("surIng.endDate"));
+				int compare = dbDate.compareTo(date);
+				if(compare<0) 
+				{
+				SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO();
+				surveyGoingDTO.setIngSeq(rs.getInt("surIng.ingSeq"));
+				surveyGoingDTO.setSurveyNo(rs.getInt("surIng.surveyNo"));
+				surveyGoingDTO.setSCID(rs.getString("surIng.SCID"));
+				surveyGoingDTO.setSCID_name(rs.getString("sch.name"));
+				surveyGoingDTO.setGrade(rs.getInt("surIng.grade"));
+				surveyGoingDTO.setStartDate(rs.getString("surIng.startDate"));
+				surveyGoingDTO.setEndDate(rs.getString("surIng.endDate"));
+				surveyGoingList.add(surveyGoingDTO);
+				}
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(stmt != null) try{stmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return surveyGoingList;
+	}
+	
+	public boolean calculateSurvey(StudentScoresDTO dto) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = "INSERT INTO student_score(ingSeq, surveyNo, SCID, grade, grd_num, studentID, studentName, bigTrandID, trandID, score) VALUES (?,?,?,?,?,?,?,?,?,?)";
+		
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dto.getIngseq());
+			pstmt.setInt(2, dto.getSurveyNo());
+			pstmt.setString(3, dto.getSCID());
+			pstmt.setInt(4, dto.getGrade());
+			pstmt.setInt(5, dto.getGrd_num());
+			pstmt.setInt(6, dto.getStu_id());
+			pstmt.setString(7, dto.getsName());
+			pstmt.setInt(8, dto.getBigTrandId());
+			pstmt.setInt(9, dto.getTrandId());
+			pstmt.setInt(10, dto.getScore());
+			pstmt.executeUpdate();
+			
+			return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return false;
+	}
+	
+	public void calculateUpdate(int ingSeq, int survey_no) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		String SQL ="UPDATE survey_ing set isCalculated=1 where ingSeq=? AND surveyNo=?";
+		
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, ingSeq);
+			pstmt.setInt(2, survey_no);
+			pstmt.executeUpdate();
+		}catch(Exception e) {			
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+	}
+	
+	
 	public ArrayList<SurveyDTO> showAllSurveys()
 	{
 		Connection conn=null;	
@@ -378,7 +602,7 @@ public class SurveyDAO {
 		}
 		return surveyQuestions;
 	}
-	public SurveyGoingDTO startSurvey(String SCID)
+	public SurveyGoingDTO startSurvey(String SCID, String grade)
 	{
 		Connection conn=null;	
 		Statement stmt = null;
@@ -386,7 +610,7 @@ public class SurveyDAO {
 		ResultSet rs = null;
 		
 		//String SQL ="SELECT * FROM survey_ing WHERE SCID='"+SCID+"' AND DATE(startDate) >= DATE_FORMAT(NOW(), '\"%\"\"Y-\"%\"m-\"%\"d') AND DATE(endDate) >= DATE_FORMAT(NOW(),'\"%\"Y-\"%\"m-\"%\"d')";
-		String SQL = "SELECT * FROM survey_ing WHERE SCID= '" + SCID + "' AND DATE(NOW()) BETWEEN startDate AND endDate";
+		String SQL = "SELECT * FROM survey_ing WHERE SCID= '" + SCID + "' AND grade='" + grade + "' AND DATE(NOW()) BETWEEN startDate AND endDate";
 		try {
 			conn =DBConn.getConnection();
 			stmt = conn.createStatement();
@@ -396,6 +620,7 @@ public class SurveyDAO {
 				surveyGoingDTO.setIngSeq(rs.getInt("ingSeq"));
 				surveyGoingDTO.setSurveyNo(rs.getInt("surveyNo"));
 				surveyGoingDTO.setSCID(rs.getString("SCID"));
+				surveyGoingDTO.setGrade(rs.getInt("grade"));
 				surveyGoingDTO.setStartDate(rs.getString("startDate"));
 				surveyGoingDTO.setEndDate(rs.getString("endDate"));
 			}
@@ -626,5 +851,93 @@ public class SurveyDAO {
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
 		return answerList;
+	}
+	
+	public ArrayList<StudentScoresDTO> getClassesScores(int ingSeq, int surveyNo, String SCID, int grade, int grd_num) {
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<StudentScoresDTO> scoresList = new ArrayList<>();
+		
+		String sql = "SELECT * FROM stu_scores WHERE ingSeq=? AND surveyNo=? AND SCID=? AND grade=? AND grd_num=?";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ingSeq);
+			pstmt.setInt(2, surveyNo);
+			pstmt.setString(3, SCID);
+			pstmt.setInt(4, grade);
+			pstmt.setInt(5, grd_num);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {				
+				StudentScoresDTO dto = new StudentScoresDTO();
+				dto.setStu_id(rs.getInt("studentID"));
+				dto.setsName(rs.getString("studentName"));
+				dto.setBigTrandId(rs.getInt("bigTrandID"));
+				dto.setBigTrandDesc(rs.getString("bigDesc"));
+				dto.setTrandId(rs.getInt("trandID"));
+				dto.setTrandDesc(rs.getString("trDesc"));
+				dto.setScore(rs.getInt("score"));
+				dto.setYear(rs.getString("year"));
+				
+				scoresList.add(dto);
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return scoresList;
+	}
+	
+	public ArrayList<StudentScoresDTO> getClassesAllScores(String SCID, int grade, int grd_num, String year) {
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<StudentScoresDTO> scoresList = new ArrayList<>();
+		
+		String sql = "SELECT * FROM stu_scores WHERE SCID=? AND grade=? AND grd_num=? AND year=?";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, SCID);
+			pstmt.setInt(2, grade);
+			pstmt.setInt(3, grd_num);
+			pstmt.setString(4, year);	
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {				
+				StudentScoresDTO dto = new StudentScoresDTO();
+				dto.setIngseq(rs.getInt("ingSeq"));
+				dto.setStu_id(rs.getInt("studentID"));
+				dto.setsName(rs.getString("studentName"));
+				dto.setBigTrandId(rs.getInt("bigTrandID"));
+				dto.setBigTrandDesc(rs.getString("bigDesc"));
+				dto.setTrandId(rs.getInt("trandID"));
+				dto.setTrandDesc(rs.getString("trDesc"));
+				dto.setScore(rs.getInt("score"));
+				dto.setYear(rs.getString("year"));
+				
+				scoresList.add(dto);
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return scoresList;
 	}
 }

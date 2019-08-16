@@ -1,3 +1,7 @@
+<%@page import="com.google.gson.Gson"%>
+<%@page import="Service.QuestionService"%>
+<%@page import="SurveyRelationDTO.QuestionTrandTypeDTO"%>
+<%@page import="SurveyRelationDTO.QuestionTrandManagerDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -61,28 +65,50 @@
 		<!-- End Head Section -->
 				
 				<%
-					ArrayList<String> totalList = new ArrayList<>();
-					totalList = (ArrayList<String>) request.getAttribute("totalArray");
-					request.setAttribute("totalArray", totalList);
+					ArrayList<String> scoresJson = new ArrayList<>();
+					scoresJson = (ArrayList<String>) request.getAttribute("scoresJson");
+					request.setAttribute("scoresJson", scoresJson);
 					
-					ArrayList<String> trandArray = new ArrayList<>();
-					trandArray = (ArrayList<String>) request.getAttribute("trandArray");
-					request.setAttribute("trandArray", trandArray);
+					ArrayList<String> trandJson = new ArrayList<>();
+					trandJson = (ArrayList<String>) request.getAttribute("trandJson");
+					request.setAttribute("trandJson", trandJson);
 					
-					ArrayList<String> stuArray = new ArrayList<>();
-					stuArray = (ArrayList<String>) request.getAttribute("stuArray");
-					request.setAttribute("stuArray", stuArray);
+					ArrayList<String> stuJson = new ArrayList<>();
+					stuJson = (ArrayList<String>) request.getAttribute("stuJson");
+					request.setAttribute("stuJson", stuJson);
 					
-					ArrayList<String> bigTrandArray = new ArrayList<>();
-					bigTrandArray = (ArrayList<String>) request.getAttribute("bigTrandArray");
-					request.setAttribute("bigTrandArray", bigTrandArray);
+					ArrayList<String> bigTrandJson = new ArrayList<>();
+					bigTrandJson = (ArrayList<String>) request.getAttribute("bigTrandJson");
+					request.setAttribute("bigTrandJson", bigTrandJson);
+					
+					ArrayList<QuestionTrandManagerDTO> bigTrandList = new ArrayList<>();
+					bigTrandList = (ArrayList<QuestionTrandManagerDTO>) request.getAttribute("bigTrandList");
+					request.setAttribute("bigTrandList", bigTrandList);
+					
+					ArrayList<String> endSurJson = new ArrayList<>();
+					endSurJson = (ArrayList<String>) request.getAttribute("endSurJson");
+					request.setAttribute("endSurJson", endSurJson);
+					
+					ArrayList<String> mixedTrand = new ArrayList<>();
+					mixedTrand = (ArrayList<String>) request.getAttribute("mixedTrand");
+					request.setAttribute("mixedTrand", mixedTrand);
+					
+					QuestionService queService = QuestionService.getInstance();
+					ArrayList<QuestionTrandTypeDTO> trandTobigTrand = new ArrayList<>();
+					for(int i=0; i<bigTrandList.size(); i++){
+						QuestionTrandTypeDTO dto = new QuestionTrandTypeDTO();
+						trandTobigTrand = queService.getTrandToBigTID(bigTrandList.get(i).getBigTrandID());						
+					}
+					Gson gson = new Gson();
+					
 				%>
 				
-				<textarea id="totalArray" style="display:none"><%=totalList %></textarea>
-				<textarea id="trandArray" style="display:none"><%=trandArray %></textarea>
-				<textarea id="stuArray" style="display:none"><%=stuArray %></textarea>
-				<textarea id="bigTrandArray" style="display:none"><%=bigTrandArray %></textarea>
-				
+				<textarea id="scoresJson" style="display:none"><%=scoresJson %></textarea>
+				<textarea id="trandJson" style="display:none"><%=trandJson %></textarea>
+				<textarea id="stuJson" style="display:none"><%=stuJson %></textarea>
+				<textarea id="bigTrandJson" style="display:none"><%=bigTrandJson %></textarea>
+				<textarea id="endSurJson" style="display:none"><%=endSurJson %></textarea>				
+				<textarea id="mixedTrand" style="display:none"><%=mixedTrand %></textarea>
 
 		<!-- Section -->
 		<section class="page-section">
@@ -125,8 +151,25 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-12">
-								<div id="barchart" style="min-width:310px; max-width:1000px; min-height:600px; max-height:1500px;">									
+								<div id="barchart" style="min-width:310px; max-width:600px; min-height:600px; max-height:1500px;">									
 								</div>
+								
+							<% for(int i=0; i<bigTrandList.size(); i++){ %>
+							<div class="row">
+								<div class="alert alert-warning" role="alert"></div>
+							</div>
+								<div class="row">															
+									<div class="col-md-9" id="rader<%=i %>" style="min-width:310px; max-width:600px; min-height:600px; max-height:1500px;">									
+									</div>
+									<div class="col-md-5" style="text-align:center; min-width:450px; max-width:450px; min-height:600px; max-height:1500px; margin:0 auto">
+										<div class="row" style="text-align:center; min-width:300px; max-width:300px; margin:0 auto">
+											<br><br><br><br><br><br>
+											<label class="control-label" for="inputWarning2"><%=bigTrandList.get(i).getExplan() %></label>
+										</div>									
+									</div>
+								</div>						
+								<br>
+							<%} %>
 							</div>
 						</div>
 					</div>
@@ -168,12 +211,16 @@
 	<script type="text/javascript" src="/PeerSys/style/js/contact-form.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.ajaxchimp.min.js"></script>
 	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+	<<script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+	<script type="text/javascript" src="https://code.highcharts.com/highcharts-more.js"></script>
 	<script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script type="text/javascript" src="https://code.highcharts.com/modules/export-data.js"></script>
 	<!--[if lt IE 10]><script type="text/javascript" src="js/placeholder.js"></script><![endif]-->
 	<script type="text/javascript" src="/PeerSys/style/js/studentTransfer.js"></script>
-	<script type="text/javascript" src="/PeerSys/style/js/visualize/stuBarGraph.js"></script>
+	<!-- <script type="text/javascript" src="/PeerSys/style/js/visualize/stuBarGraph.js"></script> -->
+	<script type="text/javascript" src="/PeerSys/style/js/visualize/barSplineToResult.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/visualize/raiderGph.js"></script>
+	<!-- <script src="https://code.highcharts.com/highcharts.js"></script> -->
 	<!-- <script type="text/javascript" src="/PeerSys/style/js/visualize/barSpline.js"></script> -->
 	
 	

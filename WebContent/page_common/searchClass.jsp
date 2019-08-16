@@ -111,11 +111,13 @@
 						class="btn btn-mod btn-circle btn-small">
 				</form>
 				<% }else{ %>
-				<form action="/PeerSys/testResult.sv" method="post">
+				<form action="/PeerSys/viewResult.sv" method="post">
 					<input type="hidden" name="grade" value="<%= list.get(i).getGrade() %>"> 
 					<input type="hidden" name="grd_num" value="<%= list.get(i).getClasses()%>">
 					<input type="hidden" name="sch_code" value="<%= request.getAttribute("sch_code") %>">
 					<input type="hidden" name="sch_name" value="<%= request.getAttribute("sch_name") %>">
+					<input type="hidden" name="ingSeq" value="<%= request.getAttribute("ingSeq") %>">
+					<input type="hidden" name="surveyNo" value="<%= request.getAttribute("surveyNo") %>">
 					<input type="hidden" name="year" value="<%= request.getAttribute("year") %>">
 					<input type="hidden" name="title" value="<%= request.getAttribute("title") %>"> 
 					<input type="hidden" name="startdate" value="<%= request.getAttribute("startdate")%>">

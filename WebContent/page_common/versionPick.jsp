@@ -131,6 +131,10 @@ surveyList = surveyService.showAllSurveys();
 			<div class="col-sm-6 mb-xs-40" style="width:100%;">
 			 <div class="mb-20 mb-md-10">
                  <!-- Date-->
+            	 대상 학년 - <input type="text" name="grade" id="grade" class="input-md form-control" maxlength="1" style="width:5%;" required> 학년
+             </div>
+			 <div class="mb-20 mb-md-10">
+                 <!-- Date-->
             	 시작 날짜 - <input type="date" name="startDate" id="date" class="input-md form-control">
              </div>
              <div class="mb-20 mb-md-10">

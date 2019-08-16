@@ -36,6 +36,7 @@ public class StudentLoginController implements Controller {
 		session.setAttribute("OtherStuList", OtherStuList);
 		session.setAttribute("stu_desc", sch_name +" "+grade + "학년 " + grd_num + "반 " + stu_name);
 		session.setAttribute("sch_code", sch_code);
+		session.setAttribute("grade", grade);
 		session.setAttribute("stu_num", stu_num);
 		
 		PrintWriter script = response.getWriter();
