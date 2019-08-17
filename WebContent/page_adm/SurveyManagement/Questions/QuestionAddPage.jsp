@@ -50,7 +50,7 @@ queTypes = queSerivce.showAllType();
 			<form method="post" action="/PeerSys/questionAdd.qs" id="form" role="form">
 			<% if(queTrands.size()!=0) {%>
 			척도 분류 : 
-			<select name="trand_managerID" class="input-md form-control" onChange="changeToBigTrand(this.value);"> 
+			<select id="trandBigName" name="trand_managerID" class="input-md form-control" onChange="changeToBigTrand(this.value);"> 
 			<option value="-1" selected>선택해주세요.</option>
 			<% for(int i=0; i<queBigTrands.size(); i++){ %>
 			<option value="<%=queBigTrands.get(i).getBigTrandID()%>"><%=queBigTrands.get(i).getDescript() %></option>
@@ -129,7 +129,7 @@ queTypes = queSerivce.showAllType();
             </div>
 			</section>
 	</div>
-
+	 <table id="tblList" border="1"></table>
 
 	<!-- JS -->
 	

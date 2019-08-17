@@ -87,7 +87,7 @@ questions = queSerivce.showAllQuestion();
                     </div>
                 <ul class="works-grid work-grid-2 work-grid-gut clearfix font-alt hover-white" id="work-grid"  style="display:block;" >
                     <% for(int i=0; i<questions.size(); i++){ %>
-                    <li class="work-item mix <%=questions.get(i).getTtype() %>" style="display:block; ">
+                    <li class="work-item mix <%=questions.get(i).getTtype() %>" >
                     <label style="margin-bottom:1%; display:block;">
                     <input type="checkbox" name="deleteQuestion" id="deleteQuestion" value="<%=questions.get(i).getQID()%>">
                     <input type="hidden" name="deleteQuestion_title<%=questions.get(i).getQID()%>" value="<%=questions.get(i).getTitle() %>">
@@ -127,7 +127,7 @@ questions = queSerivce.showAllQuestion();
 	</div>
 	<!-- End Page Wrap -->
 	<!-- JS -->
-	<script type="text/javascript" src="/PeerSys/style/js/pagingLiLabel.js?version=4"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/pagingQuestion.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/bootstrap.min.js"></script>
