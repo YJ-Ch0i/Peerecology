@@ -98,10 +98,7 @@ questions = queSerivce.showAllQuestion();
                     </li>
                     <%} %>    
                 </ul>
-                    <p></p>
-                <ul class="pagination" style="list-stlye-type:none; text-align:center;">
-    
-  				</ul>
+                
                     <p></p>
                     	<a href="TypeAddPage.jsp" style="margin-bottom:1%; width:20%" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">응답유형 추가하기</a>			
 						<a href="bigTrandAddPage.jsp" style="margin-bottom:1%; width:20%" class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">척도분류 추가하기</a>                    				
@@ -127,7 +124,6 @@ questions = queSerivce.showAllQuestion();
 	</div>
 	<!-- End Page Wrap -->
 	<!-- JS -->
-	<script type="text/javascript" src="/PeerSys/style/js/pagingQuestion.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/bootstrap.min.js"></script>
