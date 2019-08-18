@@ -139,9 +139,9 @@
 	<!-- paging -->
 	
 	<%if(surService.nextPage(surveyNo, pageNumber)){ %>
-	<input type="submit" value="다음" class="btn btn-mod btn-medium btn-round" style="right"> <!-- +1 -->
+	<input type="submit" value="다음" class="btn btn-mod btn-medium btn-round" style="float:right"> <!-- +1 -->
 	<%}else{ %>
-	<input type="submit" value="제출" class="btn btn-mod btn-medium btn-round" style="right"> <!-- +1 -->
+	<input type="submit" value="제출" class="btn btn-mod btn-medium btn-round" style="float:right"> <!-- +1 -->
 	<%} %>
 	</form>
 	</div>

@@ -39,6 +39,9 @@ public class SurveyService {
 	public ArrayList<SurveyManagerDTO> showQuestionsToManager(int surveyNo){
 		return dao.showQuestionsToManager(surveyNo);
 	}
+	public int getQuestionCount(int surveyNo) {
+		return dao.getQuestionCount(surveyNo);
+	}
 	public boolean nextPage(int surveyNo, String pageNumber){
 		return dao.nextPage(surveyNo, pageNumber);
 	}

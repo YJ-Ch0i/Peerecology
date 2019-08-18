@@ -661,6 +661,30 @@ public class SurveyDAO {
 		}
 		return surveyQuestions;
 	}
+	public int getQuestionCount(int surveyNo)
+	{ 
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		int count = 0;
+		ResultSet rs = null;
+		String SQL ="SELECT * FROM survey_manager where surveyNo='"+surveyNo+"' ";
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			 rs = pstmt.executeQuery();
+			while(rs.next()) 
+			{
+				count++;
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return count;
+	}
 	public boolean nextPage(int surveyNo, String pageNumber)
 	{
 		Connection conn=null;	

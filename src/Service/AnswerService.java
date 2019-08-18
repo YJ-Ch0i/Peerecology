@@ -22,4 +22,7 @@ public class AnswerService {
 	public ArrayList<SurveyAnswerDTO> getAnswers(int ingSeq) {
 		return dao.getAnswers(ingSeq);
 	}
+	public int getAnswersCount(int ingSeq, int studentID) {
+		return dao.getAnswersCount(ingSeq, studentID);
+	}
 }
