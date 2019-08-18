@@ -3,6 +3,7 @@
 <%@ page import="Service.*" %>
 <%@ page import="SurveyRelationDTO.*" %>
 <%@ page import="java.util.*" %>
+<%@ page import="User.UserDTO.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,33 +36,39 @@
 	</div>
 	<!-- End Page Loader -->
 
-	<!-- Page Wrap -->
-	<div class="page" id="top">
-
-		<!-- Navigation panel -->
-		<%@include file="../../pageInclude/Header.jsp"%>
-		<!-- End Navigation panel -->
-
-
-
 		<!-- Head Section -->
 		<section class="small-section bg-gray-lighter">
 			<div class="relative container align-left">
 
 				<div class="row">
 <% 
+
 	SurveyService surService = SurveyService.getInstance();
+	AnswerService ansService = AnswerService.getInstance();
+	StudentService stuService = StudentService.getInstance();
+	
+	String surIng = request.getParameter("surSeq");
+	int questionCount1 = surService.getSurveyNo(Integer.parseInt(surIng));
+	int questionCount = surService.getQuestionCount(questionCount1);
+	String strGrade = request.getParameter("grade");
+	int grade = Integer.parseInt(strGrade);
+	String SCID = request.getParameter("SCID");
+	
+	// 학교 학년에 몇반 까지 있는지 리스트 
+	ArrayList<Integer> classesList = new ArrayList<Integer>();
+	classesList = stuService.getStudentList(SCID, grade);
+	Calendar calendar = new GregorianCalendar(Locale.KOREA);
+	int intYear = calendar.get(Calendar.YEAR);
+	String year = Integer.toString(intYear);
+	
+	ArrayList<StudentDTO> studentListAttend2 = new ArrayList<StudentDTO>();
+	
 	ArrayList<SurveyGoingDTO> surGoingList = new ArrayList<SurveyGoingDTO>();
 	surGoingList = surService.showAllGoingSurveys();
 	SchoolService schService = SchoolService.getInstance();
 	
 	
 %>
-					<div class="col-md-8">
-						<h2 class="hs-line-11 font-alt mb-20 mb-xs-0">설문조사 진행중인 학교들</h2>
-						<div class="hs-line-4 font-alt black"></div>
-					</div>
-
 				</div>
 			</div>
 		</section>
@@ -72,45 +79,62 @@
 			<div class="container relative">
 			<%if (surGoingList.size()==0){ %>
 			<h3> 설문조사가 진행중인 학교가 없습니다. </h3>
-			<%}else{ %>
-			<table class="table table-striped" style="text-align:center; width:100%">
+			<%}else{  %>
+			<% String SCIDName = surGoingList.get(0).getSCID_name(); %>
+			<div class="works-filter font-alt">
+					
+					<% for(int i=0; i<classesList.size(); i++){ %>
+					
+                    <a href="#<%=classesList.get(i) %>" class="filter" data-filter=".<%=classesList.get(i)%>"><%=classesList.get(i) %>반</a>
+                    <% 
+                    // 학교 학년 반 을 통해서 userList 추출. 
+                	
+                	%>           
+                    <%} %>
+           </div>
+                <ul class="works-grid work-grid-2 work-grid-gut clearfix font-alt hover-white" id="work-grid"  style="display:block;" >
+                    <% for(int i=0; i<classesList.size(); i++){ %>
+            <li class="work-item mix <%=classesList.get(i)%>" style="width:100%">
+            
+            <% studentListAttend2 = stuService.studentListAttend2(SCID, grade, classesList.get(i), year); %>
+            
+			<table class="table table-striped" style="text-align:center">
 			<thead>
                             <tr>
-                                <th>학교 이름</th>
-                                <th>설문 이름</th>
-                                <th>대상 학년</th>
-                                <th>시작일</th>
-                                <th>종료일</th>
-                                <th>상세보기</th>
+                                <th>학교</th>
+                                <th>학년</th>
+                                <th>반</th>
+                                <th>번호</th>
+                                <th>이름</th>
+                                <th>진행상황</th>
                             </tr>
             </thead>
             <tbody>
-			<%for(int i=0; i<surGoingList.size(); i++){ %>
+			<%for(int k=0; k<studentListAttend2.size(); k++){ %>
+			<% 
+			int answerCount = ansService.getAnswersCount(Integer.parseInt(surIng), studentListAttend2.get(k).getStu_id());
+			%>
 			<tr>
-			<td><%= surGoingList.get(i).getSCID_name() %></td>
-			<td><%= surService.showSearchSurveyToSurveyNo(surGoingList.get(i).getSurveyNo()).getTitle() %> </td>
-			<td><%= surGoingList.get(i).getGrade() %>학년</td>
-			<td><%= surGoingList.get(i).getStartDate() %></td>
-			<td><%= surGoingList.get(i).getEndDate() %></td>
-			<td>
-			<a href="showGoingSurvey.jsp?surSeq=<%=surGoingList.get(i).getIngSeq()%>&SCID=<%=surGoingList.get(i).getSCID() %>&grade=<%=surGoingList.get(i).getGrade() %>" 
-			class="btn btn-mod btn-border-w btn-medium btn-round lightbox mfp-iframe">진행 상황보기</a>			
-			</td>
+			<td><%= SCIDName %></td>
+			<td><%= studentListAttend2.get(k).getGrade() %>학년 </td>
+			<td><%= studentListAttend2.get(k).getGrd_num() %>반</td>
+			<td><%= studentListAttend2.get(k).getNum() %></td>
+			<td><%= studentListAttend2.get(k).getName() %></td>
+			<td> <%= answerCount %> / <%=questionCount %> </td>
 			</tr>
 			<%} %>
 			</tbody>
 			</table>
+            </li>
+                    <%} %>    
+                </ul>
+			
 			<%} %>
 			
 			</div>
 		</section>
 		<!-- End Section -->
 
-		<!-- Footer -->
-		<%@ include file="../../pageInclude/Footer.jsp"%>
-		<!-- End Footer -->
-
-	</div>
 	<!-- End Page Wrap -->
 
 

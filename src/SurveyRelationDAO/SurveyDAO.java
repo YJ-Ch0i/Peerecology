@@ -44,31 +44,7 @@ public class SurveyDAO {
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
 	}
-	public int getCount(int surveyIngNo)
-	{
-		Connection conn=null;
-		PreparedStatement pstmt=null;
-		int count = 0;
-		ResultSet rs = null;
-		String SQL ="Select * from survey_manager where surveyNo = (Select surveyNo from survey_ing where ingSeq=?)";
-		
-		try {
-			conn =DBConn.getConnection();
-			pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, surveyIngNo);
-			rs = pstmt.executeQuery(SQL);
-				while(rs.next()) 
-				{
-					count++;
-				}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally{
-			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
-			if(conn != null) try{conn.close();}catch(SQLException sqle){}
-		}
-		return count;
-	}
+	
 	public int versionDelete(int SurveyNo) {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -660,6 +636,30 @@ public class SurveyDAO {
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
 		return surveyQuestions;
+	}
+	public int getSurveyNo(int surIngNo)
+	{ 
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		int count = 0;
+		ResultSet rs = null;
+		String SQL ="SELECT surveyNo FROM survey_ing where ingSeq='"+surIngNo+"' ";
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			 rs = pstmt.executeQuery();
+			if(rs.next()) 
+			{
+				return rs.getInt("surveyNo");
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return count;
 	}
 	public int getQuestionCount(int surveyNo)
 	{ 

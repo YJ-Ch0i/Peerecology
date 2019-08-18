@@ -39,6 +39,9 @@ public class SurveyService {
 	public ArrayList<SurveyManagerDTO> showQuestionsToManager(int surveyNo){
 		return dao.showQuestionsToManager(surveyNo);
 	}
+	public int getSurveyNo(int surIngNo){
+		return dao.getSurveyNo(surIngNo);
+	}
 	public int getQuestionCount(int surveyNo) {
 		return dao.getQuestionCount(surveyNo);
 	}
