@@ -33,8 +33,14 @@ public class SurveyService {
 	public ArrayList<SurveyDTO> showAllSurveys(){
 		return dao.showAllSurveys();
 	}
+	public ArrayList<SurveyManagerDTO> pagingShowQuestionsToManager(int surveyNo, String pageNumber){
+		return dao.pagingShowQuestionsToManager(surveyNo, pageNumber);
+	}
 	public ArrayList<SurveyManagerDTO> showQuestionsToManager(int surveyNo){
 		return dao.showQuestionsToManager(surveyNo);
+	}
+	public boolean nextPage(int surveyNo, String pageNumber){
+		return dao.nextPage(surveyNo, pageNumber);
 	}
 	public ArrayList<SurveyDTO> showSearchSurveys(String version_title){
 		return dao.showSearchSurveys(version_title);

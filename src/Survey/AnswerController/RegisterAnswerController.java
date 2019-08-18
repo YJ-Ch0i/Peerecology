@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import Controller.Controller;
 import Service.AnswerService;
+import Service.SurveyService;
 import SurveyRelationDTO.SurveyAnswerDTO;
 import SurveyRelationDTO.SurveyGoingDTO;
 
@@ -18,13 +19,16 @@ public class RegisterAnswerController implements Controller {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession(); 
+		HttpSession session = request.getSession(); 	
+		SurveyService surService = SurveyService.getInstance();
+		int surveyNo = (int)session.getAttribute("surveyNo");
 		String strStu_id = (String)session.getAttribute("stu_id");
 		int stu_id = Integer.parseInt(strStu_id);
-		SurveyGoingDTO surveyGoingDTO = (SurveyGoingDTO)session.getAttribute("surveyGoingDTO");
+		int ingSeq = (int)session.getAttribute("surveyIngNo");
 		String[] QIDs = request.getParameterValues("QID");
-		int ingSeq = surveyGoingDTO.getIngSeq();
 		AnswerService answerService = AnswerService.getInstance();
+		String strPageNumbering = request.getParameter("pageNumbering");
+		int pageNumbering = Integer.parseInt(strPageNumbering); // 1페이지 일때는 10문항 2페이지 일때는 20문항.
 		
 		for(int i=0; i<QIDs.length; i++)
 		{
@@ -52,17 +56,34 @@ public class RegisterAnswerController implements Controller {
 			
 		}
 		
-		session.removeAttribute("stu_id");
-		session.removeAttribute("stu_desc");
-		session.removeAttribute("grd_num");
-		session.removeAttribute("sch_code");
-		session.removeAttribute("stu_num");
+		
+		strPageNumbering = request.getParameter("pageNumbering");
+		pageNumbering = Integer.parseInt(strPageNumbering);
+		
+		if(surService.nextPage(surveyNo, strPageNumbering)) 
+		{
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
-		script.println("alert('Success!')");
-		script.println("location.href='/PeerSys/page_stu/complete.jsp';");
+		script.println("location.href='/PeerSys/page_stu/SurveyPage.jsp?pageNumber="+(pageNumbering+1) +"'");
 		script.println("</script>");
 		script.close();
 		return;
+		}
+		else 
+		{
+			session.removeAttribute("stu_id");
+			session.removeAttribute("stu_desc");
+			session.removeAttribute("grd_num");
+			session.removeAttribute("sch_code");
+			session.removeAttribute("stu_num");
+			
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('수고하셨습니다.');");
+			script.println("location.href='/PeerSys/page_stu/complete.jsp'");
+			script.println("</script>");
+			script.close();
+			return;
+		}
 	}
 }

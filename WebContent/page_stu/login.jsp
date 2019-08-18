@@ -4,15 +4,7 @@
 <html>
 <head>
 
-<%
-	String stu_id = (String) session.getAttribute("stu_id");
-	if(stu_id == null){
-%>
-<script>
-alert("잘못된 접근입니다.");
-location.href="/PeerSys/index.jsp";
-</script>
-<%} %>
+<%@ include file="/pageInclude/CheckStudentLogin.jsp"%>
 
 
 <title>Rhythm &mdash; One & Multi Page Creative Theme</title>

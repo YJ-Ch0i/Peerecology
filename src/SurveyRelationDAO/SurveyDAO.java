@@ -44,6 +44,31 @@ public class SurveyDAO {
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
 	}
+	public int getCount(int surveyIngNo)
+	{
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		int count = 0;
+		ResultSet rs = null;
+		String SQL ="Select * from survey_manager where surveyNo = (Select surveyNo from survey_ing where ingSeq=?)";
+		
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, surveyIngNo);
+			rs = pstmt.executeQuery(SQL);
+				while(rs.next()) 
+				{
+					count++;
+				}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return count;
+	}
 	public int versionDelete(int SurveyNo) {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -573,17 +598,22 @@ public class SurveyDAO {
 		}
 		return surveyList;
 	}
-	public ArrayList<SurveyManagerDTO> showQuestionsToManager(int surveyNo)
-	{
+	public ArrayList<SurveyManagerDTO> pagingShowQuestionsToManager(int surveyNo, String pageNumber)
+	{ 
+		//SELECT * FROM survey_manager WHERE QSeq >= ABS((SELECT MAX(QSeq) FROM survey_manager WHERE surveyNo=2) - 20) AND
+		 // QSeq < ABS((SELECT MAX(QSeq) FROM survey_manager WHERE surveyNo=2) - 10)  AND surveyNo=2 ;
 		Connection conn=null;	
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ArrayList<SurveyManagerDTO> surveyQuestions = new ArrayList<SurveyManagerDTO>();
 		ResultSet rs = null;
-		String SQL ="SELECT * FROM survey_manager where surveyNo='"+surveyNo+"';";
+		String SQL ="SELECT * FROM survey_manager where QSeq >= ? "
+				+ " AND QSeq <= ?  AND surveyNo='"+surveyNo+"' ";
 		try {
 			conn =DBConn.getConnection();
-			stmt = conn.createStatement();
-            rs = stmt.executeQuery(SQL);
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, ((Integer.parseInt(pageNumber)-1) * 10) +1); // 1-> 1 , 2 -> 11
+			pstmt.setInt(2, Integer.parseInt(pageNumber) * 10); // 1 -> 10 , 2 -> 20
+            rs = pstmt.executeQuery();
 			while(rs.next()) 
 			{
 				SurveyManagerDTO surveyManagerDTO = new SurveyManagerDTO();
@@ -597,10 +627,63 @@ public class SurveyDAO {
 		catch(Exception e) {
 			e.printStackTrace();
 		}finally{
-			if(stmt != null) try{stmt.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
 		return surveyQuestions;
+	}
+	public ArrayList<SurveyManagerDTO> showQuestionsToManager(int surveyNo)
+	{ 
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		ArrayList<SurveyManagerDTO> surveyQuestions = new ArrayList<SurveyManagerDTO>();
+		ResultSet rs = null;
+		String SQL ="SELECT * FROM survey_manager where surveyNo='"+surveyNo+"' ";
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			 rs = pstmt.executeQuery();
+			while(rs.next()) 
+			{
+				SurveyManagerDTO surveyManagerDTO = new SurveyManagerDTO();
+				surveyManagerDTO.setSMID(rs.getInt("SMID"));
+				surveyManagerDTO.setSurveyNo(surveyNo);
+				surveyManagerDTO.setQseq(rs.getInt("QSeq"));
+				surveyManagerDTO.setQID(rs.getInt("QID"));
+				surveyQuestions.add(surveyManagerDTO);
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return surveyQuestions;
+	}
+	public boolean nextPage(int surveyNo, String pageNumber)
+	{
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String SQL ="SELECT * FROM survey_manager  where surveyNo='"+surveyNo+"' AND QSeq >= ? ;" ;
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, Integer.parseInt(pageNumber) * 10);
+            rs = pstmt.executeQuery();
+			if(rs.next()) 
+			{
+				return true;
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return false;
 	}
 	public SurveyGoingDTO startSurvey(String SCID, String grade)
 	{

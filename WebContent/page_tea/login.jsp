@@ -3,19 +3,12 @@
 <%@ page import="Service.TeacherService"%>
 <%@ page import="User.UserDTO.TeacherDTO"%>
 <%@ page import="java.util.*" %>
+
+<%@ include file="/pageInclude/CheckTeacherLogin.jsp"%>
 <% 
-   String tea_id = (String)session.getAttribute("tea_id");
-   if(tea_id == null)
-   {
-%>
-<script>
-location.href = '/PeerSys/teacherIndex.jsp';
-</script>
-<%
-   }
    TeacherService teacherService = TeacherService.getInstance();
    TeacherDTO teacherDTO = new TeacherDTO();
-   teacherDTO = teacherService.teacherInfo(tea_id);
+   teacherDTO = teacherService.teacherInfo((String)session.getAttribute("tea_id"));
  %>
 <!DOCTYPE html>
 <html>

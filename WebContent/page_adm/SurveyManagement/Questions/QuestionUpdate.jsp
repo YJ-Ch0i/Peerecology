@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="/pageInclude/CheckAdminLogin.jsp"%>
 <title>Rhythm &mdash; One & Multi Page Creative Theme</title>
 <meta name="description" content="">
 <meta name="keywords" content="">

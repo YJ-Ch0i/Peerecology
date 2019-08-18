@@ -46,13 +46,18 @@ public class StartSurveyController implements Controller {
 		}
 		else
 		{
+			/*
 			ArrayList<SurveyManagerDTO> questionsDTO = new ArrayList<SurveyManagerDTO>();
 			questionsDTO = surService.showQuestionsToManager(surveyGoingDTO.getSurveyNo());
+			*/
 			surveyGoingDTO = surService.findIngSurvey(surveyGoingDTO.getSurveyNo(), sch_code);
-			request.setAttribute("questionsDTO", questionsDTO);
-			session.setAttribute("surveyGoingDTO", surveyGoingDTO);
-			RequestDispatcher dc = request.getRequestDispatcher("/page_stu/SurveyPage.jsp");
-			dc.forward(request, response);
+			session.setAttribute("surveyNo", surveyGoingDTO.getSurveyNo());
+			session.setAttribute("surveyIngNo", surveyGoingDTO.getIngSeq());
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("location.href='/PeerSys/page_stu/SurveyPage.jsp'");
+			script.println("</script>");
+			script.close();
 		}
 	}
 
