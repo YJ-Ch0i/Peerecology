@@ -4,6 +4,7 @@
 <%@ page import="SurveyRelationDTO.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="User.UserDTO.*" %>
+<%@ page import="School.SchoolDTO.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,14 +47,14 @@
 	SurveyService surService = SurveyService.getInstance();
 	AnswerService ansService = AnswerService.getInstance();
 	StudentService stuService = StudentService.getInstance();
-	
+	SchoolService schService = SchoolService.getInstance();
 	String surIng = request.getParameter("surSeq");
 	int questionCount1 = surService.getSurveyNo(Integer.parseInt(surIng));
 	int questionCount = surService.getQuestionCount(questionCount1);
 	String strGrade = request.getParameter("grade");
 	int grade = Integer.parseInt(strGrade);
 	String SCID = request.getParameter("SCID");
-	
+	SchoolDTO schoolDTO = schService.getSchoolToSCID(SCID);
 	// 학교 학년에 몇반 까지 있는지 리스트 
 	ArrayList<Integer> classesList = new ArrayList<Integer>();
 	classesList = stuService.getStudentList(SCID, grade);
@@ -65,7 +66,6 @@
 	
 	ArrayList<SurveyGoingDTO> surGoingList = new ArrayList<SurveyGoingDTO>();
 	surGoingList = surService.showAllGoingSurveys();
-	SchoolService schService = SchoolService.getInstance();
 	
 	
 %>
@@ -80,7 +80,7 @@
 			<%if (surGoingList.size()==0){ %>
 			<h3> 설문조사가 진행중인 학교가 없습니다. </h3>
 			<%}else{  %>
-			<% String SCIDName = surGoingList.get(0).getSCID_name(); %>
+			<% String SCIDName = schoolDTO.getName(); %>
 			<div class="works-filter font-alt">
 					
 					<% for(int i=0; i<classesList.size(); i++){ %>
