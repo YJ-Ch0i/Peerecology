@@ -51,7 +51,7 @@ queTypes = queSerivce.showAllType();
 			<form method="post" action="/PeerSys/questionAdd.qs" id="form" role="form">
 			<% if(queTrands.size()!=0) {%>
 			척도 분류 : 
-			<select id="trandBigName" name="trand_managerID" class="input-md form-control" onChange="changeToBigTrand(this.value);"> 
+			<select id="trandBigName" name="trand_managerID" class="input-md form-control" onChange="BTselect(this.value);"> 
 			<option value="-1" selected>선택해주세요.</option>
 			<% for(int i=0; i<queBigTrands.size(); i++){ %>
 			<option value="<%=queBigTrands.get(i).getBigTrandID()%>"><%=queBigTrands.get(i).getDescript() %></option>
@@ -64,10 +64,8 @@ queTypes = queSerivce.showAllType();
             <p></p>
             <div id="trandTypeDiv" style="display:none;">
            	척도 이름 : 
-           	<select name="que_trandTypeID" class="input-md form-control"> 
-			<% for(int i=0; i<queBigTrands.size(); i++){ %>
-			<option value="<%=queTrands.get(i).getQ_trandType()%>"><%=queTrands.get(i).getQ_trandDescipt() %></option>
-			<%} %>
+           	<select id="que_trandTypeID" name="que_trandTypeID" class="input-md form-control"> 
+			<option value='-1'>척도를 선택 해 주세요</option>
 			</select>
 			<p></p>
 			</div>
@@ -161,6 +159,7 @@ queTypes = queSerivce.showAllType();
 	<script type="text/javascript" src="/PeerSys/style/js/all.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/contact-form.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.ajaxchimp.min.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/ajax/trandLoadAjax.js"></script>
 	<!--[if lt IE 10]><script type="text/javascript" src="js/placeholder.js"></script><![endif]-->
 
 </body>
