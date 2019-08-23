@@ -13,7 +13,7 @@ public class StudentScoresDTO {
 	private String bigTrandDesc;
 	private String trandDesc;
 	private int trandId;
-	private int score;
+	private double score;
 	private String year;
 	
 	
@@ -89,16 +89,16 @@ public class StudentScoresDTO {
 	public void setTrandId(int trandId) {
 		this.trandId = trandId;
 	}
-	public int getScore() {
+	public double getScore() {
 		return score;
 	}
-	public void setScore(int score) {
+	public void setScore(double score) {
 		this.score = score;
 	}
 	
 	public StudentScoresDTO() {}
 	public StudentScoresDTO(int ingseq, int surveyNo, String sCID, int grade, int grd_num, int stu_id, int bigTrandId,
-			int trandId, int score) {
+			int trandId, double score) {
 		super();
 		this.ingseq = ingseq;
 		this.surveyNo = surveyNo;

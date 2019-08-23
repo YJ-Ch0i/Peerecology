@@ -24,11 +24,11 @@ public class TrandLoadController implements Controller{
 		String btid = request.getParameter("btid").trim();		
 		int bigT = Integer.parseInt(btid);
 		
-		QuestionService queService = QuestionService.getInstance();		
-		ArrayList<QuestionTrandTypeDTO> tList = new ArrayList<>();
-		tList = queService.getTrandToBigTID(bigT);
-		
 		JsonArray trandJson = new JsonArray();
+		
+		QuestionService queService = QuestionService.getInstance();
+		ArrayList<QuestionTrandTypeDTO> tList = new ArrayList<>();		
+		tList = queService.getTrandToBigTID(bigT);
 		
 		//척도분류에 따른 척도의 jsonArray 생성
 		for(int i=0; i<tList.size(); i++) {

@@ -30,6 +30,7 @@ for(var i=0; i<trandList.length; i++){
 for(var i=0; i<endSurList.length; i++){
 	endSur_list.push(endSurList[i].surIngSeq);
 }
+console.log(scoresList);
 
 var scorelist = [];
 

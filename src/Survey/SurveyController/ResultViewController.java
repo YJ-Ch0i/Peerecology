@@ -69,7 +69,7 @@ public class ResultViewController implements Controller {
 		ArrayList<QuestionTrandTypeDTO> trandList = new ArrayList<>();
 		ArrayList<QuestionTrandManagerDTO> bigTrandList = new ArrayList<>();
 		trandList = queService.searchTrandList(surveyNo, ingSeq, scid);
-		bigTrandList = queService.getBigTrandList(scid, start, end);
+		bigTrandList = queService.searchBigTrandList(surveyNo, ingSeq, scid, start, end);
 		
 		Gson gson = new Gson();
 		
@@ -168,14 +168,19 @@ public class ResultViewController implements Controller {
 		}
 		
 		request.setAttribute("scid", scid);
+		request.setAttribute("ingSeq", ingSeq);
+		request.setAttribute("surNo", surveyNo);
 		request.setAttribute("startdate", start);
 		request.setAttribute("enddate", end);
 		request.setAttribute("title", title);
+		request.setAttribute("sch_name", sch_name);
+		request.setAttribute("grade", grade);
+		request.setAttribute("grd_num", grd_num);
+		request.setAttribute("year", year);
 		request.setAttribute("trandJson", trandJson);
 		request.setAttribute("bigTrandJson", bigTrandJson);
 		request.setAttribute("scoresJson", scoresJson);
 		request.setAttribute("stuJson", stuJson);
-		request.setAttribute("bigTrandList", bigTrandList);
 		request.setAttribute("bigTrandList", bigTrandList);
 		request.setAttribute("mixedTrand", mixedTrand);
 		request.setAttribute("endSurJson", endSurJson);

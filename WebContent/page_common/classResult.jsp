@@ -1,3 +1,4 @@
+<%@page import="java.sql.Date"%>
 <%@page import="com.google.gson.Gson"%>
 <%@page import="Service.QuestionService"%>
 <%@page import="SurveyRelationDTO.QuestionTrandTypeDTO"%>
@@ -58,7 +59,7 @@
 			<div class="relative container align-left">
 
 				<div class="row">
-					<h1 class="hs-line-11 font-alt mb-20 mb-xs-0">설문조사 결과</h1>
+					<h1 class="hs-line-11 font-alt mb-20 mb-xs-0"><%=request.getAttribute("year")%>학년도 <%=request.getAttribute("sch_name")%> <%=request.getAttribute("grade") %>학년 <%=request.getAttribute("grd_num") %>반 설문조사 결과</h1>
 				</div>
 			</div>
 		</section>
@@ -100,6 +101,12 @@
 						trandTobigTrand = queService.getTrandToBigTID(bigTrandList.get(i).getBigTrandID());						
 					}
 					Gson gson = new Gson();
+										
+					String scid = (String) request.getAttribute("scid");
+					int ingSeq = (Integer) request.getAttribute("ingSeq");
+					int surNo = (Integer)request.getAttribute("surNo");
+					Date startdate = (Date) request.getAttribute("startdate");
+					Date enddate = (Date) request.getAttribute("enddate");					
 					
 				%>
 				
@@ -146,14 +153,34 @@
 				
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">성향별 점수</h3>
+						<div class="row">
+							<div class="col-xs-4">
+								<h3 class="panel-title">척도 분류별 점수</h3>
+							</div>
+							<div class="col-xs-2">														
+								<select  id="trandBigName" class="input-md form-control" onChange="BTselect_result(this.value);">
+								<option value='-2' selected>선택 해 주세요</option>
+									<%for(int i=0; i<bigTrandList.size(); i++){ %>
+										<option value="<%=bigTrandList.get(i).getBigTrandID()%>"><%=bigTrandList.get(i).getDescript() %></option>
+									<%} %>
+								</select>
+							</div>
+						</div>
 					</div>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-12">
-								<div id="barchart" style="min-width:310px; max-width:600px; min-height:600px; max-height:1500px;">									
-								</div>
-								
+								<div class="row">
+									<div class="col-md-9" id="barchart" style="min-width:310px; max-width:600px; min-height:600px; max-height:1500px;">
+										<h2>척도 분류를 선택 해 주세요</h2>									
+									</div>		
+									<div class="col-md-5" style="text-align:center; min-width:450px; max-width:450px; min-height:600px; max-height:1500px; margin:0 auto">
+									<div class="row" style="text-align:center; min-width:300px; max-width:300px; margin:0 auto">
+											<br><br><br><br><br><br>
+											<label id="bigTdesc" class="control-label" for="inputWarning2"></label>
+										</div>
+									</div>
+								</div>						
 							<% for(int i=0; i<bigTrandList.size(); i++){ %>
 							<div class="row">
 								<div class="alert alert-warning" role="alert"></div>
@@ -218,8 +245,10 @@
 	<!--[if lt IE 10]><script type="text/javascript" src="js/placeholder.js"></script><![endif]-->
 	<script type="text/javascript" src="/PeerSys/style/js/studentTransfer.js"></script>
 	<!-- <script type="text/javascript" src="/PeerSys/style/js/visualize/stuBarGraph.js"></script> -->
-	<script type="text/javascript" src="/PeerSys/style/js/visualize/barSplineToResult.js"></script>
+	<!-- <script type="text/javascript" src="/PeerSys/style/js/visualize/barSplineToResult.js"></script> -->
+	<!-- <script type="text/javascript" src="/PeerSys/style/js/visualize/barSplineResultAjax.js"></script> -->
 	<script type="text/javascript" src="/PeerSys/style/js/visualize/raiderGph.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/ajax/trandLoadAjax.js"></script>
 	<!-- <script src="https://code.highcharts.com/highcharts.js"></script> -->
 	<!-- <script type="text/javascript" src="/PeerSys/style/js/visualize/barSpline.js"></script> -->
 	

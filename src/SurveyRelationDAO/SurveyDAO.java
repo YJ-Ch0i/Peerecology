@@ -459,7 +459,7 @@ public class SurveyDAO {
 			pstmt.setString(7, dto.getsName());
 			pstmt.setInt(8, dto.getBigTrandId());
 			pstmt.setInt(9, dto.getTrandId());
-			pstmt.setInt(10, dto.getScore());
+			pstmt.setDouble(10, dto.getScore());
 			pstmt.executeUpdate();
 			
 			return true;
@@ -987,7 +987,7 @@ public class SurveyDAO {
 				dto.setBigTrandDesc(rs.getString("bigDesc"));
 				dto.setTrandId(rs.getInt("trandID"));
 				dto.setTrandDesc(rs.getString("trDesc"));
-				dto.setScore(rs.getInt("score"));
+				dto.setScore(rs.getDouble("score"));
 				dto.setYear(rs.getString("year"));
 				
 				scoresList.add(dto);
@@ -1031,7 +1031,7 @@ public class SurveyDAO {
 				dto.setBigTrandDesc(rs.getString("bigDesc"));
 				dto.setTrandId(rs.getInt("trandID"));
 				dto.setTrandDesc(rs.getString("trDesc"));
-				dto.setScore(rs.getInt("score"));
+				dto.setScore(rs.getDouble("score"));
 				dto.setYear(rs.getString("year"));
 				
 				scoresList.add(dto);
