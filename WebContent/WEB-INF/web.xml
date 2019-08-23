@@ -65,6 +65,14 @@
     <servlet-name>AnswerFront</servlet-name>
     <url-pattern> *.as </url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>AjaxFront</servlet-name>
+    <servlet-class>AjaxController.FrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AjaxFront</servlet-name>
+    <url-pattern> *.ax </url-pattern>
+  </servlet-mapping>
   <context-param>
     <param-name>admin_id</param-name>
     <param-value>admin</param-value>

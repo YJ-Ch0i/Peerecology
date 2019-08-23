@@ -87,4 +87,7 @@ public class QuestionService {
 	public AllDescQuestionDTO showQuestion(int QID) {
 		return dao.showQuestion(QID);
 	}
+	public int countOfTrandQuestion(int surNo, int tId) {
+		return dao.countOfTrandQuestion(surNo, tId);
+	}
 }
