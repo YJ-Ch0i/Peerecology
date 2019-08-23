@@ -1,3 +1,13 @@
+function cal(array) {
+  var result = 0.0;
+
+  for (var i = 0; i < array.length; i++){
+    result += array[i];
+  }
+  return result;
+}
+
+
 function BTselect(value){
 	
 	if(value == -1)
@@ -89,10 +99,11 @@ $.ajax({
 		endSur_list.push(endSurList[i].surIngSeq);
 	}
 	
-	var scorelist = [];
 	
+	
+	console.log(trand_list)
 	console.log(scoresList);
-	
+	var scorelist = [];
 	//막대그래프를 위한 각 설문별 평균
 	for(var k=0; k<endSur_list.length; k++){
 		var avg = 0;
@@ -100,7 +111,6 @@ $.ajax({
 		var avgObj = new Object();
 		for(var i=0; i<trand_list.length; i++){
 			var entity = 0;
-			var seq = 0;
 			for(var j=0; j<scoresList.length; j++){							
 				if(endSur_list[k] == scoresList[j].surIngSeq){			
 					if(scoresList[j].trDesc === trand_list[i]){
@@ -109,18 +119,14 @@ $.ajax({
 					else continue;				
 				}						
 			}		
-			seq++;
 			avg = entity/stuList.length;
 			
 			//소수점 3자리에서 반올림하여 float으로 형변환
 			avglist.push(parseFloat(avg.toFixed(3)));
-			if(seq == avglist.length){			
-				avgObj.ingSeq = endSur_list[k];
-				avgObj.trID = trand_list[i];
-				avgObj.score = avglist;
-				scorelist.push(avgObj);
-			}
 		}
+		avgObj.ingSeq = endSur_list[k];
+		avgObj.score = avglist;
+		scorelist.push(avgObj);
 	}
 	
 	var serieses = [];
@@ -133,41 +139,43 @@ $.ajax({
 		serieses.push(forSeries);
 	}
 	
-	console.log(scorelist)
-	console.log(serieses);
 	
 	//스플라인 그래프를 위한 평균
-	var avglist = [];
-	for(var k=0; k<trandList.length; k++){
-		for(var i=0; i<scorelist.length; i++){
-			var sum = 0;
-			var avg = 0;
-			if(trandList[k].trandDesc == scorelist[i].trID){
-				for(var j=0; j<scorelist[i].score.length; j++){	
-					var x=i+1;
-					console.log(x);
-					if(x < scorelist.length || x == scorelist.length-1){
-						console.log(scorelist[i].score[j])
-						console.log(scorelist[x].score[j])
-						sum = scorelist[i].score[j] + scorelist[x].score[j];
-						avg = sum/scorelist.length;
-						avglist.push(parseFloat(avg.toFixed(3)));
-						
+	var scorelist2 = [];
+	for(var i=0; i<trand_list.length; i++){
+		var avg = 0;
+		var avglist = [];
+		var avgObj = new Object();
+		for(var k=0; k<endSur_list.length; k++){
+			var entity = 0;
+			for(var j=0; j<scoresList.length; j++){							
+				if(endSur_list[k] == scoresList[j].surIngSeq){			
+					if(scoresList[j].trDesc === trand_list[i]){
+						entity += scoresList[j].score;					
 					}
-					else if(x > scorelist.length){
-						break;
-					}
-				}
-			}			
-		}
+					else continue;				
+				}						
+			}		
+			avg = entity/stuList.length;
+			
+			//소수점 3자리에서 반올림하여 float으로 형변환
+			avglist.push(parseFloat(avg.toFixed(3)));
+		}			
+		avgObj.trID = trand_list[i];
+		avgObj.avgScore = cal(avglist)/endSur_list.length;
+		scorelist2.push(avgObj);
 	}
+	console.log(scorelist2);
 	
-	console.log(avglist);
+	var avglistSpline = [];
+	for(var i=0; i<scorelist2.length; i++){
+		avglistSpline.push(parseFloat(scorelist2[i].avgScore.toFixed(3)));
+	}
 	
 	var forSeries2 = new Object();
 	forSeries2.type = 'spline';
 	forSeries2.name = '전체 평균';
-	forSeries2.data = avglist;
+	forSeries2.data = avglistSpline;
 	console.log(forSeries2);
 	
 	serieses.push(forSeries2);
