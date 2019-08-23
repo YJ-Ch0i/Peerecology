@@ -690,7 +690,7 @@ public class SurveyDAO {
 		Connection conn=null;	
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL ="SELECT * FROM survey_manager  where surveyNo='"+surveyNo+"' AND QSeq >= ? ;" ;
+		String SQL ="SELECT * FROM survey_manager  where surveyNo='"+surveyNo+"' AND QSeq > ? ;" ;
 		try {
 			conn =DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);

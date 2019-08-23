@@ -68,7 +68,9 @@
 					href="/PeerSys/page_tea/SurveyResult/findSurveyPage.jsp"
 					class="mn-has-sub"> 설문조사 결과 </a> <!-- End Sub Multilevel --></li>
 				<!-- End Item With Sub -->
-
+				<li><a
+					href="/PeerSys/page_tea/ingManager/ingSurvey.jsp"
+					class="mn-has-sub"> 설문조사 진행 </a> <!-- End Sub Multilevel --></li>
 				<!-- Item With Sub -->
 				<li><a href="#" class="mn-has-sub active"> 학급 관리 <i
 						class="fa fa-angle-down"></i></a>
