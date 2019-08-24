@@ -42,7 +42,17 @@ $.ajax({
 
 
 function BTselect_result(value){
-	//var resultJson = document.getElementById('bigTrandAjax');
+	
+	if(value == -2)
+	{
+		$('#barSplineSector').hide();
+		$('#selectSector').show();			
+	}
+	else{
+		$('#barSplineSector').show();
+		$('#selectSector').hide();
+	}
+	
 $.ajax({
  type: "POST",
  url: "/PeerSys/trandLoad.ax",
@@ -57,8 +67,6 @@ $.ajax({
 	var endSurJson = document.getElementById("endSurJson").value;
 	var mixedTrand = document.getElementById("mixedTrand").value;
 	
-	console.log(trandList)
-	
 	var scoresList = JSON.parse(scoresJson);
 	var stuList = JSON.parse(stuJson);
 	var bigTrandList = JSON.parse(bigTrandJson);
@@ -67,7 +75,7 @@ $.ajax({
 	
 	var explanText;
 	var btDesc;
-	console.log(bigTrandList)
+	
 	for(var i=0; i<bigTrandList.length; i++){
 		if(bigTrandList[i].btID == value){
 			explanText = bigTrandList[i].explan;
@@ -185,7 +193,7 @@ $.ajax({
 	//하이차트
 	Highcharts.chart('barchart', {
 	    title: {
-	        text: btDesc + ' 평균점수'
+	        text: '학급 평균 : ' + btDesc
 	    },
 	    xAxis: {
 	        categories: trand_list

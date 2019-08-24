@@ -23,6 +23,7 @@ public class FrontController extends HttpServlet{
 		list = new HashMap<String, Controller>();
 		
 		list.put("/trandLoad.ax", new TrandLoadController());
+		list.put("/studentLoad.ax", new StudentLoadController());
 	}
 		
 	@Override

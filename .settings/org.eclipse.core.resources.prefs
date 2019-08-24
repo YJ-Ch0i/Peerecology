@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/AjaxController/StudentLoadController.java=UTF-8
 encoding//src/AjaxController/TrandLoadController.java=UTF-8
 encoding//src/User/AdminController/AdminLoginController.java=UTF-8
 encoding//src/User/TeacherController/EmailSendController.java=UTF-8

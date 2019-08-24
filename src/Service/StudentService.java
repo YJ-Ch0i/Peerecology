@@ -55,6 +55,10 @@ public class StudentService {
 		return dao.studentListAttend2(SCID, grade, grd_num, year);
 	}
 	
+	public ArrayList<StudentDTO> studentListAttend3(String SCID, int grade, int grd_num, String year) {
+		return dao.studentListAttend3(SCID, grade, grd_num, year);
+	}
+	
 	public boolean studentTransfer(StudentDTO dto) {
 		return dao.studentTransfer(dto);
 	}

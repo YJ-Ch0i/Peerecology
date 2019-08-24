@@ -94,6 +94,10 @@
 					mixedTrand = (ArrayList<String>) request.getAttribute("mixedTrand");
 					request.setAttribute("mixedTrand", mixedTrand);
 					
+					ArrayList<StudentDTO> attendList = new ArrayList<>();
+					attendList = (ArrayList<StudentDTO>) request.getAttribute("attendList");
+					request.setAttribute("attendList", attendList);
+					
 					QuestionService queService = QuestionService.getInstance();
 					ArrayList<QuestionTrandTypeDTO> trandTobigTrand = new ArrayList<>();
 					for(int i=0; i<bigTrandList.size(); i++){
@@ -155,10 +159,10 @@
 					<div class="panel-heading">
 						<div class="row">
 							<div class="col-xs-4">
-								<h3 class="panel-title">척도 분류별 점수</h3>
+								<h2 class="panel-title">척도 분류별 학급전체 점수</h2>
 							</div>
-							<div class="col-xs-2">														
-								<select  id="trandBigName" class="input-md form-control" onChange="BTselect_result(this.value);">
+							<div class="col-xs-3">														
+								<select id="trandBigName" class="input-md form-control" onChange="BTselect_result(this.value);">
 								<option value='-2' selected>선택 해 주세요</option>
 									<%for(int i=0; i<bigTrandList.size(); i++){ %>
 										<option value="<%=bigTrandList.get(i).getBigTrandID()%>"><%=bigTrandList.get(i).getDescript() %></option>
@@ -170,23 +174,51 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-12">
-								<div class="row">
-									<div class="col-md-9" id="barchart" style="min-width:310px; max-width:600px; min-height:600px; max-height:1500px;">
-										<h2>척도 분류를 선택 해 주세요</h2>									
+								<div id="barSplineSector" style="display:none;" class="row">
+									<div class="col-md-9" id="barchart" style="min-width:310px; max-width:600px; min-height:600px; max-height:1500px;">																		
 									</div>		
 									<div class="col-md-5" style="text-align:center; min-width:450px; max-width:450px; min-height:600px; max-height:1500px; margin:0 auto">
-									<div class="row" style="text-align:center; min-width:300px; max-width:300px; margin:0 auto">
+										<div class="row" style="text-align:center; min-width:300px; max-width:300px; margin:0 auto">
 											<br><br><br><br><br><br>
 											<label id="bigTdesc" class="control-label" for="inputWarning2"></label>
 										</div>
 									</div>
-								</div>						
-							<% for(int i=0; i<bigTrandList.size(); i++){ %>
+								</div>
+								<div id="selectSector" class="row">
+									<div class="col-md-9" id="barchart" style="min-width:310px; max-width:600px; min-height:200px; max-height:200px;">
+										<h2>척도 분류를 선택 해 주세요</h2>									
+									</div>		
+									<div class="col-md-5" style="text-align:center; min-width:450px; max-width:450px; min-height:200px; max-height:200px; margin:0 auto">
+										<div class="row" style="text-align:center; min-width:300px; max-width:300px; margin:0 auto">
+											<br><br><br><br><br><br>
+											<label id="bigTdesc" class="control-label" for="inputWarning2"></label>
+										</div>
+									</div>
+								</div>					
+													
 							<div class="row">
-								<div class="alert alert-warning" role="alert"></div>
-							</div>
+								<div class="alert alert-warning" role="alert">
+									<div class="row">
+										<div class="col-xs-4">
+											<h2 class="panel-title">학생별 점수</h2>
+										</div>
+										<div class="col-xs-3">														
+											<select id="studentSector" class="input-md form-control" onChange="studentSelector(this.value);">
+											<option value='-2' selected>학생을 선택 해 주세요</option>
+												<%for(int i=0; i<attendList.size(); i++){ %>
+													<option value=
+													'{"sid":"<%=attendList.get(i).getStu_id()%>","scid":"<%=attendList.get(i).getScid() %>","grade":"<%=attendList.get(i).getGrade() %>","grd_num":"<%=attendList.get(i).getGrd_num()%>","year":"<%=attendList.get(i).getYear()%>"}'><%=attendList.get(i).getName() %></option>													
+												<%} %>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>			
+							<% for(int i=0; i<bigTrandList.size(); i++){ %>
+							<hr size='5'>
+								<br>
 								<div class="row">															
-									<div class="col-md-9" id="rader<%=i %>" style="min-width:310px; max-width:600px; min-height:600px; max-height:1500px;">									
+									<div class="col-md-9" id="rader<%=bigTrandList.get(i).getBigTrandID() %>" style="min-width:310px; max-width:600px; min-height:600px; max-height:1500px;">									
 									</div>
 									<div class="col-md-5" style="text-align:center; min-width:450px; max-width:450px; min-height:600px; max-height:1500px; margin:0 auto">
 										<div class="row" style="text-align:center; min-width:300px; max-width:300px; margin:0 auto">
@@ -249,6 +281,7 @@
 	<!-- <script type="text/javascript" src="/PeerSys/style/js/visualize/barSplineResultAjax.js"></script> -->
 	<script type="text/javascript" src="/PeerSys/style/js/visualize/raiderGph.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/ajax/trandLoadAjax.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/ajax/stuResultRoaderAjax.js"></script>
 	<!-- <script src="https://code.highcharts.com/highcharts.js"></script> -->
 	<!-- <script type="text/javascript" src="/PeerSys/style/js/visualize/barSpline.js"></script> -->
 	

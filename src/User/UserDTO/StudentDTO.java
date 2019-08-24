@@ -14,6 +14,7 @@ public class StudentDTO {
 	private int gender;
 	private Date lastChangeDate;
 	private boolean isTransfer;
+	private String year;
 	
 	public int getStu_id() {
 		return stu_id;
@@ -75,7 +76,12 @@ public class StudentDTO {
 	public void setTransfer(boolean isTransfer) {
 		this.isTransfer = isTransfer;
 	}
-	
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
+	}
 	public StudentDTO() {}
 	
 	/**
@@ -103,6 +109,34 @@ public class StudentDTO {
 		this.tea_id = tea_id;
 		this.gender = gender;
 		this.lastChangeDate = lastChangeDate;
+		this.isTransfer = isTransfer;
+	}
+	
+	/**
+	 * 생성연월일 대신 연도만 체크
+	 * @param stu_id
+	 * @param name
+	 * @param scid
+	 * @param grade
+	 * @param grd_num
+	 * @param num
+	 * @param tea_id
+	 * @param gender
+	 * @param isTransfer
+	 * @param year
+	 */
+	public StudentDTO(int stu_id, String name, String scid, int grade, int grd_num, int num, String tea_id, int gender,
+			String year, boolean isTransfer) {
+		super();
+		this.stu_id = stu_id;
+		this.name = name;
+		this.scid = scid;
+		this.grade = grade;
+		this.grd_num = grd_num;
+		this.num = num;
+		this.tea_id = tea_id;
+		this.gender = gender;
+		this.year = year;
 		this.isTransfer = isTransfer;
 	}
 	

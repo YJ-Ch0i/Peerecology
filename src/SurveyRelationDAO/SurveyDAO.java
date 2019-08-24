@@ -1047,4 +1047,50 @@ public class SurveyDAO {
 		}
 		return scoresList;
 	}
+	
+	public ArrayList<StudentScoresDTO> getStudentScores(String SCID, int grade, int grd_num, int stuid, String year) {
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<StudentScoresDTO> scoresList = new ArrayList<>();
+		
+		String sql = "SELECT * FROM stu_scores WHERE SCID=? AND grade=? AND grd_num=? AND studentID=? AND year=?";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, SCID);
+			pstmt.setInt(2, grade);
+			pstmt.setInt(3, grd_num);
+			pstmt.setInt(4, stuid);
+			pstmt.setString(5, year);	
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {				
+				StudentScoresDTO dto = new StudentScoresDTO();
+				dto.setIngseq(rs.getInt("ingSeq"));
+				dto.setSurveyNo(rs.getInt("surveyNo"));
+				dto.setStu_id(rs.getInt("studentID"));
+				dto.setsName(rs.getString("studentName"));
+				dto.setBigTrandId(rs.getInt("bigTrandID"));
+				dto.setBigTrandDesc(rs.getString("bigDesc"));
+				dto.setTrandId(rs.getInt("trandID"));
+				dto.setTrandDesc(rs.getString("trDesc"));
+				dto.setScore(rs.getDouble("score"));
+				dto.setYear(rs.getString("year"));
+				
+				scoresList.add(dto);
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return scoresList;
+	}
 }

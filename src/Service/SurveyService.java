@@ -120,6 +120,9 @@ public class SurveyService {
 	}
 	
 	public ArrayList<SurveyGoingDTO> getCalculatedClassSurveyList(int grade, String year) throws ParseException {
-	return dao.getCalculatedClassSurveyList(grade, year);
+		return dao.getCalculatedClassSurveyList(grade, year);
+	}
+	public ArrayList<StudentScoresDTO> getStudentScores(String SCID, int grade, int grd_num, int stuid, String year) {
+		return dao.getStudentScores(SCID, grade, grd_num, stuid, year);
 	}
 }

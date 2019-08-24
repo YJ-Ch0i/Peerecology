@@ -394,6 +394,38 @@ public class StudentDAO {
 		return list;
 	}
 	
+	public ArrayList<StudentDTO> studentListAttend3(String SCID, int grade, int grd_num, String year) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs = null;
+		
+		ArrayList<StudentDTO> list = new ArrayList<>();
+		
+		String sql = "SELECT SID, NAME, SCID, grade, class, num, TID, gender, YEAR(lastChangeDate), isTransfer FROM user_students WHERE SCID=? and grade=? and class=? and YEAR(lastChangeDate)=? AND isTransfer=1 ORDER BY num";
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, SCID);
+			pstmt.setInt(2, grade);
+			pstmt.setInt(3, grd_num);
+			pstmt.setString(4, year);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				list.add(new StudentDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getString(7), rs.getInt(8), rs.getString(9), rs.getBoolean(10)));
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return list;
+	}
+	
 	public boolean studentTransfer(StudentDTO dto) {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
