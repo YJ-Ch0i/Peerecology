@@ -1,5 +1,5 @@
-<%@page import="view.viewDTO.SearchEndsurveyDTO"%>
-<%@page import="Service.SurveyService"%>
+<%@page import="School.SchoolDTO.SchoolDTO"%>
+<%@page import="Service.SchoolService"%>
 <%@page import="User.UserDTO.TeacherDTO"%>
 <%@page import="User.UserDTO.StudentDTO"%>
 <%@page import="java.util.ArrayList"%>
@@ -31,15 +31,23 @@
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+
 </head>
 
 <% String tea_id = (String)session.getAttribute("tea_id"); 
    TeacherService service = TeacherService.getInstance();
    Boolean isEmailChecked =service.getEamilChecked(tea_id);
-   if(isEmailChecked==false){ %>
-<script> 
-   alert("이메일 인증 먼저 해주세요.");
-   location.href="/PeerSys/page_tea/login.jsp";
+   
+   if(session.getAttribute("tea_id") == null){%>
+   <script>
+   		alert("로그인을 해주세요.");
+		location.href="/PeerSys/page_tea/login.jsp";
+   </script>
+   <%} else if(isEmailChecked==false){ %>
+	<script> 
+   		alert("이메일 인증 먼저 해주세요.");
+   		location.href="/PeerSys/page_tea/login.jsp";
    </script>
 <%} %>
 <body class="appear-animate">
@@ -62,7 +70,7 @@
 			<div class="relative container align-left">
 
 				<div class="row">
-					<h1 class="hs-line-11 font-alt mb-20 mb-xs-0">설문조사 선택</h1>
+					<h1 class="hs-line-11 font-alt mb-20 mb-xs-0">전체 학급</h1>
 				</div>
 			</div>
 		</section>
@@ -71,38 +79,68 @@
 
 		<!-- Section -->
 		<section class="page-section">
+		준비중
+		<!-- 준비중 
 			<div class="container relative">
-
+				
 				<%                    
                    TeacherService teaService = TeacherService.getInstance();    
-				   TeacherDTO teacher = teaService.teacherInfo(tea_id); 
-				   ArrayList<SearchEndsurveyDTO> list = new ArrayList<SearchEndsurveyDTO>();
-                   SurveyService surService = SurveyService.getInstance();
-                   list = surService.searchEndSurvey(teacher.getSCID());				 
-                   %>               
-                   
-				<div class="row">				
-
-					<% for(int i=0; i<list.size(); i++){ %>
-						<form action="/PeerSys/resultTeacher.sv" method="post">
-							<input type="hidden" value="<%=list.get(i).getSurveyNo() %>" name="surveyNo">
-							<input type="hidden" value="<%=list.get(i).getIngSeq() %>" name="ingSeq">
-							<input type="hidden" value="<%=list.get(i).getSCID() %>" name="scid">
-							<input type="hidden" value="<%=list.get(i).getStartDate() %>" name="startdate">
-							<input type="hidden" value="<%=list.get(i).getEndDate() %>" name="enddate">
-							<input type="hidden" value="<%=list.get(i).getTitle() %>" name="title">
-							<button type="submit"
-								class="btn btn-mod btn-circle btn-medium" style="width: 50%; margin-bottom: 10px;">
-								<%= i+1%> ) <%=list.get(i).getTitle() %> - 종료일 : <%= list.get(i).getEndDate() %> 
-							</button>
-						</form>
-					
-					<%} %>
-
-					<!-- End Col -->
-
-				</div>
+				   TeacherDTO teacher = teaService.teacherInfo(tea_id);
+				   SchoolService schService = SchoolService.getInstance();	
+				   SchoolDTO school = schService.getSchoolToSCID(teacher.getSCID());
+                   StudentService studentService = StudentService.getInstance();
+                   ArrayList<StudentDTO> stu_list = studentService.studentListAttend(tea_id, teacher.getSCID(), teacher.getGrade(), teacher.getClasses());             
+                   %>
+				 <div class="row">
+				 	<h3 class="hs-line-11 font-alt mb-20 mb-xs-0">설문 진행 현황</h3>
+				 	<div class="col-md-10"></div>
+                 </div>
+                 <div class="row">
+                 	<br>                
+                 </div>
+                 <div class="row">
+                  	<div>       
+                        <table class="table table-striped" style="text-align:center">
+                        <thead>
+                            <tr>
+                                <th class=""> 학교 </th>
+                                <th> 학년 </th>
+                                <th> 반 </th>
+                                <th> 번호 </th>
+                                <th> 성별 </th>
+                                <th> 이름 </th>
+                                <th> 설문 여부 </th>
+                            </tr>
+                         </thead>
+                            <%
+                           		String gender = "";
+                            	String transf = ""; 
+                            	for(StudentDTO stu : stu_list){ if(stu.getGender() == 1){ gender = "남자"; }
+                            		if(stu.getGender() == 2){ gender = "여자"; }
+                            %>
+                            <tbody>
+                            <tr>
+                                <td class="hidden-xs">   <%=school.getName() %>   </td>
+                                <td>  <%=stu.getGrade() %> 학년 </td>
+                                <td> <%=stu.getGrd_num() %> 반 </td>
+                                <td>  <%=stu.getNum() %> </td>
+                                <td>  <%=gender %> </td>
+                                <td> <%=stu.getName() %> </td>
+                                <td>                      
+                                	 11/0
+                                </td>
+                                
+                            <% } %>
+                            </tr>
+                            </tbody>
+                    	</table>
+                    	<ul class="pagination" style="list-stlye-type:none; text-align:center ">
+				  
+						</ul>
+	            	</div>	     	            	      
+	            </div>                               
 			</div>
+			-->
 		</section>
 		<!-- End Section -->
 
@@ -115,6 +153,7 @@
 
 
 	<!-- JS -->
+	<script type="text/javascript" src="/PeerSys/style/js/pagingScript.js?version=2"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/bootstrap.min.js"></script>
@@ -139,8 +178,8 @@
 	<script type="text/javascript" src="/PeerSys/style/js/all.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/contact-form.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.ajaxchimp.min.js"></script>
-	<script type="text/javascript" src="/PeerSys/style/js/studentTransfer.js"></script>
 	<!--[if lt IE 10]><script type="text/javascript" src="js/placeholder.js"></script><![endif]-->
+	<script type="text/javascript" src="/PeerSys/style/js/studentTransfer.js"></script>
 
 </body>
 </html>

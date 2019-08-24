@@ -1,18 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<% 
-if(session.getAttribute("stu_id") == null) { %>
-<script>
-	alert("로그인을 해주시기 바랍니다.");
-	location.href="/Survey/index.jsp";
-	</script>
-<%	
-}else if(session.getAttribute("admin_id")!=null || session.getAttribute("tea_id")!=null){%>
-<script>
-	alert("학생만 사용할수 있는 페이지입니다.");
-	location.href="/Survey/index.jsp";
-	</script>
 <%
-}
+	String stu_id = (String) session.getAttribute("stu_id");
+	if(stu_id == null){
 %>
+<script>
+alert("잘못된 접근입니다.");
+location.href="/PeerSys/index.jsp";
+</script>
+
+<% return; } %>

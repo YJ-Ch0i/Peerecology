@@ -7,6 +7,7 @@
 <%@ page import="Service.StudentService"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="User.UserDTO.StudentDTO"%>
+<%@ include file="/pageInclude/CheckTeacherLogin.jsp"%>
 <head>
 <title>Rhythm &mdash; One & Multi Page Creative Theme</title>
 <meta name="description" content="">

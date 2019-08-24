@@ -41,7 +41,9 @@ public class StudentService {
 	public ArrayList<StudentDTO> studentListInClass(String SCID, int grade, int grd_num) {
 		return dao.studentListInClass(SCID, grade, grd_num);
 	}
-	
+	public ArrayList<Integer> getStudentList(String SCID, int grade) {
+		return dao.getStudentList(SCID, grade);
+	}
 	public ArrayList<StudentDTO> studentListAttend (String TID, String SCID, int grade, int grd_num) {
 		return dao.studentListAttend(TID, SCID, grade, grd_num);
 	}
@@ -51,6 +53,10 @@ public class StudentService {
 	
 	public ArrayList<StudentDTO> studentListAttend2(String SCID, int grade, int grd_num, String year) {
 		return dao.studentListAttend2(SCID, grade, grd_num, year);
+	}
+	
+	public ArrayList<StudentDTO> studentListAttend3(String SCID, int grade, int grd_num, String year) {
+		return dao.studentListAttend3(SCID, grade, grd_num, year);
 	}
 	
 	public boolean studentTransfer(StudentDTO dto) {

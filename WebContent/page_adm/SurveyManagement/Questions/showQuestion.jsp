@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="/pageInclude/CheckAdminLogin.jsp"%>
 <script>
 function confirmUpdate()
 {

@@ -4,6 +4,7 @@
 <%@ page import="Service.TeacherService"%>
 <%@ page import="java.util.Enumeration"%>
 <%@ page import="User.UserDTO.TeacherDTO" %>
+<%@ include file="/pageInclude/CheckTeacherLogin.jsp"%>
 <% String tea_id = (String)session.getAttribute("tea_id"); 
    String uploadPath = request.getSession().getServletContext().getRealPath("/upload/");
    String realUploadPath = uploadPath.substring(12);

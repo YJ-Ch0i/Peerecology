@@ -604,5 +604,31 @@ public class QuestionDAO {
 		return questionOfferList;
 	}
 	
+	public int countOfTrandQuestion(int surNo, int tId) {
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		String SQL ="SELECT COUNT(sm.`QID`) FROM survey_manager AS sm, question AS q, q_trand_type AS qtt WHERE sm.surveyNo=? AND q.`Ttype`=qtt.`q_trandID` AND q.`QID`=sm.`QID` AND q.`Ttype`=?";
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, surNo);
+			pstmt.setInt(2,  tId);
+            rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return result;
+	}
+	
 }
 

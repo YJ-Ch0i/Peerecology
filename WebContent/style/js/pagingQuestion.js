@@ -21,12 +21,15 @@ function pagination(){
       jQuery(this).hide();
       if(i+1 <= req_num_row){
                 $tr.eq(i).show();
+                $tr.eq(i).css("display","block");
             }
         });
   
         jQuery('.pagination a').click('.pagination-link', function(e){
             e.preventDefault();
             $tr.hide();
+            $tr.css("display","none");
+            
             var page=jQuery(this).text();
             var temp=page-1;
             var start=temp*req_num_row;
@@ -37,6 +40,7 @@ function pagination(){
     
             for(var i=0; i< req_num_row; i++){
                 $tr.eq(start+i).show();
+                $tr.eq(start+i).css("display","block");
             }
       
       if(temp >= 1){

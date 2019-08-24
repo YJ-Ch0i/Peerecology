@@ -77,6 +77,8 @@ public class ResultCalculateController implements Controller {
 		ArrayList<QuestionTrandManagerDTO> bigTrandList = new ArrayList<>();
 		bigTrandList = queService.getBigTrandList(scid, start, end);
 		
+		
+		
 		ArrayList<StudentScoresDTO> stu_scoreList = new ArrayList<>();
 		
 		for (int l = 0; l < trandList.size(); l++) {
@@ -127,6 +129,14 @@ public class ResultCalculateController implements Controller {
 									else continue;
 								}
 							}
+						int queCount = queService.countOfTrandQuestion(survey_no, trandList.get(l).getQ_trandType());						
+						double finScore = 0;
+						if(queCount != 0) {
+							finScore = (double)total/queCount;							
+						}
+						else if(queCount == 0) {
+							continue;
+						}		
 						
 						students.setStu_id(attendList.get(n).getStu_id());
 						students.setsName(attendList.get(n).getName());
@@ -137,7 +147,7 @@ public class ResultCalculateController implements Controller {
 						students.setSCID(scid);
 						students.setGrade(attendList.get(n).getGrade());
 						students.setGrd_num(attendList.get(n).getGrd_num());
-						students.setScore(total);				          
+						students.setScore(finScore);				          
 						
 						boolean isRegist = surService.calculateSurvey(students);
 						

@@ -53,7 +53,7 @@ public class ResultViewController implements Controller {
 		
 		ArrayList<StudentDTO> attendList = new ArrayList<>();
 		// 재학생 리스트
-		attendList = stuService.studentListAttend2(scid, grade, grd_num, year);
+		attendList = stuService.studentListAttend3(scid, grade, grd_num, year);
 		
 		ArrayList<StudentScoresDTO> scoresList = new ArrayList<>();
 		//scoresList = surService.getClassesScores(ingSeq, surveyNo, scid, grade, grd_num);
@@ -69,7 +69,7 @@ public class ResultViewController implements Controller {
 		ArrayList<QuestionTrandTypeDTO> trandList = new ArrayList<>();
 		ArrayList<QuestionTrandManagerDTO> bigTrandList = new ArrayList<>();
 		trandList = queService.searchTrandList(surveyNo, ingSeq, scid);
-		bigTrandList = queService.getBigTrandList(scid, start, end);
+		bigTrandList = queService.searchBigTrandList(surveyNo, ingSeq, scid, start, end);
 		
 		Gson gson = new Gson();
 		
@@ -107,7 +107,7 @@ public class ResultViewController implements Controller {
 			bigTrandJson.add(json);
 		}
 				
-		//학생점수들 json
+		//모든 재학생점수들 json
 		ArrayList<String> scoresJson = new ArrayList<>();
 		JsonObject scoresObject = new JsonObject();
 		for(int i=0; i<scoresList.size(); i++) {
@@ -168,14 +168,20 @@ public class ResultViewController implements Controller {
 		}
 		
 		request.setAttribute("scid", scid);
+		request.setAttribute("ingSeq", ingSeq);
+		request.setAttribute("surNo", surveyNo);
 		request.setAttribute("startdate", start);
 		request.setAttribute("enddate", end);
 		request.setAttribute("title", title);
+		request.setAttribute("sch_name", sch_name);
+		request.setAttribute("grade", grade);
+		request.setAttribute("grd_num", grd_num);
+		request.setAttribute("year", year);
+		request.setAttribute("attendList", attendList);
 		request.setAttribute("trandJson", trandJson);
 		request.setAttribute("bigTrandJson", bigTrandJson);
 		request.setAttribute("scoresJson", scoresJson);
 		request.setAttribute("stuJson", stuJson);
-		request.setAttribute("bigTrandList", bigTrandList);
 		request.setAttribute("bigTrandList", bigTrandList);
 		request.setAttribute("mixedTrand", mixedTrand);
 		request.setAttribute("endSurJson", endSurJson);

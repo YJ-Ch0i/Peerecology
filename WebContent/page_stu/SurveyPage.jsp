@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="/pageInclude/CheckStudentLogin.jsp"%>
 <title>Rhythm &mdash; One & Multi Page Creative Theme</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
@@ -30,16 +31,32 @@
 
 </head>
 <body class="appear-animate">
+
 	<%
+	StudentService stuService = StudentService.getInstance();
+
+	ArrayList<StudentDTO> OtherStuList = new ArrayList<StudentDTO>();
+	OtherStuList = stuService.findStudentToGradeSCID(Integer.parseInt((String)session.getAttribute("stu_id")),(String)session.getAttribute("sch_code"), Integer.parseInt((String)session.getAttribute("grade")), Integer.parseInt((String)session.getAttribute("grd_num")));
+
 	//설문지의 question 인덱스들
+	
+	String pageNumber = "1";
+	
+	if(request.getParameter("pageNumber")!=null)
+	{
+		pageNumber = request.getParameter("pageNumber");
+	}
+	
+	SurveyService surService = SurveyService.getInstance();
+	int surveyNo = (int)session.getAttribute("surveyNo");
+	
 	ArrayList<SurveyManagerDTO> queManagerList = new ArrayList<SurveyManagerDTO>();
-	queManagerList = (ArrayList<SurveyManagerDTO>)request.getAttribute("questionsDTO");
+	queManagerList = surService.pagingShowQuestionsToManager(surveyNo,pageNumber);
 	
 	AllDescQuestionDTO queList = new AllDescQuestionDTO();
 	// 같은 반 다른학생들의 정보
-	ArrayList<StudentDTO> OtherStuList = new ArrayList<StudentDTO>();
-	OtherStuList = (ArrayList<StudentDTO>)session.getAttribute("OtherStuList");
 	QuestionService queSerivce = QuestionService.getInstance();
+	
     %>
 	<!-- Page Loader -->
 	<div class="page-loader">
@@ -78,7 +95,7 @@
 	<% 
 		queList = queSerivce.showQuestion(queManagerList.get(i).getQID()); 
 	%>
-	<h4><%=i+1%>번 . <%= queList.getQue_title() %></h4>
+	<h4><%= ((Integer.parseInt(pageNumber)-1)*10) + i + 1 %>번 . <%= queList.getQue_title() %></h4>
 	<p></p>
 	
 	<!-- 문항보기 -->
@@ -118,8 +135,14 @@
 	<%} %>
 	</div>
 	<%} %>
+	<input type="hidden" name="pageNumbering" value="<%=pageNumber %>">
+	<!-- paging -->
 	
-	<input type="submit" style="float:right" class="btn btn-mod btn-medium btn-round" >
+	<%if(surService.nextPage(surveyNo, pageNumber)){ %>
+	<input type="submit" value="다음" class="btn btn-mod btn-medium btn-round" style="float:right"> <!-- +1 -->
+	<%}else{ %>
+	<input type="submit" value="제출" class="btn btn-mod btn-medium btn-round" style="float:right"> <!-- +1 -->
+	<%} %>
 	</form>
 	</div>
 	</div>

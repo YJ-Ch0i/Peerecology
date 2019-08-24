@@ -28,14 +28,10 @@ public class StudentLoginController implements Controller {
 		String sch_code = request.getParameter("sch_code");
 		String stu_num = request.getParameter("stu_num");
 		
-		StudentService stuService = StudentService.getInstance();
-		ArrayList<StudentDTO> OtherStuList = new ArrayList<StudentDTO>();
-		OtherStuList = stuService.findStudentToGradeSCID(Integer.parseInt(stu_id),sch_code, Integer.parseInt(grade), Integer.parseInt(grd_num));
-		
 		session.setAttribute("stu_id", stu_id);
-		session.setAttribute("OtherStuList", OtherStuList);
 		session.setAttribute("stu_desc", sch_name +" "+grade + "학년 " + grd_num + "반 " + stu_name);
 		session.setAttribute("sch_code", sch_code);
+		session.setAttribute("grd_num", grd_num);
 		session.setAttribute("grade", grade);
 		session.setAttribute("stu_num", stu_num);
 		

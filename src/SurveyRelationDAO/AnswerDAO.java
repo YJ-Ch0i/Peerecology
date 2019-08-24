@@ -92,4 +92,31 @@ public class AnswerDAO {
 		}
 		return list;
 	}
+	public int getAnswersCount(int ingSeq, int studentID) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<SurveyAnswerDTO> list = new ArrayList<>();
+		
+		String sql = "SELECT * FROM survey_answer WHERE ingSeq=? and studentID=?";
+		int count = 0;
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ingSeq);
+			pstmt.setInt(2, studentID);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				count++;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return count;
+	}
 }

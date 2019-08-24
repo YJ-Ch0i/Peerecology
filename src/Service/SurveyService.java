@@ -33,8 +33,20 @@ public class SurveyService {
 	public ArrayList<SurveyDTO> showAllSurveys(){
 		return dao.showAllSurveys();
 	}
+	public ArrayList<SurveyManagerDTO> pagingShowQuestionsToManager(int surveyNo, String pageNumber){
+		return dao.pagingShowQuestionsToManager(surveyNo, pageNumber);
+	}
 	public ArrayList<SurveyManagerDTO> showQuestionsToManager(int surveyNo){
 		return dao.showQuestionsToManager(surveyNo);
+	}
+	public int getSurveyNo(int surIngNo){
+		return dao.getSurveyNo(surIngNo);
+	}
+	public int getQuestionCount(int surveyNo) {
+		return dao.getQuestionCount(surveyNo);
+	}
+	public boolean nextPage(int surveyNo, String pageNumber){
+		return dao.nextPage(surveyNo, pageNumber);
 	}
 	public ArrayList<SurveyDTO> showSearchSurveys(String version_title){
 		return dao.showSearchSurveys(version_title);
@@ -108,6 +120,9 @@ public class SurveyService {
 	}
 	
 	public ArrayList<SurveyGoingDTO> getCalculatedClassSurveyList(int grade, String year) throws ParseException {
-	return dao.getCalculatedClassSurveyList(grade, year);
+		return dao.getCalculatedClassSurveyList(grade, year);
+	}
+	public ArrayList<StudentScoresDTO> getStudentScores(String SCID, int grade, int grd_num, int stuid, String year) {
+		return dao.getStudentScores(SCID, grade, grd_num, stuid, year);
 	}
 }

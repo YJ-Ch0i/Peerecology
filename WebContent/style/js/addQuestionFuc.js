@@ -45,6 +45,7 @@ function changeToBigTrand(offerSeq)
 	else{
 		$('#trandTypeDiv').show();
 		}
+	var changeBigTrandValue = $('#trandBigName').val();
 }
 function addInput(offerSeq) {
 var strInput = "";

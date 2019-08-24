@@ -7,6 +7,7 @@
 <%@ page import="java.util.Enumeration"%>
 <%@ page import="com.oreilly.servlet.*"%>
 <%@ page import="com.oreilly.servlet.multipart.*"%>
+<%@ include file="/pageInclude/CheckTeacherLogin.jsp"%>
 
 <%
 	request.setCharacterEncoding("UTF-8");
