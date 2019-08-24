@@ -48,7 +48,7 @@ public class QuestionDAO {
 		ResultSet rs = null;
 		ArrayList<QuestionTrandTypeDTO> trandList = new ArrayList<QuestionTrandTypeDTO>();
 		
-		String sql = "SELECT Ttype, bigTrandID, qttdes FROM student_answer WHERE surveyNo=? AND ingSeq=? AND scid=? GROUP BY Ttype ORDER BY num, QID";
+		String sql = "SELECT Ttype, bigTrandID, qttdes FROM student_answer WHERE surveyNo=? AND ingSeq=? AND scid=? GROUP BY Ttype";
 		
 		try {
 			conn = DBConn.getConnection();
