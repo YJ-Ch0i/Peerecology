@@ -110,4 +110,13 @@ public class StudentScoresDTO {
 		this.trandId = trandId;
 		this.score = score;
 	}
+	@Override
+	public String toString() {
+		return "{ingseq=" + ingseq + ", surveyNo=" + surveyNo + ", SCID=" + SCID + ", grade=" + grade
+				+ ", grd_num=" + grd_num + ", stu_id=" + stu_id + ", sName=" + sName + ", bigTrandId=" + bigTrandId
+				+ ", bigTrandDesc=" + bigTrandDesc + ", trandDesc=" + trandDesc + ", trandId=" + trandId + ", score="
+				+ score + ", year=" + year + "}";
+	}
+	
+	
 }
