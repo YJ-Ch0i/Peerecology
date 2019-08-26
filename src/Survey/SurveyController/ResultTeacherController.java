@@ -54,7 +54,7 @@ public class ResultTeacherController implements Controller {
 
 		StudentService stuService = StudentService.getInstance();
 		ArrayList<StudentDTO> attendList = new ArrayList<>();
-		attendList = stuService.studentListAttend(tea_id, teacher.getSCID(), teacher.getGrade(), teacher.getClasses());
+		attendList = stuService.studentListAttend(tea_id, teacher.getSCID(), teacher.getGrade(), teacher.getClasses(), teacher.getLastChangeYear());
 
 		SurveyService surService = SurveyService.getInstance();
 

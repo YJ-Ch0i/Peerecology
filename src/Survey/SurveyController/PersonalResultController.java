@@ -55,7 +55,7 @@ public class PersonalResultController implements Controller {
 
 		StudentService stuService = StudentService.getInstance();
 		ArrayList<StudentDTO> attendList = new ArrayList<>();
-		attendList = stuService.studentListAttend(tea_id, teacher.getSCID(), teacher.getGrade(), teacher.getClasses());
+		attendList = stuService.studentListAttend(tea_id, teacher.getSCID(), teacher.getGrade(), teacher.getClasses(), teacher.getLastChangeYear());
 		//재학생 리스트
 
 		SurveyService surService = SurveyService.getInstance();
