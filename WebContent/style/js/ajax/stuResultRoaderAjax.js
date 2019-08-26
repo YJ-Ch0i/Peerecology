@@ -10,15 +10,15 @@ function cal(array) {
 
 function studentSelector(value){
 	
-	/*if(value == -2)
+	if(value == -2)
 	{
-		$('#barSplineSector').hide();
-		$('#selectSector').show();			
+		$('#radarSector').hide();
+		$('#radarSelectSector').show();			
 	}
 	else{
-		$('#barSplineSector').show();
-		$('#selectSector').hide();
-	}*/
+		$('#radarSector').show();
+		$('#radarSelectSector').hide();
+	}
 	
 	var jsonValue = JSON.parse(value);
 	
@@ -37,133 +37,108 @@ $.ajax({
 	var trandJson = document.getElementById("trandJson").value;
 	var bigTrandJson = document.getElementById("bigTrandJson").value;
 	var endSurJson = document.getElementById("endSurJson").value;
-	var mixedTrand = document.getElementById("mixedTrand").value;
 	
 	var trandList = JSON.parse(trandJson);
 	var bigTrandList = JSON.parse(bigTrandJson);
 	var endSurList = JSON.parse(endSurJson);
-	var mixTrand = JSON.parse(mixedTrand);
 	
-	console.log(trandList);
-	console.log(stuScoresList);
-	console.log(bigTrandList)
-	
-	var explanText;
-	var btDesc;
-	
-	var score_list = [];
-	var trand_list = [];
-	var stu_list = [];
-	var bigTrand_list = [];
+//	console.log(trandList);
+//	console.log(stuScoresList);
+//	console.log(bigTrandList)
+
 	var endSur_list = [];
 	
-	for(var i=0; i<trandList.length; i++){
-		trand_list.push(trandList[i].trandDesc);
-	}
 	for(var i=0; i<endSurList.length; i++){
 		endSur_list.push(endSurList[i].surIngSeq);
 	}
-	
-	var serieses = [];
-	var trl = [];
-	for(var k=0; k<endSur_list.length; k++){
-		for(var i=0; i<bigTrandList.length; i++){
-			var obj = new Object();
-			var tr_list = [];
-			var scores_list = [];
-			for(var j=0; j<stuScoresList.length; j++){
-				if(endSur_list[k] === stuScoresList[j].ingSeq){
-					if(bigTrandList[i].btID === stuScoresList[j].btid){
-						if(stuScoresList[j].trdesc != ""){
-							tr_list.push(stuScoresList[j].trdesc);
-						}
-						else continue;
-						scores_list.push(stuScoresList[j].score);
-					}
-					else continue;
-				}
-				else continue;
-			}
-			console.log(endSur_list[k])
-			console.log(tr_list);
-			console.log(scores_list)
-			obj.seq = endSur_list[k];
-			obj.trlist = tr_list;
-			obj.btid = bigTrandList[i].btID;
-			obj.scoreslist = scores_list;
-			trl.push(obj);
-		}
-	}
-	console.log(trl);
-	
-	/*var serieses = [];
-	for(var k=0; k<endSur_list.length; k++){
-		for(var j=0; j<trl.length; j++){
-			if(bigTrandList[i].btID == trl[j].btid){
-				var forSeries = new Object();
-				forSeries.type = 'column';
-				//forSeries.name = ()
-			}
-		}
-		console.log(scores);
-	}*/
-	var scorelist = [];
-	
-	for(var k=0; k<endSur_list.length; k++){
-		var avg = 0;
-		var avglist = [];
-		var avgObj = new Object();
-		for(var i=0; i<trand_list.length; i++){
-			var entity = 0;
-			for(var j=0; j<stuScoresList.length; j++){
-				var ovj = new Object();
-				if(endSur_list[k] == stuScoresList[j].ingSeq){			
-					if(stuScoresList[j].trdesc === trand_list[i]){
-						obj.entity = stuScoresList[j].score;
-						obj.btid = stuScoresList[j].btid;						
-						obj.trid = stuScoresList[j].trid;
-						console.log(endSur_list[k])
-						console.log(obj.entity);
-						console.log(obj.btid);
-						console.log(obj.trid);
-						console.log('');
-						avglist.push(obj);
-					}
-					else continue;				
-				}				
-			}
-		}
-		avgObj.ingSeq = endSur_list[k];
-		avgObj.score = avglist;
-		scorelist.push(avgObj);
-	}
-	console.log(scorelist);
-	
-	
+
 	//하이차트
 	for(var i=0; i<bigTrandList.length; i++){
 		
-		var trl2 = [];
+		var trlForSeries = [];
+		var trl = [];
+		var serieses = [];
+		
 		for(var j=0; j<trandList.length; j++){
+			var trObj = new Object();
 			if(trandList[j].bigID === bigTrandList[i].btID){
-				trl2.push(trandList[j].trandDesc);
+				trObj.trID = trandList[j].trandID;
+				trObj.trDesc = trandList[j].trandDesc;
+				trl.push(trObj);
+				trlForSeries.push(trandList[j].trandDesc);
 			}
 		}
-		console.log(trl2);
-		
-		/*var trScore = [];
-		var obj = new Object();
-		for(var j=0; j<endSur_list.length; j++){
-			for(var k=0; k<trl.length; k++){
-				if(endSur_list[j] == trl[k].seq){
-					trScore.push(trl[k].scoreslist);
+
+		for(var k=0; k<endSur_list.length; k++){
+			var arr = [];
+			var avg = 0;
+			var columnSeries = new Object();
+			for(var l=0; l<stuScoresList.length; l++){
+				for(var j=0; j<trl.length; j++){
+					if(endSur_list[k] == stuScoresList[l].ingseq){
+						if(stuScoresList[l].bigTrandId == bigTrandList[i].btID){
+							if(stuScoresList[l].trandId == trl[j].trID){
+								arr.push(stuScoresList[l].score);
+							}
+							else continue;
+						}
+						else continue;
+					}										
+					else continue;					
 				}
 			}
+			columnSeries.type = 'column';
+			columnSeries.name = (k+1) + '차 설문';
+			columnSeries.data = arr;
+			serieses.push(columnSeries);
 		}
-		console.log(trScore);*/
 		
+		var label = document.getElementById("raderDesc" + bigTrandList[i].btID);
+		label.innerHTML = bigTrandList[i].explan;
+
 		
-		Highcharts.chart('rader' + bigTrandList[i].btID, {
+//		평균 --- 버그있음.
+		
+//		var scorelist2 = [];
+//		for(var j=0; j<trl2.length; j++){
+//			var avg = 0.0;
+//			var avglist = [];
+//			var entity = 0.0;
+//			for(var k=0; k<endSur_list.length; k++){
+//				for(var l=0; l<stuScoresList.length; l++){
+//					if(endSur_list[k] == stuScoresList[l].ingseq){
+//						if(stuScoresList[l].bigTrandId == bigTrandList[i].btID){
+//							if(stuScoresList[l].trandDesc == trl2[j]){
+//								entity += stuScoresList[l].score;
+//								console.log(entity)
+//							}
+//							else continue;
+//						}
+//						else continue;
+//					}										
+//					else continue;					
+//				}
+//				console.log(entity);
+//			}
+//			avg = entity/endSur_list.length;
+//			console.log(avg)
+//			scorelist2.push(avg.toFixed(3));			
+//		}
+//		console.log(scorelist2);
+//		
+//		var avglistLine = [];
+//		for(var i=0; i<scorelist2.length; i++){
+//			avglistLine.push(parseFloat(scorelist2[i]));
+//		}
+//		
+//		var lineSeries = new Object();
+//		lineSeries.type = 'line';
+//		lineSeries.name = '평균점수';
+//		lineSeries.data = avglistLine;
+//		serieses.push(lineSeries);
+//		console.log(serieses);
+		
+		Highcharts.chart('radar' + bigTrandList[i].btID, {
 		
 		    chart: {
 		        polar: true
@@ -183,7 +158,7 @@ $.ajax({
 		    },
 		
 		    xAxis: {
-		        categories: trl2,
+		        categories: trlForSeries,
 		        tickmarkPlacement: 'on',
 		        lineWidth: 0
 		    },

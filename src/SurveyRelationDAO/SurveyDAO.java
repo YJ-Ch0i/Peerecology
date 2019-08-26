@@ -1011,7 +1011,7 @@ public class SurveyDAO {
 		
 		ArrayList<StudentScoresDTO> scoresList = new ArrayList<>();
 		
-		String sql = "SELECT * FROM stu_scores WHERE SCID=? AND grade=? AND grd_num=? AND year=?";
+		String sql = "SELECT * FROM stu_scores WHERE SCID=? AND grade=? AND grd_num=? AND year=? ORDER BY trandID";
 		
 		try {
 			conn = DBConn.getConnection();
@@ -1055,7 +1055,7 @@ public class SurveyDAO {
 		
 		ArrayList<StudentScoresDTO> scoresList = new ArrayList<>();
 		
-		String sql = "SELECT * FROM stu_scores WHERE SCID=? AND grade=? AND grd_num=? AND studentID=? AND year=?";
+		String sql = "SELECT * FROM stu_scores WHERE SCID=? AND grade=? AND grd_num=? AND studentID=? AND year=? ORDER BY ingSeq, trandID";
 		
 		try {
 			conn = DBConn.getConnection();

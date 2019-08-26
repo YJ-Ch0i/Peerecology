@@ -88,7 +88,7 @@
 				   SchoolDTO school = schService.getSchoolToSCID(teacher.getSCID());
                    StudentService studentService = StudentService.getInstance();
                    //ArrayList<StudentDTO> stu_list = studentService.studentList(tea_id, teacher.getSCID());      
-                   ArrayList<StudentDTO> stu_list = studentService.studentListAttend(tea_id, teacher.getSCID(), teacher.getGrade(), teacher.getClasses());             
+                   ArrayList<StudentDTO> stu_list = studentService.studentListAttend(tea_id, teacher.getSCID(), teacher.getGrade(), teacher.getClasses(), teacher.getLastChangeYear());                   
                    %>
 				 <div class="row">
 				 	<h3 class="hs-line-11 font-alt mb-20 mb-xs-0">학급 학생 관리</h3>

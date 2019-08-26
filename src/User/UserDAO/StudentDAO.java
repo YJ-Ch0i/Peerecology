@@ -267,7 +267,40 @@ public class StudentDAO {
 		return list;
 	}
 	
-	public ArrayList<StudentDTO> studentListAttend(String TID, String SCID, int grade, int grd_num) {
+	public ArrayList<StudentDTO> studentListAttend(String TID, String SCID, int grade, int grd_num, String year) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs = null;
+		
+		ArrayList<StudentDTO> list = new ArrayList<>();
+		
+		String sql = "SELECT * FROM user_students WHERE TID=? AND SCID=? AND grade=? AND class=? AND isTransfer=1 AND YEAR(lastChangeDate)=? ORDER BY num";
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, TID);
+			pstmt.setString(2, SCID);
+			pstmt.setInt(3, grade);
+			pstmt.setInt(4, grd_num);
+			pstmt.setString(5, year);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				list.add(new StudentDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getString(7), rs.getInt(8), rs.getDate(9), rs.getBoolean(10)));
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return list;
+	}
+	
+	public ArrayList<StudentDTO> getStudentAttendList(String TID, String SCID, int grade, int grd_num) {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs = null;
@@ -298,6 +331,7 @@ public class StudentDAO {
 		}
 		return list;
 	}
+	
 	public ArrayList<Integer> getStudentList(String SCID, int grade) {
 		Connection conn=null;
 		PreparedStatement pstmt=null;

@@ -44,9 +44,14 @@ public class StudentService {
 	public ArrayList<Integer> getStudentList(String SCID, int grade) {
 		return dao.getStudentList(SCID, grade);
 	}
-	public ArrayList<StudentDTO> studentListAttend (String TID, String SCID, int grade, int grd_num) {
-		return dao.studentListAttend(TID, SCID, grade, grd_num);
+	public ArrayList<StudentDTO> studentListAttend (String TID, String SCID, int grade, int grd_num, String year) {
+		return dao.studentListAttend(TID, SCID, grade, grd_num, year);
 	}
+	
+	public ArrayList<StudentDTO> getStudentAttendList(String TID, String SCID, int grade, int grd_num) {
+		return dao.getStudentAttendList(TID, SCID, grade, grd_num);
+	}
+	
 	public ArrayList<StudentDTO> findStudentToGradeSCID(int SID, String SCID, int grade, int classes){
 		return dao.findStudentToGradeSCID(SID,SCID, grade, classes);
 	}

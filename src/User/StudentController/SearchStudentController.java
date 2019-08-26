@@ -29,7 +29,7 @@ public class SearchStudentController implements Controller {
 		int grd_num = Integer.parseInt(num);
 		
 		StudentService service = StudentService.getInstance();
-		ArrayList<StudentDTO> list = service.studentListAttend(tea_id, sch_code, grade, grd_num);
+		ArrayList<StudentDTO> list = service.getStudentAttendList(tea_id, sch_code, grade, grd_num);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("sch_code", sch_code);
