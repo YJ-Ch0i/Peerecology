@@ -1,10 +1,22 @@
 package SurveyRelationDAO;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
-import SurveyRelationDTO.*;
-import Util.*;
+import SurveyRelationDTO.AllDescQuestionDTO;
+import SurveyRelationDTO.QuestionDTO;
+import SurveyRelationDTO.QuestionOfferDTO;
+import SurveyRelationDTO.QuestionTrandManagerDTO;
+import SurveyRelationDTO.QuestionTrandTypeDTO;
+import SurveyRelationDTO.QuestionTypeDTO;
+import SurveyRelationDTO.SurveyAnswerDTO;
+import Util.DBConn;
 
 public class QuestionDAO {
 	
@@ -628,6 +640,96 @@ public class QuestionDAO {
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
 		return result;
+	}
+	
+	/**
+	 * 설문 회차에서 조사한 또래지명 문항들 List를 반환
+	 * @author yeong
+	 * @param ingSeq 설문회차
+	 * @return
+	 */
+	public List<QuestionDTO> getPeerQuestionListInSeq(int surNo) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<QuestionDTO> list = new ArrayList<>();
+		
+		String sql = "SELECT q.`QID`, q.`title`, q.`Ttype` FROM question AS q LEFT JOIN survey_manager AS sm ON q.`QID`=sm.`QID` WHERE q.`QType`=1 AND sm.`surveyNo`=?";
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, surNo);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				QuestionDTO dto = new QuestionDTO();
+				dto.setQID(rs.getInt(1));
+				dto.setTitle(rs.getString(2));
+				dto.setTtype(rs.getInt(3));
+				list.add(dto);
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return list;
+	}
+	
+	/**
+	 * 설문 회차에서 문항에 대해 해당 학교 학년 반의 재학생이 응답한 정보를 List로 반환
+	 * @param qId 문항의 ID
+	 * @param ingSeq 설문 회차
+	 * @param scid 학교코드
+	 * @param grade 학년
+	 * @param grdNum 반
+	 * @return
+	 */
+	public List<SurveyAnswerDTO> getMultiAnswerValueInQuestion(int qId, int ingSeq, String scid, int grade, int grdNum) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<SurveyAnswerDTO> list = new ArrayList<>();
+		
+		String sql = "SELECT sa.`answerID`, sa.`studentID`, ma.`multiAnswer`\r\n" + 
+				"FROM survey_answer AS sa \r\n" + 
+				"LEFT JOIN multi_answermanager AS ma \r\n" + 
+				"ON sa.`answerID` = ma.`answerID`\r\n" + 
+				"LEFT JOIN user_students AS st\r\n" + 
+				"ON sa.`studentID` = st.`SID`\r\n" + 
+				"WHERE sa.QID=? AND sa.`ingSeq`=? AND st.`SCID`=? AND st.`grade`=? AND st.`class`=? \r\n" + 
+				"ORDER BY studentID, multiAnswer";
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qId);
+			pstmt.setInt(2, ingSeq);
+			pstmt.setString(3, scid);
+			pstmt.setInt(4, grade);
+			pstmt.setInt(5, grdNum);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				SurveyAnswerDTO dto = new SurveyAnswerDTO();
+				dto.setAnswerID(rs.getInt(1));
+				dto.setStudentID(rs.getInt(2));
+				dto.setMultiAnswers(rs.getInt(3));
+				list.add(dto);
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return list;
 	}
 	
 }

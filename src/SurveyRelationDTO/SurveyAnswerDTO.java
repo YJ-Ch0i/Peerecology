@@ -7,13 +7,13 @@ public class SurveyAnswerDTO {
 	private boolean isMultiAnswer;
 	private String answerValue;
 	private int ingSeq;
-	private int multiAnswer; 
+	private int multiAnswers; 
 	
-	public int getMultiAnswer() {
-		return multiAnswer;
+	public int getMultiAnswers() {
+		return multiAnswers;
 	}
-	public void setMultiAnswer(int multiAnswer) {
-		this.multiAnswer = multiAnswer;
+	public void setMultiAnswers(int multiAnswers) {
+		this.multiAnswers = multiAnswers;
 	}
 	public void setStudentID(int studentID) {
 		this.studentID = studentID;

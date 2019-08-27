@@ -1,5 +1,6 @@
+<%@page import="SurveyRelationDTO.QuestionDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="java.sql.Date"%>
-<%@page import="com.google.gson.Gson"%>
 <%@page import="Service.QuestionService"%>
 <%@page import="SurveyRelationDTO.QuestionTrandTypeDTO"%>
 <%@page import="SurveyRelationDTO.QuestionTrandManagerDTO"%>
@@ -37,6 +38,7 @@
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
 <!-- 부가적인 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" type="text/css" />
 
 </head>
 <body class="appear-animate">
@@ -59,7 +61,7 @@
 			<div class="relative container align-left">
 
 				<div class="row">
-					<h1 class="hs-line-11 font-alt mb-20 mb-xs-0"><%=request.getAttribute("year")%>학년도 <%=request.getAttribute("sch_name")%> <%=request.getAttribute("grade") %>학년 <%=request.getAttribute("grd_num") %>반 설문조사 결과</h1>
+					<h1 class="hs-line-11 font-alt mb-20 mb-xs-0"><%=request.getAttribute("year")%>학년도 <%=request.getAttribute("sch_name")%> <%=request.getAttribute("grade") %>학년 <%=request.getAttribute("grdNum") %>반 설문조사 결과</h1>
 				</div>
 			</div>
 		</section>
@@ -104,14 +106,17 @@
 						QuestionTrandTypeDTO dto = new QuestionTrandTypeDTO();
 						trandTobigTrand = queService.getTrandToBigTID(bigTrandList.get(i).getBigTrandID());						
 					}
-					Gson gson = new Gson();
-										
+					
 					String scid = (String) request.getAttribute("scid");
 					int ingSeq = (Integer) request.getAttribute("ingSeq");
 					int surNo = (Integer)request.getAttribute("surNo");
 					Date startdate = (Date) request.getAttribute("startdate");
-					Date enddate = (Date) request.getAttribute("enddate");					
+					Date enddate = (Date) request.getAttribute("enddate");		
+					int grade = (Integer) request.getAttribute("grade");
+					int grdNum = (Integer) request.getAttribute("grdNum");
+					String year = (String) request.getAttribute("year");
 					
+					List<QuestionDTO> peerQueList = queService.getPeerQuestionListInSeq(surNo);
 				%>
 				
 				<textarea id="scoresJson" style="display:none"><%=scoresJson %></textarea>
@@ -129,29 +134,43 @@
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">또래관계보기</h3>
-					</div>
-					<div class="panel-body">
 						<div class="row">
-							<div class="col-md-9">
-								<div id="classnetwork">
-									<div>
-										<canvas>
-										
-										</canvas>
-									</div>
-								</div>
-								<small>무엇인가 설명</small>
+							<div class="col-xs-4">
+								<h2 class="panel-title">문항별 학급 관계 시각화</h2>
 							</div>
-							<div class="col-md-3">
-								설명이 들어갈 곳
+							<div class="col-xs-3">														
+								<select id="" class="input-md form-control" onChange="queSelect(this.value);">
+								<option value='-2' selected>선택 해 주세요</option>
+								<%for(QuestionDTO dto : peerQueList){ %>
+									<option value=
+									'{"qid":"<%=dto.getQID()%>","seq":"<%=ingSeq%>","scid":"<%=scid %>","grade":"<%=grade%>","grdNum":"<%=grdNum%>", "year" : "<%=year%>"}'><%=dto.getTitle()%></option>
+								<%} %>
+								</select>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="alert alert-warning" role="alert">
-				
-				</div>				
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-12" style="min-height:40px; max-height:700px;">
+								<div id="networkSector" class="row" style="display:none; min-height:400px; max-height:500px;">
+									<div class="col-md-12" id="peerNetwork" style="position: relative; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 500px;"></div>
+									<div class="col-md-3" style="text-align:center; min-width:450px; max-width:450px; min-height:500px; max-height:600px; margin:0 auto">
+										<div class="row" style="text-align:center; min-width:300px; max-width:300px; margin:0 auto">
+											<br><br><br><br>
+											<label id="" class="control-label" for="inputWarning2">11111111111111</label>
+										</div>									
+									</div>
+								</div>
+								<div id="networkSelectSector" class="row" style="height:200px">
+									<div class="col-md-9" style="min-width:310px; max-width:600px; min-height:200px; max-height:200px;">
+										<h2>문항을 선택 해 주세요</h2>									
+									</div>									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>										
+								
 				<br>
 				<br>
 				
@@ -188,12 +207,6 @@
 									<div class="col-md-9" id="barchart" style="min-width:310px; max-width:600px; min-height:200px; max-height:200px;">
 										<h2>척도 분류를 선택 해 주세요</h2>									
 									</div>		
-									<div class="col-md-5" style="text-align:center; min-width:450px; max-width:450px; min-height:200px; max-height:200px; margin:0 auto">
-										<div class="row" style="text-align:center; min-width:300px; max-width:300px; margin:0 auto">
-											<br><br><br><br><br><br>
-											<label id="bigTdesc" class="control-label" for="inputWarning2"></label>
-										</div>
-									</div>
 								</div>					
 													
 								<div class="row">
@@ -280,6 +293,8 @@
 	<script type="text/javascript" src="https://code.highcharts.com/highcharts-more.js"></script>
 	<script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script type="text/javascript" src="https://code.highcharts.com/modules/export-data.js"></script>
+	<script type="text/javascript" src="https://code.highcharts.com/modules/networkgraph.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
 	<!--[if lt IE 10]><script type="text/javascript" src="js/placeholder.js"></script><![endif]-->
 	<script type="text/javascript" src="/PeerSys/style/js/studentTransfer.js"></script>
 	<!-- <script type="text/javascript" src="/PeerSys/style/js/visualize/stuBarGraph.js"></script> -->
@@ -288,6 +303,8 @@
 	<!-- <script type="text/javascript" src="/PeerSys/style/js/visualize/raiderGph.js"></script> -->
 	<script type="text/javascript" src="/PeerSys/style/js/ajax/trandLoadAjax.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/ajax/stuResultRoaderAjax.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/ajax/peerLoaderAjax.js"></script>
+	
 	<!-- <script src="https://code.highcharts.com/highcharts.js"></script> -->
 	<!-- <script type="text/javascript" src="/PeerSys/style/js/visualize/barSpline.js"></script> -->
 	

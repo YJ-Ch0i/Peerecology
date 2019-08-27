@@ -2,6 +2,7 @@ package Service;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import SurveyRelationDAO.*;
 import SurveyRelationDTO.*;
@@ -89,5 +90,13 @@ public class QuestionService {
 	}
 	public int countOfTrandQuestion(int surNo, int tId) {
 		return dao.countOfTrandQuestion(surNo, tId);
+	}
+	
+	public List<QuestionDTO> getPeerQuestionListInSeq(int surNo) {
+		return dao.getPeerQuestionListInSeq(surNo);
+	}
+	
+	public List<SurveyAnswerDTO> getMultiAnswerValueInQuestion(int qId, int ingSeq, String scid, int grade, int grdNum) {
+		return dao.getMultiAnswerValueInQuestion(qId, ingSeq, scid, grade, grdNum);
 	}
 }

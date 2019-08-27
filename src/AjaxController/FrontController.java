@@ -24,6 +24,7 @@ public class FrontController extends HttpServlet{
 		
 		list.put("/trandLoad.ax", new TrandLoadController());
 		list.put("/studentLoad.ax", new StudentLoadController());
+		list.put("/peerLoad.ax", new PeerLoadController());
 	}
 		
 	@Override

@@ -30,4 +30,11 @@ public class CommonUtil {
 		}
 		return Integer.parseInt(str.trim());
 	}
+	
+	public static boolean isZeroInt(int num) {
+		if(num == Constant.ZERO) {
+			return false;
+		}
+		return true;
+	}
 }

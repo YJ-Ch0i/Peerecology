@@ -43,7 +43,7 @@ public class ResultViewController implements Controller {
 		int ingSeq = Integer.parseInt(ingseq);
 		int surveyNo = Integer.parseInt(survey_no);
 		int grade = Integer.parseInt(grade1);
-		int grd_num = Integer.parseInt(grd_num1);
+		int grdNum = Integer.parseInt(grd_num1);
 		Date start = Date.valueOf(startdate);
 		Date end = Date.valueOf(enddate);
 		
@@ -53,11 +53,11 @@ public class ResultViewController implements Controller {
 		
 		ArrayList<StudentDTO> attendList = new ArrayList<>();
 		// 재학생 리스트
-		attendList = stuService.studentListAttend3(scid, grade, grd_num, year);
+		attendList = stuService.studentListAttend3(scid, grade, grdNum, year);
 		
 		ArrayList<StudentScoresDTO> scoresList = new ArrayList<>();
 		//scoresList = surService.getClassesScores(ingSeq, surveyNo, scid, grade, grd_num);
-		scoresList = surService.getClassesAllScores(scid, grade, grd_num, year);
+		scoresList = surService.getClassesAllScores(scid, grade, grdNum, year);
 		
 		ArrayList<SurveyGoingDTO> calculatedSurveyList = new ArrayList<>();
 		try {
@@ -175,7 +175,7 @@ public class ResultViewController implements Controller {
 		request.setAttribute("title", title);
 		request.setAttribute("sch_name", sch_name);
 		request.setAttribute("grade", grade);
-		request.setAttribute("grd_num", grd_num);
+		request.setAttribute("grdNum", grdNum);
 		request.setAttribute("year", year);
 		request.setAttribute("attendList", attendList);
 		request.setAttribute("trandJson", trandJson);
