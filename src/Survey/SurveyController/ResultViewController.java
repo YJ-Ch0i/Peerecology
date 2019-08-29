@@ -60,11 +60,10 @@ public class ResultViewController implements Controller {
 		scoresList = surService.getClassesAllScores(scid, grade, grdNum, year);
 		
 		ArrayList<SurveyGoingDTO> calculatedSurveyList = new ArrayList<>();
-		try {
-			calculatedSurveyList = surService.getCalculatedClassSurveyList(grade, year);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+
+		calculatedSurveyList = surService.getCalculatedClassSurveyList(scid, grade, year);
+
+
 		
 		ArrayList<QuestionTrandTypeDTO> trandList = new ArrayList<>();
 		ArrayList<QuestionTrandManagerDTO> bigTrandList = new ArrayList<>();

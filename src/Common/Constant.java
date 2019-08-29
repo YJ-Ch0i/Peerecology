@@ -12,4 +12,6 @@ public class Constant {
 	public final static int ENABLE = 1;
 	
 	public final static String ZERO_STR = "0";
+	
+	public final static int PEERID = 8; //또래지명 아이디
 }

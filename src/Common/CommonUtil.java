@@ -19,11 +19,20 @@ public class CommonUtil {
 		return false;
 	}
 	
+	/**
+	 * str 변수 not null체크
+	 * @param str
+	 * @return
+	 */
 	public static boolean isNotNullString(String str) {
 		return !isNullString(str);
 	}
 	
-	
+	/**
+	 * 문자열 -> 정수형 형변환
+	 * @param str
+	 * @return
+	 */
 	public static int strToInt(String str) {
 		if (isNullString(str)) {
 			return 0;
@@ -31,6 +40,11 @@ public class CommonUtil {
 		return Integer.parseInt(str.trim());
 	}
 	
+	/**
+	 * 정수형 0여부
+	 * @param num
+	 * @return
+	 */
 	public static boolean isZeroInt(int num) {
 		if(num == Constant.ZERO) {
 			return false;

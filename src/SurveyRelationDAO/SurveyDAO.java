@@ -356,28 +356,23 @@ public class SurveyDAO {
 		return surveyGoingList;
 	}
 	
-	public ArrayList<SurveyGoingDTO> getCalculatedClassSurveyList(int grade, String year) throws ParseException
+	public ArrayList<SurveyGoingDTO> getCalculatedClassSurveyList(String scid, int grade, String year)
 	{
 		Connection conn=null;	
 		PreparedStatement pstmt = null;
 		ArrayList<SurveyGoingDTO> surveyGoingList = new ArrayList<SurveyGoingDTO>();
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
-		String strThisDate = format1.format (System.currentTimeMillis());
-		java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strThisDate);
 		ResultSet rs = null;
-		String SQL ="SELECT * FROM survey_ing AS surIng, school_info AS sch WHERE surIng.SCID=sch.SCID AND surIng.grade=? AND YEAR(surIng.endDate)=? AND surIng.`isCalculated`=1 GROUP BY surIng.ingSeq ORDER BY DATE(surIng.startDate) ASC;";
+		String SQL ="SELECT * FROM survey_ing AS surIng, school_info AS sch WHERE surIng.SCID=? AND surIng.grade=? AND YEAR(surIng.endDate)=? AND surIng.`isCalculated`=1 GROUP BY surIng.ingSeq ORDER BY DATE(surIng.startDate) ASC;";
 			try {
 			conn =DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, grade);
-			pstmt.setString(2, year);
+			pstmt.setString(1, scid);
+			pstmt.setInt(2, grade);
+			pstmt.setString(3, year);
             rs = pstmt.executeQuery();
 			while(rs.next()) 
 			{
-				java.util.Date dbDate = new SimpleDateFormat("yyyy-MM-dd").parse(rs.getString("surIng.endDate"));
-				int compare = dbDate.compareTo(date);
-				if(compare<0) 
-				{
+
 				SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO();
 				surveyGoingDTO.setIngSeq(rs.getInt("surIng.ingSeq"));
 				surveyGoingDTO.setSurveyNo(rs.getInt("surIng.surveyNo"));
@@ -387,7 +382,7 @@ public class SurveyDAO {
 				surveyGoingDTO.setStartDate(rs.getString("surIng.startDate"));
 				surveyGoingDTO.setEndDate(rs.getString("surIng.endDate"));
 				surveyGoingList.add(surveyGoingDTO);
-				}
+				
 			}
 		}
 		catch(Exception e) {

@@ -29,11 +29,6 @@ public class StudentLoadController implements Controller{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String scid = request.getParameter("scid");
-		int grade = CommonUtil.strToInt(request.getParameter("grade"));
-		int gradeNo = CommonUtil.strToInt(request.getParameter("grd_num"));
-		int studId = CommonUtil.strToInt(request.getParameter("stuid"));
-		String registedYear = request.getParameter("year");
 		
 		List<StudentScoresDTO> stuScoreDtoList = SurveyService.getInstance().getStudentScores(
 																				request.getParameter("scid"),
@@ -41,31 +36,23 @@ public class StudentLoadController implements Controller{
 																				CommonUtil.strToInt(request.getParameter("grd_num")),
 																				CommonUtil.strToInt(request.getParameter("stuid")),
 																				request.getParameter("year"));
-		Map<Integer, List<StudentScoresDTO>> stuScoreMap = new HashMap<>();
-		List<Integer> seqIntArr = new ArrayList<>();
-		for (StudentScoresDTO dto : stuScoreDtoList) {
-			int seqInt = dto.getIngseq();
-			if (seqIntArr.contains(seqInt)) {
-				stuScoreMap.get(seqInt).add(dto);
-			} else {
-				seqIntArr.add(seqInt);
-				List<StudentScoresDTO> tempList = new ArrayList<>();
-				tempList.add(dto);
-				stuScoreMap.put(seqInt, tempList);
-			}
-		}
 		
-		//TODO map -> json형태로 넘겨줘야됨.
+		List<StudentScoresDTO> list = PeerScoreCalculate.calculatePeerScoreRadar(CommonUtil.strToInt(request.getParameter("stuid")),
+																						request.getParameter("scid"),
+																						CommonUtil.strToInt(request.getParameter("grade")),
+																						CommonUtil.strToInt(request.getParameter("grd_num")),
+																						request.getParameter("year"));
+		
+		Gson gson = new Gson();
+		//두개의 JsonArray를 받을 List
+		List<String> personalScore = new ArrayList<>(); 
+		
+		personalScore.add(gson.toJson(list));	//0번은 또래지명점수
+		personalScore.add(gson.toJson(stuScoreDtoList));	//1번은 전체점수
 		
 		// jsonArray 넘김
 		PrintWriter pw = response.getWriter();
-		pw.print(new Gson().toJson(
-					SurveyService.getInstance().getStudentScores(
-							request.getParameter("scid"),
-							CommonUtil.strToInt(request.getParameter("grade")),
-							CommonUtil.strToInt(request.getParameter("grd_num")),
-							CommonUtil.strToInt(request.getParameter("stuid")),
-							request.getParameter("year"))));
+		pw.print(personalScore);
 		pw.flush();
 		pw.close();
 	}

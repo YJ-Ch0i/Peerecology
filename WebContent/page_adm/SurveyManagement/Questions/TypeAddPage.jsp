@@ -98,10 +98,8 @@ function offerDirection(directionSeq)
 			<div class="row">
             <div class="container relative">      
 			<form method="post" action="/PeerSys/typeAdd.qs" id="form" role="form">
-			
-			
 										
-			응답 유형 이름 : <input type="text" name="type_title" id="name" class="input-md form-control" maxlength="100">
+			응답 유형 이름 : <input type="text" name="type_title" id="name" class="input-md form-control" maxlength="100" placeholder="또래지명 및 주관식 유형은 이미 만들어져 있습니다.">
 			<p></p> 
 			질문 개수 :  <select name="offerSeq" class="input-md form-control" onChange="addInput(this.value);">
 										<option value="0">선택해주세요</option>
@@ -123,6 +121,7 @@ function offerDirection(directionSeq)
 				  	  
 			<p></p>
 			</div>
+			<p style="color:darkgray; font-size:30px; font-family:'궁서'; text-decoration: underline;"><strong>또래지명 및 주관식 유형은 이미 만들어져 있습니다! 위 유형을 절대로 다시 만들지 마십시오.</strong></p>			
 			<div class="row multi-columns-row mb-30 mb-xs-10">
             <div class="col-md-6 col-lg-6 mb-md-10">
             <div id="offerDirectionImg" style="visibility:hidden">

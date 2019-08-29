@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import SurveyRelationDTO.SurveyAnswerDTO;
 import Util.DBConn;
@@ -92,6 +93,14 @@ public class AnswerDAO {
 		}
 		return list;
 	}
+	
+	/**
+	 * 1. 학생이 설문에서 단 한개라도 응답했을 경우 설문 참여로 간주하여 설문에 참여하였음을 반환함
+	 * 2. 학생이 설문 내에서 답한 갯수를 가져옴
+	 * @param ingSeq
+	 * @param studentID
+	 * @return
+	 */
 	public int getAnswersCount(int ingSeq, int studentID) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -118,5 +127,67 @@ public class AnswerDAO {
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
 		return count;
+	}
+	
+	
+	/**
+	 * 설문회차 내 학급에서 또래지명 척도분류에 대한 응답들을 가져옴
+	 * @param qtid
+	 * @param seq
+	 * @param scid
+	 * @param grade
+	 * @param grdNum
+	 * @return
+	 */
+	public List<SurveyAnswerDTO> getMultiAnswersInSeq(int qtid, int seq, String scid, int grade, int grdNum) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<SurveyAnswerDTO> list = new ArrayList<>();
+
+		String sql = "SELECT sa.`answerID`, sa.`studentID`, ma.`multiAnswer`, qtt.`bigTrandID` AS btid, q.`Ttype` AS trid, sa.`ingSeq`\r\n" + 
+				"FROM survey_answer AS sa \r\n" + 
+				"LEFT JOIN multi_answermanager AS ma \r\n" + 
+				"ON sa.`answerID` = ma.`answerID`\r\n" + 
+				"LEFT JOIN user_students AS st\r\n" + 
+				"ON sa.`studentID` = st.`SID`\r\n" + 
+				"LEFT JOIN question AS q\r\n" + 
+				"ON sa.`QID`=q.`QID`\r\n" + 
+				"LEFT JOIN q_trand_type AS qtt\r\n" + 
+				"ON q.`Ttype` = qtt.`q_trandID`\r\n" + 
+				"LEFT JOIN q_trand_manager AS qtm\r\n" + 
+				"ON qtt.`bigTrandID` = qtm.`bigTrandID`\r\n" + 
+				"WHERE qtt.`q_trandID`=? AND sa.`ingSeq`=? AND st.`SCID`=? AND st.`grade`=? AND st.`class`=?\r\n" + 
+				"ORDER BY answerID, multiAnswer";	
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qtid);
+			pstmt.setInt(2, seq);
+			pstmt.setString(3, scid);
+			pstmt.setInt(4, grade);
+			pstmt.setInt(5, grdNum);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				SurveyAnswerDTO dto = new SurveyAnswerDTO();
+				dto.setAnswerID(rs.getInt(1));
+				dto.setStudentID(rs.getInt(2));
+				dto.setMultiAnswers(rs.getInt(3));
+				dto.setBtid(rs.getInt(4));
+				dto.setTrid(rs.getInt(5));
+				dto.setIngSeq(rs.getInt(6));
+				list.add(dto);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return list;
 	}
 }

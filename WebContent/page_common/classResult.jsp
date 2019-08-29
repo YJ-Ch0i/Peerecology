@@ -183,8 +183,9 @@
 							<div class="col-xs-3">														
 								<select id="trandBigName" class="input-md form-control" onChange="BTselect_result(this.value);">
 								<option value='-2' selected>선택 해 주세요</option>
-									<%for(int i=0; i<bigTrandList.size(); i++){ %>
-										<option value="<%=bigTrandList.get(i).getBigTrandID()%>"><%=bigTrandList.get(i).getDescript() %></option>
+									<%for(QuestionTrandManagerDTO dto : bigTrandList){ %>
+										<option value=
+											'{"btid":"<%=dto.getBigTrandID()%>","seq":"<%=ingSeq%>","scid":"<%=scid %>","grade":"<%=grade%>","grdNum":"<%=grdNum%>", "year" : "<%=year%>"}'><%=dto.getDescript()%></option>
 									<%} %>
 								</select>
 							</div>

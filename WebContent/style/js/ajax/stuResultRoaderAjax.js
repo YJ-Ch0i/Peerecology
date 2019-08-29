@@ -33,7 +33,9 @@ $.ajax({
 	 year:jsonValue.year},
  success: function(result){
 	 
-	var stuScoresList = result; //Json파일
+	const peerID = 8;
+	var stuScoresList = result[1]; //학생 개인 전체점수 Json
+	var stuPeerScoreList = result[0]; //학생개인 또래지명점수 Json
 	var trandJson = document.getElementById("trandJson").value;
 	var bigTrandJson = document.getElementById("bigTrandJson").value;
 	var endSurJson = document.getElementById("endSurJson").value;
@@ -42,8 +44,10 @@ $.ajax({
 	var bigTrandList = JSON.parse(bigTrandJson);
 	var endSurList = JSON.parse(endSurJson);
 	
+	
 //	console.log(trandList);
-//	console.log(stuScoresList);
+	console.log(stuScoresList);
+	console.log(stuPeerScoreList);
 //	console.log(bigTrandList)
 
 	var endSur_list = [];
@@ -68,34 +72,62 @@ $.ajax({
 				trlForSeries.push(trandList[j].trandDesc);
 			}
 		}
-
-		for(var k=0; k<endSur_list.length; k++){
-			var arr = [];
-			var avg = 0;
-			var columnSeries = new Object();
-			for(var l=0; l<stuScoresList.length; l++){
-				for(var j=0; j<trl.length; j++){
-					if(endSur_list[k] == stuScoresList[l].ingseq){
-						if(stuScoresList[l].bigTrandId == bigTrandList[i].btID){
-							if(stuScoresList[l].trandId == trl[j].trID){
-								arr.push(stuScoresList[l].score);
+		
+		if(bigTrandList[i].btID == peerID){	//또래지명 척도분류일 때
+			for(var k=0; k<endSur_list.length; k++){
+				var arr = [];
+				var avg = 0;
+				var columnSeries = new Object();
+				for(var l=0; l<stuPeerScoreList.length; l++){
+					for(var j=0; j<trl.length; j++){
+						if(endSur_list[k] == stuPeerScoreList[l].ingseq){
+							if(stuPeerScoreList[l].bigTrandId == bigTrandList[i].btID){
+								if(stuPeerScoreList[l].trandId == trl[j].trID){									
+									arr.push(parseFloat((stuPeerScoreList[l].score).toFixed(3)));
+								}
+								else continue;
 							}
 							else continue;
-						}
-						else continue;
-					}										
-					else continue;					
-				}
+						}										
+						else continue;					
+					}
+				}				
+				columnSeries.type = 'column';
+				columnSeries.name = (k+1) + '차 설문';
+				columnSeries.data = arr;
+				serieses.push(columnSeries);
 			}
-			columnSeries.type = 'column';
-			columnSeries.name = (k+1) + '차 설문';
-			columnSeries.data = arr;
-			serieses.push(columnSeries);
+		}
+		else{
+			for(var k=0; k<endSur_list.length; k++){
+				var arr = [];
+				var avg = 0;
+				var columnSeries = new Object();
+				for(var l=0; l<stuScoresList.length; l++){
+					for(var j=0; j<trl.length; j++){
+						if(endSur_list[k] == stuScoresList[l].ingseq){
+							if(stuScoresList[l].bigTrandId == bigTrandList[i].btID){
+								if(stuScoresList[l].trandId == trl[j].trID){
+									arr.push(stuScoresList[l].score);
+								}
+								else continue;
+							}
+							else continue;
+						}										
+						else continue;					
+					}
+				}
+				columnSeries.type = 'column';
+				columnSeries.name = (k+1) + '차 설문';
+				columnSeries.data = arr;
+				serieses.push(columnSeries);
+			}
 		}
 		
 		var label = document.getElementById("raderDesc" + bigTrandList[i].btID);
 		label.innerHTML = bigTrandList[i].explan;
 
+		console.log(serieses)
 		
 //		평균 --- 버그있음.
 		

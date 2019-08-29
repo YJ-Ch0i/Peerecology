@@ -1,6 +1,7 @@
 package Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import SurveyRelationDAO.AnswerDAO;
 import SurveyRelationDTO.SurveyAnswerDTO;
@@ -24,5 +25,8 @@ public class AnswerService {
 	}
 	public int getAnswersCount(int ingSeq, int studentID) {
 		return dao.getAnswersCount(ingSeq, studentID);
+	}
+	public List<SurveyAnswerDTO> getMultiAnswersInSeq(int qtid, int seq, String scid, int grade, int grdNum) {
+		return dao.getMultiAnswersInSeq(qtid, seq, scid, grade, grdNum);
 	}
 }

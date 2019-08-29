@@ -89,7 +89,9 @@
 	<div class="container relative">
 	<div class="row">
 	<form action="/PeerSys/surveyAnswerRegister.as" method="post">
+	<hr>
 	<%for(int i=0; i<queManagerList.size();i++){ %>
+	
 	<input type="hidden" name="QID" value="<%=queManagerList.get(i).getQID() %>">
 	<div class="mb-20 mb-md-10" style="margin-bottom:5%"> 
 	<% 
@@ -134,7 +136,9 @@
 	<input type="text" name="checkAnswer<%=i%>" id="tea_name" class="input-md form-control" placeholder="" maxlength="100" required>
 	<%} %>
 	</div>
+	<hr>
 	<%} %>
+	
 	<input type="hidden" name="pageNumbering" value="<%=pageNumber %>">
 	<!-- paging -->
 	

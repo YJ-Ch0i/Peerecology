@@ -89,7 +89,7 @@
 				   SchoolService schService = SchoolService.getInstance();	
 				   SchoolDTO school = schService.getSchoolToSCID(teacher.getSCID());
                    StudentService studentService = StudentService.getInstance();
-                   ArrayList<StudentDTO> stu_list = studentService.studentListAttend(tea_id, teacher.getSCID(), teacher.getGrade(), teacher.getClasses());             
+                   ArrayList<StudentDTO> stu_list = studentService.studentListAttend(tea_id, teacher.getSCID(), teacher.getGrade(), teacher.getClasses(), teacher.getLastChangeYear());             
                    %>
 				 <div class="row">
 				 	<h3 class="hs-line-11 font-alt mb-20 mb-xs-0">설문 진행 현황</h3>

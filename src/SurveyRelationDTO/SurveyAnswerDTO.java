@@ -7,8 +7,22 @@ public class SurveyAnswerDTO {
 	private boolean isMultiAnswer;
 	private String answerValue;
 	private int ingSeq;
-	private int multiAnswers; 
+	private int multiAnswers;
+	private int btid;
+	private int trid;
 	
+	public int getBtid() {
+		return btid;
+	}
+	public void setBtid(int btid) {
+		this.btid = btid;
+	}
+	public int getTrid() {
+		return trid;
+	}
+	public void setTrid(int trid) {
+		this.trid = trid;
+	}
 	public int getMultiAnswers() {
 		return multiAnswers;
 	}
