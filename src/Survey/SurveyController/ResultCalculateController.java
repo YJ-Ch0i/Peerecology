@@ -79,7 +79,7 @@ public class ResultCalculateController implements Controller {
 		
 		
 		
-		ArrayList<StudentScoresDTO> stu_scoreList = new ArrayList<>();
+		
 		
 		for (int l = 0; l < trandList.size(); l++) {
 			for(int k=0; k<bigTrandList.size(); k++) {

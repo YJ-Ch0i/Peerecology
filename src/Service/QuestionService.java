@@ -18,8 +18,8 @@ public class QuestionService {
 	public ArrayList<QuestionTrandManagerDTO> showAllBigTrands(){
 		return dao.showAllBigTrands();
 	}
-	public ArrayList<QuestionTrandTypeDTO> searchTrandList(int surNo, int ingSeq, String scid) {
-		return dao.searchTrandList(surNo, ingSeq, scid);
+	public ArrayList<QuestionTrandTypeDTO> searchTrandList(int surveyNo, int ingSeq, String scid) {
+		return dao.searchTrandList(surveyNo, ingSeq, scid);
 	}
 	public QuestionTrandTypeDTO searchTrand(int trandID) {
 		return dao.searchTrand(trandID);

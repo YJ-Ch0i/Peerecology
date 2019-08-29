@@ -130,7 +130,17 @@
 		<section class="page-section">
 			<div class="container relative">	
 				<div class="text-right">
-					<a href="#">예정</a>
+					<!-- a href="#">예정</a> -->
+					<!-- <button class="btn btn-mod btn-circle btn-medium" onClick="parseExcel();">엑셀파일 다운로드</button> -->
+					 <form id="downExcel">
+                    	 <input type="hidden" name="scid" id="scid" value="<%=scid%>">
+                    	 <input type="hidden" name="grade" id="grd" value="<%=grade%>">
+                    	 <input type="hidden" name="grdNum" id="grdNum" value="<%=grdNum%>">
+                    	 <input type="hidden" name="year" id="year" value="<%=year%>">
+                    	 <input type="hidden" name="seq" id="seq" value="<%=ingSeq%>">
+                    	 <input type="hidden" name="surNo" id="surNo" value="<%=surNo%>">
+                    	 <input type="button" id="excelDownload" value="엑셀파일 다운로드" class="btn btn btn-mod btn-medium btn-circle">
+                     </form>
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -305,6 +315,7 @@
 	<script type="text/javascript" src="/PeerSys/style/js/ajax/trandLoadAjax.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/ajax/stuResultRoaderAjax.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/ajax/peerLoaderAjax.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/ajax/parseExcelAjax.js"></script>
 	
 	<!-- <script src="https://code.highcharts.com/highcharts.js"></script> -->
 	<!-- <script type="text/javascript" src="/PeerSys/style/js/visualize/barSpline.js"></script> -->
