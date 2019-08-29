@@ -255,10 +255,10 @@ public class QuestionDAO {
 		return queTypes;
 	}
 	
-	public ArrayList<QuestionTypeDTO> showAllType(int qtype) {
+	public QuestionTypeDTO showAllType(int qtype) {
 		Connection conn=null;
 		PreparedStatement pstmt = null;
-		ArrayList<QuestionTypeDTO> queTypes = new ArrayList<QuestionTypeDTO>();
+		QuestionTypeDTO questionDTO =  new QuestionTypeDTO();
 		ResultSet rs = null;
 		String SQL ="Select * from search_qtype WHERE QType=?";
 		try {
@@ -266,10 +266,9 @@ public class QuestionDAO {
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, qtype);
 			rs = pstmt.executeQuery();
-			while(rs.next()) 
+			if(rs.next()) 
 			{
-				QuestionTypeDTO questionDTO = new QuestionTypeDTO(rs.getInt("QType"),rs.getString("descript"));
-				queTypes.add(questionDTO);
+				 questionDTO = new QuestionTypeDTO(rs.getInt("QType"),rs.getString("descript"));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -278,7 +277,7 @@ public class QuestionDAO {
 			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
-		return queTypes;
+		return questionDTO;
 	}
 	
 	

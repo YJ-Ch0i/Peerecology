@@ -9,11 +9,11 @@ $(function(){
 			 dataType:"json",
 			 success: function(result){
 				 
-				 alert(result);
-			     alert("통신 성공! 엑셀 다운로드");
+				 alert(result.result);
 			  },
 			   error: function (request,status,error) {
 				   alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				   console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error)
 			  },
 //			  error: function (jqXHR, textStatus, errorThrown) {
 //				   alert("오류가 발생하였습니다.");

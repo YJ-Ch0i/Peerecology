@@ -42,7 +42,7 @@ public class QuestionService {
 	public ArrayList<QuestionTypeDTO> showAllType() {
 		return dao.showAllType();
 	}
-	public ArrayList<QuestionTypeDTO> showAllType(int qtype) {
+	public QuestionTypeDTO showAllType(int qtype) {
 		return dao.showAllType(qtype);
 	}
 	public int trandManagerRegister(String bigTrandTitle, String bigTrandExplan) {

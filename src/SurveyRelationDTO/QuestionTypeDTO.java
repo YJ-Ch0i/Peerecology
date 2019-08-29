@@ -41,6 +41,9 @@ public class QuestionTypeDTO {
 	public void setQ_typeDirection(boolean q_typeDirection) {
 		this.q_typeDirection = q_typeDirection;
 	}
+	public QuestionTypeDTO() {
+		super();
+	}
 	
 	
 	

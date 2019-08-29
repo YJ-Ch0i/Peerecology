@@ -14,4 +14,5 @@ public class Constant {
 	public final static String ZERO_STR = "0";
 	
 	public final static int PEERID = 8; //또래지명 아이디
+	public final static int PEERTYPEID = 1;
 }
