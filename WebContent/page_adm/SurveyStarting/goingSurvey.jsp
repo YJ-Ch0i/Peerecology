@@ -99,9 +99,12 @@
 			</tr>
 			<%} %>
 			</tbody>
-			</table>
-			<%} %>
 			
+			</table>
+			
+			<%} %>
+			<ul class="pagination" style="list-stlye-type:none; text-align:center;">
+  			</ul>
 			</div>
 		</section>
 		<!-- End Section -->
