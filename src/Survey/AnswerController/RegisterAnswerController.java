@@ -51,7 +51,10 @@ public class RegisterAnswerController implements Controller {
 			surveyAnswerDTO.setQID(Integer.parseInt(QIDs[i]));
 			surveyAnswerDTO.setSutudentID(stu_id);
 			answerService.surveyAnswerRegister(surveyAnswerDTO);
+			if(checkDDorae!=null) 
+			{
 			answerService.multiAnswerRegister(checkDDorae);
+			}
 			}
 			
 		}
