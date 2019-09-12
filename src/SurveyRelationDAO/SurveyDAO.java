@@ -531,6 +531,7 @@ public class SurveyDAO {
 				surveyDTO.setSurveyNo(rs.getInt("surveyNo"));
 				surveyDTO.setTitle(rs.getString("title"));
 				surveyDTO.setOpen(rs.getBoolean("isOpen"));
+				surveyDTO.setDescript(rs.getString("descript"));
 			}
 		}
 		catch(Exception e) {

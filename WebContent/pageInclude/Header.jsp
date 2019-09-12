@@ -31,7 +31,7 @@
 							<!-- formSurvey.jsp에 있는 유형 중 한가지를 선택해서 쓸 수 있도록 만들기. --> 
 							<a href="/PeerSys/page_adm/SurveyStarting/startSurvey.jsp"> 설문조사 진행 </a> 
 							<a href="/PeerSys/page_adm/SurveyStarting/goingSurvey.jsp"> 진행중인 설문조사 </a>
-							<a href="/PeerSys/page_adm/SurveyResult/calculateSurvey.jsp"> 진행 완료된 설문조사 </a>
+							<a href="/PeerSys/page_adm/SurveyResult/calculateSurvey.jsp"> 계산 대기중인 설문조사 </a>
 						</li>
 					</ul></li>
 

@@ -50,6 +50,8 @@
 	SurveyService surService = SurveyService.getInstance();
 	int surveyNo = (int)session.getAttribute("surveyNo");
 	
+	SurveyDTO surveyDTO = surService.showSearchSurveyToSurveyNo(surveyNo);
+	
 	ArrayList<SurveyManagerDTO> queManagerList = new ArrayList<SurveyManagerDTO>();
 	queManagerList = surService.pagingShowQuestionsToManager(surveyNo,pageNumber);
 	
@@ -88,6 +90,7 @@
 	<section class="page-section" style="padding:50px 0">
 	<div class="container relative">
 	<div class="row">
+	<h4><%= surveyDTO.getDescript() %></h4>
 	<form action="/PeerSys/surveyAnswerRegister.as" method="post">
 	<hr>
 	<%for(int i=0; i<queManagerList.size();i++){ %>

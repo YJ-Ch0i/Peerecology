@@ -1,6 +1,6 @@
 function pagination(){
-        var req_num_row=10;
-        var $tr=jQuery('tr');
+        var req_num_row=6;
+        var $tr=jQuery('.checkbox-inline');
         var total_num_row=$tr.length;
         var num_pages=0;
         if(total_num_row % req_num_row ==0){
@@ -11,6 +11,7 @@ function pagination(){
             num_pages++;
             num_pages=Math.floor(num_pages++);
         }
+        
         for(var i=1; i<=num_pages; i++){
             jQuery('.pagination').append("<li style=\"display: inline; padding: 5px; cursor:pointer;\"><a style=\"cursor:pointer;\">"+i+"</a></li>");
       jQuery('.pagination li:nth-child(2)').addClass("active");
