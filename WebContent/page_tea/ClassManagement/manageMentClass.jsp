@@ -112,7 +112,7 @@
                                 <th> 성별 </th>
                                 <th> 이름 </th>
                                 <th> 재학/전학 처리 </th>
-                                <th> 학생 결과보기 </th>
+                                <!-- <th> 학생 결과보기 </th> -->
                             </tr>
                          </thead>
                             <%
@@ -137,7 +137,7 @@
                                 	</form>                                 	
                                 	<!-- <a class="btn btn-mod btn-circle btn-small" href="/PeerSys/StudentTransfer.st?stu_name=<%=stu.getName() %>" onclick="transfer()" style="text-decoration:none"><i class="fa fa-times"></i><span class="hidden-xs">전학처리</span></a> -->                                                                                                                                             
                                 </td>
-                                <td>                      
+                                <!-- <td>                      
                                 	<form id="result<%= stu.getNum()%>" method="post">
                                 		<input type="hidden" name="sch_name" value="<%= school.getName() %>">
                                 		<input type="hidden" name="stu_id" value="<%= stu.getStu_id() %>">
@@ -147,7 +147,7 @@
                                 		<input type="hidden" name="stu_name" value="<%= stu.getName()%>">                                		
                                 		<input type="button" class="btn btn-mod btn-circle btn-small" value="결과보기" onClick="resultProcess(this.form)">
                                 	</form>                                 	                                	                                                                                                                                           
-                                </td>
+                                </td> -->
                             <% } %>
                             </tr>
                             </tbody>

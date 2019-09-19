@@ -43,6 +43,7 @@ public class StudentLoadController implements Controller{
 																						CommonUtil.strToInt(request.getParameter("grd_num")),
 																						request.getParameter("year"));
 		
+				
 		Gson gson = new Gson();
 		//두개의 JsonArray를 받을 List
 		List<String> personalScore = new ArrayList<>(); 

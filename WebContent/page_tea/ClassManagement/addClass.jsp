@@ -97,7 +97,7 @@
 						<form action="/PeerSys/schoolSearch.jsp" method="post" id="form"
 							role="form">
 							
-							<h3>본인이 소속되어 있는 학교를 선택 해 주세요.</h3>
+							<h3>본인이 소속되어 있는 학교를 검색 해 주세요.</h3>
 							
 							<input type="text" name="schoolNm" id="schoolNm"
 								value="<%if( request.getAttribute("sch_name")!=null){ %> <%= request.getAttribute("sch_name") %> <%} %>"

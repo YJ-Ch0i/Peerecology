@@ -89,3 +89,22 @@ function calculate(f){
 		return;
 	}
 }
+
+function checkStuNumber(){
+	
+	var value = document.getElementById("stuNum").value;	
+$.ajax({
+ type: "POST",
+ url: "/PeerSys/stuCheck.ax",
+ dataType:"json",
+ data: {number:value},
+ success: function(result){
+	 if(result.contains == "false"){
+		 alert("이미 " + value + "번 학생이 있습니다. 다시 확인하여 주세요.");
+		 document.getElementById("stuNum").focus();
+		 return;
+	 }
+  }
+ });
+}
+

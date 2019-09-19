@@ -1,3 +1,5 @@
+<%@page import="Service.SchoolService"%>
+<%@page import="School.SchoolDTO.SchoolDTO"%>
 <%@page import="view.viewDTO.SearchEndsurveyDTO"%>
 <%@page import="Service.SurveyService"%>
 <%@page import="User.UserDTO.TeacherDTO"%>
@@ -78,19 +80,24 @@
 				   TeacherDTO teacher = teaService.teacherInfo(tea_id); 
 				   ArrayList<SearchEndsurveyDTO> list = new ArrayList<SearchEndsurveyDTO>();
                    SurveyService surService = SurveyService.getInstance();
-                   list = surService.searchEndSurvey(teacher.getSCID());				 
+                   list = surService.searchEndSurvey(teacher.getSCID());
+                   SchoolDTO school = SchoolService.getInstance().getSchoolToSCID(teacher.getSCID());
                    %>               
                    
 				<div class="row">				
 
 					<% for(int i=0; i<list.size(); i++){ %>
-						<form action="/PeerSys/resultTeacher.sv" method="post">
+						<form action="/PeerSys/viewResult.sv" method="post">
 							<input type="hidden" value="<%=list.get(i).getSurveyNo() %>" name="surveyNo">
 							<input type="hidden" value="<%=list.get(i).getIngSeq() %>" name="ingSeq">
-							<input type="hidden" value="<%=list.get(i).getSCID() %>" name="scid">
+							<input type="hidden" value="<%=list.get(i).getSCID() %>" name="sch_code">
 							<input type="hidden" value="<%=list.get(i).getStartDate() %>" name="startdate">
 							<input type="hidden" value="<%=list.get(i).getEndDate() %>" name="enddate">
 							<input type="hidden" value="<%=list.get(i).getTitle() %>" name="title">
+							<input type="hidden" value="<%=teacher.getGrade() %>" name="grade">
+							<input type="hidden" value="<%=teacher.getClasses() %>" name="grd_num">
+							<input type="hidden" value="<%=teacher.getLastChangeYear() %>" name="year">
+							<input type="hidden" value="<%=school.getName() %>" name="sch_name">
 							<button type="submit"
 								class="btn btn-mod btn-circle btn-medium" style="width: 50%; margin-bottom: 10px;">
 								<%= i+1%> ) <%=list.get(i).getTitle() %> - 종료일 : <%= list.get(i).getEndDate() %> 

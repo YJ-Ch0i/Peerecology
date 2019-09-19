@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import Api.Item;
 import School.SchoolDTO.SchoolDTO;
 import Util.DBConn;
 
@@ -46,6 +47,41 @@ public class SchoolDAO {
 			if(rs != null) try{rs.close();}catch(SQLException sqle){}
 		}
 		return school;
+	}
+	
+	/**
+	 * 학교이름으로 학교정보 리스트 반환. 사용 객체는 Item
+	 * @param sch_name
+	 * @return
+	 */
+	public ArrayList<Item> getSchoolList(String sch_name) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Item> schools = new ArrayList<>();
+		
+		String SQL = "SELECT * FROM school_info WHERE name Like ?";
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, "%" + sch_name + "%");
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Item item = new Item();
+				item.setSchoolId(rs.getString("SCID"));
+				item.setSchoolname(rs.getString("name"));
+				item.setRdnmadr(rs.getString("address"));
+				
+				schools.add(item);
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+		}
+		return schools;
 	}
 	
 	/**

@@ -70,6 +70,8 @@ $.ajax({
 	 year:jsonValue.year},
  success: function(result){
 
+	 const peerID = 8;	//break Point --> PeerID
+	 
 	 if(jsonValue.btid == 8){
 		 var trandList = result[0];
 		 var scoresList = result[1];
@@ -205,13 +207,28 @@ $.ajax({
 		
 		console.log(serieses);
 		
+		var yAxisObject = new Object();
+		if(jsonValue.btid == peerID){	//또래지명일때
+			yAxisObject.min = 0.0;
+			yAxisObject.max = 1.0;
+		}
+		else{
+			yAxisObject.max = 0.0;
+			yAxisObject.max = 5.0;
+		}
+		
+		
 		//하이차트
 		Highcharts.chart('barchart', {
 		    title: {
 		        text: '학급 평균 : ' + btDesc
 		    },
 		    xAxis: {
-		        categories: trand_list
+		        categories: trand_list		     
+		    },
+		    yAxis: yAxisObject,
+		    credits: {
+		        enabled: false
 		    },
 		    series: serieses
 		});

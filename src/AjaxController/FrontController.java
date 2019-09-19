@@ -26,6 +26,9 @@ public class FrontController extends HttpServlet{
 		list.put("/studentLoad.ax", new StudentLoadController());
 		list.put("/peerLoad.ax", new PeerLoadController());
 		list.put("/excelDownload.ax", new ComputedExcelDownloadController());
+		list.put("/stuCheck.ax", new CheckStudentController());		
+		list.put("/pickedExcelDownload.ax", new PickedExcelController());
+		list.put("/selectedDataExcelDownload.ax", new SelectedDataExcelController());
 	}
 		
 	@Override

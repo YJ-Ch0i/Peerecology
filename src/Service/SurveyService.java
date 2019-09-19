@@ -87,6 +87,11 @@ public class SurveyService {
 	public SurveyGoingDTO findIngSurvey(int surveyNo, String SCID){
 		return dao.findIngSurvey(surveyNo, SCID);
 	}
+	
+	public int showSearchSurveyToIngseq(int ingseq) {
+		return dao.showSearchSurveyToIngseq(ingseq);
+	}
+	
 	public SurveyDTO showSearchSurveyToSurveyNo(int surveyNo){
 		return dao.showSearchSurveyToSurveyNo(surveyNo);
 	}
@@ -124,5 +129,8 @@ public class SurveyService {
 	}
 	public ArrayList<StudentScoresDTO> getStudentScores(String SCID, int grade, int grd_num, int stuid, String year) {
 		return dao.getStudentScores(SCID, grade, grd_num, stuid, year);
+	}
+	public ArrayList<StudentScoresDTO> getStudentScoresInSeq(String SCID, int grade, int grd_num, int stuid, String year, int seq) {
+		return dao.getStudentScoresInSeq(SCID, grade, grd_num, stuid, year, seq);
 	}
 }

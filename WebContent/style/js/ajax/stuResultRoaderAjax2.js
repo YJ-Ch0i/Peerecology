@@ -93,9 +93,10 @@ $.ajax({
 						else continue;					
 					}
 				}				
-				columnSeries.type = 'column';
+				//columnSeries.type = 'column';
 				columnSeries.name = (k+1) + '차 설문';
 				columnSeries.data = arr;
+				pointPlacement: 'on'
 				serieses.push(columnSeries);
 			}
 		}
@@ -118,9 +119,10 @@ $.ajax({
 						else continue;					
 					}
 				}
-				columnSeries.type = 'column';
+				//columnSeries.type = 'column';
 				columnSeries.name = (k+1) + '차 설문';
 				columnSeries.data = arr;
+				pointPlacement: 'on'
 				serieses.push(columnSeries);
 			}
 		}
@@ -176,46 +178,90 @@ $.ajax({
 			yAxisObject.gridLineInterpolation = 'polygon';
 			yAxisObject.lineWidth = 0;
 			yAxisObject.min = 0;
-			yAxisObject.max = 1.25;
+			yAxisObject.max = 1;
+			yAxisObject.maxPadding = 1;
+			yAxisObject.endOnTick = true;
+			yAxisObject.tickInterval = 0;
 		}
 		else{ // 또래지명이 아닐떄
 			yAxisObject.gridLineInterpolation = 'polygon';
 			yAxisObject.lineWidth = 0;
-			yAxisObject.max = 1.0;
-			yAxisObject.max = 7.0;
+			yAxisObject.min = 0;
+			yAxisObject.max = 5;
+			yAxisObject.maxPadding = 5;
+			yAxisObject.endOnTick = true;
+			yAxisObject.tickAmount = 6;					
+			yAxisObject.ceiling = 5;
+			yAxisObject.floor = 0;
+			yAxisObject.tickmarkPlacement = 'on';
+			yAxisObject.tickInterval = 1;
+			yAxisObject.minTickInterval = 1;
 		}
 		
 		Highcharts.chart('radar' + bigTrandList[i].btID, {
 		
-		    chart: {
-		        polar: true
+			chart: {
+		        polar: true,
+		        type: 'line'
 		    },
-		
+
 		    title: {
-		        text: bigTrandList[i].btDesc
+		        text: bigTrandList[i].btDesc,		        
 		    },
-		
 		    subtitle: {
 		        text: bigTrandList[i].btDesc + " 점수 그래프입니다."
 		    },
-		
-		    pane: {
-		        startAngle: 0,
-		        endAngle: 360
-		    },
-		
+
+//		    pane: {
+//		        size: '80%'
+//		    },
+
 		    xAxis: {
 		        categories: trlForSeries,
 		        tickmarkPlacement: 'on',
 		        lineWidth: 0
 		    },
+
 		    yAxis: yAxisObject,
 		    
 		    credits: {
 		        enabled: false
 		      },
-		
-		    series: serieses
+
+		    tooltip: {
+		        shared: true,
+		        //pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.0f}</b><br/>'
+		    },
+
+//		    legend: {
+//		        align: 'right',
+//		        verticalAlign: 'middle'
+//		    },
+		    legend: {
+	            align: 'right',
+	            verticalAlign: 'top',
+	            y: 70,
+	            layout: 'vertical'
+	        },
+
+		    series: serieses,
+
+		    responsive: {
+		        rules: [{
+		            condition: {
+		                maxWidth: 500
+		            },
+		            chartOptions: {
+		                legend: {
+		                    align: 'center',
+		                    verticalAlign: 'bottom'
+		                },
+		                pane: {
+		                    size: '70%'
+		                }
+		            }
+		        }]
+		    }
 		});
 	}
  },

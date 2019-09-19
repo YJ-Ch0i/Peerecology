@@ -13,6 +13,8 @@ public class Constant {
 	
 	public final static String ZERO_STR = "0";
 	
-	public final static int PEERID = 8; //또래지명 아이디
-	public final static int PEERTYPEID = 1;
+	public final static int PEERID = 8; //또래지명 척도분류 아이디
+	public final static int PEERTYPEID = 1;	//또래지명 문항타입 아이디
+	
+	public final static int SHORTANSWER = 5; // 주관식 문항타입 아이디
 }

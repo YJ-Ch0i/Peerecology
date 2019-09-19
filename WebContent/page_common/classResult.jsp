@@ -132,16 +132,49 @@
 				<div class="text-right">
 					<!-- a href="#">예정</a> -->
 					<!-- <button class="btn btn-mod btn-circle btn-medium" onClick="parseExcel();">엑셀파일 다운로드</button> -->
-					 <form id="downExcel">
-                    	 <input type="hidden" name="scid" id="scid" value="<%=scid%>">
-                    	 <input type="hidden" name="grade" id="grd" value="<%=grade%>">
-                    	 <input type="hidden" name="grdNum" id="grdNum" value="<%=grdNum%>">
-                    	 <input type="hidden" name="year" id="year" value="<%=year%>">
-                    	 <input type="hidden" name="seq" id="seq" value="<%=ingSeq%>">
-                    	 <input type="hidden" name="surNo" id="surNo" value="<%=surNo%>">
-                    	 <input type="button" id="excelDownload" value="엑셀파일 다운로드" class="btn btn btn-mod btn-medium btn-circle">
-                     </form>
+					<div class="row">
+					<!-- 관리자전용 다운로드 -->
+					<% if(session.getAttribute("admin_id") != null){ %>
+						<div class="col-md-4">
+							<form id="downExcelPicked">
+		                    	 <input type="hidden" name="scid" id="scid" value="<%=scid%>">
+		                    	 <input type="hidden" name="grade" id="grd" value="<%=grade%>">
+		                    	 <input type="hidden" name="grdNum" id="grdNum" value="<%=grdNum%>">
+		                    	 <input type="hidden" name="year" id="year" value="<%=year%>">
+		                    	 <input type="hidden" name="seq" id="seq" value="<%=ingSeq%>">
+		                    	 <input type="hidden" name="surNo" id="surNo" value="<%=surNo%>">
+		                    	 <input type="button" id="pickedDownload" value="또래지명 엑셀파일 다운로드" class="btn btn btn-mod btn-medium btn-circle">
+		                     </form>
+	                     </div>
+						 <div class="col-md-4">
+		                     <form id="downExcel">
+		                    	 <input type="hidden" name="scid" id="scid" value="<%=scid%>">
+		                    	 <input type="hidden" name="grade" id="grd" value="<%=grade%>">
+		                    	 <input type="hidden" name="grdNum" id="grdNum" value="<%=grdNum%>">
+		                    	 <input type="hidden" name="year" id="year" value="<%=year%>">
+		                    	 <input type="hidden" name="seq" id="seq" value="<%=ingSeq%>">
+		                    	 <input type="hidden" name="surNo" id="surNo" value="<%=surNo%>">
+		                    	 <input type="button" id="excelDownload" value="객관식 및 주관식 엑셀파일 다운로드" class="btn btn btn-mod btn-medium btn-circle">
+		                     </form>
+	                     </div>
+                     <% } %>
+	                     <!-- 관리자 전용 끝-->
+	                     <!-- 관리자 & 선생님 다운로드-->
+	                     <div class="col-md-4">
+		                     <form id="downExcelScores">
+		                    	 <input type="hidden" name="scid" id="scid" value="<%=scid%>">
+		                    	 <input type="hidden" name="grade" id="grd" value="<%=grade%>">
+		                    	 <input type="hidden" name="grdNum" id="grdNum" value="<%=grdNum%>">
+		                    	 <input type="hidden" name="year" id="year" value="<%=year%>">
+		                    	 <input type="hidden" name="seq" id="seq" value="<%=ingSeq%>">
+		                    	 <input type="hidden" name="surNo" id="surNo" value="<%=surNo%>">
+		                    	 <input type="button" id="scoresDownload" value="종합 점수 엑셀파일 다운로드" class="btn btn btn-mod btn-medium btn-circle">
+		                     </form>
+	                     </div>
+	                     <!-- 관리자 & 선생님 다운로드 끝 -->
+                     </div>                     
 				</div>
+				<hr>
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<div class="row">
@@ -241,16 +274,17 @@
 							
 								<div class="row" id="radarSector" style="display:none;">									
 									<% for(int i=0; i<bigTrandList.size(); i++){ %>
-									<hr size='5'>
+									<div class="row"><hr></div>
 										<br>														
 										<div class="col-md-9" id="radar<%=bigTrandList.get(i).getBigTrandID() %>" style="min-width:310px; max-width:600px; min-height:600px; max-height:1500px;">									
 										</div>
-										<div class="col-md-5" style="text-align:center; min-width:450px; max-width:450px; min-height:600px; max-height:1500px; margin:0 auto">
+										<div class="col-md-3" style="text-align:center; min-width:450px; max-width:450px; min-height:600px; max-height:1500px; margin:0 auto">
 											<div class="row" style="text-align:center; min-width:300px; max-width:300px; margin:0 auto">
 												<br><br><br><br><br><br>
 												<label id="raderDesc<%=bigTrandList.get(i).getBigTrandID() %>" class="control-label" for="inputWarning2"></label>
 											</div>									
-										</div>									
+										</div>
+										<div class="row"><hr></div>																	
 									<%} %>
 								</div>								
 								<div id="radarSelectSector" class="row">
@@ -305,6 +339,7 @@
 	<script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script type="text/javascript" src="https://code.highcharts.com/modules/export-data.js"></script>
 	<script type="text/javascript" src="https://code.highcharts.com/modules/networkgraph.js"></script>
+	<script type="text/javascript" src="https://code.highcharts.com/modules/accessibility.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
 	<!--[if lt IE 10]><script type="text/javascript" src="js/placeholder.js"></script><![endif]-->
 	<script type="text/javascript" src="/PeerSys/style/js/studentTransfer.js"></script>
@@ -313,7 +348,7 @@
 	<!-- <script type="text/javascript" src="/PeerSys/style/js/visualize/barSplineResultAjax.js"></script> -->
 	<!-- <script type="text/javascript" src="/PeerSys/style/js/visualize/raiderGph.js"></script> -->
 	<script type="text/javascript" src="/PeerSys/style/js/ajax/trandLoadAjax.js"></script>
-	<script type="text/javascript" src="/PeerSys/style/js/ajax/stuResultRoaderAjax.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/ajax/stuResultRoaderAjax2.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/ajax/peerLoaderAjax.js"></script>
 	<script type="text/javascript" src="/PeerSys/style/js/ajax/parseExcelAjax.js"></script>
 	

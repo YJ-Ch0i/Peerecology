@@ -48,6 +48,17 @@ public class SurveyGoingDTO {
 		this.endDate = endDate;
 		this.calculated = calculated;
 	}
+	
+	public SurveyGoingDTO(int ingSeq, int surveyNo, String sCID, int grade, String startDate, String endDate) {
+		super();
+		this.ingSeq = ingSeq;
+		SCID = sCID;
+		this.surveyNo = surveyNo;		
+		this.grade = grade;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+
 	public int getIngSeq() {
 		return ingSeq;
 	}

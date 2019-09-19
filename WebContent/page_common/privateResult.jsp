@@ -1,4 +1,9 @@
-<%@page import="view.viewDTO.SearchEndsurveyDTO"%>
+<%@page import="SurveyRelationDTO.QuestionDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="java.sql.Date"%>
+<%@page import="Service.QuestionService"%>
+<%@page import="SurveyRelationDTO.QuestionTrandTypeDTO"%>
+<%@page import="SurveyRelationDTO.QuestionTrandManagerDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -33,6 +38,7 @@
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
 <!-- 부가적인 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" type="text/css" />
 
 </head>
 <body class="appear-animate">
@@ -55,105 +61,211 @@
 			<div class="relative container align-left">
 
 				<div class="row">
-					<h1 class="hs-line-11 font-alt mb-20 mb-xs-0">설문조사 결과</h1>
+					<h1 class="hs-line-11 font-alt mb-20 mb-xs-0"><%=request.getAttribute("year")%>학년도 <%=request.getAttribute("sch_name")%> <%=request.getAttribute("grade") %>학년 <%=request.getAttribute("grdNum") %>반 설문조사 결과</h1>
 				</div>
 			</div>
 		</section>
 		<!-- End Head Section -->
 				
 				<%
-					ArrayList<String> totalList = new ArrayList<>();
-					totalList = (ArrayList<String>) request.getAttribute("totalArray");
-					request.setAttribute("totalArray", totalList);
+					ArrayList<String> scoresJson = new ArrayList<>();
+					scoresJson = (ArrayList<String>) request.getAttribute("scoresJson");
+					request.setAttribute("scoresJson", scoresJson);
 					
-					ArrayList<String> trandArray = new ArrayList<>();
-					trandArray = (ArrayList<String>) request.getAttribute("trandArray");
-					request.setAttribute("trandArray", trandArray);
+					ArrayList<String> trandJson = new ArrayList<>();
+					trandJson = (ArrayList<String>) request.getAttribute("trandJson");
+					request.setAttribute("trandJson", trandJson);
 					
-					ArrayList<String> stuArray = new ArrayList<>();
-					stuArray = (ArrayList<String>) request.getAttribute("stuArray");
-					request.setAttribute("stuArray", stuArray);
+					ArrayList<String> stuJson = new ArrayList<>();
+					stuJson = (ArrayList<String>) request.getAttribute("stuJson");
+					request.setAttribute("stuJson", stuJson);
 					
-					ArrayList<String> bigTrandArray = new ArrayList<>();
-					bigTrandArray = (ArrayList<String>) request.getAttribute("bigTrandArray");
-					request.setAttribute("bigTrandArray", bigTrandArray);
+					ArrayList<String> bigTrandJson = new ArrayList<>();
+					bigTrandJson = (ArrayList<String>) request.getAttribute("bigTrandJson");
+					request.setAttribute("bigTrandJson", bigTrandJson);
 					
-					ArrayList<String> bigTrandList = new ArrayList<>();
-					bigTrandList = (ArrayList<String>) request.getAttribute("bigTrandList");
+					ArrayList<QuestionTrandManagerDTO> bigTrandList = new ArrayList<>();
+					bigTrandList = (ArrayList<QuestionTrandManagerDTO>) request.getAttribute("bigTrandList");
 					request.setAttribute("bigTrandList", bigTrandList);
 					
-					ArrayList<SearchEndsurveyDTO> endSurList = new ArrayList<>();
-					endSurList = (ArrayList<SearchEndsurveyDTO>) request.getAttribute("endSurList");
-					request.setAttribute("endSurList", endSurList);
-					
-					ArrayList<String> endSurArray = new ArrayList<>();
-					endSurArray = (ArrayList<String>) request.getAttribute("endSurArray");
-					request.setAttribute("endSurArray", endSurArray);
+					ArrayList<String> endSurJson = new ArrayList<>();
+					endSurJson = (ArrayList<String>) request.getAttribute("endSurJson");
+					request.setAttribute("endSurJson", endSurJson);
 					
 					ArrayList<String> mixedTrand = new ArrayList<>();
 					mixedTrand = (ArrayList<String>) request.getAttribute("mixedTrand");
 					request.setAttribute("mixedTrand", mixedTrand);
 					
+					ArrayList<StudentDTO> attendList = new ArrayList<>();
+					attendList = (ArrayList<StudentDTO>) request.getAttribute("attendList");
+					request.setAttribute("attendList", attendList);
+					
+					QuestionService queService = QuestionService.getInstance();
+					ArrayList<QuestionTrandTypeDTO> trandTobigTrand = new ArrayList<>();
+					for(int i=0; i<bigTrandList.size(); i++){
+						QuestionTrandTypeDTO dto = new QuestionTrandTypeDTO();
+						trandTobigTrand = queService.getTrandToBigTID(bigTrandList.get(i).getBigTrandID());						
+					}
+					
+					String scid = (String) request.getAttribute("scid");
+					int ingSeq = (Integer) request.getAttribute("ingSeq");
+					int surNo = (Integer)request.getAttribute("surNo");
+					Date startdate = (Date) request.getAttribute("startdate");
+					Date enddate = (Date) request.getAttribute("enddate");		
+					int grade = (Integer) request.getAttribute("grade");
+					int grdNum = (Integer) request.getAttribute("grdNum");
+					String year = (String) request.getAttribute("year");
+					
+					List<QuestionDTO> peerQueList = queService.getPeerQuestionListInSeq(surNo);
 				%>
 				
-				<textarea id="totalArray" style="display:none"><%=totalList %></textarea>
-				<textarea id="trandArray" style="display:none"><%=trandArray %></textarea>
-				<textarea id="stuArray" style="display:none"><%=stuArray %></textarea>
-				<textarea id="bigTrandArray" style="display:none"><%=bigTrandArray %></textarea>
-				<textarea id="endSurArray" style="display:none"><%=endSurArray %></textarea>
+				<textarea id="scoresJson" style="display:none"><%=scoresJson %></textarea>
+				<textarea id="trandJson" style="display:none"><%=trandJson %></textarea>
+				<textarea id="stuJson" style="display:none"><%=stuJson %></textarea>
+				<textarea id="bigTrandJson" style="display:none"><%=bigTrandJson %></textarea>
+				<textarea id="endSurJson" style="display:none"><%=endSurJson %></textarea>				
 				<textarea id="mixedTrand" style="display:none"><%=mixedTrand %></textarea>
-				
 
 		<!-- Section -->
 		<section class="page-section">
 			<div class="container relative">	
 				<div class="text-right">
-					<a href="#">예정</a>
+					<!-- a href="#">예정</a> -->
+					<!-- <button class="btn btn-mod btn-circle btn-medium" onClick="parseExcel();">엑셀파일 다운로드</button> -->
+					<div class="row">						
+	                     <div class="col-md-4">
+		                     <form id="downExcelScores">
+		                    	 <input type="hidden" name="scid" id="scid" value="<%=scid%>">
+		                    	 <input type="hidden" name="grade" id="grd" value="<%=grade%>">
+		                    	 <input type="hidden" name="grdNum" id="grdNum" value="<%=grdNum%>">
+		                    	 <input type="hidden" name="year" id="year" value="<%=year%>">
+		                    	 <input type="hidden" name="seq" id="seq" value="<%=ingSeq%>">
+		                    	 <input type="hidden" name="surNo" id="surNo" value="<%=surNo%>">
+		                    	 <input type="button" id="scoresDownload" value="종합 점수 엑셀파일 다운로드" class="btn btn btn-mod btn-medium btn-circle">
+		                     </form>
+	                     </div>
+                     </div>                     
 				</div>
+				<hr>
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">또래관계보기</h3>
-					</div>
-					<div class="panel-body">
 						<div class="row">
-							<div class="col-md-9">
-								<div id="classnetwork">
-									<div>
-										<canvas>
-										
-										</canvas>
-									</div>
-								</div>
-								<small>무엇인가 설명</small>
+							<div class="col-xs-4">
+								<h2 class="panel-title">문항별 학급 관계 시각화</h2>
 							</div>
-							<div class="col-md-3">
-								설명이 들어갈 곳
+							<div class="col-xs-3">														
+								<select id="" class="input-md form-control" onChange="queSelect(this.value);">
+								<option value='-2' selected>선택 해 주세요</option>
+								<%for(QuestionDTO dto : peerQueList){ %>
+									<option value=
+									'{"qid":"<%=dto.getQID()%>","seq":"<%=ingSeq%>","scid":"<%=scid %>","grade":"<%=grade%>","grdNum":"<%=grdNum%>", "year" : "<%=year%>"}'><%=dto.getTitle()%></option>
+								<%} %>
+								</select>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="alert alert-warning" role="alert">
-				
-				</div>				
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-12" style="min-height:40px; max-height:700px;">
+								<div id="networkSector" class="row" style="display:none; min-height:400px; max-height:500px;">
+									<div class="col-md-12" id="peerNetwork" style="position: relative; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 500px;"></div>
+									<div class="col-md-3" style="text-align:center; min-width:450px; max-width:450px; min-height:500px; max-height:600px; margin:0 auto">
+										<div class="row" style="text-align:center; min-width:300px; max-width:300px; margin:0 auto">
+											<br><br><br><br>
+											<label id="" class="control-label" for="inputWarning2">11111111111111</label>
+										</div>									
+									</div>
+								</div>
+								<div id="networkSelectSector" class="row" style="height:200px">
+									<div class="col-md-9" style="min-width:310px; max-width:600px; min-height:200px; max-height:200px;">
+										<h2>문항을 선택 해 주세요</h2>									
+									</div>									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>										
+								
 				<br>
 				<br>
 				
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">성향별 점수</h3>
+						<div class="row">
+							<div class="col-xs-4">
+								<h2 class="panel-title">척도 분류별 학급전체 점수</h2>
+							</div>
+							<div class="col-xs-3">														
+								<select id="trandBigName" class="input-md form-control" onChange="BTselect_result(this.value);">
+								<option value='-2' selected>선택 해 주세요</option>
+									<%for(QuestionTrandManagerDTO dto : bigTrandList){ %>
+										<option value=
+											'{"btid":"<%=dto.getBigTrandID()%>","seq":"<%=ingSeq%>","scid":"<%=scid %>","grade":"<%=grade%>","grdNum":"<%=grdNum%>", "year" : "<%=year%>"}'><%=dto.getDescript()%></option>
+									<%} %>
+								</select>
+							</div>
+						</div>
 					</div>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-12">
-								<div id="barchart" style="min-width:310px; max-width:600px; min-height:600px; max-height:1500px;">									
+								<div id="barSplineSector" style="display:none;" class="row">
+									<div class="col-md-9" id="barchart" style="min-width:310px; max-width:600px; min-height:600px; max-height:1500px;">																		
+									</div>		
+									<div class="col-md-5" style="text-align:center; min-width:450px; max-width:450px; min-height:600px; max-height:1500px; margin:0 auto">
+										<div class="row" style="text-align:center; min-width:300px; max-width:300px; margin:0 auto">
+											<br><br><br><br><br><br>
+											<label id="bigTdesc" class="control-label" for="inputWarning2"></label>
+										</div>
+									</div>
 								</div>
-								<br>1
-							<% for(int i=0; i<bigTrandList.size(); i++){ %>
-								<div id="rader<%=i %>" style="min-width:310px; max-width:600px; min-height:600px; max-height:1500px;">									
-								</div>
-								<br>2
-							<%} %>
+								<div id="selectSector" class="row">
+									<div class="col-md-9" id="barchart" style="min-width:310px; max-width:600px; min-height:200px; max-height:200px;">
+										<h2>척도 분류를 선택 해 주세요</h2>									
+									</div>		
+								</div>					
+													
+								<div class="row">
+									<div class="alert alert-warning" role="alert">
+										<div class="row">
+											<div class="col-xs-4">
+												<h2 class="panel-title">학생별 점수</h2>
+											</div>
+											<div class="col-xs-3">														
+												<select id="studentSector" class="input-md form-control" onChange="studentSelector(this.value);">
+												<option value='-2' selected>학생을 선택 해 주세요</option>
+													<%for(int i=0; i<attendList.size(); i++){ %>
+														<option value=
+														'{"sid":"<%=attendList.get(i).getStu_id()%>","scid":"<%=attendList.get(i).getScid() %>","grade":"<%=attendList.get(i).getGrade() %>","grd_num":"<%=attendList.get(i).getGrd_num()%>","year":"<%=attendList.get(i).getYear()%>"}'><%=attendList.get(i).getName() %></option>													
+													<%} %>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>			
+							
+								<div class="row" id="radarSector" style="display:none;">									
+									<% for(int i=0; i<bigTrandList.size(); i++){ %>
+									<div class="row"><hr></div>
+										<br>														
+										<div class="col-md-9" id="radar<%=bigTrandList.get(i).getBigTrandID() %>" style="min-width:310px; max-width:600px; min-height:600px; max-height:1500px;">									
+										</div>
+										<div class="col-md-3" style="text-align:center; min-width:450px; max-width:450px; min-height:600px; max-height:1500px; margin:0 auto">
+											<div class="row" style="text-align:center; min-width:300px; max-width:300px; margin:0 auto">
+												<br><br><br><br><br><br>
+												<label id="raderDesc<%=bigTrandList.get(i).getBigTrandID() %>" class="control-label" for="inputWarning2"></label>
+											</div>									
+										</div>
+										<div class="row"><hr></div>																	
+									<%} %>
+								</div>								
+								<div id="radarSelectSector" class="row">
+									<div class="col-md-9" style="min-width:310px; max-width:600px; min-height:200px; max-height:200px;">
+										<h2>학생을 선택 해 주세요</h2>									
+									</div>									
+								</div>																			
 							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -195,12 +307,25 @@
 	<script type="text/javascript" src="/PeerSys/style/js/jquery.ajaxchimp.min.js"></script>
 	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+	<script type="text/javascript" src="https://code.highcharts.com/highcharts-more.js"></script>
 	<script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script type="text/javascript" src="https://code.highcharts.com/modules/export-data.js"></script>
+	<script type="text/javascript" src="https://code.highcharts.com/modules/networkgraph.js"></script>
+	<script type="text/javascript" src="https://code.highcharts.com/modules/accessibility.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
 	<!--[if lt IE 10]><script type="text/javascript" src="js/placeholder.js"></script><![endif]-->
 	<script type="text/javascript" src="/PeerSys/style/js/studentTransfer.js"></script>
 	<!-- <script type="text/javascript" src="/PeerSys/style/js/visualize/stuBarGraph.js"></script> -->
-	<script type="text/javascript" src="/PeerSys/style/js/visualize/barSpline.js"></script>
+	<!-- <script type="text/javascript" src="/PeerSys/style/js/visualize/barSplineToResult.js"></script> -->
+	<!-- <script type="text/javascript" src="/PeerSys/style/js/visualize/barSplineResultAjax.js"></script> -->
+	<!-- <script type="text/javascript" src="/PeerSys/style/js/visualize/raiderGph.js"></script> -->
+	<script type="text/javascript" src="/PeerSys/style/js/ajax/trandLoadAjax.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/ajax/stuResultRoaderAjax2.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/ajax/peerLoaderAjax.js"></script>
+	<script type="text/javascript" src="/PeerSys/style/js/ajax/parseExcelAjax.js"></script>
+	
+	<!-- <script src="https://code.highcharts.com/highcharts.js"></script> -->
+	<!-- <script type="text/javascript" src="/PeerSys/style/js/visualize/barSpline.js"></script> -->
 	
 	
 </body>

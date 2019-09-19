@@ -92,11 +92,11 @@ function versionPick()
 		<!-- Section -->
 		<section class="page-section">
 			<div class="container relative">
-<%
-SchoolService schService = SchoolService.getInstance();
-ArrayList<SchoolDTO> schList = new ArrayList<SchoolDTO>();
-schList = schService.school_List();
-%>
+			<%
+			SchoolService schService = SchoolService.getInstance();
+			ArrayList<SchoolDTO> schList = new ArrayList<SchoolDTO>();
+			schList = schService.school_List();
+			%>
 				<div class="works-filter font-alt">
 				<a href="#" class="filter active" data-filter="*" >모든학교</a>
 				<a href="#Elementary" class="filter" data-filter=".Elementary">초등학교</a>
@@ -107,7 +107,7 @@ schList = schService.school_List();
 				<%for(int i=0; i<schList.size(); i++){ %>
                         <li class="work-item mix <%if(schList.get(i).getName().contains("초등학교")){%>Elementary<%}else{%>Middle<%}%>">
                         <label class="checkbox-inline">
-                                        <input type="checkbox" name="checkSch" value="<%=schList.get(i).getSCID() %>"><%=schList.get(i).getName() %>
+                         	<input type="checkbox" name="checkSch" value="<%=schList.get(i).getSCID() %>"><%=schList.get(i).getName() %>
                         </label>
                 <%} %>
                 <%}else{ %>

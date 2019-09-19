@@ -29,4 +29,7 @@ public class AnswerService {
 	public List<SurveyAnswerDTO> getMultiAnswersInSeq(int qtid, int seq, String scid, int grade, int grdNum) {
 		return dao.getMultiAnswersInSeq(qtid, seq, scid, grade, grdNum);
 	}
+	public List<SurveyAnswerDTO> getMultiAnswersInQuestion(int seq, String scid, int grade, int grdNum, int qid) {
+		return dao.getMultiAnswersInQuestion(seq, scid, grade, grdNum, qid);
+	}
 }

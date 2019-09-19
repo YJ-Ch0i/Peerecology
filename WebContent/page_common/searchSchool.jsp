@@ -64,7 +64,7 @@
 								<input type="hidden" name="sch_code" value="<%=list.get(i).getSCID() %>"> 
 								<input type="hidden" name="sch_name" value="<%=list.get(i).getName() %>"> 
 								<input type="hidden" name="sch_address" value="<%= list.get(i).getAddress() %>"> 
-								<input type="hidden" name="adminSearching" value="<%=request.getAttribute("adminSearching") %>"> 
+								<input type="hidden" name="adminSearching" value="<%=request.getAttribute("adminSearching") %>">
 								<input type="submit" value="선택" style="margin: 0% 0% 0% 15%" class="btn btn-mod btn-circle btn-small">
 							</form>
 						</td>

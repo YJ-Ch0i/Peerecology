@@ -1,5 +1,7 @@
 package Common;
 
+import java.io.File;
+
 /**
  * 공통 메소드 관리 클래스
  * @author yeong
@@ -29,6 +31,26 @@ public class CommonUtil {
 	}
 	
 	/**
+	 * String 변수 2개가 일치 혹은 포함 관계인지 파악
+	 * @param str1
+	 * @param str2
+	 * @return true: 두 변수가 일치 혹은 포함하는 경우, false: 두 변수가 일치 혹은 포함하지 않는 경우
+	 */
+	public static boolean isEqualOrContainsString(String str1, String str2) {
+		if(isNotNullString(str1) && isNotNullString(str2)) {
+			if(str1.contains(str2) || str1.equals(str2) || str2.contains(str1) || str2.equals(str1)) {
+				return true;
+			}
+			else return false;
+		}
+		return false;
+	}
+	
+	public static boolean isNotEqualOrContainsString(String str1, String str2) {
+		return !isEqualOrContainsString(str1, str2);
+	}
+	
+	/**
 	 * 문자열 -> 정수형 형변환
 	 * @param str
 	 * @return
@@ -50,5 +72,18 @@ public class CommonUtil {
 			return false;
 		}
 		return true;
+	}
+	
+	/**
+	 * 설정한 경로대로 폴더를 생성하는 메소드
+	 * @param path
+	 * @return
+	 */
+	public static void createFolder(String path) {
+		File folder = new File(path);
+		
+		if(!folder.exists()) {
+			folder.mkdirs();	        
+		}
 	}
 }

@@ -515,6 +515,33 @@ public class SurveyDAO {
 		}
 		return surveyList;
 	}
+	
+	public int showSearchSurveyToIngseq(int ingseq)
+	{
+		Connection conn=null;	
+		Statement stmt = null;
+		int surveyNo = 0;
+		ResultSet rs = null;
+		String SQL ="SELECT surveyNo FROM survey_ing where ingSeq='"+ingseq+"'; ";
+		try {
+			conn =DBConn.getConnection();
+			stmt = conn.createStatement();
+            rs = stmt.executeQuery(SQL);
+			if(rs.next()) 
+			{
+				surveyNo = rs.getInt("surveyNo");
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(stmt != null) try{stmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return surveyNo;
+	}
+	
 	public SurveyDTO showSearchSurveyToSurveyNo(int surveyNo)
 	{
 		Connection conn=null;	
@@ -1088,5 +1115,86 @@ public class SurveyDAO {
 			if(conn != null) try{conn.close();}catch(SQLException sqle){}
 		}
 		return scoresList;
+	}
+	
+	public ArrayList<StudentScoresDTO> getStudentScoresInSeq(String SCID, int grade, int grd_num, int stuid, String year, int seq) {
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<StudentScoresDTO> scoresList = new ArrayList<>();
+		
+		String sql = "SELECT * FROM stu_scores WHERE SCID=? AND grade=? AND grd_num=? AND studentID=? AND year=? AND ingSeq=? ORDER BY trandID";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, SCID);
+			pstmt.setInt(2, grade);
+			pstmt.setInt(3, grd_num);
+			pstmt.setInt(4, stuid);
+			pstmt.setString(5, year);
+			pstmt.setInt(6, seq);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {				
+				StudentScoresDTO dto = new StudentScoresDTO();
+				dto.setIngseq(rs.getInt("ingSeq"));
+				dto.setSurveyNo(rs.getInt("surveyNo"));
+				dto.setStu_id(rs.getInt("studentID"));
+				dto.setsName(rs.getString("studentName"));
+				dto.setBigTrandId(rs.getInt("bigTrandID"));
+				dto.setBigTrandDesc(rs.getString("bigDesc"));
+				dto.setTrandId(rs.getInt("trandID"));
+				dto.setTrandDesc(rs.getString("trDesc"));
+				dto.setScore(rs.getDouble("score"));
+				dto.setYear(rs.getString("year"));
+				
+				scoresList.add(dto);
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return scoresList;
+	}
+	
+	public SurveyGoingDTO getSeq(int seq) {
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		SurveyGoingDTO dto = null;
+		
+		String sql = "SELECT * FROM survey_ing WHERE ingSeq=?";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, seq);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {				
+				dto = new SurveyGoingDTO(rs.getInt(1),
+														rs.getInt(2),
+														rs.getString(3),
+														rs.getInt(4),
+														rs.getString(5),
+														rs.getString(6));
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return dto;
 	}
 }

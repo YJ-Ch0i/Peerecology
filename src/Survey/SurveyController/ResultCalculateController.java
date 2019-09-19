@@ -4,12 +4,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Common.CommonUtil;
+import Common.Constant;
 import Controller.Controller;
 import Service.AnswerService;
 import Service.QuestionService;
@@ -78,7 +81,8 @@ public class ResultCalculateController implements Controller {
 		bigTrandList = queService.getBigTrandList(scid, start, end);
 		
 		
-		
+		//TODO
+		List<StudentScoresDTO> list = new ArrayList<>();
 		
 		
 		for (int l = 0; l < trandList.size(); l++) {
@@ -87,7 +91,7 @@ public class ResultCalculateController implements Controller {
 					for (int n = 0; n < attendList.size(); n++) {
 						int total = 0;
 						StudentScoresDTO students = new StudentScoresDTO();
-						for (int o = 0; o < questionDescList.size(); o++) {
+						for (int o = 0; o < questionDescList.size(); o++) {							
 							for (int q = 0; q < allType.size(); q++) {						
 								if (questionDescList.get(o).getQue_typeID() == allType.get(q).getQ_typeID()) {
 									if (questionDescList.get(o).getQue_trandTitle().equals(trandList.get(l).getQ_trandDescipt())) {
@@ -95,7 +99,10 @@ public class ResultCalculateController implements Controller {
 											if (questionDescList.get(o).getQID() == answers.get(r).getQID()) {													
 												if (attendList.get(n).getStu_id() == answers.get(r).getStudentID()) {
 														int score = 0;
-														if (questionDescList.get(o).isQue_isReverseType() == false) {
+														if (questionDescList.get(o).isQue_isReverseType() == false
+																&& allType.get(q).getQ_typeID() != Constant.SHORTANSWER
+																&& allType.get(q).getQ_typeID() != Constant.PEERTYPEID
+																&& CommonUtil.isNullString(questionDescList.get(o).getQue_answer())) {	//객관식 역산
 															if (answers.get(r).getAnswerValue().equals("1"))
 																score = 5;
 															if (answers.get(r).getAnswerValue().equals("2"))
@@ -105,20 +112,38 @@ public class ResultCalculateController implements Controller {
 															if (answers.get(r).getAnswerValue().equals("4"))
 																score = 2;
 															if (answers.get(r).getAnswerValue().equals("5"))
-																score = 1;
+																score = 1;																													
 
 															total = score + total;
-														} else if (allType.get(q).getDescript().equals("또래지명")) {
+														} else if (allType.get(q).getDescript().equals("또래지명") || 
+																allType.get(q).getQ_typeID() == Constant.PEERTYPEID) {	//또래지명
 															continue;
-														} else if (allType.get(q).getDescript().equals("주관식")) {
+														} else if (allType.get(q).getDescript().equals("주관식") || 
+																allType.get(q).getQ_typeID() == Constant.SHORTANSWER) {	//주관식
 															if (answers.get(r).getAnswerValue().contains(questionDescList.get(o).getQue_answer()) ||
-																	answers.get(r).getAnswerValue().equals(questionDescList.get(o).getQue_answer())) {
+																	answers.get(r).getAnswerValue().equals(questionDescList.get(o).getQue_answer())) {																
 																total = total + 1;
 															}
-														} else if (questionDescList.get(o).isQue_isReverseType() == true) {
-															score = Integer.parseInt(answers.get(r).getAnswerValue().trim());
+															else continue;
+														} else if (questionDescList.get(o).isQue_isReverseType() == true
+																&& allType.get(q).getQ_typeID() != Constant.SHORTANSWER
+																&& allType.get(q).getQ_typeID() != Constant.PEERTYPEID
+																&& CommonUtil.isNullString(questionDescList.get(o).getQue_answer())) { //객관식 정산
+																														
+															score = CommonUtil.strToInt(answers.get(r).getAnswerValue());
 															total = score + total;
 														}
+														//TODO  객관식 정답있을때
+														else if(allType.get(q).getQ_typeID() != Constant.SHORTANSWER
+																&& CommonUtil.isNotNullString(questionDescList.get(o).getQue_answer())) {
+															if (answers.get(r).getAnswerValue().contains(questionDescList.get(o).getQue_answer()) ||
+																	answers.get(r).getAnswerValue().equals(questionDescList.get(o).getQue_answer())) {
+																																
+																total = total + 1;																
+															}															
+															else continue;
+														}
+														else continue;
 													}
 													else continue;
 												}
@@ -147,7 +172,8 @@ public class ResultCalculateController implements Controller {
 						students.setSCID(scid);
 						students.setGrade(attendList.get(n).getGrade());
 						students.setGrd_num(attendList.get(n).getGrd_num());
-						students.setScore(finScore);				          
+						students.setScore(finScore);				      
+						list.add(students);
 						
 						boolean isRegist = surService.calculateSurvey(students);
 						

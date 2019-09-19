@@ -95,14 +95,14 @@
 								<input type="text" name="class_num" class="input-md form-control"
 									style="width: 5%;" maxlength="100" readonly value="<%= teacherDTO.getClasses()%>">
 								<p style="display: inline-block">반</p><br>				
-								번호 : <input type="text" name="stu_num" class="input-md form-control"
-									style="width: 15%;" maxlength="150" placeholder="ex) 10">
+								번호 : <input type="text" id="stuNum" name="stu_num" class="input-md form-control"
+									style="width: 15%;" maxlength="150" placeholder="ex) 10" onChange="checkStuNumber();" required>
 									<p style="display: inline-block">번</p><br>
 								성별 : <input type="text" name="stu_gender" class="input-md form-control"
-									style="width: 15%;" maxlength="150" placeholder="ex) 남자 or 여자">
+									style="width: 15%;" maxlength="150" placeholder="ex) 남자 or 여자" required>
 									<p style="display: inline-block"></p><br><br>
 								이름 : <input type="text" name="stu_name" class="input-md form-control"
-									style="width: 15%;" maxlength="150" placeholder="ex) 강동원">								
+									style="width: 15%;" maxlength="150" placeholder="ex) 강동원" required>								
 							</div>
 	
 							<div class="mb-20 mb-md-10" id=divObj></div>

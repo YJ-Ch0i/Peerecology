@@ -190,4 +190,61 @@ public class AnswerDAO {
 		}
 		return list;
 	}
+	
+	/**
+	 * 엑셀 파싱을 위한 문항별 또래지명 응답을 가져오는 메소드
+	 * @param seq
+	 * @param scid
+	 * @param grade
+	 * @param grdNum
+	 * @param qid
+	 * @return 엑셀 파싱을 위한 문항별 또래지명 응답 리스트
+	 */
+	public List<SurveyAnswerDTO> getMultiAnswersInQuestion(int seq, String scid, int grade, int grdNum, int qid) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<SurveyAnswerDTO> list = new ArrayList<>();
+
+		String sql = "SELECT sa.`answerID`, sa.`studentID`, ma.`multiAnswer`, sa.`ingSeq`, q.`QID`, q.`QType`\r\n" + 
+				"FROM survey_answer AS sa\r\n" + 
+				"LEFT JOIN multi_answermanager AS ma\r\n" + 
+				"ON sa.`answerID` = ma.`answerID`\r\n" + 
+				"LEFT JOIN user_students AS st\r\n" + 
+				"ON sa.`studentID` = st.`SID`\r\n" + 
+				"LEFT JOIN question AS q\r\n" + 
+				"ON sa.`QID`=q.`QID`\r\n" + 
+				"WHERE sa.`ingSeq`=? AND st.`SCID`=? AND st.`grade`=? AND st.`class`=? AND sa.`isMultiAnswer`=1 AND q.`QID`=?\r\n" + 
+				"ORDER BY answerID, multiAnswer";	
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, seq);
+			pstmt.setString(2, scid);
+			pstmt.setInt(3, grade);
+			pstmt.setInt(4, grdNum);
+			pstmt.setInt(5, qid);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				SurveyAnswerDTO dto = new SurveyAnswerDTO();
+				dto.setAnswerID(rs.getInt(1));
+				dto.setStudentID(rs.getInt(2));
+				dto.setMultiAnswers(rs.getInt(3));
+				dto.setBtid(rs.getInt(4));
+				dto.setTrid(rs.getInt(5));
+				dto.setIngSeq(rs.getInt(6));
+				list.add(dto);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return list;
+	}
 }

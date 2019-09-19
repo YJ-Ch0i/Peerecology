@@ -44,7 +44,7 @@ public class PeerLoadController implements Controller {
 		for(StudentDTO dto : attendList) {
 			JsonObject obj = new JsonObject();
 			obj.addProperty("id", dto.getStu_id());
-			obj.addProperty("label", Integer.toString(dto.getNum()));
+			obj.addProperty("label", dto.getName());
 
 			String json = gson.toJson(obj);
 			nodeArray.add(json);

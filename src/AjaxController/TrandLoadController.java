@@ -20,6 +20,8 @@ import SurveyRelationDTO.QuestionTrandTypeDTO;
 import SurveyRelationDTO.StudentScoresDTO;
 
 public class TrandLoadController implements Controller{
+	
+	Gson gson = new Gson();
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,13 +33,60 @@ public class TrandLoadController implements Controller{
 		int grade = CommonUtil.strToInt(request.getParameter("grade"));
 		int grdNum = CommonUtil.strToInt(request.getParameter("grdNum"));
 		String year = request.getParameter("year");
+		PrintWriter pw = response.getWriter();		
 		
 		
+		List<String> trandJson = getTrandList(btid);
 		
-		QuestionService queService = QuestionService.getInstance();
+		List<List<String>> trandScoreList = new ArrayList<>();
+		trandScoreList.add(trandJson);
+		
+		//결과화면에서 보여줄 JSON
+		if(CommonUtil.isNotNullString(scid) && grade != 0 && grdNum != 0 && seq != 0 && CommonUtil.isNotNullString(year)) {
+			if(btid == Common.Constant.PEERID){	//또래지명일 때
+				
+				List<String> scoresArray = new ArrayList<>();
+				List<StudentScoresDTO> list = PeerScoreCalculate.calculatePeerScore(btid, scid, grade, grdNum, year);
+				
+				for(StudentScoresDTO dto : list) {
+					JsonObject obj = new JsonObject();
+					obj.addProperty("sID", dto.getStu_id());
+					obj.addProperty("sName", dto.getsName());
+					obj.addProperty("surIngSeq", dto.getIngseq());
+					obj.addProperty("trID", dto.getTrandId());
+					obj.addProperty("score", dto.getScore());
+					
+					String json = gson.toJson(obj);
+					scoresArray.add(json);
+				}
+				
+				trandScoreList.add(scoresArray);
+				System.out.println(trandScoreList);
+				pw.print(trandScoreList);
+			}
+			else {
+				System.out.println(trandScoreList);
+				pw.print(trandScoreList);			
+			}
+		}
+		else {
+			//문항 생성시 보여줄 JSON
+			pw.print(trandJson);
+		}
+		
+		pw.flush();
+		pw.close();
+	}
+	
+	/**
+	 * 척도분류별 척도 리스트 반환 메소드
+	 * @param btid
+	 * @return 
+	 */
+	public List<String> getTrandList(int btid) {
+				
 		ArrayList<QuestionTrandTypeDTO> tList = new ArrayList<>();		
-		tList = queService.getTrandToBigTID(btid);
-		Gson gson = new Gson();
+		tList = QuestionService.getInstance().getTrandToBigTID(btid);
 		
 		List<String> trandJson = new ArrayList<>();;
 		
@@ -51,38 +100,6 @@ public class TrandLoadController implements Controller{
 			trandJson.add(json);
 		}
 		
-		List<List<String>> trandScoreList = new ArrayList<>();
-		trandScoreList.add(trandJson);
-		
-		PrintWriter pw = response.getWriter();
-		if(btid == Common.Constant.PEERID){	//또래지명일 때
-			
-			List<String> scoresArray = new ArrayList<>();
-			List<StudentScoresDTO> list = PeerScoreCalculate.calculatePeerScore(btid, scid, grade, grdNum, year);
-			
-			for(StudentScoresDTO dto : list) {
-				JsonObject obj = new JsonObject();
-				obj.addProperty("sID", dto.getStu_id());
-				obj.addProperty("sName", dto.getsName());
-				obj.addProperty("surIngSeq", dto.getIngseq());
-				obj.addProperty("trID", dto.getTrandId());
-				obj.addProperty("score", dto.getScore());
-				
-				String json = gson.toJson(obj);
-				scoresArray.add(json);
-			}
-			
-			trandScoreList.add(scoresArray);
-			System.out.println(trandScoreList);
-			pw.print(trandScoreList);	
-		}
-		else {
-			System.out.println(trandScoreList);
-			pw.print(trandScoreList);
-			
-		}
-		
-		pw.flush();
-		pw.close();
+		return trandJson;
 	}
 }
