@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
 </head>
-<body>
+<body class="appear-animate">
 	<%
 request.setCharacterEncoding("UTF-8");
 String uploadPath = request.getRealPath("upload");
@@ -45,43 +45,56 @@ if(list.isEmpty()){
 }
 %>
 
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>학교ID</th>
-				<th>학교 주소</th>
-				<th>학교 명</th>
-			</tr>
-		</thead>
-		<tbody>
+	<!-- Page Loader -->
+	<div class="page-loader">
+		<div class="loader">Loading...</div>
+	</div>
+	<!-- End Page Loader -->
+	<!-- Navigation panel -->
+	<%@include file="../../pageInclude/Header.jsp"%>
+	<!-- End Navigation panel -->
+	<section class=""page-section">
+		<div class="container relative">
+			<h3 style="text-align: center;">본인이 소속하신 학교를 선택해주세요.</h3><br><br>
+			<table style="text-align:center; margin:auto" class="table table-striped">
+				<thead>
+					<tr>
+						<th>학교ID</th>
+						<th>학교 주소</th>
+						<th>학교 명</th>
+					</tr>
+				</thead>
+				<tbody>
 			<%
-   for (Item item : list){	 
-   %>
+			   for (Item item : list){	 
+			   %>
 
-			<tr>
+				<tr>
+	
+					<td id="sch_number<%=count %>" name="sch_number<%=count %>"><%=item.getSchoolId()%></td>
+					<td><%=item.getRdnmadr()%></td>
+					<td id="sch_name<%=count %>" name="sch_name<%=count %>"><%=schoolNm%></td>
+					<td>
+						<form action="/PeerSys/page_tea/ClassManagement/addClass.jsp"
+							method="post" id="form" role="form">
+							<input type="hidden" name="sch_region"
+								value="<%= item.getRdnmadr() %>"> <input type="hidden"
+								name="sch_name" value="<%= schoolNm %>"> <input
+								type="hidden" name="sch_number" value="<%= item.getSchoolId() %>">
+							<input type="submit" class="btn btn-mod btn-circle btn-small"
+								value="선택">
+						</form>
+					</td>
+	
+				</tr>
 
-				<td id="sch_number<%=count %>" name="sch_number<%=count %>"><%=item.getSchoolId()%></td>
-				<td><%=item.getRdnmadr()%></td>
-				<td id="sch_name<%=count %>" name="sch_name<%=count %>"><%=schoolNm%></td>
-				<td>
-					<form action="/PeerSys/page_tea/ClassManagement/addClass.jsp"
-						method="post" id="form" role="form">
-						<input type="hidden" name="sch_region"
-							value="<%= item.getRdnmadr() %>"> <input type="hidden"
-							name="sch_name" value="<%= schoolNm %>"> <input
-							type="hidden" name="sch_number" value="<%= item.getSchoolId() %>">
-						<input type="submit" class="btn btn-mod btn-circle btn-small"
-							value="선택">
-					</form>
-				</td>
-
-			</tr>
-
-			<%
-   count++;}
-   %>
-		</tbody>
-	</table>
+				<%
+			   count++;}
+			   %>
+			</tbody>
+		</table>
+		</div>
+	</section>
 	<script type="text/javascript"
 		src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript"

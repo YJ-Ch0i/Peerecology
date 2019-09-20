@@ -45,11 +45,6 @@ $.ajax({
 	var bigTrandList = JSON.parse(bigTrandJson);
 	var endSurList = JSON.parse(endSurJson);
 	
-	
-//	console.log(trandList);
-	console.log(stuScoresList);
-	console.log(stuPeerScoreList);
-//	console.log(bigTrandList)
 
 	var endSur_list = [];
 	
@@ -127,8 +122,6 @@ $.ajax({
 		
 		var label = document.getElementById("raderDesc" + bigTrandList[i].btID);
 		label.innerHTML = bigTrandList[i].explan;
-
-		console.log(serieses)
 		
 //		평균 --- 버그있음.
 		

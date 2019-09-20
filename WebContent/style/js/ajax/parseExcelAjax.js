@@ -1,7 +1,6 @@
 $(function(){
 	$("#pickedDownload").click(function(){
 		var str = $("#downExcelPicked").serialize();
-		console.log(str);
 		$.ajax({
 			 type: "POST",
 			 url: "/PeerSys/pickedExcelDownload.ax",
@@ -9,7 +8,7 @@ $(function(){
 			 dataType:"json",
 			 success: function(result){
 				 
-				 alert(result.result);
+				 location.href=result.filePath;
 			  },
 			   error: function (request,status,error) {
 				   alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -25,7 +24,6 @@ $(function(){
 $(function(){
 	$("#excelDownload").click(function(){
 		var str = $("#downExcel").serialize();
-		console.log(str);
 		$.ajax({
 			 type: "POST",
 			 url: "/PeerSys/selectedDataExcelDownload.ax",
@@ -33,7 +31,7 @@ $(function(){
 			 dataType:"json",
 			 success: function(result){
 				 
-				 alert(result.result);
+				 location.href=result.filePath;
 			  },
 			   error: function (request,status,error) {
 				   alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -49,15 +47,15 @@ $(function(){
 $(function(){
 	$("#scoresDownload").click(function(){
 		var str = $("#downExcelScores").serialize();
-		console.log(str);
 		$.ajax({
 			 type: "POST",
 			 url: "/PeerSys/excelDownload.ax",
 			 data: str,
 			 dataType:"json",
-			 success: function(result){
+			 success: function(result){			
 				 
-				 alert(result.result);
+				 location.href=result.filePath;
+				 
 			  },
 			   error: function (request,status,error) {
 				   alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

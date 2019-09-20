@@ -61,11 +61,9 @@ public class TrandLoadController implements Controller{
 				}
 				
 				trandScoreList.add(scoresArray);
-				System.out.println(trandScoreList);
 				pw.print(trandScoreList);
 			}
 			else {
-				System.out.println(trandScoreList);
 				pw.print(trandScoreList);			
 			}
 		}

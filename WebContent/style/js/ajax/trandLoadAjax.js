@@ -91,8 +91,7 @@ $.ajax({
 		var bigTrandList = JSON.parse(bigTrandJson);
 		var endSurList = JSON.parse(endSurJson);
 		var mixTrand = JSON.parse(mixedTrand);
-		
-		console.log(scoresList)
+				
 		
 		var explanText;
 		var btDesc;
@@ -189,8 +188,7 @@ $.ajax({
 			avgObj.trID = trand_list[i];
 			avgObj.avgScore = cal(avglist)/endSur_list.length;
 			scorelist2.push(avgObj);
-		}
-		console.log(scorelist2);
+		}		
 		
 		var avglistSpline = [];
 		for(var i=0; i<scorelist2.length; i++){
@@ -200,12 +198,10 @@ $.ajax({
 		var forSeries2 = new Object();
 		forSeries2.type = 'spline';
 		forSeries2.name = '전체 평균';
-		forSeries2.data = avglistSpline;
-		console.log(forSeries2);
+		forSeries2.data = avglistSpline;		
 		
 		serieses.push(forSeries2);
-		
-		console.log(serieses);
+				
 		
 		var yAxisObject = new Object();
 		if(jsonValue.btid == peerID){	//또래지명일때

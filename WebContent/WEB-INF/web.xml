@@ -79,6 +79,6 @@
   </context-param>
   <context-param>
     <param-name>admin_password</param-name>
-    <param-value>1234</param-value>
+    <param-value>peerecology2019</param-value>
   </context-param>
 </web-app>

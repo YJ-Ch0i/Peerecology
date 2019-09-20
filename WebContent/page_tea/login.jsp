@@ -1,3 +1,5 @@
+<%@page import="School.SchoolDTO.SchoolDTO"%>
+<%@page import="Service.SchoolService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="Service.TeacherService"%>
@@ -60,7 +62,9 @@
 Calendar currentCalendar = Calendar.getInstance();
 String strYear = Integer.toString(currentCalendar.get(Calendar.YEAR));
 %>
-<%=session.getAttribute("tea_id") %>
+
+<% SchoolDTO school = SchoolService.getInstance().getSchoolToSCID(teacherDTO.getSCID()); %>
+
 					<h1 class="hs-line-11 font-alt mb-20 mb-xs-0">
 						<% if(teacherDTO.isMailcheck()==false){ %>
 						이메일 인증 먼저해주세요.
@@ -68,9 +72,10 @@ String strYear = Integer.toString(currentCalendar.get(Calendar.YEAR));
                          else if( !teacherDTO.getLastChangeYear().equals(strYear)|| teacherDTO.getSCID()==null){ %>
 						학급을 추가해주세요.
 						<%}else{ %>
-						
-						<%= teacherDTO.getGrade() %> 학년
-						<%= teacherDTO.getClasses() %> 반
+						<%= school.getName()%>
+						<%= teacherDTO.getGrade() %>학년
+						<%= teacherDTO.getClasses() %>반
+						<%= teacherDTO.getName() %> 선생님 환영합니다.
 						<% } %>
 					</h1>
 				</div>

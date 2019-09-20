@@ -10,16 +10,15 @@ public class DBConn
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			
-			//로컬환경 url
-			String url = "jdbc:mysql://localhost/sulmun?useSSL=false";
+			//로컬환경
+//			String url = "jdbc:mysql://localhost/sulmun?useSSL=false";
+//			conn = DriverManager.getConnection(url, "root", "cs1234");
 			
-			//카페24 서버환경 url
+			//카페24 서버환경 
 //			String url = "jdbc:mysql://peerecology.cafe24.com:3306/peerecology";
-//			String url = "jdbc:mysql://localhost:3306/peerecology";
+			String url = "jdbc:mysql://localhost:3306/peerecology";
+			conn = DriverManager.getConnection(url, "peerecology", "vygotsky2018/");
 			
-			//카페24 서버환경 conn
-//			conn = DriverManager.getConnection(url, "peerecology", "vygotsky2018/");
-			conn = DriverManager.getConnection(url, "root", "cs1234");
 		}
 		catch(Exception e)
 		{

@@ -12,12 +12,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import Common.CommonUtil;
@@ -29,17 +29,17 @@ import Service.SchoolService;
 import Service.StudentService;
 import Service.SurveyService;
 import SurveyRelationDAO.SurveyDAO;
-import SurveyRelationDTO.AllDescQuestionDTO;
 import SurveyRelationDTO.QuestionTrandTypeDTO;
 import SurveyRelationDTO.StudentScoresDTO;
 import SurveyRelationDTO.SurveyGoingDTO;
-import SurveyRelationDTO.SurveyManagerDTO;
 import User.UserDTO.StudentDTO;
 
 public class ComputedExcelDownloadController implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("UTF-8");
 		
 		String scid = request.getParameter("scid");
 		int grade = CommonUtil.strToInt(request.getParameter("grade"));
@@ -115,16 +115,25 @@ public class ComputedExcelDownloadController implements Controller {
 		
 		//TODO test FileStream
 
-		String sFileName = school.getName() + "_" + grade + "-" + grdNum + "_" + "ComputedData_" + survey.getEndDate() + ".xlsx";                                     		
+		String uploadPath = request.getSession().getServletContext().getRealPath("/upload/");
+		String sFileName = school.getName() + "_" + grade + "-" + grdNum + "_" + "ComputedData_" + survey.getEndDate() + ".xlsx";
 		
-		String path = "C:\\PeerLab\\" + school.getName() + "\\" + survey.getGrade() + "학년\\" + survey.getEndDate();		
-		CommonUtil.createFolder(path);
+		//로컬용
+//		String path = "C:\\PeerLab\\" + school.getName() + "\\" + survey.getGrade() + "학년\\" + survey.getEndDate();
 		
-		JsonObject obj = new JsonObject();
+		//서버용
+//		String path = "PeerLab\\" + school.getName() + "\\" + survey.getGrade() + "학년\\" + survey.getEndDate();
+		String path = "PeerLab/" + school.getName() + "/" + survey.getGrade() + "학년/" + survey.getEndDate();
+		String realPath = uploadPath + path;
+		CommonUtil.createFolder(realPath);
+		
+		Gson gson = new Gson();
+		JsonObject obj = new JsonObject();		
+		
 		PrintWriter pw = response.getWriter();
 	
-		File file = new File(path + "\\" + sFileName);			
-	    FileOutputStream fos = null;	        
+		File file = new File(realPath + "/" + sFileName);
+	    FileOutputStream fos = null;
 	    
 	    try {
 	        fos = new FileOutputStream(file);
@@ -138,8 +147,10 @@ public class ComputedExcelDownloadController implements Controller {
 	            if(workbook!=null) workbook.close();
 	            if(fos!=null) fos.close();	
 	            
-	            obj.addProperty("result", "다운로드 성공! C드라이브의 PeerLab 폴더에서 학교를 확인 해 주세요.");
-	    		pw.print(obj);
+	            obj.addProperty("filePath", "/PeerSys/upload/" + path + "/" + sFileName);
+	            String json = gson.toJson(obj);
+	            
+	    		pw.print(json);
 	    		pw.flush();
 	    		pw.close();
 	        } catch (IOException e) {

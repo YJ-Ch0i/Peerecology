@@ -35,7 +35,7 @@
 	<div class="page-loader">
 		<div class="loader">Loading...</div>
 	</div>
-	<!-- End Page Loader -->
+	
 	<!-- Navigation panel -->
 	<%@include file="../../pageInclude/Header.jsp"%>
 	<!-- End Navigation panel -->

@@ -162,6 +162,7 @@
 			</tbody>
 			</table>
 			<%} %>
+			<p style="color:darkgray; font-size:30px; font-family:'궁서'; text-decoration: underline;"><strong>계산이 오래 걸릴 수 있습니다. 계산하기 버튼 클릭은 한번만 해 주십시오.</strong></p>
 					
 				</div>
 				<ul class="pagination" style="list-stlye-type:none; text-align:center ">

@@ -40,7 +40,6 @@
 <link rel="stylesheet" href="/PeerSys/style/css/vertical-rhythm.min.css">
 <link rel="stylesheet" href="/PeerSys/style/css/owl.carousel.css">
 <link rel="stylesheet" href="/PeerSys/style/css/magnific-popup.css">
-<script type="javascript" src="/PeerSys/style/js/createTable.js?ver=11"></script>
 </head>
 <body class="appear-animate">
 	<% 
@@ -123,9 +122,11 @@
 						role="form">
 						<% if(sch_number != "" && sch_name != ""){ %>
 						<%if(sch_region!=null)  {%>
-						<h3>
-							<%= sch_region %>
-						</h3>
+						<h4>
+							학교 : <%= sch_name %>
+							
+						</h4>
+						<h4>주소 : <%= sch_region %></h4>
 						<%} %>
 						<input type="hidden" name="sch_address" value="<%= sch_region%>">
 						<input type="hidden" name="sch_code" value="<%= sch_number%>">
@@ -145,8 +146,8 @@
 						<input type="submit"
 							style="margin: 5% 0 0 50%; display: inline-block;"
 							class="btn btn-mod btn-circle btn-medium" value="학급 등록">
-						<a href="#" style="margin: 5% 0 0 0;"
-							class="btn btn-mod btn-circle btn-medium">뒤로가기</a>
+						<!-- <a href="#" style="margin: 5% 0 0 0;"
+							class="btn btn-mod btn-circle btn-medium">뒤로가기</a> -->
 					</form>
 					
 					<%} %>
@@ -166,7 +167,6 @@
 
 
 	<!-- JS -->
-	<script type="text/javascript" src="/PeerSys/style/js/createTable.js"></script>
 	<script type="text/javascript"
 		src="/PeerSys/style/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript"
