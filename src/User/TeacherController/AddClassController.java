@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Common.CommonUtil;
 import Controller.Controller;
 import Service.SchoolService;
 import Service.StudentService;
@@ -59,10 +60,23 @@ public class AddClassController implements Controller {
 	    if(request.getParameter("sch_address") !=""){
 	       sch_address = request.getParameter("sch_address");
 	    }
-	    if(session.getAttribute("file_name") != ""){
-	       file_name = session.getAttribute("file_name").toString();
+//	    if(session.getAttribute("file_name") != "" || session.getAttribute("file_name") == null){
+//	       file_name = session.getAttribute("file_name").toString();
+//	    }
+	    if(CommonUtil.isNotNullString((String)session.getAttribute("file_name"))) {
+	    	file_name = (String) session.getAttribute("file_name");
 	    }
 	    
+	    if(file_name == ""){
+	       //session.setAttribute("tea_id", tea_id);
+	       PrintWriter script =response.getWriter();
+	       script.println("<script>");
+	       script.println("alert('CSV파일을 업로드 해 주세요.')");
+	       script.println("history.back();");
+	       script.println("</script>");
+	       script.close();
+	       return;
+	    }
 	    if(sch_code == ""){
 	       //session.setAttribute("tea_id", tea_id);
 	       PrintWriter script =response.getWriter();
@@ -111,7 +125,7 @@ public class AddClassController implements Controller {
 			boolean teaUpdate = teaService.teacherSchoolUpdate(sch_code, grade, grd_num, tea_id);	
 			
 			stuItem_list = stuservice.LoadStudent(file_name, request.getParameter("uploadPath"));
-			  
+
 			for(StudentItem stuItem : stuItem_list) {
 				String classAndban = null;
 				int gender = -1;
