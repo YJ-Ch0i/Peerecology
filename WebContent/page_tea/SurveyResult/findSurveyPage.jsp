@@ -80,7 +80,7 @@
 				   TeacherDTO teacher = teaService.teacherInfo(tea_id); 
 				   ArrayList<SearchEndsurveyDTO> list = new ArrayList<SearchEndsurveyDTO>();
                    SurveyService surService = SurveyService.getInstance();
-                   list = surService.searchEndSurvey(teacher.getSCID());
+                   list = surService.searchEndSurvey(teacher.getSCID(), teacher.getGrade());
                    SchoolDTO school = SchoolService.getInstance().getSchoolToSCID(teacher.getSCID());
                    %>               
                    

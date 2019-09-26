@@ -8,10 +8,18 @@ public class SearchEndsurveyDTO {
 	private int surveyNo;
 	private int ingSeq;
 	private String SCID;
+	private int grade;
 	private Date startDate;
 	private Date endDate;
 	private String title;
 	
+	
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
 	public int getYear() {
 		return year;
 	}

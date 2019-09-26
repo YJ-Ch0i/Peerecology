@@ -84,7 +84,10 @@ public class PeerScoreCalculate {
 					stuScore.setTrandId(trKey);
 					stuScore.setStu_id(stuDto.getStu_id());
 					stuScore.setsName(stuDto.getName());
-					stuScore.setScore(devidedScore);
+					
+					if(Double.isNaN(devidedScore)) stuScore.setScore(0);
+					else stuScore.setScore(devidedScore);
+										
 					stuScore.setSCID(scid);
 					stuScore.setGrade(grade);
 					stuScore.setGrd_num(grdNum);

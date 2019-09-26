@@ -100,8 +100,8 @@ public class SurveyService {
 		return dao.searchSurveyToTeacher(surveyNo, scid);
 	}
 	
-	public ArrayList<SearchEndsurveyDTO> searchEndSurvey(String SCID) {
-		return dao.searchEndSurvey(SCID);
+	public ArrayList<SearchEndsurveyDTO> searchEndSurvey(String SCID, int grade) {
+		return dao.searchEndSurvey(SCID, grade);
 	}
 	
 	public ArrayList<SearchEndsurveyDTO> searchEndSurveyToYear(String scid, String year) {

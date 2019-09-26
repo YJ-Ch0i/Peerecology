@@ -41,7 +41,7 @@
 						<li>
 							<!-- formSurvey.jsp에 있는 유형 중 한가지를 선택해서 쓸 수 있도록 만들기. --> 
 							<a href="/PeerSys/page_adm/SurveyResult/resultSchool.jsp"> 학교별 결과 </a> 
-							<a href="/PeerSys/page_adm/SurveyResult/resultStudent.jsp"> 학생 검색 </a>
+							<!-- <a href="/PeerSys/page_adm/SurveyResult/resultStudent.jsp"> 학생 검색 </a> -->
 						</li>
 					</ul>
 				</li>

@@ -33,7 +33,11 @@ $.ajax({
 	 year:jsonValue.year},
  success: function(result){
 	 
-	const peerID = 8; //break Point --> PeerID
+	//로컬
+	//const peerID = 8; //break Point --> PeerID --> 또래지명 척도분류 ID
+	 
+	 //서버
+	 const peerID = 1; //break Point --> PeerID --> 또래지명 척도분류 ID
 	
 	var stuScoresList = result[1]; //학생 개인 전체점수 Json
 	var stuPeerScoreList = result[0]; //학생개인 또래지명점수 Json

@@ -803,23 +803,24 @@ public class SurveyDAO {
 	
 
 	/**
-	 * 학교 코드를 이용하여 해당 학교에서 기간이 끝난 설문조사 목록을 가져옴
+	 * 학교 코드와 학년을 이용하여 해당 학교 및 학년에서 기간이 끝난 설문조사 목록을 가져옴
 	 * @param SCID
 	 * @return
 	 */
-	public ArrayList<SearchEndsurveyDTO> searchEndSurvey(String SCID) {
+	public ArrayList<SearchEndsurveyDTO> searchEndSurvey(String SCID, int grade) {
 		
 		Connection conn=null;	
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<SearchEndsurveyDTO> surveyList = new ArrayList<SearchEndsurveyDTO>();
 		
-		String sql = "SELECT * FROM search_endsurvey_view WHERE SCID=?";
+		String sql = "SELECT * FROM search_endsurvey_view WHERE SCID=? AND grade=?";
 		
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, SCID);
+			pstmt.setInt(2, grade);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -827,9 +828,10 @@ public class SurveyDAO {
 				dto.setSurveyNo(rs.getInt(1));
 				dto.setIngSeq(rs.getInt(2));
 				dto.setSCID(rs.getString(3));
-				dto.setStartDate(rs.getDate(4));
-				dto.setEndDate(rs.getDate(5));
-				dto.setTitle(rs.getString(6));
+				dto.setGrade(rs.getInt(4));
+				dto.setStartDate(rs.getDate(5));
+				dto.setEndDate(rs.getDate(6));
+				dto.setTitle(rs.getString(7));
 				surveyList.add(dto);
 			}
 		}

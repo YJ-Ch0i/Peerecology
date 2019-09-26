@@ -156,10 +156,7 @@
 		                    	 <input type="hidden" name="surNo" id="surNo" value="<%=surNo%>">
 		                    	 <input type="button" id="excelDownload" value="객관식 및 주관식 엑셀파일 다운로드" class="btn btn btn-mod btn-medium btn-circle">
 		                     </form>
-	                     </div>
-                     <% } %>
-	                     <!-- 관리자 전용 끝-->
-	                     <!-- 관리자 & 선생님 다운로드-->
+	                     </div>                     
 	                     <div class="col-md-4">
 		                     <form id="downExcelScores">
 		                    	 <input type="hidden" name="scid" id="scid" value="<%=scid%>">
@@ -171,7 +168,8 @@
 		                    	 <input type="button" id="scoresDownload" value="종합 점수 엑셀파일 다운로드" class="btn btn btn-mod btn-medium btn-circle">
 		                     </form>
 	                     </div>
-	                     <!-- 관리자 & 선생님 다운로드 끝 -->
+	                     <% } %>
+	                     <!-- 관리자전용 다운로드 끝 -->
                      </div>                     
 				</div>
 				<hr>
