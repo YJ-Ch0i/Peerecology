@@ -128,7 +128,7 @@ public class PeerScoreCalculate {
 			stuScore.setSCID(stuDto.getScid());
 			stuScore.setGrade(stuDto.getGrade());
 			stuScore.setGrd_num(stuDto.getGrd_num());
-			scoresList.add(stuScore);					
+			scoresList.add(stuScore);
 		}
 		return scoresList;
 	}
@@ -168,8 +168,12 @@ public class PeerScoreCalculate {
 			double devidedPickedScoreQuestion = 0.0;
 			double devidedScore = 0.0;
 			for (int seqKey : seqMap.keySet()) {
+				//회차에서 사용한 설문조사
 				int surveyNo = SurveyService.getInstance().showSearchSurveyToIngseq(seqKey);
+				//학생의 설문회차에 대한 참여 여부
 				int isParticipation = AnswerService.getInstance().getAnswersCount(seqKey, stuDto.getStu_id());
+				
+				//설문회차에 해당하는 map을 토대로 조사한 척도를를 가져옴
 				for(int trKey : seqMap.get(seqKey).keySet()){
 					double pickedScore = 0.0;
 					for(int i=0; i<seqMap.get(seqKey).get(trKey).size(); i++) {
@@ -178,6 +182,8 @@ public class PeerScoreCalculate {
 						}
 						else continue;
 					}
+					
+					//또래지명에 해당하는 척도를 가져온다.
 					int queCount = QuestionService.getInstance().countOfTrandQuestion(surveyNo, trKey);
 					devidedPickedScoreQuestion = pickedScore / queCount;
 					if(isParticipation == 0) devidedScore = devidedPickedScoreQuestion / (attendList.size());					
@@ -254,7 +260,7 @@ public class PeerScoreCalculate {
 				stuScore.setStu_id(dto.getStu_id());
 				stuScore.setsName(dto.getsName());
 				
-				if(Double.isNaN(dto.getScore())) stuScore.setScore(0);				
+				if(Double.isNaN(dto.getScore())) stuScore.setScore(0);
 				else stuScore.setScore(dto.getScore());
 				
 				stuScore.setYear(year);

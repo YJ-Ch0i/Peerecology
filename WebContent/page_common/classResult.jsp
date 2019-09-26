@@ -199,8 +199,7 @@
 									<div class="col-md-12" id="peerNetwork" style="position: relative; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 500px;"></div>
 									<div class="col-md-3" style="text-align:center; min-width:450px; max-width:450px; min-height:500px; max-height:600px; margin:0 auto">
 										<div class="row" style="text-align:center; min-width:300px; max-width:300px; margin:0 auto">
-											<br><br><br><br>
-											<label id="" class="control-label" for="inputWarning2">11111111111111</label>
+											<br><br><br><br>											
 										</div>									
 									</div>
 								</div>

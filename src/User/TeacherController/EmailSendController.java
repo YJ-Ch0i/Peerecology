@@ -66,8 +66,8 @@ public class EmailSendController implements Controller {
 		String href = "emailCheckAction.tc";
 		String from = "yeong_4310@yi.ac.kr";
 		String to = tea_id;
-		String subject = "인증 메일입니다.";
-		String content = "다음 링크로 접속하여 인증을 진행해 주세요." + "<a href='" + host + href + "?code=" + new SHA256().getSHA256(to) + "'>이메일 인증하러 가기</a>";
+		String subject = "설문조사 페이지의 이메일 인증 안내 메일입니다.";
+		String content = "안녕하세요, " + subject + "다음 링크로 접속하여 인증을 진행해 주세요." + "<a href='" + host + href + "?code=" + new SHA256().getSHA256(to) + "'>이메일 인증하러 가기</a>";
 							
 		Properties p = new Properties();
 		p.put("mail.smtp.user", from);

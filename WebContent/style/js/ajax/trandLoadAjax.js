@@ -70,9 +70,13 @@ $.ajax({
 	 year:jsonValue.year},
  success: function(result){
 
-	 const peerID = 8;	//break Point --> PeerID
+	 //로컬용
+	 //const peerID = 8;	//break Point --> PeerID
 	 
-	 if(jsonValue.btid == 8){
+	 //서버용
+	 const peerID = 1;
+	 
+	 if(jsonValue.btid == peerID){
 		 var trandList = result[0];
 		 var scoresList = result[1];
 	 }

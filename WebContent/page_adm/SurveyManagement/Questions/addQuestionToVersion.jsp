@@ -44,7 +44,7 @@ var size = checkQuestions.length;
 	{
 		if(checkQuestions[i].checked)
 			{
-			var questionNumber = checkQuestions[i].value.split(',');
+			var questionNumber = checkQuestions[i].value.split('_');
 			cnt++;
 			inputCheckQuestions +="<p id=\"text"+cnt+"\" style=\"display:inline;\">"+ cnt + "번 문항 : </p>"
 								+ "<input type=\"text\" name=\"questionName" +cnt+" \" id=\"name\"" 
@@ -104,7 +104,7 @@ questions = queSerivce.showAllQuestion();
                      <li class="work-item mix <%=questions.get(i).getQType() %>">
                     <div class="mb-20 mb-md-10" id="hiddingHidden">
                                     <label class="checkbox-inline">
-                                         <input type="checkbox" name="checkQuestions" id="inlineCheckbox1" value="<%=questions.get(i).getTitle() %>,<%=questions.get(i).getQID()%>">
+                                         <input type="checkbox" name="checkQuestions" id="inlineCheckbox1" value="<%=questions.get(i).getTitle() %>_<%=questions.get(i).getQID()%>">
                                          <%=questions.get(i).getTitle() %>
                                     </label>
                      

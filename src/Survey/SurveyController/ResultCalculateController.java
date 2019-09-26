@@ -47,8 +47,6 @@ public class ResultCalculateController implements Controller {
 		int ingSeq = Integer.parseInt(ingNo);
 		int grd = Integer.parseInt(grade);
 		
-		System.out.println("설문번호 : " + survey_no);
-		System.out.println("설문 진행번호 : "+ingSeq);
 		Date start = Date.valueOf(startdate);
 		Date end = Date.valueOf(enddate);
 
@@ -67,8 +65,9 @@ public class ResultCalculateController implements Controller {
 			questionDescList.add(queService.showQuestion(svManagerList.get(j).getQID()));
 		}
 		
-		ArrayList<QuestionTrandTypeDTO> trandList = new ArrayList<>();
-		trandList = queService.searchTrandList(survey_no, ingSeq, scid);
+		
+		//척도리스트		
+		ArrayList<QuestionTrandTypeDTO> trandList = queService.searchTrandList(survey_no, ingSeq, scid);
 
 		AnswerService ansService = AnswerService.getInstance();
 		ArrayList<SurveyAnswerDTO> answers = new ArrayList<>();
