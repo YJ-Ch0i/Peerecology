@@ -90,6 +90,7 @@
 			<thead>
                             <tr>
                                 <th>학교 이름</th>
+                                <th>대상 학년</th>
                                 <th>설문 이름</th>
                                 <th>실시 연도</th>
                                 <th>시작일</th>
@@ -102,6 +103,7 @@
 			<%for(int i=0; i<schResultSur.size(); i++){ %>
 			<tr>
 			<td><%= schService.getSchoolToSCID(schResultSur.get(i).getSCID()).getName() %></td>
+			<td><%= schResultSur.get(i).getGrade() %></td>
 			<td><%= surService.showSearchSurveyToSurveyNo(schResultSur.get(i).getSurveyNo()).getTitle() %> </td>
 			<td><%= surService.searchEndSurveyToDate(schResultSur.get(i).getSCID(), schResultSur.get(i).getEndDate()).getYear() %> </td>
 			<td><%= schResultSur.get(i).getStartDate() %></td>
@@ -128,6 +130,7 @@
 			<% for(int i=0; i<schFindResultSur.size(); i++){ %>
 			<tr>
 			<td><%= schFindResultSur.get(i).getSCID_name() %></td>
+			<td><%= schFindResultSur.get(i).getGrade() %></td>
 			<td><%= surService.showSearchSurveyToSurveyNo(schFindResultSur.get(i).getSurveyNo()).getTitle() %> </td>
 			<td><%= surService.searchEndSurveyToDate(schResultSur.get(i).getSCID(), schResultSur.get(i).getEndDate()).getYear() %> </td>
 			<td><%= schFindResultSur.get(i).getStartDate() %></td>

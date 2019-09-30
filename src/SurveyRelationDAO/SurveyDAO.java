@@ -217,6 +217,7 @@ public class SurveyDAO {
 				surveyGoingDTO.setIngSeq(rs.getInt("surIng.ingSeq"));
 				surveyGoingDTO.setSurveyNo(rs.getInt("surIng.surveyNo"));
 				surveyGoingDTO.setSCID(rs.getString("surIng.SCID"));
+				surveyGoingDTO.setGrade(rs.getInt("surIng.grade"));
 				surveyGoingDTO.setSCID_name(rs.getString("sch.name"));
 				surveyGoingDTO.setStartDate(rs.getString("surIng.startDate"));
 				surveyGoingDTO.setEndDate(rs.getString("surIng.endDate"));

@@ -194,7 +194,7 @@
 						<div class="row">
 							<div class="col-md-12" style="min-height:40px; max-height:700px;">
 								<div id="networkSector" class="row" style="display:none; min-height:400px; max-height:500px;">
-									<div class="col-md-12" id="peerNetwork" style="position: relative; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 500px;"></div>
+									<div class="col-md-12" id="peerNetwork" style="position: relative; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); width: 100%; height: 650px;"></div>
 									<div class="col-md-3" style="text-align:center; min-width:450px; max-width:450px; min-height:500px; max-height:600px; margin:0 auto">
 										<div class="row" style="text-align:center; min-width:300px; max-width:300px; margin:0 auto">
 											<br><br><br><br>											
@@ -225,7 +225,7 @@
 								<option value='-2' selected>선택 해 주세요</option>
 									<%for(QuestionTrandManagerDTO dto : bigTrandList){ %>
 										<option value=
-											'{"btid":"<%=dto.getBigTrandID()%>","seq":"<%=ingSeq%>","scid":"<%=scid %>","grade":"<%=grade%>","grdNum":"<%=grdNum%>", "year" : "<%=year%>"}'><%=dto.getDescript()%></option>
+											'{"btid":"<%=dto.getBigTrandID()%>","seq":"<%=ingSeq%>","scid":"<%=scid %>","grade":"<%=grade%>","grdNum":"<%=grdNum%>", "year" : "<%=year%>", "surNo" : "<%=surNo%>"}'><%=dto.getDescript()%></option>
 									<%} %>
 								</select>
 							</div>
@@ -261,7 +261,7 @@
 												<option value='-2' selected>학생을 선택 해 주세요</option>
 													<%for(int i=0; i<attendList.size(); i++){ %>
 														<option value=
-														'{"sid":"<%=attendList.get(i).getStu_id()%>","scid":"<%=attendList.get(i).getScid() %>","grade":"<%=attendList.get(i).getGrade() %>","grd_num":"<%=attendList.get(i).getGrd_num()%>","year":"<%=attendList.get(i).getYear()%>"}'><%=attendList.get(i).getName() %></option>													
+														'{"sid":"<%=attendList.get(i).getStu_id()%>","scid":"<%=attendList.get(i).getScid() %>","grade":"<%=attendList.get(i).getGrade() %>","grd_num":"<%=attendList.get(i).getGrd_num()%>","year":"<%=attendList.get(i).getYear()%>", "surNo" : "<%=surNo%>"}'><%=attendList.get(i).getName() %></option>													
 													<%} %>
 												</select>
 											</div>

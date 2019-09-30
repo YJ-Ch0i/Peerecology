@@ -30,7 +30,8 @@ $.ajax({
 	 scid:jsonValue.scid,
 	 grade:jsonValue.grade,
 	 grd_num:jsonValue.grd_num,
-	 year:jsonValue.year},
+	 year:jsonValue.year,
+	 surNo:jsonValue.surNo},
  success: function(result){
 	 
 	//로컬

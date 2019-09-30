@@ -21,6 +21,11 @@ public class QuestionService {
 	public ArrayList<QuestionTrandTypeDTO> searchTrandList(int surveyNo, int ingSeq, String scid) {
 		return dao.searchTrandList(surveyNo, ingSeq, scid);
 	}
+	
+	public ArrayList<QuestionTrandTypeDTO> getTrandListToBigT(int surNo, String scid, int btid) {
+		return dao.getTrandListToBigT(surNo, scid, btid);
+	}
+	
 	public QuestionTrandTypeDTO searchTrand(int trandID) {
 		return dao.searchTrand(trandID);
 	}

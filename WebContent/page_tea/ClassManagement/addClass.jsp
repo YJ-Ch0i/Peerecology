@@ -112,6 +112,7 @@
 					<form action="csv_upload.jsp" method="post"	enctype="multipart/form-data">
 						
 						<h3>학급 내 학생명부 CSV파일을 양식에 맞춰 선택한 후 업로드하기 버튼을 눌러주세요</h3>
+						<h4>명단 파일을 반드시 CSV UTF-8 형식으로 저장 하신 후 업로드 해 주시길 바랍니다.</h4>
 						첨부 파일 : <input type="file" name="file"><br/> 
 						<input type="submit" value="업로드하기">
 	

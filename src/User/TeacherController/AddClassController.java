@@ -64,10 +64,11 @@ public class AddClassController implements Controller {
 //	       file_name = session.getAttribute("file_name").toString();
 //	    }
 	    if(CommonUtil.isNotNullString((String)session.getAttribute("file_name"))) {
-	    	file_name = (String) session.getAttribute("file_name");
+	    	file_name = session.getAttribute("file_name").toString();
 	    }
+	    else file_name="";	    
 	    
-	    if(file_name == ""){
+	    if(CommonUtil.isNullString(file_name)){
 	       //session.setAttribute("tea_id", tea_id);
 	       PrintWriter script =response.getWriter();
 	       script.println("<script>");

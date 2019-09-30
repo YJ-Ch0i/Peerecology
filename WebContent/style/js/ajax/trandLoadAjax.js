@@ -67,7 +67,8 @@ $.ajax({
 	 scid:jsonValue.scid,
 	 grade:jsonValue.grade,
 	 grdNum:jsonValue.grdNum,
-	 year:jsonValue.year},
+	 year:jsonValue.year,
+	 surNo:jsonValue.surNo},
  success: function(result){
 
 	 //로컬용

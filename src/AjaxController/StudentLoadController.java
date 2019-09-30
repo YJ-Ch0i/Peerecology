@@ -41,7 +41,8 @@ public class StudentLoadController implements Controller{
 																						request.getParameter("scid"),
 																						CommonUtil.strToInt(request.getParameter("grade")),
 																						CommonUtil.strToInt(request.getParameter("grd_num")),
-																						request.getParameter("year"));
+																						request.getParameter("year"),
+																						CommonUtil.strToInt(request.getParameter("surNo")));
 		
 				
 		Gson gson = new Gson();

@@ -73,7 +73,7 @@ if(list.isEmpty()){
 	
 					<td id="sch_number<%=count %>" name="sch_number<%=count %>"><%=item.getSchoolId()%></td>
 					<td><%=item.getRdnmadr()%></td>
-					<td id="sch_name<%=count %>" name="sch_name<%=count %>"><%=schoolNm%></td>
+					<td id="sch_name<%=count %>" name="sch_name<%=count %>"><%=item.getSchoolname()%></td>
 					<td>
 						<form action="/PeerSys/page_tea/ClassManagement/addClass.jsp"
 							method="post" id="form" role="form">

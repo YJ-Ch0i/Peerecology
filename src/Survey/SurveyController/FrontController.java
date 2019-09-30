@@ -26,6 +26,10 @@ public class FrontController  extends HttpServlet{
 		list.put("/resultCalculate.sv", new ResultCalculateController());
 		list.put("/versionDelete.sv", new VersionDeleteController());
 		list.put("/viewResult.sv", new ResultViewController());
+		list.put("/deleteIng.sv", new deleteSurveyIngController());
+		
+		//TODO
+		list.put("/calculate", new ResultCalController());
 		
 		//안쓰는거
 		//list.put("/resultTeacher.sv", new PersonalResultController());

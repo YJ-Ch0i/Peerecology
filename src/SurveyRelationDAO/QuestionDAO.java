@@ -54,6 +54,14 @@ public class QuestionDAO {
 		}
 		return trandList;
 	}
+	
+	/**
+	 * 설문 내 모든 척도의 리스트
+	 * @param surNo
+	 * @param ingSeq
+	 * @param scid
+	 * @return
+	 */
 	public ArrayList<QuestionTrandTypeDTO> searchTrandList(int surNo, int ingSeq, String scid) {
 		Connection conn=null;	
 		PreparedStatement pstmt = null;
@@ -68,6 +76,44 @@ public class QuestionDAO {
 			pstmt.setInt(1, surNo);
 			pstmt.setInt(2, ingSeq);
 			pstmt.setString(3, scid);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				trandList.add(new QuestionTrandTypeDTO(rs.getInt(1), rs.getInt(2), rs.getString(3)));
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return trandList;
+	}
+	
+	/**
+	 * 설문 내 척도분류에 대한 모든 척도를 가져옴
+	 * @param surNo
+	 * @param ingSeq
+	 * @param scid
+	 * @return
+	 */
+	public ArrayList<QuestionTrandTypeDTO> getTrandListToBigT(int surNo, String scid, int btid) {
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<QuestionTrandTypeDTO> trandList = new ArrayList<QuestionTrandTypeDTO>();
+		
+		String sql = "SELECT DISTINCT Ttype, bigTrandID, qttdes FROM student_answer WHERE surveyNo=? AND SCID=? AND bigTrandID=? ORDER BY Ttype";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, surNo);
+			pstmt.setString(2, scid);
+			pstmt.setInt(3, btid);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {

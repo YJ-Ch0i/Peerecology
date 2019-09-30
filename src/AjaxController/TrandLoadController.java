@@ -33,10 +33,12 @@ public class TrandLoadController implements Controller{
 		int grade = CommonUtil.strToInt(request.getParameter("grade"));
 		int grdNum = CommonUtil.strToInt(request.getParameter("grdNum"));
 		String year = request.getParameter("year");
+		int surNo = CommonUtil.strToInt(request.getParameter("surNo"));
 		PrintWriter pw = response.getWriter();		
 		
 		
-		List<String> trandJson = getTrandList(btid);
+//		List<String> trandJson = getTrandList(btid);
+		List<String> trandJson = getTrandListInSurvey(surNo, seq, scid, btid);
 		
 		List<List<String>> trandScoreList = new ArrayList<>();
 		trandScoreList.add(trandJson);
@@ -46,7 +48,7 @@ public class TrandLoadController implements Controller{
 			if(btid == Common.Constant.PEERID){	//또래지명일 때
 				
 				List<String> scoresArray = new ArrayList<>();
-				List<StudentScoresDTO> list = PeerScoreCalculate.calculatePeerScore(btid, scid, grade, grdNum, year);
+				List<StudentScoresDTO> list = PeerScoreCalculate.calculatePeerScore(btid, scid, grade, grdNum, year, surNo);
 				
 				for(StudentScoresDTO dto : list) {
 					JsonObject obj = new JsonObject();
@@ -84,7 +86,32 @@ public class TrandLoadController implements Controller{
 	public List<String> getTrandList(int btid) {
 				
 		ArrayList<QuestionTrandTypeDTO> tList = new ArrayList<>();		
-		tList = QuestionService.getInstance().getTrandToBigTID(btid);
+		tList = QuestionService.getInstance().getTrandToBigTID(btid);		
+		
+		List<String> trandJson = new ArrayList<>();;
+		
+		//척도분류에 따른 척도의 jsonArray 생성
+		for(int i=0; i<tList.size(); i++) {
+			JsonObject obj = new JsonObject();
+			obj.addProperty("trandID", tList.get(i).getQ_trandType());
+			obj.addProperty("trandDesc", tList.get(i).getQ_trandDescipt());
+			
+			String json = gson.toJson(obj);
+			trandJson.add(json);
+		}
+		
+		return trandJson;
+	}
+	
+	/**
+	 * 설문 내 척도분류별 척도 리스트 반환 메소드
+	 * @param btid
+	 * @return 
+	 */
+	public List<String> getTrandListInSurvey(int surNo, int seq, String scid, int btid) {
+				
+		ArrayList<QuestionTrandTypeDTO> tList = new ArrayList<>();		
+		tList = QuestionService.getInstance().getTrandListToBigT(surNo, scid, btid);	
 		
 		List<String> trandJson = new ArrayList<>();;
 		

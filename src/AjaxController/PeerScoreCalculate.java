@@ -33,12 +33,13 @@ public class PeerScoreCalculate {
 	 * @param year
 	 * @return
 	 */
-	public static List<StudentScoresDTO> calculatePeerScore(int btid, String scid, int grade, int grdNum, String year) {
+	public static List<StudentScoresDTO> calculatePeerScore(int btid, String scid, int grade, int grdNum, String year, int surNo) {
 		
 		//해당년도에 완료된 설문조사 목록
 		List<SurveyGoingDTO> calculatedSurveyList = SurveyService.getInstance().getCalculatedClassSurveyList(scid, grade, year);
 		//선택한 척도분류에 해당하는 척도들 리스트
-		List<QuestionTrandTypeDTO> tList = QuestionService.getInstance().getTrandToBigTID(btid);
+//		List<QuestionTrandTypeDTO> tList = QuestionService.getInstance().getTrandToBigTID(btid);
+		List<QuestionTrandTypeDTO> tList = QuestionService.getInstance().getTrandListToBigT(surNo, scid, btid);
 		//재학생 리스트
 		List<StudentDTO> attendList = StudentService.getInstance().studentListAttend3(scid, grade, grdNum, year);
 		
@@ -237,10 +238,10 @@ public class PeerScoreCalculate {
 	 * @param year
 	 * @return
 	 */
-	public static List<StudentScoresDTO> calculatePeerScoreRadar(int stid, String scid, int grade, int grdNum, String year) {
+	public static List<StudentScoresDTO> calculatePeerScoreRadar(int stid, String scid, int grade, int grdNum, String year, int surNo) {
 		
 		//또래지명 척도에 관한 모든 점수 리스트
-		List<StudentScoresDTO> list = calculatePeerScore(Common.Constant.PEERID, scid, grade, grdNum, year);
+		List<StudentScoresDTO> list = calculatePeerScore(Common.Constant.PEERID, scid, grade, grdNum, year, surNo);
 		//학생한명의 척도별 점수
 		List<StudentScoresDTO> stuScoresList = savePeerScore(list, stid, scid, grade, grdNum, year);
 

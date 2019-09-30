@@ -65,8 +65,18 @@ $.ajax({
 	    nodes: nodes,
 	    edges: edges
 	  };
-	  var options = {};
-	  var network = new vis.Network(container, data, options);
+	  var options = {
+	      physics:{
+	        barnesHut:{
+	          gravitationalConstant: -3000,
+	          springConstant:0.02
+	        }
+	      },
+	      interaction:{
+	    	  hover:true
+	      }
+	  };
+	  var network = new vis.Network(container, data, options);	  
       
   },
    error: function (jqXHR, textStatus, errorThrown) {
