@@ -22,6 +22,7 @@ public class FrontController  extends HttpServlet{
 		list.put("/adminLogin.ad", new AdminLoginController());
 		list.put("/adminLogout.ad", new AdminLogoutController());
 		list.put("/adminClassSearch.ad", new AdminClassSearchController());
+		list.put("/adminTeacherRegist.ad", new AdminTeacherRegistController());
 		}
 		
 	@Override

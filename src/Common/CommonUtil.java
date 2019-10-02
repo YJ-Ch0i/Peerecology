@@ -51,6 +51,26 @@ public class CommonUtil {
 	}
 	
 	/**
+	 * str 변수 2개가 같은지 여부
+	 * @param str1
+	 * @param str2
+	 * @return true : 두 변수가 일치함, false : 두 변수가 다름
+	 */
+	public static boolean isEqualString(String str1, String str2) {
+		if(isNotNullString(str1) && isNotNullString(str2)) {
+			if(str1.equals(str2) || str2.equals(str1) || str1 == str2) {
+				return true;
+			}
+			else return false;
+		}
+		return false;
+	}
+	
+	public static boolean isNotEqualString(String str1, String str2) {
+		return !isEqualString(str1, str2);
+	}
+	
+	/**
 	 * 문자열 -> 정수형 형변환
 	 * @param str
 	 * @return

@@ -89,7 +89,15 @@ String strYear = Integer.toString(currentCalendar.get(Calendar.YEAR));
 			<div class="container relative">
 
 				<!-- Row -->
-				<div class="row"></div>
+				<div class="row">
+					<!-- 안내문 -->
+					<div class="row">
+						<h4>환영합니다, <%=teacherDTO.getName() %>선생님. 아래 사용 매뉴얼을 다운로드 받아주시고, 매뉴얼대로 사용 해 주시면 감사하겠습니다.</h4>
+					</div>
+					<div class="row">
+						<a href="/PeerSys/upload/user_Manual/Peer_System_사용_메뉴얼.zip" target="_blank"><button class="btn btn-mod btn-circle btn-medium">사용자 매뉴얼 다운로드</button></a>
+					</div>
+				</div>
 				<!-- End Row -->
 
 			</div>

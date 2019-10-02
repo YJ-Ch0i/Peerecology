@@ -109,6 +109,12 @@
 					</div>
 					<% } else{
 						%>			
+						<!-- Sample CSV file Download -->
+						<!-- <a href="/PeerSys/upload/sampleCsvFile/Class-list.csv"><button class="btn btn-mod btn-circle btn-medium">샘플 CSV 파일 다운로드</button></a> -->
+						<!-- <a href="/PeerSys/upload/sampleFiles/classlist_생성셀(F열복사).cell"><button class="btn btn-mod btn-circle btn-medium">class List 생성셀 다운로드</button></a> -->
+						<!-- <a href="/PeerSys/upload/sampleFiles/classlist.txt"><button class="btn btn-mod btn-circle btn-medium">class List 양식 다운로드</button></a> -->
+						<a href="/PeerSys/upload/sampleFiles/sampleFiles.zip"><button class="btn btn-mod btn-circle btn-medium">class List 양식 다운로드</button></a>
+						<!-- Sample CSV file Download end -->
 					<form action="csv_upload.jsp" method="post"	enctype="multipart/form-data">
 						
 						<h3>학급 내 학생명부 CSV파일을 양식에 맞춰 선택한 후 업로드하기 버튼을 눌러주세요</h3>

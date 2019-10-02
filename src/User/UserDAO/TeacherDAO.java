@@ -82,6 +82,35 @@ public class TeacherDAO {
 	}
 	
 	/**
+	 * 관리자용 교사 계정 생성
+	 * @param t
+	 * @return
+	 */
+	public int registTeacherAdmin(TeacherDTO t) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		
+		String SQL ="INSERT INTO user_teachers(TID, pwd, name, mailcheck, lastChangeYear) VALUES (?,?,?,?,?)";
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, t.getTID());
+			pstmt.setString(2, t.getPwd());
+			pstmt.setString(3, t.getName());
+			pstmt.setBoolean(4, t.isMailcheck());
+			pstmt.setString(5, t.getLastChangeYear());
+			
+			return pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return -1;
+	}
+	
+	/**
 	 * 이메일 인증 여부
 	 * @param u_id
 	 * @return

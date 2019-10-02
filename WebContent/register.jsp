@@ -102,7 +102,6 @@
 
 			</div>
 			<!-- End Row -->
-	</div>
 	</section>
 	<!-- End Section -->
 

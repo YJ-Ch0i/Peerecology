@@ -37,7 +37,10 @@ public class TrandLoadController implements Controller{
 		PrintWriter pw = response.getWriter();		
 		
 		
-//		List<String> trandJson = getTrandList(btid);
+		//문항 생성 시 척도분류에 대한 척도
+		List<String> trandJson2 = getTrandList(btid);
+		
+		//결과에서 설문 내 척도 분류별 척도
 		List<String> trandJson = getTrandListInSurvey(surNo, seq, scid, btid);
 		
 		List<List<String>> trandScoreList = new ArrayList<>();
@@ -71,7 +74,7 @@ public class TrandLoadController implements Controller{
 		}
 		else {
 			//문항 생성시 보여줄 JSON
-			pw.print(trandJson);
+			pw.print(trandJson2);
 		}
 		
 		pw.flush();

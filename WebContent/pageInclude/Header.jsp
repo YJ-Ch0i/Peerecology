@@ -17,7 +17,9 @@
 		<% if(session.getAttribute("admin_id") != null){ %>
 		<div class="inner-nav desktop-nav">
 			<ul class="clearlist">
+				<!-- 교사 직접 등록하기 -->
 				<li>
+				<a href="/PeerSys/page_adm/adminTeacherRegist.jsp" class="mn-has-sub"> 교사 직접등록하기 </a></li>
 					<!-- 설문조사 관리 메뉴 -->
 				<li><a
 					href="/PeerSys/page_adm/SurveyManagement/formSurvey.jsp"
@@ -68,9 +70,12 @@
 					href="/PeerSys/page_tea/SurveyResult/findSurveyPage.jsp"
 					class="mn-has-sub"> 설문조사 결과 </a> <!-- End Sub Multilevel --></li>
 				<!-- End Item With Sub -->
+				
 				<!-- <li><a
 					href="/PeerSys/page_tea/ingManager/ingSurvey.jsp"
-					class="mn-has-sub"> 설문조사 진행 </a> <!-- End Sub Multilevel --></li> -->
+					class="mn-has-sub"> 설문조사 진행 </a> </li> -->
+				
+				<!-- End Sub Multilevel -->
 				<!-- Item With Sub -->
 				<li><a href="#" class="mn-has-sub active"> 학급 관리 <i
 						class="fa fa-angle-down"></i></a>
