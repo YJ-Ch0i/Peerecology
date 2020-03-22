@@ -62,7 +62,7 @@ function resultProcess(f){
 }
 
 function teacherAddClassCheck(){
-    if(confirm("새로 학급을 등록하게되면 기존의 학급이 사라집니다. 진행 하시겠습니까?")){
+    if(confirm("새로 학급을 등록하게되면 기존의 학급 정보가 사라집니다. 새로이 등록 하시겠습니까?")){
         location.href = "/PeerSys/page_tea/ClassManagement/addClass.jsp";
         return true;
     } else {

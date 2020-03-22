@@ -6,12 +6,11 @@
 
 		<!-- Footer Logo -->
 		<div class="local-scroll mb-30 wow fadeInUp" data-wow-duration="1.5s">
-			<a href="#top"><img src="/PeerSys/style/images/logo-footer.png" width="78"
-				height="36" alt="" /></a>
+			<a href="#top"><img src="/PeerSys/style/images/peer_logo.png" height='100' width='276' alt="" /></a>
 		</div>
 		<!-- End Footer Logo -->
 		<!-- Social Links -->
-		<div class="footer-social-links mb-110 mb-xs-60">
+		<!-- <div class="footer-social-links mb-110 mb-xs-60">
 			<a href="#" title="Facebook" target="_blank"><i
 				class="fa fa-facebook"></i></a> <a href="#" title="Twitter"
 				target="_blank"><i class="fa fa-twitter"></i></a> <a href="#"
@@ -19,20 +18,20 @@
 				href="#" title="LinkedIn+" target="_blank"><i
 				class="fa fa-linkedin"></i></a> <a href="#" title="Pinterest"
 				target="_blank"><i class="fa fa-pinterest"></i></a>
-		</div>
+		</div> -->
 		<!-- End Social Links -->
 
 		<!-- Footer Text -->
 		<div class="footer-text">
 
 			<!-- Copyright -->
-			<div class="footer-copy font-alt">
+			<!-- <div class="footer-copy font-alt">
 				<a href="http://themeforest.net/user/theme-guru/portfolio"
 					target="_blank">&copy; Rhythm 2017</a>.
-			</div>
+			</div> -->
 			<!-- End Copyright -->
 
-			<div class="footer-made">Made with love for great people.</div>
+			<!-- <div class="footer-made">Made with love for great people.</div>  -->
 
 		</div>
 		<!-- End Footer Text -->

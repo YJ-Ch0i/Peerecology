@@ -36,7 +36,9 @@ public class PeerScoreCalculate {
 	public static List<StudentScoresDTO> calculatePeerScore(int btid, String scid, int grade, int grdNum, String year, int surNo) {
 		
 		//해당년도에 완료된 설문조사 목록
-		List<SurveyGoingDTO> calculatedSurveyList = SurveyService.getInstance().getCalculatedClassSurveyList(scid, grade, year);
+//		List<SurveyGoingDTO> calculatedSurveyList = SurveyService.getInstance().getCalculatedClassSurveyList(scid, grade, year);
+		List<SurveyGoingDTO> calculatedSurveyList = SurveyService.getInstance().getCalculatedSurveyListInClass(scid, grade, surNo, year);
+		
 		//선택한 척도분류에 해당하는 척도들 리스트
 //		List<QuestionTrandTypeDTO> tList = QuestionService.getInstance().getTrandToBigTID(btid);
 		List<QuestionTrandTypeDTO> tList = QuestionService.getInstance().getTrandListToBigT(surNo, scid, btid);
@@ -65,7 +67,7 @@ public class PeerScoreCalculate {
 			double devidedPickedScoreQuestion = 0.0;
 			double devidedScore = 0.0;
 			for (int seqKey : seqMap.keySet()) {
-				int surveyNo = SurveyService.getInstance().showSearchSurveyToIngseq(seqKey);
+//				int surveyNo = SurveyService.getInstance().showSearchSurveyToIngseq(seqKey);
 				int isParticipation = AnswerService.getInstance().getAnswersCount(seqKey, stuDto.getStu_id());
 				for(int trKey : seqMap.get(seqKey).keySet()){
 					double pickedScore = 0.0;
@@ -75,7 +77,7 @@ public class PeerScoreCalculate {
 						}
 						else continue;
 					}
-					int queCount = QuestionService.getInstance().countOfTrandQuestion(surveyNo, trKey);
+					int queCount = QuestionService.getInstance().countOfTrandQuestion(surNo, trKey);
 					devidedPickedScoreQuestion = pickedScore / queCount;
 					if(isParticipation == 0) devidedScore = devidedPickedScoreQuestion / (attendList.size());					
 					else devidedScore = devidedPickedScoreQuestion / (attendList.size()-1);

@@ -36,10 +36,19 @@ public class TeacherService {
 	public TeacherDTO teacherInfo(String tea_id) {
 		return dao.teacherInfo(tea_id);
 	}
-	public boolean teacherSchoolUpdate(String scid, int grade, int grd_num, String tea_id) {
-		return dao.teacherSchoolUpdate(scid, grade, grd_num, tea_id);
+	
+	public TeacherDTO teacherInfo2019(String tea_id) {
+		return dao.teacherInfo2019(tea_id);
+	}
+	
+	
+	public boolean teacherSchoolUpdate(String scid, int grade, int grd_num, String tea_id, String year) {
+		return dao.teacherSchoolUpdate(scid, grade, grd_num, tea_id, year);
 	}
 	public ArrayList<TeacherDTO> searchGradeUseTeacher(String scid) {
 		return dao.searchGradeUseTeacher(scid);
+	}
+	public ArrayList<TeacherDTO> searchClassForAdmin(String scid, int grade) {
+		return dao.searchClassForAdmin(scid, grade);
 	}
 }

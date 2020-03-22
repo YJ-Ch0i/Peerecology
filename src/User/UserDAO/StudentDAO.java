@@ -146,6 +146,11 @@ public class StudentDAO {
 		return resultlist;
 	}
 	
+	/**
+	 * 2019 학생등록
+	 * @param dto
+	 * @return
+	 */
 	public boolean studentRegist(StudentDTO dto) {
 		
 		Connection conn=null;
@@ -175,6 +180,42 @@ public class StudentDAO {
 		}
 		return false;
 	}
+	
+	/**
+	 * 2020 학생등록
+	 * @param dto
+	 * @return
+	 */
+	public boolean registStudent(StudentDTO dto) {
+		
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		
+		String SQL ="INSERT INTO students_2020(name, SCID, grade, class, num, TID, gender, lastChangeDate) VALUES (?,?,?,?,?,?,?,?)";
+		try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, dto.getName());
+			pstmt.setString(2, dto.getScid());
+			pstmt.setInt(3, dto.getGrade());
+			pstmt.setInt(4, dto.getGrd_num());
+			pstmt.setInt(5, dto.getNum());
+			pstmt.setString(6, dto.getTea_id());
+			pstmt.setInt(7, dto.getGender());
+			pstmt.setDate(8, dto.getLastChangeDate());
+			
+			pstmt.executeUpdate();
+			return true;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return false;
+	}
+	
 	public ArrayList<StudentDTO> findStudentToGradeSCID(int SID ,String SCID, int grade, int classes){
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -267,6 +308,15 @@ public class StudentDAO {
 		return list;
 	}
 	
+	/**
+	 * 2019학급 학생데이터
+	 * @param TID
+	 * @param SCID
+	 * @param grade
+	 * @param grd_num
+	 * @param year
+	 * @return
+	 */
 	public ArrayList<StudentDTO> studentListAttend(String TID, String SCID, int grade, int grd_num, String year) {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -275,6 +325,48 @@ public class StudentDAO {
 		ArrayList<StudentDTO> list = new ArrayList<>();
 		
 		String sql = "SELECT * FROM user_students WHERE TID=? AND SCID=? AND grade=? AND class=? AND isTransfer=1 AND YEAR(lastChangeDate)=? ORDER BY num";
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, TID);
+			pstmt.setString(2, SCID);
+			pstmt.setInt(3, grade);
+			pstmt.setInt(4, grd_num);
+			pstmt.setString(5, year);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				list.add(new StudentDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getString(7), rs.getInt(8), rs.getDate(9), rs.getBoolean(10)));
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return list;
+	}
+	
+	/**
+	 * 2020학급 학생데이터
+	 * @param TID
+	 * @param SCID
+	 * @param grade
+	 * @param grd_num
+	 * @param year
+	 * @return
+	 */
+	public ArrayList<StudentDTO> getStudentListAttend2020(String TID, String SCID, int grade, int grd_num, String year) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs = null;
+		
+		ArrayList<StudentDTO> list = new ArrayList<>();
+		
+		String sql = "SELECT * FROM students_2020 WHERE TID=? AND SCID=? AND grade=? AND class=? AND isTransfer=1 AND YEAR(lastChangeDate)=? ORDER BY num";
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -460,6 +552,12 @@ public class StudentDAO {
 		return list;
 	}
 	
+	
+	/**
+	 * 2019 학생전학
+	 * @param dto
+	 * @return
+	 */
 	public boolean studentTransfer(StudentDTO dto) {
 		Connection conn=null;
 		PreparedStatement pstmt=null;
@@ -472,6 +570,37 @@ public class StudentDAO {
 			pstmt.setString(1, dto.getName());
 			pstmt.setString(2, dto.getScid());
 			pstmt.setString(3, dto.getTea_id());
+			pstmt.executeUpdate();
+			return true;
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {			
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return false;
+	}
+	
+	/**
+	 * 2020 학생전학
+	 * @param dto
+	 * @return
+	 */
+	public boolean studentTransfer2020(StudentDTO dto) {
+		Connection conn=null;
+		PreparedStatement pstmt=null;
+		
+		String sql = "UPDATE students_2020 SET isTransfer=0 WHERE SID=? AND name=? AND SCID=? AND TID=?";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dto.getStu_id());
+			pstmt.setString(2, dto.getName());
+			pstmt.setString(3, dto.getScid());
+			pstmt.setString(4, dto.getTea_id());
 			pstmt.executeUpdate();
 			return true;			
 		}

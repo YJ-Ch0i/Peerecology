@@ -21,10 +21,10 @@ public class RegisterAnswerController implements Controller {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession(); 	
 		SurveyService surService = SurveyService.getInstance();
-		int surveyNo = (int)session.getAttribute("surveyNo");
+		int surveyNo = (Integer) session.getAttribute("surveyNo");
 		String strStu_id = (String)session.getAttribute("stu_id");
 		int stu_id = Integer.parseInt(strStu_id);
-		int ingSeq = (int)session.getAttribute("surveyIngNo");
+		int ingSeq = (Integer)session.getAttribute("surveyIngNo");
 		String[] QIDs = request.getParameterValues("QID");
 		AnswerService answerService = AnswerService.getInstance();
 		String strPageNumbering = request.getParameter("pageNumbering");

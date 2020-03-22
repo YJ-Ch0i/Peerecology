@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Common.CommonUtil;
 import Controller.Controller;
 import Service.AnswerService;
 import Service.QuestionService;
@@ -28,8 +29,9 @@ public class StartSurveyController implements Controller {
 		String grade = (String) session.getAttribute("grade");
 		AnswerService ansService = AnswerService.getInstance();
 		SurveyService surService = SurveyService.getInstance();
-		String strStu_id =  (String)session.getAttribute("stu_id");
-		int stu_id = Integer.parseInt(strStu_id);
+//		String strStu_id =  (String)session.getAttribute("stu_id");
+//		int stu_id = Integer.parseInt(strStu_id);
+		int stu_id = CommonUtil.strToInt((String)session.getAttribute("stu_id"));
 		SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO(); 
 		surveyGoingDTO = surService.startSurvey(sch_code, grade);
 		if(surveyGoingDTO.getIngSeq() == 0)

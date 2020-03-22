@@ -5,7 +5,7 @@
 		<!-- Logo ( * your text or image into link tag *) -->
 		<div class="nav-logo-wrap local-scroll">
 			<a href="/PeerSys/index.jsp" class="logo"> <img
-				src="/PeerSys/style/images/logo-dark.png" alt="" />
+				src="/PeerSys/style/images/peer_logo.png" alt="" />
 			</a>
 		</div>
 		<div class="mobile-nav">

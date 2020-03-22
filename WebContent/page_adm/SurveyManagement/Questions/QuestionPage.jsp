@@ -77,14 +77,14 @@ questions = queSerivce.showAllQuestion();
 					<div class="works-filter font-alt">
 					
 					<form action="/PeerSys/questionDelete.qs" method="POST">
-					<a href="#" class="filter" data-filter="*">전체</a>
+					<!-- <a href="#" class="filter" data-filter="*">전체</a>
                     
 					<% for(int i=0; i<queTypes.size(); i++){ %>
 					
                     <a href="#<%=queTypes.get(i).getQ_trandType()%>" class="filter" data-filter=".<%=queTypes.get(i).getQ_trandType()%>"><%=queTypes.get(i).getQ_trandDescipt()%></a>
                                
                     <%} %>
-                    
+                     -->
                     </div>
                 <ul class="works-grid work-grid-2 work-grid-gut clearfix font-alt hover-white" id="work-grid"  style="display:block;" >
                     <% for(int i=0; i<questions.size(); i++){ %>

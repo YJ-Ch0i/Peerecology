@@ -37,7 +37,7 @@ public class EmailCheckController implements Controller {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('Login Plz');");
-			script.println("location.href = 'index.jsp'");
+			script.println("location.href = 'teacherIndex.jsp'");
 			script.println("</script>");
 			script.close();
 			return;
@@ -54,7 +54,7 @@ public class EmailCheckController implements Controller {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('Certified!!!');");
-			script.println("location.href = 'index.jsp'");
+			script.println("location.href = 'teacherIndex.jsp'");
 			script.println("</script>");
 			script.close();
 			return;
@@ -64,7 +64,7 @@ public class EmailCheckController implements Controller {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('Not right Code!!');");
-			script.println("location.href = 'index.jsp'");
+			script.println("location.href = 'teacherIndex.jsp'");
 			script.println("</script>");
 			script.close();
 			return;

@@ -61,8 +61,8 @@ public class ResultViewController implements Controller {
 		
 		ArrayList<SurveyGoingDTO> calculatedSurveyList = new ArrayList<>();
 
-		calculatedSurveyList = surService.getCalculatedClassSurveyList(scid, grade, year);
-
+//		calculatedSurveyList = surService.getCalculatedClassSurveyList(scid, grade, year);
+		calculatedSurveyList = surService.getCalculatedSurveyListInClass(scid, grade, surveyNo, year);
 
 		
 		ArrayList<QuestionTrandTypeDTO> trandList = new ArrayList<>();

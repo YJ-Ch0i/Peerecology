@@ -139,7 +139,7 @@ public class PickedExcelController implements Controller {
 						}
 					}
 				}
-			}			
+			}
 			
 			row = sheet.createRow(attendList.size() + 3);
 			cell = row.createCell(0);

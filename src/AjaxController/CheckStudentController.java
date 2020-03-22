@@ -30,11 +30,17 @@ public class CheckStudentController implements Controller {
 		TeacherDTO teacher = TeacherService.getInstance().teacherInfo(
 				(String)request.getSession().getAttribute("tea_id"));
 		
-		ArrayList<StudentDTO> attendList = StudentService.getInstance().studentListAttend3(
-																			teacher.getSCID(),
-																			teacher.getGrade(),
-																			teacher.getClasses(),
-																			teacher.getLastChangeYear());
+//		ArrayList<StudentDTO> attendList = StudentService.getInstance().studentListAttend3(
+//																			teacher.getSCID(),
+//																			teacher.getGrade(),
+//																			teacher.getClasses(),
+//																			teacher.getLastChangeYear());
+		
+		ArrayList<StudentDTO> attendList = StudentService.getInstance().getStudentListAttend2020(teacher.getTID(),
+																							teacher.getSCID(),
+																							teacher.getGrade(),
+																							teacher.getClasses(),
+																							teacher.getLastChangeYear());
 	
 		List<Integer> numList = new ArrayList<>();
 		for(StudentDTO dto : attendList) {

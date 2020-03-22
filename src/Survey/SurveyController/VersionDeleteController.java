@@ -15,7 +15,7 @@ public class VersionDeleteController implements Controller {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-String[] deleteVersionValues = request.getParameterValues("deleteVersionValues");
+		String[] deleteVersionValues = request.getParameterValues("deleteVersionValues");
 		
 		if(deleteVersionValues == null)
 		{

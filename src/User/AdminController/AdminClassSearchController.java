@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Common.CommonUtil;
 import Controller.Controller;
 import Service.TeacherService;
 import User.UserDTO.TeacherDTO;
@@ -22,6 +23,7 @@ public class AdminClassSearchController implements Controller {
 		String sch_name = request.getParameter("sch_name");
 		String adminSearching = request.getParameter("adminSearching");
 		String sch_address = request.getParameter("sch_address");
+		int grade = CommonUtil.strToInt(request.getParameter("grade"));
 		String year = request.getParameter("year");
 		String title = request.getParameter("title");
 		String startdate = request.getParameter("startdate");
@@ -51,7 +53,7 @@ public class AdminClassSearchController implements Controller {
 		//request.setAttribute("list", list);
 		
 		TeacherService teaService = TeacherService.getInstance();
-		ArrayList<TeacherDTO> list = teaService.searchGradeUseTeacher(sch_code);
+		ArrayList<TeacherDTO> list = teaService.searchClassForAdmin(sch_code, grade);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("sch_code", sch_code);

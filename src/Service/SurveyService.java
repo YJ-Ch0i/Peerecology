@@ -124,13 +124,25 @@ public class SurveyService {
 		return dao.getClassesAllScores(SCID, grade, grd_num, year);
 	}
 	
+	public ArrayList<StudentScoresDTO> getStudentScoresInAllSeq(String SCID, int surNo, int grade, int grd_num, int btid, String year) {
+		return dao.getStudentScoresInAllSeq(SCID, surNo, grade, grd_num, btid, year);
+	}
+	
 	public ArrayList<SurveyGoingDTO> getCalculatedClassSurveyList(String scid, int grade, String year){
 		return dao.getCalculatedClassSurveyList(scid, grade, year);
 	}
+	
+	public ArrayList<SurveyGoingDTO> getCalculatedSurveyListInClass(String scid, int grade, int surNo, String year){
+		return dao.getCalculatedSurveyListInClass(scid, grade, surNo, year);
+	}
+	
 	public ArrayList<StudentScoresDTO> getStudentScores(String SCID, int grade, int grd_num, int stuid, String year) {
 		return dao.getStudentScores(SCID, grade, grd_num, stuid, year);
 	}
 	public ArrayList<StudentScoresDTO> getStudentScoresInSeq(String SCID, int grade, int grd_num, int stuid, String year, int seq) {
 		return dao.getStudentScoresInSeq(SCID, grade, grd_num, stuid, year, seq);
+	}
+	public boolean deleteSurveyGoing(int ingSeq) {
+		return dao.deleteSurveyGoing(ingSeq);
 	}
 }

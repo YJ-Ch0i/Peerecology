@@ -54,6 +54,12 @@ public class ResultCalculateController implements Controller {
 		ArrayList<StudentDTO> attendList = new ArrayList<>();
 		// 설문에 해당하는 학교의 재학생 리스트
 		attendList = stuService.getSchoolAttendList(scid, grd, year);
+		for(StudentDTO dto : attendList) {
+			System.out.println("이름 ::: " + dto.getName());
+			System.out.println("연도 ::: " + dto.getYear());
+			System.out.println("학년 ::: " + dto.getGrd_num());
+			System.out.println("반 ::: " + dto.getNum());
+		}
 
 		SurveyService surService = SurveyService.getInstance();
 		QuestionService queService = QuestionService.getInstance();
@@ -65,9 +71,20 @@ public class ResultCalculateController implements Controller {
 			questionDescList.add(queService.showQuestion(svManagerList.get(j).getQID()));
 		}
 		
+		for(AllDescQuestionDTO dto : questionDescList) {
+			System.out.println("제목 ::: " + dto.getQue_title());
+			System.out.println("성향 ::: " + dto.getQue_trandTitle());
+			System.out.println("타입 ::: " + dto.getQue_typeTitle());
+		}
 		
 		//척도리스트		
 		ArrayList<QuestionTrandTypeDTO> trandList = queService.searchTrandList(survey_no, ingSeq, scid);
+		
+		for(QuestionTrandTypeDTO dto : trandList) {
+			System.out.println("btid ::: " + dto.getBigTrandID());
+			System.out.println("설명 ::: " + dto.getQ_trandDescipt());
+			System.out.println("trid ::: " + dto.getQ_trandType());
+		}
 
 		AnswerService ansService = AnswerService.getInstance();
 		ArrayList<SurveyAnswerDTO> answers = new ArrayList<>();
@@ -78,7 +95,6 @@ public class ResultCalculateController implements Controller {
 
 		ArrayList<QuestionTrandManagerDTO> bigTrandList = new ArrayList<>();
 		bigTrandList = queService.getBigTrandList(scid, start, end);
-		
 		
 		//TODO
 		List<StudentScoresDTO> list = new ArrayList<>();
@@ -119,8 +135,9 @@ public class ResultCalculateController implements Controller {
 															continue;
 														} else if (allType.get(q).getDescript().equals("주관식") || 
 																allType.get(q).getQ_typeID() == Constant.SHORTANSWER) {	//주관식
-															if (answers.get(r).getAnswerValue().contains(questionDescList.get(o).getQue_answer()) ||
-																	answers.get(r).getAnswerValue().equals(questionDescList.get(o).getQue_answer())) {																
+//															if (answers.get(r).getAnswerValue().contains(questionDescList.get(o).getQue_answer()) ||
+															if (answers.get(r).getAnswerValue().equals(questionDescList.get(o).getQue_answer()) &&
+																	CommonUtil.isNotNullString(questionDescList.get(o).getQue_answer())) {
 																total = total + 1;
 															}
 															else continue;

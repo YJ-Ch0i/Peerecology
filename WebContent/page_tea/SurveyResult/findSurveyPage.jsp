@@ -84,7 +84,7 @@
                    SchoolDTO school = SchoolService.getInstance().getSchoolToSCID(teacher.getSCID());
                    %>               
                    
-				<div class="row">				
+				<div class="row">
 
 					<% for(int i=0; i<list.size(); i++){ %>
 						<form action="/PeerSys/viewResult.sv" method="post">

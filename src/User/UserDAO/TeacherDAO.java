@@ -208,6 +208,7 @@ public class TeacherDAO {
 		return -2; 
 	}
 
+	//변경된 선생 데이터
 	public TeacherDTO teacherInfo(String tea_id) {
 		String sql = "SELECT * FROM user_teachers WHERE TID = ?";
 		Connection conn = null;
@@ -252,18 +253,70 @@ public class TeacherDAO {
 		return teacherDTO;
 	}
 	
-	public boolean teacherSchoolUpdate(String scid, int grade, int grd_num, String tea_id) {
+	/**
+	 * 2019 선생데이터
+	 * @param tea_id
+	 * @return
+	 */
+	public TeacherDTO teacherInfo2019(String tea_id) {
+		String sql = "SELECT * FROM teachers_2019 WHERE TID = ?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		TeacherDTO teacherDTO = new TeacherDTO();
+		try
+		{
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, tea_id);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+			{
+				teacherDTO.setTID(rs.getString(1));
+				teacherDTO.setPwd(rs.getString(2));
+				teacherDTO.setName(rs.getString(3));
+				teacherDTO.setSCID(rs.getString(4));
+				teacherDTO.setGrade(rs.getInt(5));
+				teacherDTO.setClasses(rs.getInt(6));
+				teacherDTO.setMailcheck(rs.getBoolean(7));
+				teacherDTO.setLastChangeYear(rs.getString(8));
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally 
+		{
+			try
+			{
+				if(conn != null) conn.close();
+				if(pstmt != null) pstmt.close();
+				if(rs != null) rs.close();
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+		}
+		return teacherDTO;
+	}
+	
+	
+	
+	public boolean teacherSchoolUpdate(String scid, int grade, int grd_num, String tea_id, String year) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
-		String sql = "UPDATE user_teachers SET SCID=?, grade=?, class=? WHERE TID = ?";
+		String sql = "UPDATE user_teachers SET SCID=?, grade=?, class=?, lastChangeYear=? WHERE TID = ?";
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, scid);
 			pstmt.setInt(2, grade);
-			pstmt.setInt(3, grd_num);	
-			pstmt.setString(4, tea_id);
+			pstmt.setInt(3, grd_num);
+			pstmt.setString(4, year);
+			pstmt.setString(5, tea_id);
 			pstmt.executeUpdate();
 			
 			return true;
@@ -293,6 +346,39 @@ public class TeacherDAO {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, scid);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				list.add(new TeacherDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getBoolean(7), rs.getString(8)));
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally {			
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}	
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}			
+		}
+		return list;
+	}
+	
+	/**
+	 * 학교선택 후 학년 반 선택을 위한 검색 - 관리자
+	 * @param scid
+	 */
+	public ArrayList<TeacherDTO> searchClassForAdmin(String scid, int grade) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<TeacherDTO> list = new ArrayList<>();
+		
+		String sql = "SELECT * FROM user_teachers WHERE SCID=? AND grade=? ORDER BY grade, class";
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, scid);
+			pstmt.setInt(2, grade);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {

@@ -45,7 +45,8 @@ public class StudentTransferController implements Controller {
 		
 		TeacherDTO teacher = teaService.teacherInfo(tea_id);
 		StudentDTO student = stuService.getStudent(stu_name, tea_id, teacher.getSCID());
-		boolean stuTransf = stuService.studentTransfer(student);
+//		boolean stuTransf = stuService.studentTransfer(student); 2019 전학
+		boolean stuTransf = stuService.studentTransfer2020(student);
 		
 		if(stuTransf == true) {
 			PrintWriter script =response.getWriter();

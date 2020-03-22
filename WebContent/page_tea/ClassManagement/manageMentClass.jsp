@@ -88,11 +88,14 @@
 				   SchoolDTO school = schService.getSchoolToSCID(teacher.getSCID());
                    StudentService studentService = StudentService.getInstance();
                    //ArrayList<StudentDTO> stu_list = studentService.studentList(tea_id, teacher.getSCID());      
-                   ArrayList<StudentDTO> stu_list = studentService.studentListAttend(tea_id, teacher.getSCID(), teacher.getGrade(), teacher.getClasses(), teacher.getLastChangeYear());                   
+                   ArrayList<StudentDTO> stu_list = studentService.getStudentListAttend2020(tea_id, teacher.getSCID(), teacher.getGrade(), teacher.getClasses(), teacher.getLastChangeYear());                   
                    %>
 				 <div class="row">
 				 	<h3 class="hs-line-11 font-alt mb-20 mb-xs-0">학급 학생 관리</h3>
-				 	<div class="col-md-10"></div>
+				 	<div class="col-md-2">
+				 		<a href="manageMentClass2019.jsp" class="btn btn-mod btn-circle btn-medium">2019년 학급 보기</a>
+				 	</div>
+				 	<div class="col-md-8"></div>
                   	<div class="col-md-2">       
                   		<a href="addStudent.jsp" class="btn btn-mod btn-circle btn-medium">전학생 추가하기</a> 
                   	</div>

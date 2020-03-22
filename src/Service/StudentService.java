@@ -27,6 +27,10 @@ public class StudentService {
 		return dao.studentRegist(dto);
 	}
 	
+	public boolean registStudent(StudentDTO dto) {
+		return dao.registStudent(dto);
+	}
+	
 	public ArrayList<StudentDTO> studentList(String TID, String SCID) {
 		return dao.studentList(TID, SCID);
 	}
@@ -48,6 +52,10 @@ public class StudentService {
 		return dao.studentListAttend(TID, SCID, grade, grd_num, year);
 	}
 	
+	public ArrayList<StudentDTO> getStudentListAttend2020(String TID, String SCID, int grade, int grd_num, String year) {
+		return dao.getStudentListAttend2020(TID, SCID, grade, grd_num, year);
+	}
+	
 	public ArrayList<StudentDTO> getStudentAttendList(String TID, String SCID, int grade, int grd_num) {
 		return dao.getStudentAttendList(TID, SCID, grade, grd_num);
 	}
@@ -66,6 +74,10 @@ public class StudentService {
 	
 	public boolean studentTransfer(StudentDTO dto) {
 		return dao.studentTransfer(dto);
+	}
+	
+	public boolean studentTransfer2020(StudentDTO dto) {
+		return dao.studentTransfer2020(dto);
 	}
 	
 	public int studentLogin(StudentDTO dto) {		

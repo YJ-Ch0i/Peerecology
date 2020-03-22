@@ -19,6 +19,7 @@ import Service.StudentService;
 import Service.TeacherService;
 import User.UserDTO.StudentDTO;
 import User.UserDTO.StudentItem;
+import User.UserDTO.TeacherDTO;
 
 public class AddClassController implements Controller {
 
@@ -122,9 +123,20 @@ public class AddClassController implements Controller {
 			{
 				schService.SchoolRegist(sch_address,sch_name,sch_code);
 			}
+		
+			//학급 업데이트 시 기존 등록 학생 invisible 로직
+			TeacherDTO teacher = teaService.teacherInfo(tea_id);
+			ArrayList<StudentDTO> stuListExisted = stuservice.getStudentListAttend2020(teacher.getTID(), teacher.getSCID(), teacher.getGrade(), teacher.getClasses(), teacher.getLastChangeYear());
+
+			if(!stuListExisted.isEmpty()) {
+				for(StudentDTO dto : stuListExisted) {
+					stuservice.studentTransfer2020(dto);
+				}
+			}
+			//end
 			
-			boolean teaUpdate = teaService.teacherSchoolUpdate(sch_code, grade, grd_num, tea_id);	
-			
+			boolean teaUpdate = teaService.teacherSchoolUpdate(sch_code, grade, grd_num, tea_id, strYear);
+
 			stuItem_list = stuservice.LoadStudent(file_name, request.getParameter("uploadPath"));
 
 			for(StudentItem stuItem : stuItem_list) {
@@ -147,7 +159,7 @@ public class AddClassController implements Controller {
 				}
 				
 				StudentDTO students = new StudentDTO(stuItem.getStu_name(), sch_code, grade, grd_num, Integer.parseInt(stuItem.getStu_number()), tea_id, gender, date);
-				stuservice.studentRegist(students);								
+				stuservice.registStudent(students);
 			}			
 			
 			try {

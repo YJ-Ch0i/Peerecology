@@ -114,11 +114,12 @@
 				<input type="hidden" name="ingseq" value="<%= schResultSur.get(i).getIngSeq()%>">
            		<input type="hidden" name="sch_name" value="<%= schService.getSchoolToSCID(schResultSur.get(i).getSCID()).getName() %>">
            		<input type="hidden" name="sch_code" value="<%= schResultSur.get(i).getSCID()%>">
+           		<input type="hidden" name="grade" value="<%= schResultSur.get(i).getGrade()%>">
            		<input type="hidden" name="year" value="<%= surService.searchEndSurveyToDate(schResultSur.get(i).getSCID(), schResultSur.get(i).getEndDate()).getYear()%>">
            		<input type="hidden" name="title" value="<%= surService.showSearchSurveyToSurveyNo(schResultSur.get(i).getSurveyNo()).getTitle()%>">
            		<input type="hidden" name="startdate" value="<%= schResultSur.get(i).getStartDate()%>">
            		<input type="hidden" name="enddate" value="<%= schResultSur.get(i).getEndDate() %>">
-           		<input type="hidden" name="adminSearching" value="admin">                           		
+           		<input type="hidden" name="adminSearching" value="admin">
            		<input type="submit" class="btn btn-mod btn-medium btn-round" value="결과보기">
            	</form>
 			</td>
@@ -141,7 +142,8 @@
 				<input type="hidden" name="surveyNo" value="<%= schFindResultSur.get(i).getSurveyNo()%>">
 				<input type="hidden" name="ingseq" value="<%= schFindResultSur.get(i).getIngSeq()%>">           		
            		<input type="hidden" name="sch_name" value="<%= schFindResultSur.get(i).getSCID_name() %>">
-           		<input type="hidden" name="stu_grade" value="<%= schFindResultSur.get(i).getSCID()%>">
+           		<input type="hidden" name="stu_code" value="<%= schFindResultSur.get(i).getSCID()%>">
+           		<input type="hidden" name="grade" value="<%= schResultSur.get(i).getGrade()%>">
            		<input type="hidden" name="year" value="<%= surService.searchEndSurveyToDate(schResultSur.get(i).getSCID(), schResultSur.get(i).getEndDate()).getYear()%>">
            		<input type="hidden" name="title" value="<%= surService.showSearchSurveyToSurveyNo(schResultSur.get(i).getSurveyNo()).getTitle()%>">
            		<input type="hidden" name="startdate" value="<%= schResultSur.get(i).getStartDate()%>">

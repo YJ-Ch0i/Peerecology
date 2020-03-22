@@ -396,6 +396,53 @@ public class SurveyDAO {
 		return surveyGoingList;
 	}
 	
+	/**
+	 * 학교 학년 반에서 같은 해에 설문지버전이 같은것을 사용한 설문을 모두 가져옴
+	 * @param scid
+	 * @param grade
+	 * @param year
+	 * @return
+	 */
+	public ArrayList<SurveyGoingDTO> getCalculatedSurveyListInClass(String scid, int grade, int surNo, String year)
+	{
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		ArrayList<SurveyGoingDTO> surveyGoingList = new ArrayList<SurveyGoingDTO>();
+		ResultSet rs = null;
+		String SQL ="SELECT * FROM survey_ing AS surIng, school_info AS sch WHERE surIng.SCID=? AND surIng.grade=? AND surIng.`SCID`=sch.`SCID` AND surveyNo=? AND YEAR(surIng.endDate)=? AND surIng.`isCalculated`=1 GROUP BY surIng.ingSeq ORDER BY DATE(surIng.startDate) ASC;";
+			try {
+			conn =DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, scid);
+			pstmt.setInt(2, grade);
+			pstmt.setInt(3, surNo);
+			pstmt.setString(4, year);
+            rs = pstmt.executeQuery();
+			while(rs.next()) 
+			{
+
+				SurveyGoingDTO surveyGoingDTO = new SurveyGoingDTO();
+				surveyGoingDTO.setIngSeq(rs.getInt("surIng.ingSeq"));
+				surveyGoingDTO.setSurveyNo(rs.getInt("surIng.surveyNo"));
+				surveyGoingDTO.setSCID(rs.getString("surIng.SCID"));
+				surveyGoingDTO.setSCID_name(rs.getString("sch.name"));
+				surveyGoingDTO.setGrade(rs.getInt("surIng.grade"));
+				surveyGoingDTO.setStartDate(rs.getString("surIng.startDate"));
+				surveyGoingDTO.setEndDate(rs.getString("surIng.endDate"));
+				surveyGoingList.add(surveyGoingDTO);
+				
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return surveyGoingList;
+	}
+	
 	public ArrayList<SurveyGoingDTO> showUncalculatedSurvey() throws ParseException
 	{
 		Connection conn=null;	
@@ -1074,6 +1121,54 @@ public class SurveyDAO {
 		return scoresList;
 	}
 	
+	
+	public ArrayList<StudentScoresDTO> getStudentScoresInAllSeq(String SCID, int surNo, int grade, int grd_num, int btid, String year) {
+		Connection conn=null;	
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<StudentScoresDTO> scoresList = new ArrayList<>();
+		
+		String sql = "SELECT * FROM stu_scores WHERE SCID=? AND surveyNo=? AND grade=? AND grd_num=? AND year=? and bigTrandID=? AND bigTrandID NOT IN(1) ORDER BY ingSeq, trandID";
+		
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, SCID);
+			pstmt.setInt(2, surNo);
+			pstmt.setInt(3, grade);
+			pstmt.setInt(4, grd_num);
+			pstmt.setString(5, year);
+			pstmt.setInt(6, btid);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {				
+				StudentScoresDTO dto = new StudentScoresDTO();
+				dto.setIngseq(rs.getInt("ingSeq"));
+				dto.setStu_id(rs.getInt("studentID"));
+				dto.setsName(rs.getString("studentName"));
+				dto.setBigTrandId(rs.getInt("bigTrandID"));
+				dto.setBigTrandDesc(rs.getString("bigDesc"));
+				dto.setTrandId(rs.getInt("trandID"));
+				dto.setTrandDesc(rs.getString("trDesc"));
+				dto.setScore(rs.getDouble("score"));
+				dto.setYear(rs.getString("year"));
+				
+				scoresList.add(dto);
+			}
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		finally{
+			if(rs != null) try{rs.close();}catch(SQLException sqle){}
+			if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+			if(conn != null) try{conn.close();}catch(SQLException sqle){}
+		}
+		return scoresList;
+	}
+	
+	
 	public ArrayList<StudentScoresDTO> getStudentScores(String SCID, int grade, int grd_num, int stuid, String year) {
 		Connection conn=null;	
 		PreparedStatement pstmt = null;
@@ -1200,4 +1295,27 @@ public class SurveyDAO {
 		}
 		return dto;
 	}
+	
+	public boolean deleteSurveyGoing(int ingSeq){
+      Connection conn=null;
+      PreparedStatement pstmt=null;
+      boolean isSuccess = true;
+      String SQL ="DELETE FROM survey_ing where ingSeq=?";
+      
+      try 
+      {
+         conn =DBConn.getConnection();
+         pstmt = conn.prepareStatement(SQL);
+         pstmt.setInt(1, ingSeq);
+         pstmt.executeUpdate();
+      }
+      catch(Exception e) {
+         e.printStackTrace();
+         isSuccess = false;
+      }finally{
+         if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}
+         if(conn != null) try{conn.close();}catch(SQLException sqle){}
+      }
+      return isSuccess;
+   }
 }

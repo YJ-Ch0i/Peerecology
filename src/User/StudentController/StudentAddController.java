@@ -62,7 +62,8 @@ public class StudentAddController implements Controller {
 		
 		if(num != 0 && gender != 0 && name != "") {
 			StudentDTO student = new StudentDTO(name, t.getSCID(), grade, grd_num, num, tea_id, gender, date);
-			boolean stuRegist = stuService.studentRegist(student);
+//			boolean stuRegist = stuService.studentRegist(student); 2019 학생등록
+			boolean stuRegist = stuService.registStudent(student);
 			
 			if(stuRegist == true) {
 				PrintWriter script =response.getWriter();

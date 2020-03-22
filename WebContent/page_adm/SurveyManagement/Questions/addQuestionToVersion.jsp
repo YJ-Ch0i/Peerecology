@@ -88,12 +88,13 @@ questions = queSerivce.showAllQuestion();
           
                <div class="works-filter font-alt">
                
-               <a href="#" class="filter active" data-filter="*"><모든 문항></a> 
+               <!-- <a href="#" class="filter active" data-filter="*"><모든 문항></a> 
                <% for(int i=0; i<trandTypes.size(); i++){ %>
                
                     <a href="#<%=trandTypes.get(i).getQ_trandType() %>" class="filter" data-filter=".<%=trandTypes.get(i).getQ_trandType() %>"> < <%=trandTypes.get(i).getQ_trandDescipt() %> >
                     </a>
                     <%} %>
+                    -->
                     </div>
                     
                 <ul class="works-grid work-grid-5 clearfix font-alt hover-white hide-titles" id="work-grid">
