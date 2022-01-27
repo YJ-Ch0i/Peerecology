@@ -1,7 +1,7 @@
 package School.SchoolDTO;
 
 public class SchoolDTO {
-
+//test
 	private String scid;
 	private String scname;
 	private String scaddress;
